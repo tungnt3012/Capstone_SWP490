@@ -10,8 +10,8 @@ namespace Capstone_SWP490.DAO
 {
     public class SqlDataAccess
     {
-        public static string connectionName = "Server=103.139.102.5;Database=;User Id=;Password=";
-
+        public static string connectionName = "Server=103.139.102.5;Database=gocyberx_icpc;User Id=gocyberx_icpc;Password=Wb8yb46$";
+        //Scaffold-DbContext "Server=Server=103.139.102.5;Database=gocyberx_icpc;User Id=gocyberx_icpc;Password=Wb8yb46$" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
         public static List<T> LoadData<T>(string sql)
         {
             using (IDbConnection cnn = new SqlConnection(connectionName))
