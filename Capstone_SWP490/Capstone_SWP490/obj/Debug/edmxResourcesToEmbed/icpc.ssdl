@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gocyberx_icpcModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="app_user">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="user_role" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="psw" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="encrypted_psw" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="full_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="verified" Type="bit" Nullable="false" />
+    <Property Name="active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="contest">
+    <Key>
+      <PropertyRef Name="contest_id" />
+    </Key>
+    <Property Name="contest_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="constest_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="start_date" Type="datetime" Nullable="false" />
+    <Property Name="end_date" Type="datetime" Nullable="false" />
+    <Property Name="venue" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="max_contestant" Type="smallint" />
+    <Property Name="note" Type="nvarchar" MaxLength="200" />
+    <Property Name="shirt_id" Type="smallint" />
+  </EntityType>
+  <EntityType Name="contest_member">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="member_id" Type="int" Nullable="false" />
+    <Property Name="contest_id" Type="int" Nullable="false" />
+    <Property Name="check_in_date" Type="datetime" />
+    <Property Name="note" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'gocyberx_icpc.dbo.documentation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="documentation">
+    <Key>
+      <PropertyRef Name="doc_id" />
+      <PropertyRef Name="title" />
+      <PropertyRef Name="doc_url" />
+    </Key>
+    <Property Name="doc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="page_id" Type="varchar" MaxLength="20" />
+    <Property Name="title" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="doc_url" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="can_download" Type="bit" />
+  </EntityType>
+  <EntityType Name="event">
+    <Key>
+      <PropertyRef Name="event_id" />
+    </Key>
+    <Property Name="event_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_type" Type="smallint" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="desctiption" Type="nvarchar" MaxLength="500" />
+    <Property Name="start_date" Type="datetime" Nullable="false" />
+    <Property Name="end_date" Type="datetime" Nullable="false" />
+    <Property Name="venue" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="contactor_name" Type="nvarchar" MaxLength="100" />
+    <Property Name="contactor_email" Type="nvarchar" MaxLength="50" />
+    <Property Name="contactor_phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="fan_page" Type="varchar" MaxLength="50" />
+    <Property Name="shirt_id" Type="smallint" />
+    <Property Name="note" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="image">
+    <Key>
+      <PropertyRef Name="user_id" />
+      <PropertyRef Name="image_url" />
+    </Key>
+    <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="page_id" Type="varchar" MaxLength="20" />
+    <Property Name="image_url" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="alt" Type="nvarchar" MaxLength="100" />
+    <Property Name="position" Type="smallint" />
+    <Property Name="back_link" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="member">
+    <Key>
+      <PropertyRef Name="member_id" />
+    </Key>
+    <Property Name="member_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="school_id" Type="int" Nullable="false" />
+    <Property Name="team_id" Type="smallint" Nullable="false" />
+    <Property Name="member_role" Type="smallint" Nullable="false" />
+    <Property Name="first_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="middle_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="last_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="dob" Type="date" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="phone_number" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="gender" Type="smallint" Nullable="false" />
+    <Property Name="year" Type="int" Nullable="false" />
+    <Property Name="award" Type="nvarchar" MaxLength="200" />
+    <Property Name="shirt_sizing" Type="varchar" MaxLength="10" />
+    <Property Name="event_notify" Type="bit" />
+  </EntityType>
+  <EntityType Name="member_event">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_id" Type="int" Nullable="false" />
+    <Property Name="member_id" Type="int" Nullable="false" />
+    <Property Name="check_in_date" Type="datetime" />
+    <Property Name="note" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="page_content">
+    <Key>
+      <PropertyRef Name="content_id" />
+    </Key>
+    <Property Name="content_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="page_id" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="content" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="school">
+    <Key>
+      <PropertyRef Name="school_id" />
+    </Key>
+    <Property Name="school_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="school_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="short_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="city" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="address" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__contest_m__conte__2C3393D0">
+    <End Role="contest" Type="Self.contest" Multiplicity="1" />
+    <End Role="contest_member" Type="Self.contest_member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contest">
+        <PropertyRef Name="contest_id" />
+      </Principal>
+      <Dependent Role="contest_member">
+        <PropertyRef Name="contest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__contest_m__membe__2B3F6F97">
+    <End Role="member" Type="Self.member" Multiplicity="1" />
+    <End Role="contest_member" Type="Self.contest_member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member">
+        <PropertyRef Name="member_id" />
+      </Principal>
+      <Dependent Role="contest_member">
+        <PropertyRef Name="member_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__member__school_i__2E1BDC42">
+    <End Role="school" Type="Self.school" Multiplicity="1" />
+    <End Role="member" Type="Self.member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="school">
+        <PropertyRef Name="school_id" />
+      </Principal>
+      <Dependent Role="member">
+        <PropertyRef Name="school_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__member__user_id__2D27B809">
+    <End Role="app_user" Type="Self.app_user" Multiplicity="1" />
+    <End Role="member" Type="Self.member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="app_user">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="member">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="gocyberx_icpcModelStoreContainer">
+    <EntitySet Name="app_user" EntityType="Self.app_user" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contest" EntityType="Self.contest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contest_member" EntityType="Self.contest_member" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="event" EntityType="Self.event" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="member" EntityType="Self.member" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="member_event" EntityType="Self.member_event" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="page_content" EntityType="Self.page_content" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="school" EntityType="Self.school" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="documentation" EntityType="Self.documentation" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [documentation].[doc_id] AS [doc_id], 
+    [documentation].[page_id] AS [page_id], 
+    [documentation].[title] AS [title], 
+    [documentation].[doc_url] AS [doc_url], 
+    [documentation].[can_download] AS [can_download]
+    FROM [dbo].[documentation] AS [documentation]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="image" EntityType="Self.image" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [image].[user_id] AS [user_id], 
+    [image].[page_id] AS [page_id], 
+    [image].[image_url] AS [image_url], 
+    [image].[alt] AS [alt], 
+    [image].[position] AS [position], 
+    [image].[back_link] AS [back_link]
+    FROM [dbo].[image] AS [image]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__contest_m__conte__2C3393D0" Association="Self.FK__contest_m__conte__2C3393D0">
+      <End Role="contest" EntitySet="contest" />
+      <End Role="contest_member" EntitySet="contest_member" />
+    </AssociationSet>
+    <AssociationSet Name="FK__contest_m__membe__2B3F6F97" Association="Self.FK__contest_m__membe__2B3F6F97">
+      <End Role="member" EntitySet="member" />
+      <End Role="contest_member" EntitySet="contest_member" />
+    </AssociationSet>
+    <AssociationSet Name="FK__member__school_i__2E1BDC42" Association="Self.FK__member__school_i__2E1BDC42">
+      <End Role="school" EntitySet="school" />
+      <End Role="member" EntitySet="member" />
+    </AssociationSet>
+    <AssociationSet Name="FK__member__user_id__2D27B809" Association="Self.FK__member__user_id__2D27B809">
+      <End Role="app_user" EntitySet="app_user" />
+      <End Role="member" EntitySet="member" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

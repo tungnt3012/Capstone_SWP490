@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7c27a8b2a6fe44fd8383099563ef8692" Name="Diagram1">
+        <EntityTypeShape EntityType="gocyberx_icpcModel.app_user" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gocyberx_icpcModel.contest" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="gocyberx_icpcModel.contest_member" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gocyberx_icpcModel.event" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gocyberx_icpcModel.member" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="gocyberx_icpcModel.member_event" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gocyberx_icpcModel.page_content" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gocyberx_icpcModel.school" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gocyberx_icpcModel.documentation" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gocyberx_icpcModel.image" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="gocyberx_icpcModel.FK__member__user_id__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="gocyberx_icpcModel.FK__contest_m__conte__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="gocyberx_icpcModel.FK__contest_m__membe__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="gocyberx_icpcModel.FK__member__school_i__2E1BDC42" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
