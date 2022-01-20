@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Capstone_SWP490.Services;
+using Capstone_SWP490.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +10,11 @@ namespace Capstone_SWP490.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly Iapp_userService _iapp_UserService = new app_userService();
+
         public ActionResult Index()
         {
+            var user = _iapp_UserService.GetAllUser();
             return View();
         }
 
