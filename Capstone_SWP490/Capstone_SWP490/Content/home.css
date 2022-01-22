@@ -272,3 +272,6 @@
 .btn-outline-succes:hover {
     background-color: #94FFAC;
 }
+#registration_title {
+    text-align:center;
+}
