@@ -149,6 +149,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="image\logofpt.png" />
+    <Content Include="image\OLP_30_nam-removebg 1.png" />
     <Content Include="Scripts\home.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
