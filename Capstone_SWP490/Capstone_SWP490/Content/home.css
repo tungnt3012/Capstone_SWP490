@@ -116,7 +116,9 @@
 
 @media (min-width: 768px) {
     #wrapper {
+        position: absolute;
         padding-left: 250px;
+        width: 100%;
     }
 
     .fixed-brand {
@@ -150,6 +152,7 @@
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
         transition: all 0.5s ease;
+        padding-left: 250px;
     }
 
     #wrapper.toggled #page-content-wrapper {
@@ -167,6 +170,32 @@
         -o-transition: all 0.5s ease;
         transition: all 0.5s ease;
         width: auto;
+    }
+
+    #wrapper.toggled-2 #content_area2_header {
+        position: relative;
+        margin-right: 0;
+        margin-left: -250px;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        width: calc(100% + 250px);
+        float: right;
+    }
+    #wrapper.toggled #content_area2_header {
+        position: relative;
+        margin-right: 0;
+        padding-left: 250px;
+    }
+    #content_area2_header {
+        padding: 20px;
+        position: relative;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        padding-left: 250px;
     }
 }
 #bs-example-navbar-collapse-1 {
@@ -222,8 +251,8 @@
 }
 .content-area1-title {
     left: 121px;
-    top: 13px;
-    font-size: 24px;
+    top: 15px;
+    font-size: 20px;
     line-height: 29px;
     color: #FFFFFF;
     position: absolute;
@@ -275,3 +304,18 @@
 #registration_title {
     text-align:center;
 }
+#content_area2_header {
+    width: 100%;
+    height: 200px;
+    background: #2fa9fb;
+}
+#content_area2_title {
+    text-align: center;
+    padding-top: 60px;
+    font-weight: bold;
+    font-size: 50px;
+    line-height: 60px;
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+}
+

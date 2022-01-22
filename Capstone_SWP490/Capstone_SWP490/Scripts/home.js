@@ -5,6 +5,7 @@ $("#menu-toggle").click(function (e) {
 $("#menu-toggle-2").click(function (e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled-2");
+    $("#content_area2_header").toggleClass("toggled-2");
     $('#menu ul').hide();
 });
 
