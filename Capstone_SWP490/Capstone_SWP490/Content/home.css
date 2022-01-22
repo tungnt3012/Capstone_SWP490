@@ -20,7 +20,7 @@
 
 #sidebar-wrapper {
     z-index: 1000;
-    position: absolute;
+    position: fixed;
     left: 250px;
     width: 0;
     height: 100%;
@@ -31,6 +31,7 @@
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    top:0px;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -110,6 +111,7 @@
 .no-margin {
     margin: 0;
     height:60px;
+    z-index:1001;
 }
 
 @media (min-width: 768px) {
@@ -227,7 +229,7 @@
     position: absolute;
 }
 .no-bullet-image {
-    padding: 50px 0px 50px 20px
+    padding: 100px 0px 50px 20px
 }
 .content-area1-image {
     float: right;
