@@ -186,6 +186,7 @@
     <Content Include="Views\Home\HomeLogin.cshtml" />
     <Content Include="Views\Home\ChangPassword.cshtml" />
     <Content Include="Views\Home\RegisShirtSizing.cshtml" />
+    <Content Include="Views\Home\HomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

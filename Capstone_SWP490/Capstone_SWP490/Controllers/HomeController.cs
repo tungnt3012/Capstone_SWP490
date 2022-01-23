@@ -8,8 +8,13 @@ namespace Capstone_SWP490.Controllers
 {
     public class HomeController : Controller
     {
-      
-             public ActionResult RegisShirtSizing()
+            public ActionResult HomePage()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        public ActionResult RegisShirtSizing()
         {
             ViewBag.Message = "Your contact page.";
 
