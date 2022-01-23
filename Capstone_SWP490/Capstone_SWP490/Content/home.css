@@ -432,3 +432,39 @@ input, select, textarea {
     background-image: none;
     border-color: #204d74;
 }
+#homeUserChangPassword {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+
+
+    color: #302217;
+}
+#homeUserChangPasswordSub {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    /* identical to box height */
+
+
+    color: #302217;
+}
+.div-center-chang {
+    width: 900px;
+    height: 450px;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    padding: 1em 2em;
+    border-bottom: 2px solid #ccc;
+    display: table;
+   
+}
