@@ -20,7 +20,12 @@ namespace Capstone_SWP490.Controllers
             ViewBag.Message = "Your contact page.";
             return View();
         }
-
+        public ActionResult RegistrationImport()
+        {
+            ViewBag.Message = "Your contact page.";
+            return View();
+        }
+      
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

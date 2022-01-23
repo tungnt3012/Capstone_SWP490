@@ -180,6 +180,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\RegistrationTitle.cshtml" />
     <Content Include="Views\Home\RegistrationFrom.cshtml" />
+    <Content Include="Views\Home\RegistrationImport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
