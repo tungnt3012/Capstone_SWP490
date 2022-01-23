@@ -8,21 +8,16 @@ namespace Capstone_SWP490.Controllers
 {
     public class HomeController : Controller
     {
+
         public ActionResult RegistrationTitle()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
         }
-       
-             public ActionResult RegistrationFrom()
+        public ActionResult RegistrationFrom()
         {
             ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-        public ActionResult Index()
-        {
             return View();
         }
 
