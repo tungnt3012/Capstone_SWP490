@@ -381,7 +381,7 @@ input, select, textarea {
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
-    color: 302217;
+    color: #302217;
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;
@@ -467,4 +467,13 @@ input, select, textarea {
     border-bottom: 2px solid #ccc;
     display: table;
    
+}
+#shirtSizinngNext{
+    float:right;
+    color:#ffffff;
+}
+#talbe-shirtSizing{
+    width:80%;
+    float:right;
+    padding-top:100px;
 }

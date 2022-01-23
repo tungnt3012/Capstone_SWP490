@@ -150,6 +150,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="image\code_war_2019_2%282%29 2.png" />
+    <Content Include="image\leght 1.png" />
     <Content Include="image\logofpt.png" />
     <Content Include="image\OLP_30_nam-removebg 1.png" />
     <Content Include="Scripts\home.js" />
@@ -184,6 +185,7 @@
     <Content Include="Views\Home\RegistrationImport.cshtml" />
     <Content Include="Views\Home\HomeLogin.cshtml" />
     <Content Include="Views\Home\ChangPassword.cshtml" />
+    <Content Include="Views\Home\RegisShirtSizing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
