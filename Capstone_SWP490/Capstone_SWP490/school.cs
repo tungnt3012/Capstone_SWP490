@@ -17,7 +17,7 @@ namespace Capstone_SWP490
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public school()
         {
-            this.members = new HashSet<member>();
+            this.teams = new HashSet<team>();
         }
     
         public int school_id { get; set; }
@@ -28,6 +28,6 @@ namespace Capstone_SWP490
         public string address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<member> members { get; set; }
+        public virtual ICollection<team> teams { get; set; }
     }
 }

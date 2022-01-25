@@ -18,12 +18,11 @@ namespace Capstone_SWP490
         public member()
         {
             this.contest_member = new HashSet<contest_member>();
+            this.team_member = new HashSet<team_member>();
         }
     
         public int member_id { get; set; }
         public int user_id { get; set; }
-        public int school_id { get; set; }
-        public short team_id { get; set; }
         public short member_role { get; set; }
         public string first_name { get; set; }
         public string middle_name { get; set; }
@@ -40,6 +39,7 @@ namespace Capstone_SWP490
         public virtual app_user app_user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<contest_member> contest_member { get; set; }
-        public virtual school school { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<team_member> team_member { get; set; }
     }
 }

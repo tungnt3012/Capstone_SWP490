@@ -95,8 +95,6 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           </Key>
           <Property Name="member_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_id" Type="int" Nullable="false" />
-          <Property Name="school_id" Type="int" Nullable="false" />
-          <Property Name="team_id" Type="smallint" Nullable="false" />
           <Property Name="member_role" Type="smallint" Nullable="false" />
           <Property Name="first_name" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="middle_name" Type="nvarchar" MaxLength="20" Nullable="false" />
@@ -140,6 +138,22 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="city" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="address" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="team">
+          <Key>
+            <PropertyRef Name="team_id" />
+          </Key>
+          <Property Name="team_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="team_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="school_id" Type="int" />
+        </EntityType>
+        <EntityType Name="team_member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="team_id" Type="int" />
+          <Property Name="member_id" Type="int" />
+        </EntityType>
         <Association Name="FK__contest_m__conte__2C3393D0">
           <End Role="contest" Type="Self.contest" Multiplicity="1" />
           <End Role="contest_member" Type="Self.contest_member" Multiplicity="*" />
@@ -164,18 +178,6 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__member__school_i__2E1BDC42">
-          <End Role="school" Type="Self.school" Multiplicity="1" />
-          <End Role="member" Type="Self.member" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="school">
-              <PropertyRef Name="school_id" />
-            </Principal>
-            <Dependent Role="member">
-              <PropertyRef Name="school_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__member__user_id__2D27B809">
           <End Role="app_user" Type="Self.app_user" Multiplicity="1" />
           <End Role="member" Type="Self.member" Multiplicity="*" />
@@ -188,6 +190,42 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__team__school_id__38996AB5">
+          <End Role="school" Type="Self.school" Multiplicity="0..1" />
+          <End Role="team" Type="Self.team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="school">
+              <PropertyRef Name="school_id" />
+            </Principal>
+            <Dependent Role="team">
+              <PropertyRef Name="school_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__team_memb__membe__3E52440B">
+          <End Role="member" Type="Self.member" Multiplicity="0..1" />
+          <End Role="team_member" Type="Self.team_member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="member_id" />
+            </Principal>
+            <Dependent Role="team_member">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__team_memb__team___3B75D760">
+          <End Role="team" Type="Self.team" Multiplicity="0..1" />
+          <End Role="team_member" Type="Self.team_member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="team">
+              <PropertyRef Name="team_id" />
+            </Principal>
+            <Dependent Role="team_member">
+              <PropertyRef Name="team_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="gocyberx_icpcModelStoreContainer">
           <EntitySet Name="app_user" EntityType="Self.app_user" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="contest" EntityType="Self.contest" Schema="dbo" store:Type="Tables" />
@@ -197,6 +235,8 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <EntitySet Name="member_event" EntityType="Self.member_event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="page_content" EntityType="Self.page_content" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="school" EntityType="Self.school" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="team" EntityType="Self.team" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="team_member" EntityType="Self.team_member" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="documentation" EntityType="Self.documentation" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [documentation].[doc_id] AS [doc_id], 
@@ -224,13 +264,21 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             <End Role="member" EntitySet="member" />
             <End Role="contest_member" EntitySet="contest_member" />
           </AssociationSet>
-          <AssociationSet Name="FK__member__school_i__2E1BDC42" Association="Self.FK__member__school_i__2E1BDC42">
-            <End Role="school" EntitySet="school" />
-            <End Role="member" EntitySet="member" />
-          </AssociationSet>
           <AssociationSet Name="FK__member__user_id__2D27B809" Association="Self.FK__member__user_id__2D27B809">
             <End Role="app_user" EntitySet="app_user" />
             <End Role="member" EntitySet="member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__team__school_id__38996AB5" Association="Self.FK__team__school_id__38996AB5">
+            <End Role="school" EntitySet="school" />
+            <End Role="team" EntitySet="team" />
+          </AssociationSet>
+          <AssociationSet Name="FK__team_memb__membe__3E52440B" Association="Self.FK__team_memb__membe__3E52440B">
+            <End Role="member" EntitySet="member" />
+            <End Role="team_member" EntitySet="team_member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__team_memb__team___3B75D760" Association="Self.FK__team_memb__team___3B75D760">
+            <End Role="team" EntitySet="team" />
+            <End Role="team_member" EntitySet="team_member" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -304,8 +352,6 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           </Key>
           <Property Name="member_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_id" Type="Int32" Nullable="false" />
-          <Property Name="school_id" Type="Int32" Nullable="false" />
-          <Property Name="team_id" Type="Int16" Nullable="false" />
           <Property Name="member_role" Type="Int16" Nullable="false" />
           <Property Name="first_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="middle_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
@@ -320,7 +366,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="event_notify" Type="Boolean" />
           <NavigationProperty Name="app_user" Relationship="Self.FK__member__user_id__2D27B809" FromRole="member" ToRole="app_user" />
           <NavigationProperty Name="contest_member" Relationship="Self.FK__contest_m__membe__2B3F6F97" FromRole="member" ToRole="contest_member" />
-          <NavigationProperty Name="school" Relationship="Self.FK__member__school_i__2E1BDC42" FromRole="member" ToRole="school" />
+          <NavigationProperty Name="team_member" Relationship="Self.FK__team_memb__membe__3E52440B" FromRole="member" ToRole="team_member" />
         </EntityType>
         <EntityType Name="member_event">
           <Key>
@@ -351,7 +397,27 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="members" Relationship="Self.FK__member__school_i__2E1BDC42" FromRole="school" ToRole="member" />
+          <NavigationProperty Name="teams" Relationship="Self.FK__team__school_id__38996AB5" FromRole="school" ToRole="team" />
+        </EntityType>
+        <EntityType Name="team">
+          <Key>
+            <PropertyRef Name="team_id" />
+          </Key>
+          <Property Name="team_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="team_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="school_id" Type="Int32" />
+          <NavigationProperty Name="school" Relationship="Self.FK__team__school_id__38996AB5" FromRole="team" ToRole="school" />
+          <NavigationProperty Name="team_member" Relationship="Self.FK__team_memb__team___3B75D760" FromRole="team" ToRole="team_member" />
+        </EntityType>
+        <EntityType Name="team_member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="team_id" Type="Int32" />
+          <Property Name="member_id" Type="Int32" />
+          <NavigationProperty Name="member" Relationship="Self.FK__team_memb__membe__3E52440B" FromRole="team_member" ToRole="member" />
+          <NavigationProperty Name="team" Relationship="Self.FK__team_memb__team___3B75D760" FromRole="team_member" ToRole="team" />
         </EntityType>
         <EntityType Name="documentation">
           <Key>
@@ -413,15 +479,39 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__member__school_i__2E1BDC42">
-          <End Role="school" Type="Self.school" Multiplicity="1" />
-          <End Role="member" Type="Self.member" Multiplicity="*" />
+        <Association Name="FK__team_memb__membe__3E52440B">
+          <End Role="member" Type="Self.member" Multiplicity="0..1" />
+          <End Role="team_member" Type="Self.team_member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="member_id" />
+            </Principal>
+            <Dependent Role="team_member">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__team__school_id__38996AB5">
+          <End Role="school" Type="Self.school" Multiplicity="0..1" />
+          <End Role="team" Type="Self.team" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="school">
               <PropertyRef Name="school_id" />
             </Principal>
-            <Dependent Role="member">
+            <Dependent Role="team">
               <PropertyRef Name="school_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__team_memb__team___3B75D760">
+          <End Role="team" Type="Self.team" Multiplicity="0..1" />
+          <End Role="team_member" Type="Self.team_member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="team">
+              <PropertyRef Name="team_id" />
+            </Principal>
+            <Dependent Role="team_member">
+              <PropertyRef Name="team_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -434,6 +524,8 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <EntitySet Name="member_event" EntityType="Self.member_event" />
           <EntitySet Name="page_content" EntityType="Self.page_content" />
           <EntitySet Name="schools" EntityType="Self.school" />
+          <EntitySet Name="teams" EntityType="Self.team" />
+          <EntitySet Name="team_member" EntityType="Self.team_member" />
           <EntitySet Name="documentations" EntityType="Self.documentation" />
           <EntitySet Name="images" EntityType="Self.image" />
           <AssociationSet Name="FK__member__user_id__2D27B809" Association="Self.FK__member__user_id__2D27B809">
@@ -448,9 +540,17 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             <End Role="member" EntitySet="members" />
             <End Role="contest_member" EntitySet="contest_member" />
           </AssociationSet>
-          <AssociationSet Name="FK__member__school_i__2E1BDC42" Association="Self.FK__member__school_i__2E1BDC42">
-            <End Role="school" EntitySet="schools" />
+          <AssociationSet Name="FK__team_memb__membe__3E52440B" Association="Self.FK__team_memb__membe__3E52440B">
             <End Role="member" EntitySet="members" />
+            <End Role="team_member" EntitySet="team_member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__team__school_id__38996AB5" Association="Self.FK__team__school_id__38996AB5">
+            <End Role="school" EntitySet="schools" />
+            <End Role="team" EntitySet="teams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__team_memb__team___3B75D760" Association="Self.FK__team_memb__team___3B75D760">
+            <End Role="team" EntitySet="teams" />
+            <End Role="team_member" EntitySet="team_member" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -524,8 +624,6 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
               <MappingFragment StoreEntitySet="member">
                 <ScalarProperty Name="member_id" ColumnName="member_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="school_id" ColumnName="school_id" />
-                <ScalarProperty Name="team_id" ColumnName="team_id" />
                 <ScalarProperty Name="member_role" ColumnName="member_role" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
                 <ScalarProperty Name="middle_name" ColumnName="middle_name" />
@@ -571,6 +669,24 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
                 <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="city" ColumnName="city" />
                 <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teams">
+            <EntityTypeMapping TypeName="gocyberx_icpcModel.team">
+              <MappingFragment StoreEntitySet="team">
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
+                <ScalarProperty Name="team_name" ColumnName="team_name" />
+                <ScalarProperty Name="school_id" ColumnName="school_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="team_member">
+            <EntityTypeMapping TypeName="gocyberx_icpcModel.team_member">
+              <MappingFragment StoreEntitySet="team_member">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

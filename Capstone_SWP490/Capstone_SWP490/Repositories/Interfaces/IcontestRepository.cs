@@ -9,5 +9,7 @@ namespace Capstone_SWP490.Repositories.Interfaces
 {
     public interface IcontestRepository : IGenericRepository<contest>
     {
+         contest getByCode(string code);
+        
     }
 }

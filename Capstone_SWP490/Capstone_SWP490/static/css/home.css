@@ -1,0 +1,510 @@
+﻿
+
+.nav-pills > li > a {
+    border-radius: 0;
+}
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    overflow: hidden;
+}
+
+    #wrapper.toggled {
+        padding-left: 250px;
+        overflow: hidden;
+    }
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #ffbd5c;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    top: 0px;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    position: absolute;
+    padding: 15px;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.xyz {
+    min-width: 360px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: relative;
+    margin-right: 0px;
+}
+
+.fixed-brand {
+    width: auto;
+    background: #FF6347;
+}
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    margin-top: 2px;
+}
+
+    .sidebar-nav li {
+        text-indent: 15px;
+        line-height: 40px;
+    }
+
+        .sidebar-nav li a {
+            display: block;
+            text-decoration: none;
+            color: #999999;
+        }
+
+            .sidebar-nav li a:hover {
+                text-decoration: none;
+                color: #fff;
+                background: rgba(255, 255, 255, 0.2);
+                border-left: red 2px solid;
+            }
+
+            .sidebar-nav li a:active,
+            .sidebar-nav li a:focus {
+                text-decoration: none;
+            }
+
+    .sidebar-nav > .sidebar-brand {
+        height: 65px;
+        font-size: 18px;
+        line-height: 60px;
+    }
+
+        .sidebar-nav > .sidebar-brand a {
+            color: #999999;
+        }
+
+            .sidebar-nav > .sidebar-brand a:hover {
+                color: #fff;
+                background: none;
+            }
+
+.no-margin {
+    margin: 0;
+    height: 60px;
+    z-index: 1001;
+}
+
+@media (min-width: 768px) {
+    #wrapper {
+        position: absolute;
+        padding-left: 250px;
+        width: 100%;
+    }
+
+    .fixed-brand {
+        width: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled-2 #sidebar-wrapper {
+        width: 0px;
+    }
+
+        #wrapper.toggled-2 #sidebar-wrapper:hover {
+            width: 250px;
+        }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled-2 #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+        margin-left: -200px;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        width: auto;
+    }
+
+    #wrapper.toggled-2 #content_area2_header {
+        position: relative;
+        margin-right: 0;
+        margin-left: -250px;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        width: calc(100% + 250px);
+        float: right;
+    }
+
+    #wrapper.toggled #content_area2_header {
+        position: relative;
+        margin-right: 0;
+        padding-left: 250px;
+    }
+
+    #content_area2_header {
+        padding: 20px;
+        position: relative;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        padding-left: 250px;
+    }
+}
+
+#bs-example-navbar-collapse-1 {
+    background: #FF9900;
+    height: 60px !important;
+}
+
+.navbar-toggle {
+    position: relative;
+    float: left;
+    margin-left: 15px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: transparent;
+    background-image: none;
+    border: none;
+}
+
+.no-bullet {
+    padding: 5px;
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 200px;
+    height: 50px;
+    /* font-family: Lato; */
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 18px;
+    color: #000000;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.navbar-default .navbar-toggle {
+    background: transparent !important;
+}
+
+.content-area1-title {
+    left: 121px;
+    top: 15px;
+    font-size: 20px;
+    line-height: 29px;
+    color: #FFFFFF;
+    position: absolute;
+}
+
+.no-bullet-image {
+    padding: 100px 0px 50px 20px
+}
+
+.content-area1-image {
+    float: right;
+    padding: 5px 0px 0px 0px;
+}
+
+.content-area1-image2 {
+    float: right;
+    padding: 5px 10px 0px 0px;
+}
+
+.btn-outline-login {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 105px;
+    height: 48px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 18px;
+    color: #ffffff;
+    background: #18A0FB;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.btn-outline-succes:hover {
+    background-color: #94FFAC;
+}
+
+#registration_title {
+    text-align: center;
+}
+
+#content_area2_header {
+    width: 100%;
+    height: 200px;
+    background: #2fa9fb;
+}
+
+#content_area2_title {
+    text-align: center;
+    padding-top: 60px;
+    font-weight: bold;
+    font-size: 50px;
+    line-height: 60px;
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+}
+
+#btn-registration_title {
+    color: #ffffff;
+    margin-top: 40px;
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+#wrapper-home {
+}
+
+.back {
+    background-image: url('/image/code_war_2019_2(2) 2.png');
+    width: 100%;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+}
+
+.div-center {
+    width: 900px;
+    height: 450px;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    padding: 1em 2em;
+    border-bottom: 2px solid #ccc;
+    display: table;
+    text-align: center;
+}
+
+div.content {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+input, select, textarea {
+    max-width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+#btnHomeLogin {
+    display: block;
+    width: 100%;
+    height: 45px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #302217;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #FD647A;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+#exampleInputLoginUser {
+    height: 45px;
+}
+
+#exampleInputLoginPassword {
+    height: 45px;
+}
+
+#btnHomeSignInGoogle {
+    display: block;
+    width: 100%;
+    height: 45px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #302217;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+#homeUserLogin {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    color: #302217;
+}
+
+#homeUserLoginSub {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    color: #000000;
+}
+
+.btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    color: #302217;
+    background-color: #286090;
+    background-image: none;
+    border-color: #204d74;
+}
+
+#homeUserChangPassword {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+
+
+    color: #302217;
+}
+
+#homeUserChangPasswordSub {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    /* identical to box height */
+
+
+    color: #302217;
+}
+
+.div-center-chang {
+    width: 900px;
+    height: 450px;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    padding: 1em 2em;
+    border-bottom: 2px solid #ccc;
+    display: table;
+}
+
+#shirtSizinngNext {
+    float: right;
+    color: #ffffff;
+}
+
+#talbe-shirtSizing {
+    width: 80%;
+    float: right;
+    padding-top: 100px;
+}

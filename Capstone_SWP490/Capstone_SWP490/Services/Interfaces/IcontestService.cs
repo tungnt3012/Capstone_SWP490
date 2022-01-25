@@ -8,5 +8,6 @@ namespace Capstone_SWP490.Services.Interfaces
 {
    public interface IcontestService
     {
+        contest getByCode(string code);
     }
 }
