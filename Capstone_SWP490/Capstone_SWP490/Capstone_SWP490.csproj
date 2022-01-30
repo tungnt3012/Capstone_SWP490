@@ -49,7 +49,27 @@
     <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=5.8.5.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.5.8.5\lib\net45\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.14\lib\net45\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net45\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Common, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -60,6 +80,9 @@
       <HintPath>..\packages\System.Data.SqlClient.4.8.3\lib\net451\System.Data.SqlClient.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -129,17 +152,130 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="app_user.cs">
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ExcelImportPosition\IExcelPosition.cs" />
+    <Compile Include="Common\ExcelImportPosition\MemberImport.cs" />
+    <Compile Include="Common\ExcelImportPosition\SchoolImport.cs" />
+    <Compile Include="Common\ExcelImportPosition\TeamImport.cs" />
+    <Compile Include="contest.cs">
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
+    <Compile Include="contest_member.cs">
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Coach\RegistrationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DAO\GenericRepository.cs" />
+    <Compile Include="DAO\IGenericRepository.cs" />
     <Compile Include="DAO\SqlDataAccess.cs" />
+    <Compile Include="documentation.cs">
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\EmailModel.cs" />
     <Compile Include="DTO\UsersModel.cs" />
+    <Compile Include="event.cs">
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\MailReaderHelper.cs" />
+    <Compile Include="Helper\RegistrationHelper.cs" />
+    <Compile Include="icpc.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>icpc.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="icpc.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
+    <Compile Include="icpc.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>icpc.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="image.cs">
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
+    <Compile Include="member.cs">
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
+    <Compile Include="member_event.cs">
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\insert_member_result_ViewModel\insert_member_result_ViewModel.cs" />
+    <Compile Include="Models\school_memberViewModel\school_memberViewModel.cs" />
     <Compile Include="Models\UsersViewModel.cs" />
+    <Compile Include="page_content.cs">
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\app_userRepository.cs" />
+    <Compile Include="Repositories\contestRepository.cs" />
+    <Compile Include="Repositories\contest_memberRepository.cs" />
+    <Compile Include="Repositories\documentationRepository.cs" />
+    <Compile Include="Repositories\eventRepository.cs" />
+    <Compile Include="Repositories\imageRepository.cs" />
+    <Compile Include="Repositories\Interfaces\Iapp_userRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IcontestRepository.cs" />
+    <Compile Include="Repositories\Interfaces\Icontest_memberRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IdocumentationRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IeventRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IimageRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ImemberRepository.cs" />
+    <Compile Include="Repositories\Interfaces\Imember_eventRepository.cs" />
+    <Compile Include="Repositories\Interfaces\Ipage_contentRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IschoolRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IteamRepository.cs" />
+    <Compile Include="Repositories\Interfaces\Iteam_memberRepository.cs" />
+    <Compile Include="Repositories\memberRepository.cs" />
+    <Compile Include="Repositories\member_eventRepository.cs" />
+    <Compile Include="Repositories\page_contentRepository.cs" />
+    <Compile Include="Repositories\schoolRepository.cs" />
+    <Compile Include="Repositories\teamMemberRepository.cs" />
+    <Compile Include="Repositories\teamRepository.cs" />
+    <Compile Include="school.cs">
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\app_userService.cs" />
+    <Compile Include="Services\contestService.cs" />
+    <Compile Include="Services\contest_memberService.cs" />
+    <Compile Include="Services\documentationService.cs" />
+    <Compile Include="Services\eventService.cs" />
+    <Compile Include="Services\imageService.cs" />
+    <Compile Include="Services\Interfaces\Iapp_userService.cs" />
+    <Compile Include="Services\Interfaces\IcontestService.cs" />
+    <Compile Include="Services\Interfaces\Icontest_memberService.cs" />
+    <Compile Include="Services\Interfaces\IdocumentationService.cs" />
+    <Compile Include="Services\Interfaces\IeventService.cs" />
+    <Compile Include="Services\Interfaces\IimageService.cs" />
+    <Compile Include="Services\Interfaces\ImemberService.cs" />
+    <Compile Include="Services\Interfaces\Imember_eventService.cs" />
+    <Compile Include="Services\Interfaces\Ipage_contentService.cs" />
+    <Compile Include="Services\Interfaces\IschoolService.cs" />
+    <Compile Include="Services\Interfaces\IteamService.cs" />
+    <Compile Include="Services\Interfaces\Iteam_memberService.cs" />
+    <Compile Include="Services\memberService.cs" />
+    <Compile Include="Services\member_eventService.cs" />
+    <Compile Include="Services\page_contentService.cs" />
+    <Compile Include="Services\schoolService.cs" />
+    <Compile Include="Services\teamMemberService.cs" />
+    <Compile Include="Services\teamService.cs" />
     <Compile Include="Services\UsersService.cs" />
+    <Compile Include="team.cs">
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
+    <Compile Include="team_member.cs">
+      <DependentUpon>icpc.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\CreateAccount.txt" />
+    <Content Include="App_Data\log\logFile.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -149,13 +285,36 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="icpc.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>icpc.edmx</DependentUpon>
+      <LastGenOutput>icpc.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="icpc.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>icpc.edmx</DependentUpon>
+      <LastGenOutput>icpc.cs</LastGenOutput>
+    </Content>
     <Content Include="image\code_war_2019_2%282%29 2.png" />
+    <Content Include="image\image 24.png" />
+    <Content Include="image\image 25.png" />
+    <Content Include="image\image 26.png" />
+    <Content Include="image\image 28.png" />
+    <Content Include="image\image 35.png" />
+    <Content Include="image\image_17-removebg-preview 1.png" />
     <Content Include="image\leght 1.png" />
     <Content Include="image\logofpt.png" />
     <Content Include="image\OLP_30_nam-removebg 1.png" />
     <Content Include="Scripts\home.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="icpc.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>icpc.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="icpc.edmx.diagram">
+      <DependentUpon>icpc.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -185,11 +344,24 @@
     <Content Include="Views\Home\RegistrationImport.cshtml" />
     <Content Include="Views\Home\HomeLogin.cshtml" />
     <Content Include="Views\Home\ChangPassword.cshtml" />
+    <Content Include="Views\Home\ShirtSizing.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\ScheduleOfActivities.cshtml" />
+    <Content Include="Views\Home\Event.cshtml" />
+    <Content Include="Views\Home\EventDetail.cshtml" />
+    <Content Include="Views\Home\Rules.cshtml" />
+    <Content Include="Views\Home\LocalInformation.cshtml" />
+    <Content Include="Views\Home\Accommodations.cshtml" />
+    <Content Include="Views\Home\Downloads.cshtml" />
     <Content Include="Views\Home\RegisShirtSizing.cshtml" />
-    <Content Include="Views\Home\HomePage.cshtml" />
+    <Content Include="Views\Shared\_SigninLayout.cshtml" />
+    <Content Include="Views\Registration\Result.cshtml" />
+    <Content Include="Views\Registration\Index.cshtml" />
+    <Content Include="Views\Registration\Guide.cshtml" />
+    <Content Include="Views\Registration\MemberDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\temp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -203,6 +375,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

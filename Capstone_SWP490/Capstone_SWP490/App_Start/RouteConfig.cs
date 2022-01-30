@@ -18,6 +18,11 @@ namespace Capstone_SWP490
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                        name: "Registration",
+                        url: "{controller}/{action}",
+                        defaults: new { controller = "Registration", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

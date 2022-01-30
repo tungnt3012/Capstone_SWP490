@@ -1,0 +1,7 @@
+<p>Wellcome to <b><mark>ICPC Asia-VietNam Regional Contest</mark></b>
+<p>this is your temporary password: <b>{0}</b></p>
+
+<p>Please <mark>change password and select your shirt size</mark> for first login</p>
+<p>
+  visit: <a href="{1}">{2}</a>
+</p>

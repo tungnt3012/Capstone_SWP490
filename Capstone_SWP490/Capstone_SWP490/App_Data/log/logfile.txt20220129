@@ -1,0 +1,123 @@
+2022-01-29 04:25:29,423 [5] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:25:36,461 [5] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Sequence contains no elements
+2022-01-29 04:25:56,282 [5] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:26:00,584 [5] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Sequence contains no elements
+2022-01-29 04:26:15,841 [5] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:26:28,553 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Sequence contains no elements
+2022-01-29 04:29:29,422 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:29:37,397 [8] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Sequence contains no elements
+2022-01-29 04:30:20,751 [5] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:31:04,291 [5] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Sequence contains no elements
+2022-01-29 04:31:09,313 [5] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:34:04,911 [8] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:35:57,172 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:37:46,193 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:43:20,949 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:44:08,704 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:45:37,859 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:47:01,731 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 04:47:50,498 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:48:13,760 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 04:49:33,529 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:49:47,967 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 04:49:47,977 [8] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 04:51:08,657 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 05:01:02,999 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 05:06:43,857 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:02:17,772 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:02:25,028 [7] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: predicate
+2022-01-29 06:02:51,199 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:02:55,077 [7] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: predicate
+2022-01-29 06:05:05,679 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:05:11,736 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: predicate
+2022-01-29 06:05:25,330 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:05:47,479 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: predicate
+2022-01-29 06:05:52,874 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:06:33,767 [7] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:16:32,200 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:17:42,345 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 06:17:42,357 [7] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:18:06,235 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 06:18:06,242 [7] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:20:48,682 [7] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 06:20:48,689 [17] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:22:03,268 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:23:15,866 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:28:30,152 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:29:26,577 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 06:29:26,587 [12] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:29:41,116 [12] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:29:44,516 [11] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 06:29:44,525 [12] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:29:59,516 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 06:29:59,524 [12] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 06:30:15,461 [12] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 06:30:15,476 [12] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 20:51:00,978 [7] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 20:51:45,800 [5] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 20:51:45,813 [8] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 20:51:58,489 [5] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 20:51:58,496 [7] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 20:52:04,754 [5] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 20:56:20,546 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 20:56:50,618 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 20:56:50,630 [8] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 20:59:02,123 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:13:41,603 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:15:35,551 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:21:44,647 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:23:46,673 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 21:23:46,686 [7] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:27:52,878 [8] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 21:27:52,886 [10] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:29:58,423 [8] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 21:29:58,430 [10] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:38:58,551 [5] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:39:23,787 [5] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 21:39:23,794 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:41:22,014 [8] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:43:11,651 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:45:49,282 [5] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:47:24,451 [5] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:51:42,279 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 21:53:15,013 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:05:03,757 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:11:38,139 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:12:13,752 [7] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 22:12:13,763 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:13:08,847 [7] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - File imported is null
+2022-01-29 22:13:08,856 [8] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:14:52,458 [7] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:15:48,170 [7] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:21:21,215 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:23:10,556 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:24:07,191 [7] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:25:52,413 [5] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:26:43,039 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:27:54,520 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:28:14,453 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:54:16,151 [7] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 22:57:52,612 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:00:42,231 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:03:13,549 [7] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:04:16,747 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:10:38,171 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:19:46,130 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:23:56,652 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:39:31,682 [5] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:43:49,594 [5] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:45:36,850 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:45:42,132 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: source
+2022-01-29 23:46:21,731 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:46:26,609 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: source
+2022-01-29 23:46:50,834 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:57:15,930 [7] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
+2022-01-29 23:57:22,119 [6] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: source
+2022-01-29 23:58:06,032 [6] INFO  Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Hi I am log4net Info Level
