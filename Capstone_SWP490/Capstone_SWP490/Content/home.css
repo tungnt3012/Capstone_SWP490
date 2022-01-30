@@ -40,7 +40,6 @@
 
 #page-content-wrapper {
     position: absolute;
-  
     width: 100%;
     overflow-x: hidden;
 }
@@ -181,6 +180,7 @@
         transition: all 0.5s ease;
         width: auto;
     }
+
     #wrapper.toggled-2 #page-content-wrapper-home {
         position: relative;
         margin-right: 0;
@@ -200,7 +200,6 @@
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
         transition: all 0.5s ease;
-        width: calc(100% + 250px);
         float: right;
     }
 
@@ -221,7 +220,6 @@
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
         transition: all 0.5s ease;
-        padding-left: 250px;
     }
 }
 
@@ -336,6 +334,7 @@
 
 .btn-outline-succes:hover {
     background-color: #94FFAC;
+    color: #ffffff;
 }
 
 #registration_title {
@@ -383,7 +382,6 @@ a.button {
     bottom: 0;
     background-size: cover;
     background-repeat: no-repeat;
-   
 }
 
 .div-center {
@@ -638,13 +636,72 @@ h2 {
     height: 32px;
     background: #ffbd5c;
 }
+
 #cars-shedule1 {
     padding-top: 50px;
 }
 /*LocalInformation*/
-#col-local{
-    padding-top:50px;
+#col-local {
+    padding-top: 50px;
 }
-#btn-registrantionTitle{
-    padding-bottom:20px;
+
+#btn-registrantionTitle {
+    padding-bottom: 20px;
+    padding-top: 50px;
+}
+
+.main {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#btn-registration_import {
+    height: 40px;
+    margin-top: 20px;
+}
+
+.form-label-answer {
+    font-size: 14px;
+    font-weight: 100;
+    margin: 5px;
+}
+
+#registration-addrers {
+    margin-top: 40px;
+}
+
+#registration_upload {
+    width: 150px;
+    height: 45px;
+    margin-top: 10px;
+}
+
+#registration_importdata {
+    width: 150px;
+    height: 45px;
+    margin-bottom: 20px;
+}
+
+#registration-memberdetail {
+    margin-top: 50px;
+}
+/*footer*/
+#footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #414045;
+}
+
+#footer-main {
+    width: 1200px;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+ul li a {
+    color: #ffffff;
 }
