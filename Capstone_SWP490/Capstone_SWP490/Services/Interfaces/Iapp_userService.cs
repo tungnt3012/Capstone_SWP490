@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone_SWP490.Models.app_userViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,9 @@ namespace Capstone_SWP490.Services.Interfaces
     {
         List<app_user> GetAllUser();
         Task<app_user> CreateUser(app_user userIn);
+        bool CheckLogin(app_user app_User);
+        Task<bool> UpdatePasswordFirst(string username, string password, bool send_event);
+        Task<bool> UpdatePassword(string username, string password);
+        app_userViewModel GetUserByUsername(string username);
     }
 }

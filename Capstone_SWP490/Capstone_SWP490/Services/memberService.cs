@@ -12,6 +12,7 @@ namespace Capstone_SWP490.Services
     public class memberService : ImemberService
     {
         private readonly ImemberRepository _imemberRepository = new memberRepository();
+        private readonly Iapp_userRepository _iapp_UserRepository = new app_userRepository();
         public async Task<member> insert(member member)
         {
           return await _imemberRepository.Create(member);
@@ -20,6 +21,24 @@ namespace Capstone_SWP490.Services
         public async Task<IEnumerable<member>> insertMany(IEnumerable<member> member)
         {
             return await _imemberRepository.CreateMany(member);
+        }
+
+        public async Task<member> RegisterShirtSize(string username, string size)
+        {
+            var user = _iapp_UserRepository.FindBy(x => x.user_name.Equals(username)).FirstOrDefault();
+            if (user != null)
+            {
+                var findMember = _imemberRepository.FindBy(x => x.user_id == user.user_id).FirstOrDefault();
+                if (findMember != null)
+                {
+                    findMember.shirt_sizing = size;
+                    if (await _imemberRepository.Update(findMember, findMember.member_id) != -1)
+                    {
+                        return findMember;
+                    }
+                }
+            }
+            return null;
         }
 
         public async Task<int> update(member member, int key)
