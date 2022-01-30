@@ -1,8 +1,19 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@{ ViewBag.Title = "Home Page"; }
 
+<style>
+    #menu-scheduleofactivities {
+        color: #ffffff !important;
+        background: #30cf6b;
+    }
 
+    #footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #414045;
+    }
+</style>
 <div id="page-content-wrapper">
     <div class="container-fluid xyz">
         <div class="col-lg-12" id="content_area2_header">
@@ -10,58 +21,150 @@
                 <label for="exampleInputTitle">Schedule of activity</label>
             </div>
         </div>
-        <div class="column">
-            <div class="col-lg-12">
-                <form>
-                    <div class="column">
-                        <div class="col-lg-12" id="cars-shedule1">
-                            <select name="cars" id="cars" class="cars-shedule">
-                                <option value="volvo">25-01-2022</option>
-                                <option value="saab">26-01-2022</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-12">
-                            <label class="Event-Schedule" for="Event_Schedule">
-                                Event Schedule
-                            </label>
-                        </div>
-                        <div class="col-lg-12">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Time Start</th>
-                                        <th scope="col">Time End</th>
-                                        <th scope="col">Activity</th>
-                                        <th scope="col">Venue</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">11:00 AM</th>
-                                        <td>11:00 AM</td>
-                                        <td>Registration and Lunch</td>
-                                        <td>Leong Hall Roofdeck</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">11:00 AM</th>
-                                        <td>11:00 AM</td>
-                                        <td>Registration and Lunch</td>
-                                        <td>Leong Hall Roofdeck</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">11:00 AM</th>
-                                        <td>11:00 AM</td>
-                                        <td>Registration and Lunch</td>
-                                        <td>Leong Hall Roofdeck</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+        <div class="main">
+            <div class="column">
+                <div class="col-lg-12">
+                    <form>
+                        <div class="column">
+                            <div class="col-lg-12" id="cars-shedule1">
+                                <select name="cars" id="cars" class="cars-shedule">
+                                    <option value="volvo">25-01-2022</option>
+                                    <option value="saab">26-01-2022</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12">
+                                <label class="Event-Schedule" for="Event_Schedule">
+                                    Event Schedule
+                                </label>
+                            </div>
+                            <div class="col-lg-12">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Time Start</th>
+                                            <th scope="col">Time End</th>
+                                            <th scope="col">Activity</th>
+                                            <th scope="col">Venue</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">11:00 AM</th>
+                                            <td>11:00 AM</td>
+                                            <td>Registration and Lunch</td>
+                                            <td>Leong Hall Roofdeck</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">11:00 AM</th>
+                                            <td>11:00 AM</td>
+                                            <td>Registration and Lunch</td>
+                                            <td>Leong Hall Roofdeck</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">11:00 AM</th>
+                                            <td>11:00 AM</td>
+                                            <td>Registration and Lunch</td>
+                                            <td>Leong Hall Roofdeck</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+    <footer class="page-footer font-small blue pt-4" id="footer">
+
+        <!-- Footer Links -->
+        <div class="container-fluid text-center text-md-left">
+
+            <!-- Grid row -->
+            <div class="row" id="footer-main">
+
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+
+                    <!-- Links -->
+
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Home</a>
+                        </li>
+                        <li>
+                            <a href="#!">How to register</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+
+                    <!-- Links -->
+
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Accommodations</a>
+                        </li>
+                        <li>
+                            <a href="#!">Rules</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+
+                    <!-- Links -->
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">ICPC Asia Director's Blog</a>
+                        </li>
+                        <li>
+                            <a href="#!">ICPC Regional Rules</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2 mb-md-0 mb-2">
+
+                    <!-- Links -->
+
+                    <ul class="list-unstyled">
+
+                        <img src="~/image/image 29.png">
+
+                    </ul>
+
+                </div>
+                <div class="col-md-1 mb-md-0 mb-1">
+
+                    <!-- Links -->
+
+                    <ul class="list-unstyled">
+
+                        <img src="~/image/image 30.png">
+
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+        </div>
+        <!-- Footer Links -->
+        <!-- Copyright -->
+        <!-- Copyright -->
+
+    </footer>
 </div>
 

@@ -1,8 +1,11 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@{ ViewBag.Title = "Home Page"; }
 
-
+<style>
+    #menu-registration {
+        color: #ffffff !important;
+        background: #30cf6b;
+    }
+</style>
 <div id="page-content-wrapper">
     <div class="container-fluid xyz">
         <div class="col-lg-12" id="content_area2_header">
@@ -10,87 +13,182 @@
                 <label for="exampleInputTitle">Registration</label>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                @using (Html.BeginForm("UpdateMember", "Registration", FormMethod.Get))
-                {
-                    <input type="hidden" name="teamId" value="@Model.team.team_id"/>
-                     <input type="hidden" name="id" value="@Model.member.member_id" />
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="firstName">First name</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName" value="@Model.member.first_name" aria-describedby="Frist name" placeholder="Frist name">
+        <div class="main">
+            <div class="row">
+                <div class="col-lg-12" id="registration-memberdetail">
+                    @using (Html.BeginForm("UpdateMember", "Registration", FormMethod.Get))
+                    {
+                        <input type="hidden" name="teamId" value="@Model.team.team_id" />
+                        <input type="hidden" name="id" value="@Model.member.member_id" />
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="firstName">First name</label>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" value="@Model.member.first_name" aria-describedby="Frist name" placeholder="Frist name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="middleName">Middle name</label>
+                                    <input type="text" class="form-control" id="middleName" name="middleName" value="@Model.member.middle_name" aria-describedby="Middle name" placeholder="Middle name">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="middleName">Middle name</label>
-                                <input type="text" class="form-control" id="middleName" name="middleName" value="@Model.member.middle_name" aria-describedby="Middle name" placeholder="Middle name">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="lastName">Last name</label>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" value="@Model.member.last_name" aria-describedby="Date of birth" placeholder="Last name">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="dob">Date of birth</label>
+                                    <input type="date" class="form-control" id="dob" name="dob" value="@Model.member.dob" aria-describedby="Last name" placeholder="Date of birth">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="lastName">Last name</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName" value="@Model.member.last_name" aria-describedby="Date of birth" placeholder="Last name">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="@Model.member.email" aria-describedby="emai" placeholder="Enter email">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="text" class="form-control" id="exampleInputPhone" name="phone" value="@Model.member.phone_number" aria-describedby="Phone" placeholder="Phone">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="dob">Date of birth</label>
-                                <input type="date" class="form-control" id="dob" name ="dob" value="@Model.member.dob" aria-describedby="Last name" placeholder="Date of birth">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="icpc">ICPC</label>
+                                    <input type="number" class="form-control" id="exampleInputICPC" name="icpc" value="@Model.member.year" aria-describedby="ICPC" placeholder="ICPC">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="year">Year</label>
+                                    <input type="text" class="form-control" id="exampleInputYear" name="year" value="@Model.member.year" aria-describedby="Year of studying" placeholder="Year of studying">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="@Model.member.email" aria-describedby="emai" placeholder="Enter email">
+                        <div class="form-group">
+                            <label for="exampleInputGender">Gender: </label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="option1" checked="@(Model.member.gender == 0 ? "checked" : "")">
+                                <label class="form-check-label" for="inlineRadio1">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="option2" @(Model.member.gender == 1 ? "checked" : "")>
+                                <label class="form-check-label" for="inlineRadio2">Female</label>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="text" class="form-control" id="exampleInputPhone" name="phone" value="@Model.member.phone_number" aria-describedby="Phone" placeholder="Phone">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="icpc">ICPC</label>
-                                <input type="int" class="form-control" id="exampleInputICPC" name="icpc" value="@Model.member.year" aria-describedby="ICPC" placeholder="ICPC">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="year">Year</label>
-                                <input type="text" class="form-control" id="exampleInputYear" name="year" value="@Model.member.year" aria-describedby="Year of studying" placeholder="Year of studying">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputGender">Gender: </label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="option1" checked="@(Model.member.gender == 0 ? "checked" : "")">
-                            <label class="form-check-label" for="inlineRadio1">Male</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="option2" @(Model.member.gender == 1 ? "checked" : "")>
-                            <label class="form-check-label" for="inlineRadio2">Female</label>
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="exampleFormControlTextareaAward">Award</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="award" value="@Model.member.award" rows="4" placeholder="Declare previously won prizes(National, International)"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                }
+                        <div class="form-group">
+                            <label for="exampleFormControlTextareaAward">Award</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" name="award" value="@Model.member.award" rows="4" placeholder="Declare previously won prizes(National, International)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>}
+                </div>
             </div>
         </div>
+        <footer class="page-footer font-small blue pt-4" id="footer">
+
+            <!-- Footer Links -->
+            <div class="container-fluid text-center text-md-left">
+
+                <!-- Grid row -->
+                <div class="row" id="footer-main">
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 mb-md-0 mb-3">
+
+                        <!-- Links -->
+
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#!">Home</a>
+                            </li>
+                            <li>
+                                <a href="#!">How to register</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- Grid column -->
+                    <!-- Grid column -->
+                    <div class="col-md-3 mb-md-0 mb-3">
+
+                        <!-- Links -->
+
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#!">Accommodations</a>
+                            </li>
+                            <li>
+                                <a href="#!">Rules</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- Grid column -->
+                    <!-- Grid column -->
+                    <div class="col-md-3 mb-md-0 mb-3">
+
+                        <!-- Links -->
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#!">ICPC Asia Director's Blog</a>
+                            </li>
+                            <li>
+                                <a href="#!">ICPC Regional Rules</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="col-md-2 mb-md-0 mb-2">
+
+                        <!-- Links -->
+
+                        <ul class="list-unstyled">
+
+                            <img src="~/image/image 29.png">
+
+                        </ul>
+
+                    </div>
+                    <div class="col-md-1 mb-md-0 mb-1">
+
+                        <!-- Links -->
+
+                        <ul class="list-unstyled">
+
+                            <img src="~/image/image 30.png">
+
+                        </ul>
+
+                    </div>
+                    <!-- Grid column -->
+
+                </div>
+                <!-- Grid row -->
+
+            </div>
+            <!-- Footer Links -->
+            <!-- Copyright -->
+            <!-- Copyright -->
+
+        </footer>
     </div>
+
+
 </div>

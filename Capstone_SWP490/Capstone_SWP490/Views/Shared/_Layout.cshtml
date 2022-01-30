@@ -24,7 +24,10 @@
         <!-- navbar-header-->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class="content-area1-title">2021 ACM ICPC Asia-VietNam Regional Contest</div>
-            <div class="content-area1-image"> <button type="button" class="btn-outline-login"><a href="https://localhost:44337/Home/HomeLogin" class="button">login</a></button></div>
+            <div class="content-area1-image">
+                @*<button type="button" class="btn-outline-login"><a href="https://localhost:44337/Home/HomeLogin" class="button">login</a></button>*@
+                <button class="btn btn-outline-login" onclick="location.href='@Url.Action("Login", "Login")';return false;">Login</button>
+            </div>
             <div class="content-area1-image2"><img src="~/image/logofpt.png"></div>
 
             <ul class="nav navbar-nav">
@@ -54,34 +57,34 @@
                     <img class="no-bullet-image" src="~/image/OLP_30_nam-removebg 1.png">
                 </li>
                 <li class="no-bullet">
-                    <button class="btn btn-outline-succes" onclick="location.href='@Url.Action("#", "Home")';return false;">Scoreboard</button>
+                    <button class="btn btn-outline-succes" id="menu-scoreboard" onclick="location.href='@Url.Action("#", "Home")';return false;">Scoreboard</button>
                 </li>
                 <li class="no-bullet">
-                    <button class="btn btn-outline-succes" onclick="location.href='@Url.Action("", "Registration")';return false;">Registration</button>
+                    <button class="btn btn-outline-succes" id="menu-registration" onclick="location.href='@Url.Action("", "Registration")';return false;">Registration</button>
                 </li>
                 <li class="no-bullet">
-                    <button class="btn btn-outline-succes" onclick="location.href='@Url.Action("ScheduleOfActivities", "Home")';return false;">Schedule Of Activities</button>
+                    <button class="btn btn-outline-succes" id="menu-scheduleofactivities" onclick="location.href='@Url.Action("ScheduleOfActivities", "Home")';return false;">Schedule Of Activities</button>
                 </li>
                 <li class="no-bullet">
-                    <button class="btn btn-outline-succes" onclick="location.href='@Url.Action("Event", "Home")';return false;">Event</button>
+                    <button class="btn btn-outline-succes" id="menu-event" onclick="location.href='@Url.Action("Event", "Home")';return false;">Event</button>
                 </li>
                 <li class="no-bullet">
-                    <button class="btn btn-outline-succes" onclick="location.href='@Url.Action("Rules", "Home")';return false;">Rules</button>
+                    <button class="btn btn-outline-succes" id="menu-rules" onclick="location.href='@Url.Action("Rules", "Home")';return false;">Rules</button>
                 </li>
                 <li class="no-bullet">
-                    <button class="btn btn-outline-succes" onclick="location.href='@Url.Action("LocalInformation", "Home")';return false;">Local Information</button>
+                    <button class="btn btn-outline-succes" id="menu-localinformation" onclick="location.href='@Url.Action("LocalInformation", "Home")';return false;">Local Information</button>
                 </li>
                 <li class="no-bullet">
-                    <button class="btn btn-outline-succes" onclick="location.href='@Url.Action("Accommodations", "Home")';return false;">Accommodations</button>
+                    <button class="btn btn-outline-succes" id="menu-accommodations" onclick="location.href='@Url.Action("Accommodations", "Home")';return false;">Accommodations</button>
                 </li>
                 <li class="no-bullet">
-                    <button class="btn btn-outline-succes" onclick="location.href='@Url.Action("Downloads", "Home")';return false;">Downloads</button>
+                    <button class="btn btn-outline-succes" id="menu-downloads" onclick="location.href='@Url.Action("Downloads", "Home")';return false;">Downloads</button>
                 </li>
                 <li class="no-bullet">
-                    <button class="btn btn-outline-succes" onclick="location.href='@Url.Action("ShirtSizing", "Home")';return false;">Shirt-Sizing</button>
+                    <button class="btn btn-outline-succes" id="menu-shirtsizing" onclick="location.href='@Url.Action("ShirtSizing", "Home")';return false;">Shirt Sizing</button>
                 </li>
                 <li class="no-bullet">
-                    <button class="btn btn-outline-succes" onclick="location.href='@Url.Action("About", "Home")';return false;">About</button>
+                    <button class="btn btn-outline-succes" id="menu-about" onclick="location.href='@Url.Action("About", "Home")';return false;">About</button>
                 </li>
             </ul>
         </div>
