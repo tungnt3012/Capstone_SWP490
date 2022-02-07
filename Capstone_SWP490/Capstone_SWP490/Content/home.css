@@ -342,7 +342,9 @@
     background-color: #94FFAC;
     color: #ffffff;
 }
-
+.dropdown-item :hover {
+    background-color: #94FFAC;
+}
 #registration_title {
     text-align: center;
 }
@@ -716,4 +718,49 @@ ul li a {
     padding-left: 0px !important;
     margin-right: auto;
     margin-left: auto;
+}
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+/*header*/
+#login-user {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+}
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+#user-information {
+    color: #333333;
+    font-weight: 600;
+}
+#user-changpassword {
+    color: #333333;
+    font-weight: 600;
+}
+#user-changpassword {
+    color: #333333;
+    font-weight: 600;
+}
+#user-logout {
+    color: #333333;
+    font-weight: 600;
+}
+#user-role {
+    color: #65676b;
 }

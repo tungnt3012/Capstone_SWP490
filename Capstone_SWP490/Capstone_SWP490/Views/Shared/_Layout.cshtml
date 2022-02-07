@@ -25,8 +25,19 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class="content-area1-title">2021 ACM ICPC Asia-VietNam Regional Contest</div>
             <div class="content-area1-image">
-                @*<button type="button" class="btn-outline-login"><a href="https://localhost:44337/Home/HomeLogin" class="button">login</a></button>*@
-                <button class="btn btn-outline-login" onclick="location.href='@Url.Action("Login", "Login")';return false;">Login</button>
+
+                @*<button class="btn btn-outline-login" onclick="location.href='@Url.Action("Login", "Login")';return false;">Login</button>*@
+                <div class="btn-group">
+                    <button type="button" id="login-user" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="arrow down"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button class="dropdown-item" type="button"><div class="col-lg-12" id="user-information">Dao Quang Son <div class="col-lg-12" id="user-role">role: Admin</div></div>
+                       </button>
+                        <button class="dropdown-item" type="button" id="user-changpassword"><div class="col-lg-12">Change password</div></button>
+                    <button class="dropdown-item" type="button" id="user-logout"><div class="col-lg-12">log out</div></button>
+                    </div>
+                </div>
             </div>
             <div class="content-area1-image2"><img src="~/image/logofpt.png"></div>
 
@@ -90,5 +101,9 @@
     </div>
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/home.js" asp-append-version="true"></script>
+
+    <script src="~/Scripts/bootstrap.js" asp-append-version="true"></script>
+
+
 </body>
 </html>
