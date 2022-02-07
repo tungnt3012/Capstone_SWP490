@@ -53,38 +53,36 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
-                <li class="no-bullet">
-                    <img class="no-bullet-image" src="~/image/OLP_30_nam-removebg 1.png">
+
+                <li id="menu-scoreboard" onclick="location.href='@Url.Action("#", "Home")';return false;">
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Scoreboard</a>
                 </li>
-                <li class="no-bullet">
-                    <button class="btn btn-outline-succes" id="menu-scoreboard" onclick="location.href='@Url.Action("#", "Home")';return false;">Scoreboard</button>
+                <li id="menu-registration" onclick="location.href='@Url.Action("", "Registration")';return false;">
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Registration</a>
                 </li>
-                <li class="no-bullet">
-                    <button class="btn btn-outline-succes" id="menu-registration" onclick="location.href='@Url.Action("", "Registration")';return false;">Registration</button>
+                <li id="menu-scheduleofactivities" onclick="location.href='@Url.Action("ScheduleOfActivities", "Home")';return false;">
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Schedule Of Activities</a>
                 </li>
-                <li class="no-bullet">
-                    <button class="btn btn-outline-succes" id="menu-scheduleofactivities" onclick="location.href='@Url.Action("ScheduleOfActivities", "Home")';return false;">Schedule Of Activities</button>
+                <li onclick="location.href='@Url.Action("Event", "Home")';return false;">
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Event</a>
                 </li>
-                <li class="no-bullet">
-                    <button class="btn btn-outline-succes" id="menu-event" onclick="location.href='@Url.Action("Event", "Home")';return false;">Event</button>
+                <li onclick="location.href='@Url.Action("Rules", "Home")';return false;">
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Rules</a>
                 </li>
-                <li class="no-bullet">
-                    <button class="btn btn-outline-succes" id="menu-rules" onclick="location.href='@Url.Action("Rules", "Home")';return false;">Rules</button>
+                <li onclick="location.href='@Url.Action("LocalInformation", "Home")';return false;">
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Local Information</a>
                 </li>
-                <li class="no-bullet">
-                    <button class="btn btn-outline-succes" id="menu-localinformation" onclick="location.href='@Url.Action("LocalInformation", "Home")';return false;">Local Information</button>
+                <li onclick="location.href='@Url.Action("Accommodations", "Home")';return false;">
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Accommodations</a>
                 </li>
-                <li class="no-bullet">
-                    <button class="btn btn-outline-succes" id="menu-accommodations" onclick="location.href='@Url.Action("Accommodations", "Home")';return false;">Accommodations</button>
+                <li onclick="location.href='@Url.Action("Downloads", "Home")';return false;">
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Downloads</a>
                 </li>
-                <li class="no-bullet">
-                    <button class="btn btn-outline-succes" id="menu-downloads" onclick="location.href='@Url.Action("Downloads", "Home")';return false;">Downloads</button>
+                <li onclick="location.href='@Url.Action("ShirtSizing", "Home")';return false;">
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Shirt Sizing</a>
                 </li>
-                <li class="no-bullet">
-                    <button class="btn btn-outline-succes" id="menu-shirtsizing" onclick="location.href='@Url.Action("ShirtSizing", "Home")';return false;">Shirt Sizing</button>
-                </li>
-                <li class="no-bullet">
-                    <button class="btn btn-outline-succes" id="menu-about" onclick="location.href='@Url.Action("About", "Home")';return false;">About</button>
+                <li onclick="location.href='@Url.Action("About", "Home")';return false;">
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>About</a>
                 </li>
             </ul>
         </div>

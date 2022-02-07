@@ -61,7 +61,7 @@
 
 .sidebar-nav {
     position: absolute;
-    top: 0;
+    top: 60px;
     width: 250px;
     margin: 0;
     padding: 0;
@@ -77,7 +77,13 @@
         .sidebar-nav li a {
             display: block;
             text-decoration: none;
-            color: #999999;
+            /* color: #999999; */
+            font-style: normal;
+            font-weight: bold;
+            /* font-size: 15px; */
+            /* line-height: 18px; */
+            /* text-align: center; */
+            color: var(--primary-text);
         }
 
             .sidebar-nav li a:hover {
