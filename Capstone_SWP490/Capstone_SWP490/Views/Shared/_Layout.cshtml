@@ -20,11 +20,11 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
                 <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
             </button>
-            <div class="content-area1-title">2021 ACM ICPC Asia-VietNam Regional Contest</div>
+            <div class="content-area1-title">2022 ACM ICPC Asia-VietNam Regional Contest</div>
         </div>
         <!-- navbar-header-->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <div class="content-area1-title">2021 ACM ICPC Asia-VietNam Regional Contest</div>
+            <div class="content-area1-title">2022 ACM ICPC Asia-VietNam Regional Contest</div>
             <div class="content-area1-image">
 
                 @*<button class="btn btn-outline-login" onclick="location.href='@Url.Action("Login", "Login")';return false;">Login</button>*@
@@ -65,7 +65,9 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
-
+                <li id="menu-scoreboard" onclick="location.href='@Url.Action("Index", "Home")';return false;">
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Home</a>
+                </li>
                 <li id="menu-scoreboard" onclick="location.href='@Url.Action("#", "Home")';return false;">
                     <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Scoreboard</a>
                 </li>

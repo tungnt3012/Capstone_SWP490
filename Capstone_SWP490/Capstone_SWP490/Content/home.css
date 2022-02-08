@@ -46,7 +46,14 @@
     position: absolute;
     width: 100%;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px);
 }
+    /*Them*/
+    #page-content-wrapper .container-fluid {
+        flex: 1
+    }
 
 .xyz {
     min-width: 360px;
@@ -729,6 +736,10 @@ h2 {
     padding-left: 0px;
     margin-right: auto;
     margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    align-items: center;
 }
 
 ul li a {
@@ -737,8 +748,7 @@ ul li a {
 .container-fluid {
     padding-right: 0px !important;
     padding-left: 0px !important;
-    margin-right: auto;
-    margin-left: auto;
+    width: 100%
 }
 .dropdown-item {
     display: block;
