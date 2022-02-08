@@ -5,11 +5,11 @@
 }
 
 #wrapper {
-    padding-left: 0;
-    -webkit-transition: all 0.5s ease;
+    /* padding-left: 0; */
+    /* -webkit-transition: all 0.5s ease; */
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    /* transition: all 0.5s ease; */
     overflow: hidden;
 }
 
@@ -27,17 +27,21 @@
     margin-left: -250px;
     overflow-y: auto;
     background: #ffbd5c;
-    -webkit-transition: all 0.5s ease;
+    /* -webkit-transition: all 0.5s ease; */
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    /* transition: all 0.5s ease; */
     top: 0px;
+    transition: width 0.5s ease;
 }
 
 #wrapper.toggled #sidebar-wrapper {
     width: 250px;
 }
-
+.sidebarToggle {
+    width: 250px !important;
+    transition: width 0.5s ease;
+}
 #page-content-wrapper {
     position: absolute;
     width: 100%;
@@ -118,12 +122,17 @@
     height: 60px;
     z-index: 1001;
 }
+.toggleWrap {
+    padding-left: 250px !important;
+    transition: padding-left .5s ease;
+}
 
 @media (min-width: 768px) {
     #wrapper {
         position: absolute;
-        padding-left: 250px;
-        width: 100%;
+        /* padding-left: 250px; */
+        /* transition: padding-left .5s ease; */
+        width: 100%
     }
     #content_area2_title {
         text-align: center;
@@ -147,7 +156,7 @@
     }
 
     #sidebar-wrapper {
-        width: 250px;
+        /* width: 250px; */
     }
 
     #wrapper.toggled #sidebar-wrapper {
@@ -164,10 +173,10 @@
 
     #page-content-wrapper {
         position: relative;
-        -webkit-transition: all 0.5s ease;
+        /* -webkit-transition: all 0.5s ease; */
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
-        transition: all 0.5s ease;
+        /* transition: all 0.5s ease; */
     }
 
     page-content-wrapper-home {
@@ -234,10 +243,10 @@
     #content_area2_header {
         padding: 20px;
         position: relative;
-        -webkit-transition: all 0.5s ease;
+        /* -webkit-transition: all 0.5s ease; */
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
-        transition: all 0.5s ease;
+        /* transition: all 0.5s ease; */
     }
 }
 

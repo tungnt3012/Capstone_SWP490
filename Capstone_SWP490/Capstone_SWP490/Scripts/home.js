@@ -4,8 +4,9 @@ $("#menu-toggle").click(function (e) {
 });
 $("#menu-toggle-2").click(function (e) {
     e.preventDefault();
-    $("#wrapper").toggleClass("toggled-2");
+    $("#wrapper").toggleClass("toggleWrap");
     $("#content_area2_header").toggleClass("toggled-2");
+    $("#sidebar-wrapper").toggleClass("sidebarToggle")
     $('#menu ul').hide();
 });
 
