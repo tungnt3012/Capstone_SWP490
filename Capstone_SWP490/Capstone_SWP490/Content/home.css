@@ -574,6 +574,7 @@ input, select, textarea {
     padding-left: 0px;
     margin-left: 0%;
     width: 100%;
+    height:100%;
 }
 
 #message {
@@ -797,4 +798,17 @@ ul li a {
 }
 #team{
 margin:10px;
+}
+/*home image*/
+
+.item{
+    width: 100%;
+    height: 100%;
+}
+.image-home1 {
+    width: 100%;
+    height: 100% !important;
+}
+.carousel-inner{
+    height:100%;    
 }
