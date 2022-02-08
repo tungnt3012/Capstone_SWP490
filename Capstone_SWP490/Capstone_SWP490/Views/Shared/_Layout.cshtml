@@ -26,19 +26,25 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class="content-area1-title">2022 ACM ICPC Asia-VietNam Regional Contest</div>
             <div class="content-area1-image">
-
-                @*<button class="btn btn-outline-login" onclick="location.href='@Url.Action("Login", "Login")';return false;">Login</button>*@
-                <div class="btn-group">
-                    <button type="button" id="login-user" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="arrow down"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button"><div class="col-lg-12" id="user-information">Dao Quang Son <div class="col-lg-12" id="user-role">role: Admin</div></div>
-                       </button>
-                        <button class="dropdown-item" type="button" id="user-changpassword"><div class="col-lg-12">Change password</div></button>
-                    <button class="dropdown-item" type="button" id="user-logout"><div class="col-lg-12">log out</div></button>
+                @if (Session["username"] != null)
+                {
+                    <div class="btn-group">
+                        <button type="button" id="login-user" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="arrow down"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button class="dropdown-item" type="button">
+                                <div class="col-lg-12" id="user-information">Dao Quang Son <div class="col-lg-12" id="user-role">role: Admin</div></div>
+                            </button>
+                            <button class="dropdown-item" type="button" id="user-changpassword"><div class="col-lg-12">Change password</div></button>
+                            <button class="dropdown-item" type="button" id="user-logout"><div class="col-lg-12">Log out</div></button>
+                        </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <button class="btn btn-outline-login" onclick="location.href='@Url.Action("Login", "Login")';return false;">Login</button>
+                }
             </div>
             <div class="content-area1-image2"><img src="~/image/logofpt.png"></div>
 

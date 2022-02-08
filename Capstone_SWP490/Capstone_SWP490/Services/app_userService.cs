@@ -52,7 +52,7 @@ namespace Capstone_SWP490.Services
                     return false;
                 }
                 findMemberInfo.event_notify = send_event;
-                if (await _imemberRepository.Update(findMemberInfo, findMemberInfo.user_id) != -1)
+                if (await _imemberRepository.Update(findMemberInfo, findMemberInfo.member_id) != -1)
                 {
                     findUser.psw = password;
                     findUser.verified = true;
