@@ -66,7 +66,7 @@
 
 .fixed-brand {
     width: auto;
-    background: #FF6347;
+    background: #FF9900;
 }
 /* Sidebar Styles */
 
@@ -126,7 +126,7 @@
 
 .no-margin {
     margin: 0;
-    height: 60px;
+    height: 55px;
     z-index: 1001;
 }
 .toggleWrap {
@@ -141,10 +141,32 @@
         /* transition: padding-left .5s ease; */
         width: 100%
     }
+    #talbe-shirtSizing {
+        width: 80%;
+       float:right !important;
+        padding-top: 100px;
+        padding-left:60px;
+    }
+    #size-image {
+        display: block !important;
+    }
+    .no-margin {
+        margin: 0;
+        height: 60px !important;
+        z-index: 1001;
+    }
+    .content-area1-title {
+        left: 121px !important;
+        top: 15px !important;
+        font-size: 20px !important;
+        line-height: 29px;
+        color: #FFFFFF;
+        position: absolute;
+    }
     #content_area2_title {
         text-align: center;
         font-weight: bold;
-        font-size: 50px !important;
+        font-size: 40px !important;
         line-height: 60px;
         color: #FFFFFF;
         text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
@@ -248,12 +270,16 @@
     }
 
     #content_area2_header {
-        padding: 20px;
+        
         position: relative;
         /* -webkit-transition: all 0.5s ease; */
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
         /* transition: all 0.5s ease; */
+        width: 100%;
+        height: 120px !important;
+        background: #2fa9fb;
+        padding-top: 30px !important;
     }
 }
 
@@ -313,9 +339,9 @@
 }
 
 .content-area1-title {
-    left: 121px;
-    top: 15px;
-    font-size: 20px;
+    left: 45px;
+    top: 13px;
+    font-size: 12px;
     line-height: 29px;
     color: #FFFFFF;
     position: absolute;
@@ -379,15 +405,15 @@
 
 #content_area2_header {
     width: 100%;
-    height: 150px;
+    height: 100px;
     background: #2fa9fb;
-    padding-top: 50px;
+    padding-top: 20px;
 }
 
 #content_area2_title {
     text-align: center;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 24px;
     line-height: 60px;
     color: #FFFFFF;
     text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
@@ -563,7 +589,6 @@ input, select, textarea {
 
 #talbe-shirtSizing {
     width: 80%;
-    float: right;
     padding-top: 100px;
 }
 
@@ -574,6 +599,7 @@ input, select, textarea {
     padding-left: 0px;
     margin-left: 0%;
     width: 100%;
+    height:100%;
 }
 
 #message {
@@ -670,7 +696,7 @@ h2 {
 /*ScheduleOfActivities*/
 .cars-shedule {
     height: 32px;
-    background: #ffbd5c;
+   
 }
 
 #cars-shedule1 {
@@ -797,4 +823,34 @@ ul li a {
 }
 #team{
 margin:10px;
+}
+/*home image*/
+
+.item{
+    width: 100%;
+    height: 100%;
+}
+.image-home1 {
+    width: 100%;
+    height: 100% !important;
+}
+.carousel-inner{
+    height:100%;    
+}
+#size-image{
+    display:none;
+}
+#menu-home {
+    padding-top: 20px;
+}
+#menu-image {
+    padding: 15px 0px 0px 20px;
+    width: auto;
+    height: auto;
+}
+.modal-open .modal {
+    background-color: rgba(0,0,0,0.4);
+}
+.modal-header {
+    border-bottom: none;
 }
