@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.Repositories;
+﻿using Capstone_SWP490.ExceptionHandler;
+using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Services.Interfaces;
 using System;
@@ -15,6 +16,11 @@ namespace Capstone_SWP490.Services
 
         public async Task<school> insert(school school)
         {
+            school check = _ischoolRepository.checkExist(school);
+            if(check != null)
+            {
+                throw new SchoolException("1","School existed", null);
+            }
          return await _ischoolRepository.Create(school);
         }
     }

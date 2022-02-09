@@ -44,7 +44,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="dob">Date of birth</label>
-                                    <input type="date" class="form-control" id="dob" name="dob" value="@Model.member.dob" aria-describedby="Last name" placeholder="Date of birth">
+                                    <input type="date" class="form-control" id="dob" name="dob" value="@(Model.member.dob == new DateTime() ? "1900-01-01" : (Model.member.dob.Year +"-" + (Model.member.dob.Month < 10 ? "0" + Model.member.dob.Month : Model.member.dob.Month) + "-"+ (Model.member.dob.Day < 10 ? "0" + Model.member.dob.Day : Model.member.dob.Day)))" aria-describedby="Last name" placeholder="Date of birth">
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="icpc">ICPC</label>
-                                    <input type="number" class="form-control" id="exampleInputICPC" name="icpc" value="@Model.member.year" aria-describedby="ICPC" placeholder="ICPC">
+                                    <input type="number" class="form-control" id="exampleInputICPC" name="icpc" value="@Model.member.icpc_id" aria-describedby="ICPC" placeholder="ICPC">
                                 </div>
                             </div>
                             <div class="col-lg-6">

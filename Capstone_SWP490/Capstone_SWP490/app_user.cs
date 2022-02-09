@@ -19,6 +19,7 @@ namespace Capstone_SWP490
         {
             this.members = new HashSet<member>();
         }
+    
         public int user_id { get; set; }
         public string user_name { get; set; }
         public string user_role { get; set; }

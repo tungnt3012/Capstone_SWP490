@@ -11,8 +11,7 @@ namespace Capstone_SWP490
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class member
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -36,6 +35,7 @@ namespace Capstone_SWP490
         public string award { get; set; }
         public string shirt_sizing { get; set; }
         public Nullable<bool> event_notify { get; set; }
+        public Nullable<int> icpc_id { get; set; }
     
         public virtual app_user app_user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

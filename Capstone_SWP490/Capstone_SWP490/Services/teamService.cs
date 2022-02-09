@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.Repositories;
+﻿using Capstone_SWP490.ExceptionHandler;
+using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Services.Interfaces;
 using System;
@@ -15,12 +16,24 @@ namespace Capstone_SWP490.Services
 
         public async Task<team> insert(team enties)
         {
+            if(_iteamRepository.checkExist(enties) != null)
+            {
+                throw new TeamException("0", "Team Existed !", null);
+            }
          return await _iteamRepository.Create(enties);
         }
 
         public async Task<IEnumerable<team>> insertMany(IEnumerable<team> enties)
         {
-          return await _iteamRepository.CreateMany(enties);
+            List<team> beforeCreate = new List<team>();
+            foreach(var x in enties)
+            {
+                if(_iteamRepository.checkExist(x) != null)
+                {
+                    beforeCreate.Add(x);
+                }
+            }
+          return await _iteamRepository.CreateMany(beforeCreate);
         }
     }
 }

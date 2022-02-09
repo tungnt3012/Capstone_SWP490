@@ -10,5 +10,6 @@ namespace Capstone_SWP490.DTO
         public string toEmail { get; set; }
         public string title { get; set; }
         public string body { get; set; }
+        public Dictionary<string, string> targetUrls { get; set; }
     }
 }

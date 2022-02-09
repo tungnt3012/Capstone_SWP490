@@ -107,6 +107,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="award" Type="nvarchar" MaxLength="200" />
           <Property Name="shirt_sizing" Type="varchar" MaxLength="10" />
           <Property Name="event_notify" Type="bit" />
+          <Property Name="icpc_id" Type="int" />
         </EntityType>
         <EntityType Name="member_event">
           <Key>
@@ -364,6 +365,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="award" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="shirt_sizing" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="event_notify" Type="Boolean" />
+          <Property Name="icpc_id" Type="Int32" />
           <NavigationProperty Name="app_user" Relationship="Self.FK__member__user_id__2D27B809" FromRole="member" ToRole="app_user" />
           <NavigationProperty Name="contest_member" Relationship="Self.FK__contest_m__membe__2B3F6F97" FromRole="member" ToRole="contest_member" />
           <NavigationProperty Name="team_member" Relationship="Self.FK__team_memb__membe__3E52440B" FromRole="member" ToRole="team_member" />
@@ -636,6 +638,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
                 <ScalarProperty Name="award" ColumnName="award" />
                 <ScalarProperty Name="shirt_sizing" ColumnName="shirt_sizing" />
                 <ScalarProperty Name="event_notify" ColumnName="event_notify" />
+                <ScalarProperty Name="icpc_id" ColumnName="icpc_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -12,5 +12,6 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<IEnumerable<member>> insertMany(IEnumerable<member> member);
         Task<int> update(member member, int key);
         Task<member> RegisterShirtSize(string username, string size);
+         Task<int> deleteAsync(member member);
     }
 }

@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8e39be93a21a4ba0825e4e48dd3abda0" Name="Diagram1">
+      <Diagram DiagramId="9d5b6bdd8912431c8296467afc306fab" Name="Diagram1">
         <EntityTypeShape EntityType="gocyberx_icpcModel.app_user" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.contest" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.contest_member" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.event" Width="1.5" PointX="5.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="gocyberx_icpcModel.member" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gocyberx_icpcModel.member" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.member_event" Width="1.5" PointX="7.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.page_content" Width="1.5" PointX="7.75" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.school" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />

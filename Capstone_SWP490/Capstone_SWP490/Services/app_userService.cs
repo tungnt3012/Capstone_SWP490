@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.Models.app_userViewModel;
+﻿using Capstone_SWP490.ExceptionHandler;
+using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Services.Interfaces;
@@ -22,6 +23,9 @@ namespace Capstone_SWP490.Services
         }
         public Task<app_user> CreateUser(app_user userIn)
         {
+            if(_iapp_UserRepository.FindBy(x => x.email == userIn.email) != null){
+                throw new UserException("1","Email existed", null);
+            }
             var userOut = _iapp_UserRepository.Create(userIn);
             if (userOut != null)
             {
