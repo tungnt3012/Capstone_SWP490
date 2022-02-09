@@ -157,7 +157,7 @@
     #content_area2_title {
         text-align: center;
         font-weight: bold;
-        font-size: 50px !important;
+        font-size: 40px !important;
         line-height: 60px;
         color: #FFFFFF;
         text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
@@ -261,12 +261,16 @@
     }
 
     #content_area2_header {
-        padding: 20px;
+        
         position: relative;
         /* -webkit-transition: all 0.5s ease; */
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
         /* transition: all 0.5s ease; */
+        width: 100%;
+        height: 120px !important;
+        background: #2fa9fb;
+        padding-top: 30px !important;
     }
 }
 
@@ -392,15 +396,15 @@
 
 #content_area2_header {
     width: 100%;
-    height: 150px;
+    height: 100px;
     background: #2fa9fb;
-    padding-top: 50px;
+    padding-top: 20px;
 }
 
 #content_area2_title {
     text-align: center;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 24px;
     line-height: 60px;
     color: #FFFFFF;
     text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
