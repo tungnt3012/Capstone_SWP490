@@ -126,7 +126,7 @@
 
 .no-margin {
     margin: 0;
-    height: 60px;
+    height: 55px;
     z-index: 1001;
 }
 .toggleWrap {
@@ -140,6 +140,19 @@
         /* padding-left: 250px; */
         /* transition: padding-left .5s ease; */
         width: 100%
+    }
+    .no-margin {
+        margin: 0;
+        height: 60px !important;
+        z-index: 1001;
+    }
+    .content-area1-title {
+        left: 121px !important;
+        top: 15px !important;
+        font-size: 20px !important;
+        line-height: 29px;
+        color: #FFFFFF;
+        position: absolute;
     }
     #content_area2_title {
         text-align: center;
@@ -313,9 +326,9 @@
 }
 
 .content-area1-title {
-    left: 121px;
-    top: 15px;
-    font-size: 20px;
+    left: 45px;
+    top: 13px;
+    font-size: 12px;
     line-height: 29px;
     color: #FFFFFF;
     position: absolute;
@@ -671,7 +684,7 @@ h2 {
 /*ScheduleOfActivities*/
 .cars-shedule {
     height: 32px;
-    background: #ffbd5c;
+   
 }
 
 #cars-shedule1 {
