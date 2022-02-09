@@ -848,3 +848,9 @@ margin:10px;
     width: auto;
     height: auto;
 }
+.modal-open .modal {
+    background-color: rgba(0,0,0,0.4);
+}
+.modal-header {
+    border-bottom: none;
+}
