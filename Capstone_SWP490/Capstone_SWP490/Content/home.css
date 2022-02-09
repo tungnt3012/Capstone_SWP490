@@ -141,6 +141,15 @@
         /* transition: padding-left .5s ease; */
         width: 100%
     }
+    #talbe-shirtSizing {
+        width: 80%;
+       float:right !important;
+        padding-top: 100px;
+        padding-left:60px;
+    }
+    #size-image {
+        display: block !important;
+    }
     .no-margin {
         margin: 0;
         height: 60px !important;
@@ -580,7 +589,6 @@ input, select, textarea {
 
 #talbe-shirtSizing {
     width: 80%;
-    float: right;
     padding-top: 100px;
 }
 
@@ -828,4 +836,7 @@ margin:10px;
 }
 .carousel-inner{
     height:100%;    
+}
+#size-image{
+    display:none;
 }
