@@ -40,6 +40,11 @@ namespace Capstone_SWP490.Controllers.Coach
         // GET: Registration
         public ActionResult Index()
         {
+            List<insert_member_result_ViewModel> result = (List<insert_member_result_ViewModel>)Session["INSERT_RESULT"];
+            if (result != null && result.Count > 0)
+            {
+                return View(result);
+            }
             return View();
         }
 
@@ -112,12 +117,12 @@ namespace Capstone_SWP490.Controllers.Coach
             if (isInsertSchoolError)
             {
                 error = new insert_member_result_ViewModel();
-                error.objectName = school.school_name;
+                error.objectName = school.school_name+"("+school.short_name+")";
                 error.parentObject = "ROOT";
-                error.occur_position = "Sheet SCHOOL";
+                error.occur_position = "SCHOOL";
                 error.msg = "The process has been stopped becase of " + insertSchoolErrMsg + ", please try again !";
                 result.Add(error);
-                Session.Add(INSERT_ERROR, result);
+                Session.Add("INSERT_RESULT", result);
                 return RedirectToAction("Index", "Registration", new { error = true });
 
             }
@@ -149,6 +154,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         TeamException te = (TeamException)e;
                         insertTeamErrMsg = te.message;
                     }
+                    isInsertTeamError = true;
                 }
 
                 //skip if insert team error
@@ -263,7 +269,8 @@ namespace Capstone_SWP490.Controllers.Coach
                 }
 
             }
-            return RedirectToAction("Index", "Registration", new { team = 0 });
+            Session.Add("INSERT_RESULT", result);
+            return RedirectToAction("Index", "Registration");
         }
 
         [HttpPost]
@@ -473,7 +480,7 @@ namespace Capstone_SWP490.Controllers.Coach
                             error = new insert_member_result_ViewModel();
                             error.objectName = "CONTEST";
                             error.parentObject = "SCHOOL";
-                            error.occur_position = "Sheet TEAM";
+                            error.occur_position = "TEAM";
                             error.msg = "the Contest '" + cellVal + "' is not existed At ROW = " + row;
                             result.error.Add(error);
                         }
@@ -495,7 +502,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         error = new insert_member_result_ViewModel();
                         error.objectName = "MEMBER-LEADER";
                         error.parentObject = "SCHOOL";
-                        error.occur_position = "Sheet TEAM";
+                        error.occur_position = "TEAM";
                         error.msg = "Team leader email and Team Name cannot be blank At ROW = " + row;
                         result.error.Add(error);
                         continue;
@@ -508,7 +515,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         error = new insert_member_result_ViewModel();
                         error.objectName = "TEAM";
                         error.parentObject = "SCHOOL";
-                        error.occur_position = "Sheet TEAM";
+                        error.occur_position = "TEAM";
                         error.msg = "The Team '" + teamName + "'existed  At ROW = " + row;
                         result.error.Add(error);
                         continue;
@@ -545,7 +552,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     error = new insert_member_result_ViewModel();
                     error.objectName = "TEAM";
                     error.parentObject = "SCHOOL";
-                    error.occur_position = "Sheet Team";
+                    error.occur_position = "Team";
                     error.msg = "Unkown ERROR At Row = " + row;
                     result.error.Add(error);
                     Log.Error(e.Message);
@@ -582,7 +589,7 @@ namespace Capstone_SWP490.Controllers.Coach
                             error = new insert_member_result_ViewModel();
                             error.objectName = "MEMBER_NORMAL";
                             error.parentObject = "TEAM";
-                            error.occur_position = "Sheet MEMBER";
+                            error.occur_position = "MEMBER";
                             error.msg = "the Team '" + cellVal + "' not existed At Row = " + row;
                             result.error.Add(error);
                         }
@@ -619,7 +626,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         error = new insert_member_result_ViewModel();
                         error.objectName = "MEMBER_NORMAL";
                         error.parentObject = "TEAM";
-                        error.occur_position = "Sheet MEMBER";
+                        error.occur_position = "MEMBER";
                         error.msg = "Member name and email cannot both blank At Row = " + row;
                         result.error.Add(error);
                         continue;
@@ -654,7 +661,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     error = new insert_member_result_ViewModel();
                     error.objectName = "MEMBER_NORMAL";
                     error.parentObject = "TEAM";
-                    error.occur_position = "Sheet MEMBER";
+                    error.occur_position = "MEMBER";
                     error.msg = "Unkown ERROR At Row = " + row;
                     result.error.Add(error);
                     Log.Error(e.Message);

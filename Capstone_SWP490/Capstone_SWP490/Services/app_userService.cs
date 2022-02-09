@@ -23,9 +23,9 @@ namespace Capstone_SWP490.Services
         }
         public Task<app_user> CreateUser(app_user userIn)
         {
-            if(_iapp_UserRepository.FindBy(x => x.email == userIn.email) != null){
-                throw new UserException("1","Email existed", null);
-            }
+            //if(_iapp_UserRepository.FindBy(x => x.user_name.Equals(userIn.user_name)) != null){
+             //   throw new UserException("1","Email existed", null);
+            //}
             var userOut = _iapp_UserRepository.Create(userIn);
             if (userOut != null)
             {
