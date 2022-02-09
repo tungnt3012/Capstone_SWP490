@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Capstone_SWP490.ExceptionHandler;
 
 namespace Capstone_SWP490.Services
 {
@@ -15,6 +16,10 @@ namespace Capstone_SWP490.Services
         private readonly Iapp_userRepository _iapp_UserRepository = new app_userRepository();
         public async Task<member> insert(member member)
         {
+            if (getByEmail(member.email) != null)
+            {
+                throw new MemberException("1","Email is used",null);
+            }
           return await _imemberRepository.Create(member);
         }
 
@@ -44,6 +49,14 @@ namespace Capstone_SWP490.Services
         public async Task<int> update(member member, int key)
         {
             return await _imemberRepository.Update(member, key);
+        }
+        public member getByEmail(string email)
+        {
+            return   _imemberRepository.FindBy(x => x.email == email).First();
+        }
+        public async Task<int> deleteAsync(member member)
+        {
+            return await _imemberRepository.Delete(member);
         }
     }
 }

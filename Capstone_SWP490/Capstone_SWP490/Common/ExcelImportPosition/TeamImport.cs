@@ -10,7 +10,7 @@ namespace Capstone_SWP490.Common.ExcelImportPosition
         public int sheetPosition { get; } = 2;
 
         public int startAtCol { get; } = 3;
-        public int startAtRow { get; } = 3;
+        public int startAtRow { get; } = 4;
         public int[,] GetPosition()
         {
             throw new NotImplementedException();

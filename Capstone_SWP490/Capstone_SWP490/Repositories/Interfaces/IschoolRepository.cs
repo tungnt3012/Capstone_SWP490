@@ -9,5 +9,6 @@ namespace Capstone_SWP490.Repositories.Interfaces
 {
    public interface IschoolRepository : IGenericRepository<school>
     {
+        school checkExist(school school);
     }
 }

@@ -1,4 +1,6 @@
-﻿@{ ViewBag.Title = "Home Page"; }
+﻿@{ ViewBag.Title = "Registration";
+
+}
 
 <style>
     #menu-registration {
@@ -12,7 +14,7 @@
     <div class="container-fluid xyz">
         <div class="col-lg-12" id="content_area2_header">
             <div class="col-lg-12" id="content_area2_title">
-                <label for="exampleInputTitle">Registration</label>
+                <label for="exampleInputTitle">Confirm Upload</label>
             </div>
         </div>
         <div class="main">
@@ -25,14 +27,17 @@
                                 <div class="col-lg-12">
                                     <br />
                                     <div class="row">
-
-                                        @if (Model != null)
+                                        @if (ViewData["IMPORT_ERROR"] != null)
+                                        {
+                                            @ViewData["IMPORT_ERROR"];
+                                           }
+                                        else if (Model != null)
                                         {
                                             using (Html.BeginForm("InsertMember", "Registration", FormMethod.Post))
                                             {
                                                 <div class="col-lg-12">
                                                     <div class="col-lg-6">
-                                                        <button class="btn btn-primary" id="registration_importdata">Import Data</button> <label for="formFile" class="form-label">*Note: value in red must be update before import</label>
+                                                        <button class="btn btn-primary" id="registration_importdata">Save</button>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
@@ -86,12 +91,26 @@
 
                                             <div class="col-lg-12">
                                                 <div class="col-lg-6">
-                                                    <label for="formFile" class="form-label">School: </label>: @Model.school.school_name
+                                                    <label for="formFile" class="form-label">School: </label>: <span style="color: @(Model.school.school_name == "" ? "red" : "black")">@(Model.school.school_name == "" ? "N/A" : Model.school.school_name)</span>
                                                 </div>
                                                 <div class="col-lg-6"></div>
                                             </div>
                                             <div class="col-lg-12">
-                                                <div class="col-lg-6"><label for="formFile" class="form-label">Address: </label> @Model.school.address</div>
+                                                <div class="col-lg-6">
+                                                    <label for="formFile" class="form-label">Short Name: </label>: <span style="color: @(Model.school.short_name == "" ? "red" : "black")">@(Model.school.short_name == "" ? "N/A" : Model.school.short_name)</span>
+                                                </div>
+                                                <div class="col-lg-6"></div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-6">
+                                                    <label for="formFile" class="form-label">Type: </label>: <span style="color: @(Model.school.type == "" ? "red" : "black")">@(Model.school.type == "" ? "N/A" : Model.school.type)</span>
+                                                </div>
+                                                <div class="col-lg-6"></div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-6">
+                                                    <label for="formFile" class="form-label">Address: </label> <span style="color: @(Model.school.address == "" ? "red" : "black")">@(Model.school.address == "" ? "N/A" : Model.school.address)</span>
+                                                </div>
                                                 <div class="col-lg-6">
                                                 </div>
                                             </div>
@@ -109,10 +128,10 @@
                                             <br><br />
                                             <div class="col-lg-12">
                                                 <div class="col-lg-6">
-                                                    <select name="team" id="team" onchange="onChanngeDropDown()">
+                                                   <label style="font-size: 15px">Select Team:</label> <select name="team" id="team" onchange="onChanngeDropDown()" style="width: 50%; height: 25px; font-size: 18px">
                                                         @foreach (var team in Model.school.teams)
                                                         {
-                                                            <option value="@team.team_id" @(team.team_id == Model.displayTeam.team_id ? "selected" : "")>@team.team_name</option>
+                                                            <option style="font-size:18px" value="@team.team_id" @(team.team_id == Model.displayTeam.team_id ? "selected" : "")>@team.team_name</option>
                                                         }
                                                     </select>
                                                 </div>
@@ -123,8 +142,6 @@
                                                 <table class="table table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col">Team</th>
-                                                            <th scope="col">member role</th>
                                                             <th scope="col">First name</th>
                                                             <th scope="col">middle name</th>
                                                             <th scope="col">Last name</th>
@@ -135,6 +152,7 @@
                                                             <th scope="col">Gender</th>
                                                             <th scope="col">Year</th>
                                                             <th scope="col">Award</th>
+                                                            <th scope="col">member role</th>
                                                             <th scope="col"></th>
                                                         </tr>
                                                     </thead>
@@ -142,18 +160,17 @@
                                                         @foreach (var item in Model.displayTeam.team_member)
                                                         {
                                                             <tr>
-                                                                <th scope="row">@Model.displayTeam.team_name</th>
-                                                                <td>@(item.member.member_role == 3 ? "Leader" : "Member" )</td>
-                                                                <td>@(item.member.first_name == "" ? "N/A" : item.member.first_name)</td>
+                                                                <td style="color : @(item.member.first_name == "" ? "red" : "black")">@(item.member.first_name == "" ? "N/A" : item.member.first_name)</td>
                                                                 <td>@(item.member.middle_name == "" ? "N/A" : item.member.middle_name)</td>
-                                                                <td>@(item.member.last_name == "" ? "N/A" : item.member.last_name)</td>
-                                                                <td>@(item.member.dob == null ? "N/A" : item.member.dob)</td>
-                                                                <td style="@(item.member.email == "" )">@(item.member.email == "" ? "N/A" : item.member.email)</td>
-                                                                <td>@item.member.phone_number</td>
+                                                                <td style="color: @(item.member.last_name == "" ? "red" : "black")">@(item.member.last_name == "" ? "N/A" : item.member.last_name)</td>
+                                                                <td style="color: @(item.member.dob == new DateTime() ? "red" : "black")">@(item.member.dob == new DateTime() ? "N/A" : (item.member.dob.Year +"-" + (item.member.dob.Month < 10 ? "0" + item.member.dob.Month : item.member.dob.Month) + "-"+ (item.member.dob.Day < 10 ? "0" + item.member.dob.Day : item.member.dob.Day)))</td>
+                                                                <td style="color: @(item.member.email == "" ? "red" : "black" )">@(item.member.email == "" ? "N/A" : item.member.email)</td>
                                                                 <td>@(item.member.phone_number == "" ? "N/A" : item.member.phone_number) </td>
+                                                                <td style="color: @(item.member.icpc_id == -1 ? "red" : "black")">@(item.member.icpc_id == -1 ? "N/A" : item.member.icpc_id)</td>
                                                                 <td>@(item.member.gender == 0 ? "Male" : "Female")</td>
-                                                                <td>@(item.member.year == 0 ? "N/A" : item.member.year)</td>
-                                                                <td>@(item.member.award == "" ? "" : "")</td>
+                                                                <td style="color: @(item.member.year == 0 ? "red" : "black" )">@(item.member.year == 0 ? "N/A" : item.member.year)</td>
+                                                                <td>@(item.member.award == "" ? "N/A" : "")</td>
+                                                                <td>@(item.member.member_role == 3 ? "Leader" : "Member" )</td>
                                                                 <td><a href="@Url.Action("MemberDetail", "Registration")?id=@item.member.member_id&teamId=@item.team.team_id">Detail</a> </td>
                                                             </tr>
                                                         }
@@ -262,7 +279,7 @@
 
     </footer>
 </div>
-<form id="changeTeam">
+<form id="changeTeam" method="POST">
     <input id="teamIdRaw" type="hidden" value="0" name="team" />
 </form>
 <script>

@@ -19,9 +19,9 @@ namespace Capstone_SWP490
         {
             this.team_member = new HashSet<team_member>();
         }
-
+    
         public int team_id { get; set; }
-        public string team_name { get; set; } = "";
+        public string team_name { get; set; }
         public Nullable<int> school_id { get; set; }
     
         public virtual school school { get; set; }

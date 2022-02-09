@@ -7,7 +7,11 @@ using System.Web;
 
 namespace Capstone_SWP490.Repositories
 {
-    public class teamRepository: GenericRepository<team>, IteamRepository
+    public class teamRepository : GenericRepository<team>, IteamRepository
     {
+        public team checkExist(team team)
+        {
+            return FindBy(x => x.team_name == team.team_name).FirstOrDefault();
+        }
     }
 }
