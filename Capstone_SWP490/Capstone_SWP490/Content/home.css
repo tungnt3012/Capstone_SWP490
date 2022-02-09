@@ -66,7 +66,7 @@
 
 .fixed-brand {
     width: auto;
-    background: #FF6347;
+    background: #FF9900;
 }
 /* Sidebar Styles */
 
@@ -839,4 +839,12 @@ margin:10px;
 }
 #size-image{
     display:none;
+}
+#menu-home {
+    padding-top: 20px;
+}
+#menu-image {
+    padding: 15px 0px 0px 20px;
+    width: auto;
+    height: auto;
 }
