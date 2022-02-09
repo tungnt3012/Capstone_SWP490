@@ -224,7 +224,7 @@ namespace Capstone_SWP490.Helper
 
         public bool isMemberInOtherTeam(List<string> emailList, string email)
         {
-            return emailList.Where(x => x.Equals(email)).First() != null;
+            return emailList.Where(x => x.Equals(email)).FirstOrDefault() != null;
         }
         public app_user createAppUserFromMember(member member)
         {
