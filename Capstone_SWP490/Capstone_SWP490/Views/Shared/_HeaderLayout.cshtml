@@ -1,4 +1,4 @@
-﻿@model Capstone_SWP490.Models.app_userViewModel.app_userViewModel
+﻿
 @{ 
     var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
 }
@@ -20,12 +20,12 @@
             {
                 <div class="btn-group">
                     <button type="button" id="login-user" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                         @profile.full_name
+                        
                         <i class="arrow down"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <ul class="dropdown-item" type="button" style="list-style-type:none;">
-                            <li class="col-lg-12" id="user-information">My Profile</li>
+                            <li class="col-lg-12" id="user-information"> @profile.full_name</li>
                         </ul>
                         <ul class="dropdown-item" type="button" style="list-style-type:none;">
                             <li class="col-lg-12" id="user-information"></li>
