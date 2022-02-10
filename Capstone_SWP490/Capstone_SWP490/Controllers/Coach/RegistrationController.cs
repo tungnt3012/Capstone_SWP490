@@ -40,9 +40,11 @@ namespace Capstone_SWP490.Controllers.Coach
         // GET: Registration
         public ActionResult Index()
         {
+            //check user session
             if (HttpContext.Session["username"] != null)
             {
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                //if user is COACH or CO-COACH so return Import file excel 
                 if (u.user_role.Equals("COACH")|| u.user_role.Equals("CO-COACH"))
                 {
                     List<insert_member_result_ViewModel> result = (List<insert_member_result_ViewModel>)Session["INSERT_RESULT"];
@@ -53,6 +55,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     return View();
                 }
             }
+            //if user is NOT COACH or CO-COACH so return view Guild 
             return RedirectToAction("Guide", "Registration");
         }
 

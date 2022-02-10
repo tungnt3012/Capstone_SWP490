@@ -62,6 +62,7 @@ namespace Capstone_SWP490.Controllers
                 if (_iapp_UserService.CheckLogin(app_User))
                 {
                     var user = _iapp_UserService.GetUserByUsername(app_User.user_name);
+                    //add session
                     Session.Add("username", user.user_name);
                     Session["profile"] = user;
                     if (user.verified == false)
@@ -84,6 +85,7 @@ namespace Capstone_SWP490.Controllers
 
         public ActionResult Logout()
         {
+            //remove session
             Session.Remove("username");
             Session.Remove("profile");
             return RedirectToAction("Login", "Login");
