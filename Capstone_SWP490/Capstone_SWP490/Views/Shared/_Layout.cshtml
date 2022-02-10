@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -14,13 +17,13 @@
     <link rel="stylesheet" href="~/Content/home.css" asp-append-version="true" />
 </head>
 <body>
-    @{ Html.RenderPartial("_HeaderLayout");}
+    @{ Html.RenderPartial("_HeaderLayout", profile);}
     <div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
-                <li id="menu-image" >
-                 <img src="~/image/OLP_30_nam-removebg 1.png"/>
+                <li id="menu-image">
+                    <img src="~/image/OLP_30_nam-removebg 1.png" />
                 </li>
                 <li id="menu-home" onclick="location.href='@Url.Action("Index", "Home")';return false;">
                     <a href="#">
@@ -28,7 +31,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
                                 <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z" />
                             </svg>
-                        @*</i>*@
+                            @*</i>*@
                         </span>Home
                     </a>
                 </li>

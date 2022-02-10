@@ -21,7 +21,7 @@ namespace Capstone_SWP490.Helper
             {
                 return false;
             }
-            return (member.email == compared.email);
+            return (member.email.Equals(compared.email));
         }
         public string createFileName(string fileExtension)
         {
@@ -222,7 +222,7 @@ namespace Capstone_SWP490.Helper
             return new team();
         }
 
-        public bool isMemberInOtherTeam(List<string> emailList, string email)
+        public bool checkExistEmail(List<string> emailList, string email)
         {
             return emailList.Where(x => x.Equals(email)).FirstOrDefault() != null;
         }
@@ -242,6 +242,29 @@ namespace Capstone_SWP490.Helper
             user.verified = false;
             user.active = true;
             return user;
+        }
+        public member cleanMember(member member)
+        {
+            member result = new member();
+            if(member == null)
+            {
+                return member;
+            }
+
+            result.first_name = member.first_name;
+            result.middle_name = member.middle_name;
+            result.last_name = member.last_name;
+            result.member_role = member.member_role;
+            result.dob = member.dob;
+            result.email = member.email;
+            result.phone_number = member.phone_number;
+            result.gender = member.gender;
+            result.year = member.year;
+            result.award = member.award;
+            result.shirt_sizing = member.shirt_sizing;
+            result.event_notify = member.event_notify;
+            result.icpc_id = member.icpc_id;
+            return result;
         }
     }
 
