@@ -63,6 +63,7 @@ namespace Capstone_SWP490.Controllers
                 {
                     var user = _iapp_UserService.GetUserByUsername(app_User.user_name);
                     Session.Add("username", user.user_name);
+                    Session["profile"] = user;
                     if (user.verified == false)
                     {
                         return RedirectToAction("ChangePasswordFirst", "Login");
@@ -79,6 +80,13 @@ namespace Capstone_SWP490.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Remove("username");
+            Session.Remove("profile");
+            return RedirectToAction("Login", "Login");
         }
 
         public ActionResult ChangePasswordFirst()
@@ -167,6 +175,9 @@ namespace Capstone_SWP490.Controllers
             }
             return View();
         }
+
+       
+
 
         // POST: Login/Create
         [HttpPost]

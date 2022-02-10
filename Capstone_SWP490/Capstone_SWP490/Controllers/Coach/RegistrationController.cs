@@ -40,12 +40,20 @@ namespace Capstone_SWP490.Controllers.Coach
         // GET: Registration
         public ActionResult Index()
         {
-            List<insert_member_result_ViewModel> result = (List<insert_member_result_ViewModel>)Session["INSERT_RESULT"];
-            if (result != null && result.Count > 0)
+            if (HttpContext.Session["username"] != null)
             {
-                return View(result);
+                var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                if (u.user_role.Equals("COACH")|| u.user_role.Equals("CO-COACH"))
+                {
+                    List<insert_member_result_ViewModel> result = (List<insert_member_result_ViewModel>)Session["INSERT_RESULT"];
+                    if (result != null && result.Count > 0)
+                    {
+                        return View(result);
+                    }
+                    return View();
+                }
             }
-            return View();
+            return RedirectToAction("Guide", "Registration");
         }
 
         public ActionResult Guide()
