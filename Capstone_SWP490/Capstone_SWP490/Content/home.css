@@ -141,11 +141,21 @@
         /* transition: padding-left .5s ease; */
         width: 100%
     }
+    .Event-Schedule {
+        font-size: 50px !important;
+    }
+    .front-size-title {
+        font-size: 1.5em !important;
+        font-weight: bolder;
+    }
+    #footer-main{
+        width:1200px !important;
+    }
     #talbe-shirtSizing {
         width: 80%;
-       float:right !important;
+        float: right !important;
         padding-top: 100px;
-        padding-left:60px;
+        padding-left: 60px;
     }
     #size-image {
         display: block !important;
@@ -639,7 +649,7 @@ input, select, textarea {
 
 .Event-Schedule {
     font-weight: bold;
-    font-size: 50px;
+    font-size: 35px;
     line-height: 60px;
     padding-top: 60px;
     padding-bottom: 20px;
@@ -754,10 +764,12 @@ h2 {
     bottom: 0;
     width: 100%;
     background-color: #414045;
+    margin-top:40px;
+
 }
 
 #footer-main {
-    width: 1200px;
+    width: auto;
     padding-right: 0px;
     padding-left: 0px;
     margin-right: auto;
@@ -766,6 +778,7 @@ h2 {
     flex-wrap: wrap;
     align-content: space-around;
     align-items: center;
+    padding-top:20px;
 }
 
 ul li a {
@@ -853,4 +866,8 @@ margin:10px;
 }
 .modal-header {
     border-bottom: none;
+}
+.front-size-title {
+    font-size: 1.17em;
+    font-weight: bolder;
 }
