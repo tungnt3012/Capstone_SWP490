@@ -5,6 +5,7 @@
         background: #30cf6b;
     }
 </style>
+
 <div id="page-content-wrapper">
     <div class="container-fluid xyz">
         <div class="col-lg-12" id="content_area2_header">
@@ -94,12 +95,14 @@
                                     <a href="#">www.facebook.com/Demo-fanpage-106387564965722</a>
                                 </label>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="col-lg-6">
-                                    <button type="submit" class="btn btn-primary" id="btn-registration_title"><a href="#" class="button">Join now</a></button>
+                            @if (Session["username"] != null)
+                            {
+                                <div class="col-lg-12">
+                                    <div class="col-lg-6">
+                                        <button type="submit" class="btn btn-primary" id="btn-registration_title"><a href="#" class="button">Join now</a></button>
+                                    </div>
                                 </div>
-                            </div>
-
+                            }
                         </div>
                     </form>
                 </div>
