@@ -27,20 +27,10 @@
                             <table class="table table-striped">
                                 @if (Model != null)
                                 {
-                                    if (Model.shirt_sizing != null && Model.shirt_sizing != "")
-                                    {
-                                        <caption style="color: green; font-weight: bold ">
-                                            @ViewData["Result"]
-                                        </caption>
-                                    }
-                                    else
-                                    {
-                                        <caption style="color:red; font-weight:bold">
-                                            @ViewData["Result"]
-                                        </caption>
-                                    }
+                                    <caption style="color: @ViewData["color"]; font-weight: bold ">
+                                        @ViewData["Result"]
+                                    </caption>
                                 }
-
                                 <caption style="color: black;font-weight: bold " for="exampleInputshirtSizingTitle" id="shirtSizingTitle">The following table shows the t-shirt size guide for choosing your appropriate event shirt size.</caption>
                                 <thead>
                                     <tr>
