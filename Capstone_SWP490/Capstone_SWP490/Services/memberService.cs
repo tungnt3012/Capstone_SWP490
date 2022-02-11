@@ -52,11 +52,16 @@ namespace Capstone_SWP490.Services
         }
         public member getByEmail(string email)
         {
-            return   _imemberRepository.FindBy(x => x.email.Equals(email)).FirstOrDefault();
+            return _imemberRepository.FindBy(x => x.email.Equals(email)).FirstOrDefault();
         }
         public async Task<int> deleteAsync(member member)
         {
             return await _imemberRepository.Delete(member);
+        }
+
+        public member GetMemberByUserId(int userId)
+        {
+            return _imemberRepository.FindBy(x => x.user_id == userId).FirstOrDefault(); 
         }
     }
 }
