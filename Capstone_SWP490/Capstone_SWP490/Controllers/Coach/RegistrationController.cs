@@ -403,7 +403,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         {
                             try
                             {
-                                sendMailToInsertedUser(insertUser);
+                                new MailHelper().sendMailToInsertedUser(insertUser);
                                 insertedEmail.Add(insertUser.user_name);
                             }
                             catch(Exception e)
@@ -890,50 +890,5 @@ namespace Capstone_SWP490.Controllers.Coach
             }
         }
 
-        private bool sendMailAsync(EmailModel emailModel)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var message = new MailMessage();
-                    message.To.Add(new MailAddress(emailModel.toEmail));
-                    message.Subject = emailModel.title;
-                    message.Body = emailModel.body;
-                    message.IsBodyHtml = true;
-                    using (var smtp = new SmtpClient())
-                    {
-                        smtp.Send(message);
-                        return true;
-                    }
-
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error(e.Message);
-            }
-            return false;
-        }
-        private void sendMailToInsertedUser(app_user user)
-        {
-            MailReaderHelper emailReader = new MailReaderHelper();
-            string mailContent = emailReader.readEmailCreateAccount();
-            EmailModel model = new EmailModel();
-            model.toEmail = user.email;
-            string hostName = "";
-            try
-            {
-                hostName = WebConfigurationManager.AppSettings["HostName"];
-            }
-            catch (Exception e)
-            {
-                Log.Error(e.Message);
-            }
-            string changePswUrl = hostName + "/Login";
-            model.body = string.Format(mailContent, user.psw, changePswUrl, changePswUrl);
-            model.title = "ICPC Asia-VietNam";
-            sendMailAsync(model);
-        }
     }
 }
