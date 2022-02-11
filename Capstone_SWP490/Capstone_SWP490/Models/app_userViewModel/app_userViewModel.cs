@@ -11,6 +11,7 @@ namespace Capstone_SWP490.Models.app_userViewModel
         public string user_name { get; set; }
         public string user_role { get; set; }
         public string psw { get; set; }
+        public string repsw { get; set; }
         public string encrypted_psw { get; set; }
         public string full_name { get; set; }
         public string email { get; set; }
