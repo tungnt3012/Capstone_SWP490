@@ -9,5 +9,6 @@ namespace Capstone_SWP490.Services.Interfaces
    public interface IschoolService
     {
         Task<school> insert(school school);
+        Task<int> deleteAsync(school school);
     }
 }
