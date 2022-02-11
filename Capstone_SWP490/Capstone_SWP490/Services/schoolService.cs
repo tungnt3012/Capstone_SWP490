@@ -14,6 +14,11 @@ namespace Capstone_SWP490.Services
     {
         private readonly IschoolRepository _ischoolRepository = new schoolRepository();
 
+        public async Task<int> deleteAsync(school school)
+        {
+            return await _ischoolRepository.Delete(school);
+        }
+
         public async Task<school> insert(school school)
         {
             school check = _ischoolRepository.checkExist(school);
@@ -23,5 +28,6 @@ namespace Capstone_SWP490.Services
             }
          return await _ischoolRepository.Create(school);
         }
+
     }
 }
