@@ -108,15 +108,21 @@ namespace Capstone_SWP490.Controllers
         [HttpPost]
         public async Task<ActionResult> ChangePasswordFirst(app_userViewModel app_UserIn)
         {
-            if (await _iapp_UserService.UpdatePasswordFirst(HttpContext.Session["username"].ToString(), app_UserIn.psw, app_UserIn.send_me_event))
+            if (HttpContext.Session["username"] != null)
             {
-                return RedirectToAction("RegisShirtSizing", "Login");
-            }
-            else
-            {
+                if (!app_UserIn.psw.Equals("") && !app_UserIn.repsw.Equals("")
+                     && app_UserIn.psw == app_UserIn.repsw
+                     && app_UserIn.psw.Length > 6 && app_UserIn.repsw.Length > 6)
+                {
+                    if (await _iapp_UserService.UpdatePasswordFirst(HttpContext.Session["username"].ToString(), app_UserIn.psw, app_UserIn.send_me_event))
+                    {
+                        return RedirectToAction("RegisShirtSizing", "Login");
+                    }
+                }
                 ViewData["ChangePasswordError"] = "Change Password fail";
                 return View();
             }
+            return RedirectToAction("Login", "Login");
         }
 
         public ActionResult ChangePassword()
@@ -138,18 +144,20 @@ namespace Capstone_SWP490.Controllers
         {
             if (HttpContext.Session["username"] != null)
             {
-                if (await _iapp_UserService.UpdatePassword(HttpContext.Session["username"].ToString(), app_UserIn.psw))
+                if (!app_UserIn.psw.Equals("") && !app_UserIn.repsw.Equals("")
+                    && app_UserIn.psw == app_UserIn.repsw
+                    && app_UserIn.psw.Length > 6 && app_UserIn.repsw.Length > 6)
                 {
-                    ViewData["ChangePasswordSuccess"] = "Change Password Successfully";
-                    return View();
+                    if (await _iapp_UserService.UpdatePassword(HttpContext.Session["username"].ToString(), app_UserIn.psw))
+                    {
+                        ViewData["ChangePasswordSuccess"] = "Change Password Successfully";
+                        return View();
+                    }
                 }
-                else
-                {
-                    ViewData["ChangePasswordError"] = "Change Password fail";
-                    return View();
-                }
+                ViewData["ChangePasswordError"] = "Change Password fail";
+                return View();
             }
-            return View();
+            return RedirectToAction("Login", "Login");
         }
 
         public ActionResult RegisShirtSizing()
@@ -177,9 +185,6 @@ namespace Capstone_SWP490.Controllers
             }
             return View();
         }
-
-       
-
 
         // POST: Login/Create
         [HttpPost]
