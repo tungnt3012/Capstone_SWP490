@@ -46,7 +46,7 @@ namespace Capstone_SWP490.Controllers.Coach
             {
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
                 //if user is COACH or CO-COACH so return Import file excel 
-                if (u.user_role.Equals("COACH")|| u.user_role.Equals("CO-COACH"))
+                if (u.user_role.Equals("COACH") || u.user_role.Equals("CO-COACH"))
                 {
                     List<insert_member_result_ViewModel> result = (List<insert_member_result_ViewModel>)Session["INSERT_RESULT"];
                     if (result != null && result.Count > 0)
@@ -119,7 +119,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 string insertSchoolErrMsg = SYSTEM_ERROR;
                 try
                 {
-                     inserted_school = await _ischoolService.insert(inserted_school);
+                    inserted_school = await _ischoolService.insert(inserted_school);
                     if (inserted_school == null)
                     {
                         isInsertSchoolError = true;
@@ -235,7 +235,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         insertTeamMember.team_id = insertedTeam.team_id;
                         try
                         {
-                            insertTeamMember =  await _iteam_memberService.insert(insertTeamMember);
+                            insertTeamMember = await _iteam_memberService.insert(insertTeamMember);
                         }
                         catch
                         {
@@ -287,10 +287,10 @@ namespace Capstone_SWP490.Controllers.Coach
                             insertContestMember = new contest_member();
                             insertContestMember.contest_id = contestMember.contest.contest_id;
                             insertContestMember.member_id = insertMember.member_id;
-                            
+
                             try
                             {
-                                 insertContestMember = await _icontest_memberService.insert(insertContestMember);
+                                insertContestMember = await _icontest_memberService.insert(insertContestMember);
                                 if (insertContestMember == null)
                                 {
                                     isInsertContestMemeberError = true;
@@ -334,7 +334,8 @@ namespace Capstone_SWP490.Controllers.Coach
                     }
 
                 }
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
 
             }
@@ -360,12 +361,12 @@ namespace Capstone_SWP490.Controllers.Coach
                 member.first_name = firstName;
                 member.middle_name = middleName;
                 member.last_name = lastName;
-                member.dob = DateTime.Parse(dob);
+                member.dob = registrationHelper.toDateTime(dob);
                 //member.dateStr = member.dob.Year + "-" + member.dob.Month + "-" + member.dob.Day;
                 member.email = email;
                 member.phone_number = phone;
                 member.year = year;
-                member.gender = short.Parse(gender);
+                member.gender = registrationHelper.toShort(gender);
                 member.award = award;
                 member.icpc_id = icpc;
 
@@ -377,33 +378,39 @@ namespace Capstone_SWP490.Controllers.Coach
             return RedirectToAction("Result", "Registration", new { team = teamId });
         }
 
-        public ActionResult Result(HttpPostedFileBase file, string team)
+        [HttpGet]
+        public ActionResult Result(string team)
         {
             Session.Remove(READ_FILE_ERROR);
             Session.Remove(INSERT_ERROR);
             Session.Remove(READ_FILE_ERROR);
-            if (team != null && !team.Equals(""))
+            school_memberViewModel dataSession = (school_memberViewModel)HttpContext.Session[SCHOOL_SESSION];
+            if (dataSession == null || dataSession.school.teams == null || dataSession.school.teams.Count == 0)
             {
-                school_memberViewModel data = (school_memberViewModel)HttpContext.Session[SCHOOL_SESSION];
-                if (data != null)
-                {
-                    int teamId = 0;
-                    try
-                    {
-                        teamId = Int32.Parse(team);
-                    }
-                    catch
-                    { }
-                    data.setDisplayTeam(teamId);
-                }
-                return View(data);
+                return RedirectToAction("Index", "Registration");
             }
+            int teamId = 0;
+            dataSession.error = null;
+            try
+            {
+                teamId = Int32.Parse(team);
+            }
+            catch
+            { }
+
+            dataSession.setDisplayTeam(teamId);
+            return View(dataSession);
+        }
+
+        [HttpPost]
+        public ActionResult Result(HttpPostedFileBase file)
+        {
 
             if (file is null)
             {
                 Log.Error("File imported is null");
                 ViewData[READ_FILE_ERROR] = "Please select file end with .xlsx";
-                return View(new school_memberViewModel());
+                return View();
             }
 
             try
@@ -413,7 +420,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 if (!_path.EndsWith(".xlsx"))
                 {
                     ViewData[READ_FILE_ERROR] = "Please select file end with .xlsx";
-                    return View(new school_memberViewModel());
+                    return View();
                 }
                 _path = _path.Replace(".xlsx", ".txt");
                 file.SaveAs(_path);
@@ -496,7 +503,7 @@ namespace Capstone_SWP490.Controllers.Coach
             {
                 deleteFileAfterImport(filePath);
             }
-                return result;
+            return result;
         }
 
         private string[,] readExcelSheetCustom(ExcelWorksheet sheet, iImport.IExcelPosition positions)
@@ -814,21 +821,21 @@ namespace Capstone_SWP490.Controllers.Coach
         {
             MailReaderHelper emailReader = new MailReaderHelper();
             string mailContent = emailReader.readEmailCreateAccount();
-                EmailModel model = new EmailModel();
-                model.toEmail = user.email;
-                string hostName = "";
-                try
-                {
-                    hostName = WebConfigurationManager.AppSettings["HostName"];
-                }
-                catch (Exception e)
-                {
-                    Log.Error(e.Message);
-                }
-                string changePswUrl = hostName + "/Login";
-                model.body = string.Format(mailContent, user.psw, changePswUrl, changePswUrl);
-                model.title = "ICPC Asia-VietNam";
-                sendMailAsync(model);
+            EmailModel model = new EmailModel();
+            model.toEmail = user.email;
+            string hostName = "";
+            try
+            {
+                hostName = WebConfigurationManager.AppSettings["HostName"];
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+            }
+            string changePswUrl = hostName + "/Login";
+            model.body = string.Format(mailContent, user.psw, changePswUrl, changePswUrl);
+            model.title = "ICPC Asia-VietNam";
+            sendMailAsync(model);
         }
     }
 }
