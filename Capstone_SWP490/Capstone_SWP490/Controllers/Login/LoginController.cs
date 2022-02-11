@@ -110,9 +110,9 @@ namespace Capstone_SWP490.Controllers
         {
             if (HttpContext.Session["username"] != null)
             {
-                if (!app_UserIn.psw.Equals("") && !app_UserIn.repsw.Equals("")
+                if (!String.IsNullOrWhiteSpace(app_UserIn.psw) && !String.IsNullOrWhiteSpace(app_UserIn.repsw)
                      && app_UserIn.psw == app_UserIn.repsw
-                     && app_UserIn.psw.Length > 6 && app_UserIn.repsw.Length > 6)
+                     && app_UserIn.psw.Length >= 6 && app_UserIn.repsw.Length >= 6)
                 {
                     if (await _iapp_UserService.UpdatePasswordFirst(HttpContext.Session["username"].ToString(), app_UserIn.psw, app_UserIn.send_me_event))
                     {
@@ -144,9 +144,9 @@ namespace Capstone_SWP490.Controllers
         {
             if (HttpContext.Session["username"] != null)
             {
-                if (!app_UserIn.psw.Equals("") && !app_UserIn.repsw.Equals("")
+                if (!String.IsNullOrWhiteSpace(app_UserIn.psw) && !String.IsNullOrWhiteSpace(app_UserIn.repsw)
                     && app_UserIn.psw == app_UserIn.repsw
-                    && app_UserIn.psw.Length > 6 && app_UserIn.repsw.Length > 6)
+                    && app_UserIn.psw.Length >= 6 && app_UserIn.repsw.Length >= 6)
                 {
                     if (await _iapp_UserService.UpdatePassword(HttpContext.Session["username"].ToString(), app_UserIn.psw))
                     {
@@ -174,14 +174,25 @@ namespace Capstone_SWP490.Controllers
         {
             if (HttpContext.Session["username"] != null)
             {
-                var mem = await _imemberService.RegisterShirtSize(HttpContext.Session["username"].ToString(), member.shirt_sizing);
-                if (mem != null)
+                var userss = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                var m = _imemberService.GetMemberByUserId(userss.user_id);
+                if (m != null)
                 {
-                    ViewData["Result"] = "Register Shirt Size Successfully !!!";
-                    return View(mem);
-                    //return RedirectToAction("Index", "Home");
+                    if (!String.IsNullOrEmpty(member.shirt_sizing))
+                    {
+                        var mem = await _imemberService.RegisterShirtSize(HttpContext.Session["username"].ToString(), member.shirt_sizing);
+                        if (mem != null)
+                        {
+                            ViewData["Result"] = "Register Shirt Size Successfully !!!";
+                            ViewData["color"] = "green";
+                            return View(mem);
+                            //return RedirectToAction("Index", "Home");
+                        }
+                    }
+                    ViewData["Result"] = "Register Shirt Size Failed !!!";
+                    ViewData["color"] = "red";
+                    return View(m);
                 }
-                ViewData["Result"] = "Register Shirt Size Failed !!!";
             }
             return View();
         }
