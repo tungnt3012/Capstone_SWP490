@@ -42,8 +42,8 @@ namespace Capstone_SWP490.Helper
         {
             member viceCoach = new member();
             viceCoach.first_name = extractFirstName(data[7, 0]);
-            viceCoach.first_name = extractMiddleName(data[7, 0]);
-            viceCoach.first_name = extractLastName(data[7, 0]);
+            viceCoach.middle_name = extractMiddleName(data[7, 0]);
+            viceCoach.last_name = extractLastName(data[7, 0]);
             viceCoach.phone_number = data[8, 0];
             viceCoach.email = data[9, 0];
             viceCoach.member_role = 2;
