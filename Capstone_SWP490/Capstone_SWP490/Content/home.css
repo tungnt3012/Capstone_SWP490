@@ -759,6 +759,11 @@ h2 {
     height: 45px;
     margin-bottom: 20px;
 }
+#registration_importdata-cancel {
+    width: 150px;
+    height: 45px;
+    margin-bottom: 20px;
+}
 
 #registration-memberdetail {
     margin-top: 50px;
