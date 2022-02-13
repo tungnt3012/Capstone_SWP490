@@ -11,7 +11,7 @@ namespace Capstone_SWP490.Repositories
     {
         public team checkExist(team team)
         {
-            return FindBy(x => x.team_name.Equals(team.team_name)).FirstOrDefault();
+            return FindBy(x => x.team_name.Equals(team.team_name) && x.school_id != team.school_id).FirstOrDefault();
         }
     }
 }

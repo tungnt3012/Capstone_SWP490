@@ -19,12 +19,22 @@ namespace Capstone_SWP490.Services
             return await _ischoolRepository.Delete(school);
         }
 
+        public List<school> findByCoachId(int coachId)
+        {
+            return _ischoolRepository.FindBy(x => x.coach_id == coachId).OrderByDescending(x=>x.update_date).ToList();
+        }
+
+        public school findById(int id)
+        {
+            return _ischoolRepository.FindBy(x => x.school_id == id).FirstOrDefault();
+        }
+
         public async Task<school> insert(school school)
         {
-            school check = _ischoolRepository.checkExist(school);
-            if(check != null)
+            school existActive = _ischoolRepository.checkExist(school);
+            if(existActive == null)
             {
-                throw new SchoolException("1","School existed", null);
+                school.active = true;
             }
          return await _ischoolRepository.Create(school);
         }

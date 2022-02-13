@@ -266,6 +266,19 @@ namespace Capstone_SWP490.Helper
             result.icpc_id = member.icpc_id;
             return result;
         }
+
+        public bool isOver15YearOld(DateTime dob)
+        {
+            DateTime now = DateTime.Now;
+            dob = dob.AddYears(15);
+            int compare = DateTime.Compare(dob, now);
+            if(compare <= 0)
+            {
+                return true;
+            }
+            return false;
+            
+        }
     }
 
 }

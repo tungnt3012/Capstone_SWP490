@@ -1,5 +1,7 @@
 ﻿@{ ViewBag.Title = "Registration";
-    Layout = "~/Views/Shared/_Layout.cshtml"; }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int stt = 1;
+    }
 
 <!-- Sidebar -->
 
@@ -9,7 +11,6 @@
             color: #ffffff !important;
             background: #30cf6b;
         }
-
     </style>
 </header>
 <div id="page-content-wrapper">
@@ -27,7 +28,10 @@
                         <div class="col-lg-6" id="btn-registrantionTitle-index">
                             @using (Html.BeginForm("Result", "Registration", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
-                                <label for="formFile" class="form-label">Default file input <a href="#">example </a></label>
+                                <label for="formFile" class="form-label">
+                                    - Default file input <a href="#">example </a><br />
+                                    - Visit @Html.ActionLink("Registration Guide", "Guide", "Registration") for more detail
+                                </label>
                                 <br>
                                 <input class="form-control" type="file" id="file" name="file" accept=".xlsx, .xls, .csv">
                                 <button class="btn btn-primary" value="Upload" id="registration_upload">Upload</button>}
@@ -37,35 +41,56 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
-                            Visit @Html.ActionLink("Registration Guide", "Guide", "Registration") for more detail
+                            >IMPORT HISTORY:
                         </div>
                         <div class="col-lg-12">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col"></th>
-
+                                        <th scope="col" style="width:5%">No</th>
+                                        <th scope="col" style="width:15%">Name</th>
+                                        <th scope="col" style="width:15%">Short Name</th>
+                                        <th>Insert Date</th>
+                                        <th>Update Date</th>
+                                        <th scope="col" style="width:25%"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if (Model.school != null && Model.school.Count > 0)
+                                    {
+
+                                        foreach (var item in Model.school)
+                                        {
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td><button type="button" class="btn btn-success" id="btn-enable">Enabled </button></td>
-                                        <td><a href="#">Detail</a></td>
+                                        <th scope="row">@stt</th>
+                                        <td>@item.school_name</td>
+                                        <td>@item.short_name</td>
+                                        <td>@item.insert_date</td>
+                                        <td>@item.update_date</td>
+                                        <td>
+                                            @if (item.active != null && item.active)
+                                            {
+                                                <label style="color: green">IN USE</label>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-success" id="btn-enable">Accept </button>
+                                            }
+
+                                            | <a href="@Url.Action("history", "Registration")?school_id=@item.school_id">Detail</a>
+                                            |  <a href="@Url.Action("history", "Registration")?school_id=@item.school_id">Remove</a>
+
+
+                                        </td>
 
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td><button type="button" class="btn btn-secondary"id="btn-disabled">Disabled</button></td>
-                                        <td><a href="#">Detail</a></td>
-                                    </tr>
+                                            { stt += 1;}
+                                        }
+                                    }
                                 </tbody>
                             </table>
                         </div>
-
-                        @if (Model != null && Model.Count > 0)
+                        @if (Model.insert_result != null && Model.insert_result.Count > 0)
                         {
 
                             <div class="col-lg-6">
@@ -88,7 +113,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach (var error in Model)
+                                                        @foreach (var error in Model.insert_result)
                                                         {
                                                             <tr>
                                                                 <th scope="row">@error.objectName</th>

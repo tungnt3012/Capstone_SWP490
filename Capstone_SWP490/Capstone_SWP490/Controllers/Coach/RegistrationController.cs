@@ -20,6 +20,8 @@ using Capstone_SWP490.ExceptionHandler;
 using System.Web.Configuration;
 using Capstone_SWP490.Common.Enums;
 using Capstone_SWP490.Common.Const;
+using Capstone_SWP490.Models.registrationViewModel;
+using Capstone_SWP490.Models.app_userViewModel;
 
 namespace Capstone_SWP490.Controllers.Coach
 {
@@ -47,13 +49,17 @@ namespace Capstone_SWP490.Controllers.Coach
                 //if user is COACH or CO-COACH so return Import file excel 
                 if (u.user_role.Equals("COACH") || u.user_role.Equals("CO-COACH"))
                 {
+                    IndexViewModel model = new IndexViewModel();
+                    List<school> schools = _ischoolService.findByCoachId(u.user_id);
+                    model.school = schools;
                     List<insert_member_result_ViewModel> result = (List<insert_member_result_ViewModel>)Session[SESSION_CONST.Registration.INSERT_RESULT];
                     Session.Remove(SESSION_CONST.Registration.INSERT_RESULT);
+                    //case insert data to database then check result in session
                     if (result != null && result.Count > 0)
                     {
-                        return View(result);
+                        model.insert_result = result;
                     }
-                    return View();
+                    return View(model);
                 }
             }
             //if user is NOT COACH or CO-COACH so return view Guild 
@@ -95,9 +101,11 @@ namespace Capstone_SWP490.Controllers.Coach
         public async Task<ActionResult> InsertMember()
         {
             List<insert_member_result_ViewModel> result = new List<insert_member_result_ViewModel>();
+            app_userViewModel logined = (app_userViewModel)Session["profile"];
             try
             {
                 school_memberViewModel data = (school_memberViewModel)HttpContext.Session[SESSION_CONST.Registration.SCHOOL_SESSION];
+                Session.Remove(SESSION_CONST.Registration.SCHOOL_SESSION);
                 List<string> insertedEmail = new List<string>();
                 insert_member_result_ViewModel error;
                 school inserted_school;
@@ -114,6 +122,9 @@ namespace Capstone_SWP490.Controllers.Coach
 
                 //insert school part
                 inserted_school = registrationHelper.cleanSchool(data.school);
+                inserted_school.coach_id = logined.user_id;
+                inserted_school.insert_date = DateTime.Now + "";
+                inserted_school.update_date = DateTime.Now + "";
                 bool isInsertSchoolError = false;
                 string insertSchoolErrMsg = SYSTEM_ERROR;
                 try
@@ -144,51 +155,50 @@ namespace Capstone_SWP490.Controllers.Coach
                     error.occur_position = "SCHOOL";
                     error.msg = "The process has been stopped becase of " + insertSchoolErrMsg + ", please try again !";
                     result.Add(error);
-                    Session.Add("INSERT_RESULT", result);
+                    Session.Add(SESSION_CONST.Registration.INSERT_RESULT, result);
                     return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER, new { error = true });
 
                 }
 
                 //insert coach part
-                member coach = registrationHelper.cleanMember(data.coach);
-                app_user logined = (app_user)Session["profile"];
-                coach.user_id = logined.user_id;
-                bool isInsertCoachError = false;
-                string insertCoachErrMsg = SYSTEM_ERROR;
+                //member coach = registrationHelper.cleanMember(data.coach);
+                //coach.user_id = logined.user_id;
+                //bool isInsertCoachError = false;
+                //string insertCoachErrMsg = SYSTEM_ERROR;
 
-                try
-                {
-                    coach = await _imemberService.insert(coach);
-                    if (coach == null)
-                    {
-                        isInsertCoachError = true;
-                    }
-                }
-                catch (Exception e)
-                {
-                    isInsertCoachError = true;
-                    if (e is MemberException)
-                    {
-                        MemberException me = (MemberException)e;
-                        insertCoachErrMsg = me.message;
-                    }
-                    Log.Error(e.Message);
-                }
-                if (isInsertCoachError)
-                {
-                    error = new insert_member_result_ViewModel();
-                    error.objectName = data.coach.first_name + " " + data.coach.middle_name + " " + data.coach.last_name + "(COACH)";
-                    error.parentObject = "ROOT";
-                    error.occur_position = "COACH";
-                    error.msg = "The process has been stopped becase of " + insertCoachErrMsg + ", please try again !";
-                    result.Add(error);
-                    Session.Add("INSERT_RESULT", result);
-                    //remove if insert fail
-                    await _ischoolService.deleteAsync(inserted_school);
-                    return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER, new { error = true });
-                }
+                //try
+                //{
+                //    coach = await _imemberService.insert(coach);
+                //    if (coach == null)
+                //    {
+                //        isInsertCoachError = true;
+                //    }
+                //}
+                //catch (Exception e)
+                //{
+                //    isInsertCoachError = true;
+                //    if (e is MemberException)
+                //    {
+                //        MemberException me = (MemberException)e;
+                //        insertCoachErrMsg = me.message;
+                //    }
+                //    Log.Error(e.Message);
+                //}
+                //if (isInsertCoachError)
+                //{
+                //    error = new insert_member_result_ViewModel();
+                //    error.objectName = data.coach.first_name + " " + data.coach.middle_name + " " + data.coach.last_name + "(COACH)";
+                //    error.parentObject = "ROOT";
+                //    error.occur_position = "COACH";
+                //    error.msg = "The process has been stopped becase of " + insertCoachErrMsg + ", please try again !";
+                //    result.Add(error);
+                //    Session.Add("INSERT_RESULT", result);
+                //    //remove if insert fail
+                //    await _ischoolService.deleteAsync(inserted_school);
+                //    return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER, new { error = true });
+                //}
 
-                //insert coach part
+                //insert vice coach part
                 member viceCoach = registrationHelper.cleanMember(data.vice_coach);
                 bool isInsertViceCoachError = false;
                 string insertViceCoachErrMsg = SYSTEM_ERROR;
@@ -221,13 +231,14 @@ namespace Capstone_SWP490.Controllers.Coach
                     error.occur_position = "VICE COACH";
                     error.msg = "The process has been stopped becase of " + insertViceCoachErrMsg + ", please try again !";
                     result.Add(error);
-                    Session.Add("INSERT_RESULT", result);
+                    Session.Add(SESSION_CONST.Registration.INSERT_RESULT, result);
                     await _ischoolService.deleteAsync(inserted_school);
                     return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER, new { error = true });
                 }
 
                 //insert team part
                 team insertedTeam = null;
+                int countInsertedTeam = 0;
                 foreach (team item in listTeam)
                 {
                     insertedTeam = new team();
@@ -241,6 +252,10 @@ namespace Capstone_SWP490.Controllers.Coach
                         if (insertedTeam == null)
                         {
                             isInsertTeamError = true;
+                        }
+                        else
+                        {
+                            countInsertedTeam += 1;
                         }
                     }
                     catch (Exception e)
@@ -269,7 +284,8 @@ namespace Capstone_SWP490.Controllers.Coach
 
                     //insert member's team part
                     Dictionary<string, string> paramMember = new Dictionary<string, string>();
-                    member insertMember;
+                    member insertMember = null;
+                    int insertedMemberCount = 0;
                     foreach (team_member i in item.team_member)
                     {
                         contestMemberList = i.member.contest_member.ToList();
@@ -308,19 +324,6 @@ namespace Capstone_SWP490.Controllers.Coach
                             continue;
                         }
 
-                        //insert into team member
-                        team_member insertTeamMember = new team_member();
-                        insertTeamMember.member_id = insertMember.member_id;
-                        insertTeamMember.team_id = insertedTeam.team_id;
-                        try
-                        {
-                            insertTeamMember = await _iteam_memberService.insert(insertTeamMember);
-                        }
-                        catch
-                        {
-
-                        }
-
                         //create login user for member
                         app_user insertUser = registrationHelper.createAppUserFromMember(insertMember);
                         bool isInsertAppUserError = false;
@@ -352,6 +355,29 @@ namespace Capstone_SWP490.Controllers.Coach
                             error.msg = "Insert fail, Reason: " + insertAppUserErrMsg;
                             result.Add(error);
                             _ = _imemberService.deleteAsync(insertMember);
+
+                            continue;
+                        }
+
+                        //insert into team member
+                        team_member insertTeamMember = new team_member();
+                        insertTeamMember.member_id = insertMember.member_id;
+                        insertTeamMember.team_id = insertedTeam.team_id;
+                        try
+                        {
+                            insertTeamMember = await _iteam_memberService.insert(insertTeamMember);
+                            if (insertMember == null)
+                            {
+                                _imemberService.deleteAsync(insertMember);
+                                //delete app user
+                                continue;
+                            }
+                        }
+                        catch
+                        {
+                            isInsertMemeberError = true;
+                            _imemberService.deleteAsync(insertMember);
+                            //delete app user
                             continue;
                         }
 
@@ -360,6 +386,7 @@ namespace Capstone_SWP490.Controllers.Coach
 
                         //insert contest member part
                         contest_member insertContestMember;
+                        int insertedContestMemberCount = 0;
                         foreach (contest_member contestMember in contestMemberList)
                         {
                             bool isInsertContestMemeberError = false;
@@ -384,6 +411,7 @@ namespace Capstone_SWP490.Controllers.Coach
                                     MemberException me = (MemberException)e;
                                     insertContestMemberErrMsg = me.message;
                                 }
+                                isInsertMemeberError = true;
 
                             }
 
@@ -396,6 +424,10 @@ namespace Capstone_SWP490.Controllers.Coach
                                 error.msg = "Insert member's contest(" + contestMember.contest.constest_name + ") fail, Reason: " + insertMemberErrMsg;
                                 result.Add(error);
 
+                            }
+                            else
+                            {
+                                insertedContestMemberCount += 1;
                             }
                         }
 
@@ -411,8 +443,21 @@ namespace Capstone_SWP490.Controllers.Coach
                                 Log.Error(e.Message);
                             }
                         }
+                        if(insertedContestMemberCount != 0)
+                        {
+                            insertedMemberCount += 1;
+                        }
                     }
-
+                    if(insertedMemberCount == 0)
+                    {
+                        //delete member
+                        error = new insert_member_result_ViewModel();
+                        error.objectName = inserted_school.school_name + "(" + inserted_school.short_name + ")";
+                        error.parentObject = "ROOT";
+                        error.occur_position = "VICE COACH";
+                        error.msg = "The process has been stopped becase of no team inserted, please try again !";
+                        result.Add(error);
+                    }
                 }
             }
             catch (Exception e)
@@ -483,8 +528,33 @@ namespace Capstone_SWP490.Controllers.Coach
             }
 
             dataSession.setDisplayTeam(teamId);
-            dataSession.displayContest = dataSession.displayTeam.team_member.Where(x => x.member.member_role == 3).FirstOrDefault().member.contest_member.FirstOrDefault().contest;
             return View(dataSession);
+        }
+
+        public ActionResult history(string school_id)
+        {
+            school_memberViewModel data = new school_memberViewModel();
+            school school = null;
+            List<team> teams = null;
+            try
+            {
+                int schoolId = Int32.Parse(school_id);
+                school = _ischoolService.findById(schoolId);
+                school.teams = teams;
+                data.school = school;
+                Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
+            }
+            catch
+            {
+
+            }
+            if(school == null)
+            {
+                return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
+            }
+            data.school = school;
+            data.setDisplayTeam(-1);
+            return View(ACTION_CONST.Registration.RESULT, data);
         }
 
         [HttpPost]
@@ -590,7 +660,6 @@ namespace Capstone_SWP490.Controllers.Coach
                     result = readMember(result, memberSheet, memberImport);
                     //display team at index 0 first
                     result.setDisplayTeam(0);
-                    result.displayContest = result.displayTeam.team_member.Where(x => x.member.member_role == 3).FirstOrDefault().member.contest_member.FirstOrDefault().contest;
                 }
             }
             catch (Exception e)
@@ -772,6 +841,7 @@ namespace Capstone_SWP490.Controllers.Coach
             List<team_member> teamMemberList = new List<team_member>();
             for (int row = memberImport.getStartAtRow(); row <= rowCount; row++)
             {
+                string errMsg = "";
                 try
                 {
                     col = memberImport.getStartAtCol();
@@ -787,11 +857,11 @@ namespace Capstone_SWP490.Controllers.Coach
                             error.objectName = "MEMBER_NORMAL";
                             error.parentObject = "MEMBER";
                             error.occur_position = "Row = " + row;
-                            error.msg = "the Team '" + cellVal + "' not existed, please check at sheet 'TEAM'";
+                            error.msg = "- the Team '" + cellVal + "' not existed, please check at sheet 'TEAM'";
                             result.error.Add(error);
                         }
                     }
-                    //skip because team not exist
+                    //skip
                     if (team == null)
                     {
                         continue;
@@ -806,6 +876,11 @@ namespace Capstone_SWP490.Controllers.Coach
                     member.middle_name = registrationHelper.extractMiddleName(memberName);
                     member.last_name = registrationHelper.extractLastName(memberName);
                     string dtString = memberSheet.Cells[row, ++col].Value + "";
+                    DateTime memberDob = registrationHelper.toDateTime(dtString);
+                    if (!registrationHelper.isOver15YearOld(memberDob))
+                    {
+                        errMsg += "- Member age must greater than or equal 15 year old ";
+                    }
                     member.dob = registrationHelper.toDateTime(dtString);
                     string email = memberSheet.Cells[row, ++col].Value + "";
 
@@ -820,13 +895,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     //skip if both email and name is blank
                     if (StringUtils.isNullOrEmpty(memberName) && StringUtils.isNullOrEmpty(member.email))
                     {
-                        error = new insert_member_result_ViewModel();
-                        error.objectName = "MEMBER_NORMAL";
-                        error.parentObject = "MEMBER";
-                        error.occur_position = "Row = " + row;
-                        error.msg = "Member name and email cannot both blank";
-                        result.error.Add(error);
-                        continue;
+                        errMsg += "\n- Member name and email cannot both blank "; 
                     }
                     member.phone_number = memberSheet.Cells[row, ++col].Value + "";
                     member.icpc_id = registrationHelper.toInt32(memberSheet.Cells[row, ++col].Value + "", -1);
@@ -860,13 +929,18 @@ namespace Capstone_SWP490.Controllers.Coach
                 }
                 catch (Exception e)
                 {
+                    errMsg += "\n- UNKOW ERROR";
+                    Log.Error(e.Message);
+                }
+
+                if (!errMsg.Equals(""))
+                {
                     error = new insert_member_result_ViewModel();
                     error.objectName = "MEMBER_NORMAL";
                     error.parentObject = "MEMBER";
                     error.occur_position = "Row = " + row;
-                    error.msg = "Unkown ERROR";
+                    error.msg = errMsg;
                     result.error.Add(error);
-                    Log.Error(e.Message);
                 }
             }
 

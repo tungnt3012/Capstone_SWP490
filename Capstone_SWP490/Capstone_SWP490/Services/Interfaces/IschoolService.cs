@@ -10,5 +10,8 @@ namespace Capstone_SWP490.Services.Interfaces
     {
         Task<school> insert(school school);
         Task<int> deleteAsync(school school);
+        List<school> findByCoachId(int coachId);
+        school findById(int id);
+
     }
 }

@@ -15,7 +15,7 @@ namespace Capstone_SWP490.Repositories
             {
                 return null;
             }
-            return FindBy(x => x.short_name == school.short_name && x.type == school.type && x.city == school.city).FirstOrDefault();
+            return FindBy(x => x.active == true).FirstOrDefault();
         }
     }
 }

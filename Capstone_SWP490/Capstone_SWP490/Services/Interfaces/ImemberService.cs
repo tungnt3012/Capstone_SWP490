@@ -14,5 +14,6 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<member> RegisterShirtSize(string username, string size);
         Task<int> deleteAsync(member member);
         member GetMemberByUserId(int userId);
+
     }
 }
