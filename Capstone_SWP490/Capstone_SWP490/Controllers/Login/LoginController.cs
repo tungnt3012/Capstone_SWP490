@@ -86,8 +86,7 @@ namespace Capstone_SWP490.Controllers
         public ActionResult Logout()
         {
             //remove session
-            Session.Remove("username");
-            Session.Remove("profile");
+            Session.RemoveAll();
             return RedirectToAction("Login", "Login");
         }
 

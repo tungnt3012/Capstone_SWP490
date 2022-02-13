@@ -14,6 +14,11 @@ namespace Capstone_SWP490.Services
     {
         private readonly IteamRepository _iteamRepository = new teamRepository();
 
+        public List<team> findBySchoolId(int schoolId)
+        {
+            return _iteamRepository.FindBy(x => x.school_id == schoolId).ToList();
+        }
+
         public async Task<team> insert(team enties)
         {
             if(_iteamRepository.checkExist(enties) != null)

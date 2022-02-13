@@ -44,7 +44,7 @@
                                                         <button type="button" class="btn btn-secondary" id="registration_importdata-cancel">Cancel</button>
                                                     </div>
 
-                                                    @if (Model.error !=null && Model.error.Count > 0)
+                                                    @if (Model.error != null && Model.error.Count > 0)
                                                     {
 
                                                         <div class="col-lg-6">
@@ -72,7 +72,7 @@
                                                                                     {
                                                                                         <tr>
                                                                                             <th scope="row">@error.parentObject</th>
-                                                                                            <td>@error.msg</td>
+                                                                                            <td>@Html.Raw(System.Web.HttpUtility.HtmlEncode(@error.msg).Replace("\n", "<br/>"))</td>
                                                                                             <td>@error.occur_position</td>
                                                                                         </tr>
                                                                                     }
@@ -131,14 +131,26 @@
                                             <div class="col-lg-12">
                                                 <div class="col-lg-6">
                                                     <label style="font-size: 15px">Select Team:</label>
-                                                    <select name="team" id="team" onchange="onChanngeDropDown()" style="width: 35%; height: 20px; font-size: 16px">
-                                                        @foreach (var team in Model.school.teams)
-                                                        {
-                                                            <option style="font-size:16px" value="@team.team_id" @(team.team_id == Model.displayTeam.team_id ? "selected" : "")>@team.team_name</option>
-                                                        }
-                                                    </select>
+                                                    @if (Model.school.teams != null && Model.school.teams.Count > 0)
+                                                    {
+                                                        <select name="team" id="team" onchange="onChanngeDropDown()" style="width: 35%; height: 20px; font-size: 16px">
+                                                            @foreach (var team in Model.school.teams)
+                                                            {
+                                                                <option style="font-size:16px" value="@team.team_id" @(team.team_id == Model.displayTeam.team_id ? "selected" : "")>@team.team_name</option>
+                                                            }
+                                                        </select>
+                                                    }
                                                     <br>
-                                                    <label style="font-size: 15px">Contest:</label><span style="color: #2fa9fb"> @(Model.displayContest.constest_name + " (" + Model.displayContest.code+")")</span>
+                                                    <label style="font-size: 15px">Contest:</label><span style="color: #2fa9fb">
+                                                        @if (Model.displayContest != null)
+                                                        {
+                                                            @(Model.displayContest.constest_name + " (" + Model.displayContest.code + ")")
+                                                        }
+                                                        else
+                                                        {
+                                                            @("N/A")
+                                                        }
+                                                    </span>
                                                 </div>
                                                 <div class="col-lg-6">
                                                 </div>
@@ -162,22 +174,25 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach (var item in Model.displayTeam.team_member)
+                                                        @if (Model.displayTeam != null)
                                                         {
-                                                            <tr>
-                                                                <td style="color : @(item.member.first_name == "" ? "red" : "black")">@(item.member.first_name == "" ? "N/A" : item.member.first_name)</td>
-                                                                <td>@(item.member.middle_name == "" ? "N/A" : item.member.middle_name)</td>
-                                                                <td style="color: @(item.member.last_name == "" ? "red" : "black")">@(item.member.last_name == "" ? "N/A" : item.member.last_name)</td>
-                                                                <td style="color: @(item.member.dob == new DateTime() ? "red" : "black")">@(item.member.dob == new DateTime() ? "N/A" : (item.member.dob.Year +"-" + (item.member.dob.Month < 10 ? "0" + item.member.dob.Month : item.member.dob.Month) + "-"+ (item.member.dob.Day < 10 ? "0" + item.member.dob.Day : item.member.dob.Day)))</td>
-                                                                <td style="color: @(item.member.email == "" ? "red" : "black" )">@(item.member.email == "" ? "N/A" : item.member.email)</td>
-                                                                <td>@(item.member.phone_number == "" ? "N/A" : item.member.phone_number) </td>
-                                                                <td style="color: @(item.member.icpc_id == null ? "red" : "black")">@(item.member.icpc_id == null ? "N/A" : item.member.icpc_id)</td>
-                                                                <td>@(item.member.gender == 0 ? "Male" : "Female")</td>
-                                                                <td style="color: @(item.member.year == -1 ? "red" : "black" )">@(item.member.year == -1 ? "N/A" : item.member.year)</td>
-                                                                <td>@(item.member.award == null || item.member.award == "" ? "N/A" : item.member.award)</td>
-                                                                <td>@(item.member.member_role == 3 ? "Leader" : "Member" )</td>
-                                                                <td><a href="@Url.Action("MemberDetail", "Registration")?id=@item.member.member_id&teamId=@item.team.team_id">Detail</a> </td>
-                                                            </tr>
+                                                            foreach (var item in Model.displayTeam.team_member)
+                                                            {
+                                                                <tr>
+                                                                    <td style="color : @(item.member.first_name == "" ? "red" : "black")">@(item.member.first_name == "" ? "N/A" : item.member.first_name)</td>
+                                                                    <td>@(item.member.middle_name == "" ? "N/A" : item.member.middle_name)</td>
+                                                                    <td style="color: @(item.member.last_name == "" ? "red" : "black")">@(item.member.last_name == "" ? "N/A" : item.member.last_name)</td>
+                                                                    <td style="color: @(item.member.dob == new DateTime() ? "red" : "black")">@(item.member.dob == new DateTime() ? "N/A" : (item.member.dob.Year + "-" + (item.member.dob.Month < 10 ? "0" + item.member.dob.Month : item.member.dob.Month) + "-" + (item.member.dob.Day < 10 ? "0" + item.member.dob.Day : item.member.dob.Day)))</td>
+                                                                    <td style="color: @(item.member.email == "" ? "red" : "black" )">@(item.member.email == "" ? "N/A" : item.member.email)</td>
+                                                                    <td>@(item.member.phone_number == "" ? "N/A" : item.member.phone_number) </td>
+                                                                    <td style="color: @(item.member.icpc_id == null ? "red" : "black")">@(item.member.icpc_id == null ? "N/A" : item.member.icpc_id)</td>
+                                                                    <td>@(item.member.gender == 0 ? "Male" : "Female")</td>
+                                                                    <td style="color: @(item.member.year == -1 ? "red" : "black" )">@(item.member.year == -1 ? "N/A" : item.member.year)</td>
+                                                                    <td>@(item.member.award == null || item.member.award == "" ? "N/A" : item.member.award)</td>
+                                                                    <td>@(item.member.member_role == 3 ? "Leader" : "Member" )</td>
+                                                                    <td><a href="@Url.Action("MemberDetail", "Registration")?id=@item.member.member_id&teamId=@item.team.team_id">Detail</a> </td>
+                                                                </tr>
+                                                            }
                                                         }
                                                     </tbody>
                                                 </table>
@@ -275,7 +290,7 @@
 
     </footer>
 </div>
-<form id="changeTeam" method="GET">
+<form id="changeTeam" method="GET" action="@Url.Action("Result", "Registration")">
     <input id="teamIdRaw" type="hidden" value="0" name="team" />
 </form>
 <script>
