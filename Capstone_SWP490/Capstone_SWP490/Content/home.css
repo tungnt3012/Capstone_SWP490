@@ -892,3 +892,11 @@ margin:10px;
 #exampleModalLabel {
     font-weight: bold;
 }
+#in-use{
+    padding-left:10px;
+}
+#import-history {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
