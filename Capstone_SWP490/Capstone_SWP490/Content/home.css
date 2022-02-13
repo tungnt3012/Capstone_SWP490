@@ -877,9 +877,6 @@ margin:10px;
 .modal-open .modal {
     background-color: rgba(0,0,0,0.4);
 }
-.modal-header {
-    border-bottom: none;
-}
 .front-size-title {
     font-size: 1.17em;
     font-weight: bolder;
@@ -891,4 +888,7 @@ margin:10px;
 #btn-disabled {
     width: auto;
     height: auto;
+}
+#exampleModalLabel {
+    font-weight: bold;
 }
