@@ -726,7 +726,10 @@ h2 {
     padding-bottom: 20px;
     padding-top: 50px;
 }
-
+#btn-registrantionTitle-index {
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
 .main {
     width: auto;
     margin-left: auto;
@@ -880,4 +883,12 @@ margin:10px;
 .front-size-title {
     font-size: 1.17em;
     font-weight: bolder;
+}
+#btn-enable{
+    width:auto;
+    height:auto;
+}
+#btn-disabled {
+    width: auto;
+    height: auto;
 }
