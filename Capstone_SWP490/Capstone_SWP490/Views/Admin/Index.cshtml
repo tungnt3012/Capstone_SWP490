@@ -5,9 +5,12 @@
         color: #ffffff !important;
         background: #30cf6b;
     }
+
+    
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
 <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
+
 <div id="page-content-wrapper">
     <div class="container-fluid xyz">
         <div class="col-lg-12" id="content_area2_header">
@@ -20,7 +23,7 @@
                 <div class="col-lg-12">
                     <form>
                         <div class="column">
-                            <div class="col-lg-12 dragdrop">
+                            <div class="col-lg-12">
                                 <div class="container" ng-app="tabsApp">
                                     <h2 class="page-header">
                                         Edit Tabs
@@ -29,9 +32,9 @@
                                     <div id="outTemplate" ng-controller="ListTabs">
                                         <ul class="nav nav-tabs">
                                             <li ng-repeat="tab in tabs" ng-class="{active: $index == 0}">
-                                                <a href="#tab{{$index}}" aria-controls="tab{{$index}}" role="tab" data-toggle="tab" style="color: #555555;">
+                                                <a href="#tab{{$index}}" aria-controls="tab{{$index}}" role="tab" data-toggle="tab" style="color: #555555">
                                                     {{tab.title}}
-                                                    <button class="btn btn-xs btn-link" id="edit-tab" type="button" ng-click="findTab(tab)">
+                                                    <button class="btn btn-xs btn-link" id="edit-tab" type="button" ng-click="findTab(tab)" style="color: #23527c;">
                                                         <i class="fa fa-edit"></i>
                                                     </button>&nbsp;
                                                     <button class="close" title="Delete Tab" ng-click="deleteDialog(tab)">&times;</button>
@@ -56,8 +59,8 @@
                                                     </div>
                                                     <div class="modal-body">Are you sure you want to delete?</div>
                                                     <div class="modal-footer" style="padding: 6px;">
-                                                        <button type="button" class="btn btn-sm btn-danger" id="delete-popup" ng-click="deleteTab()">Delete</button>
-                                                        <button type="button" class="btn btn-sm btn-default" id="cancel-popup" data-dismiss="modal">Cancel</button>
+                                                        <button type="button" class="btn btn-sm btn-danger" ng-click="deleteTab()">Delete</button>
+                                                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
                                                     </div>
                                                 </div>
                                             </div>
