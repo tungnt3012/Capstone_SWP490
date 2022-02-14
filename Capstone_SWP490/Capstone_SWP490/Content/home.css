@@ -907,6 +907,7 @@ margin:10px;
 #cancel-popup {
     width: auto;
     height: auto;
+    color:#000000;
 }
 #delete-popup {
     width: auto;
