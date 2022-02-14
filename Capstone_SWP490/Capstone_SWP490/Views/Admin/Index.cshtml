@@ -1,35 +1,135 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-}
+﻿@{ ViewBag.Title = "Home Page"; }
 
-<script src="https://cdn.ckeditor.com/4.17.2/standard-all/ckeditor.js"></script>
+<style>
+    #menu-rules {
+        color: #ffffff !important;
+        background: #30cf6b;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
 <div id="page-content-wrapper">
     <div class="container-fluid xyz">
         <div class="col-lg-12" id="content_area2_header">
             <div class="col-lg-12" id="content_area2_title">
-                <label for="exampleInputTitle">Add Registration Guild</label>
+                <label for="exampleInputTitle">Rules</label>
             </div>
         </div>
-        <div class="main-admin">
-            <div class="row">
-                <div class="col-lg-12" id="registration-memberdetail">
+        <div class="main">
+            <div class="column">
+                <div class="col-lg-12">
                     <form>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <textarea cols="120" id="editor1" name="editor1" rows="10"></textarea>
-                                </div>
-                            </div>
+                        <div class="column">
+                            <div class="col-lg-12 dragdrop">
+                                <div class="container" ng-app="tabsApp">
+                                    <h2 class="page-header">
+                                        Edit Tabs
+                                        <button class="btn btn-sm btn-success pull-right" data-toggle="modal" data-target="#addTabModal"><i class="fa fa-plus"></i> Add Tab</button>
+                                    </h2>
+                                    <div id="outTemplate" ng-controller="ListTabs">
+                                        <ul class="nav nav-tabs">
+                                            <li ng-repeat="tab in tabs" ng-class="{active: $index == 0}">
+                                                <a href="#tab{{$index}}" aria-controls="tab{{$index}}" role="tab" data-toggle="tab" style="color: #555555;">
+                                                    {{tab.title}}
+                                                    <button class="btn btn-xs btn-link" id="edit-tab" type="button" ng-click="findTab(tab)">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>&nbsp;
+                                                    <button class="close" title="Delete Tab" ng-click="deleteDialog(tab)">&times;</button>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <br />
+                                        <div class="tab-content">
+                                            <div id="tab{{$index}}" role="tabpanel" class="tab-pane fade" ng-repeat="tab in tabs" ng-class="{'in active': $index == 0}">
+                                                <div class="form-group">
 
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Add</button>
+                                                </div>
+                                                <div ng-bind-html="tab.content"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="dialog">
+                                            <div class="modal-dialog modal-sm" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" style="padding: 8px 15px;">
+                                                        <h4 class="modal-title">Confirm</h4>
+                                                    </div>
+                                                    <div class="modal-body">Are you sure you want to delete?</div>
+                                                    <div class="modal-footer" style="padding: 6px;">
+                                                        <button type="button" class="btn btn-sm btn-danger" id="delete-popup" ng-click="deleteTab()">Delete</button>
+                                                        <button type="button" class="btn btn-sm btn-default" id="cancel-popup" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="addTabModal" tabindex="-1" role="dialog" aria-labelledby="addTab">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content" ng-controller="AddTab">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="addTab">Add Tab</h4>
+                                                </div>
+                                                <div class="modal-body" ng-form="addForm">
+                                                    <div class="form-group" ng-class="{'has-error': addForm.tabTitle.$invalid && addForm.tabTitle.$touched}">
+                                                        <label for="tabTitle">Tab Title</label>
+                                                        <input id="tabTitle" name="tabTitle" type="text" class="form-control" ng-model="tabTitle" required />
+                                                    </div>
+                                                    <div class="form-group" ng-class="{'has-error': addForm.tabContent.$invalid && addForm.tabContent.$touched}">
+                                                        <label for="tabContent">Tab Content</label>
+                                                        <textarea id="tabContent" name="tabContent" class="form-control" rows="15" ng-model="tabContent" ckeditor required="required"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success" ng-click="addTab()">Save Tab</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="editTabModal" tabindex="-1" role="dialog" aria-labelledby="editTab">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content" ng-controller="EditTab">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title" id="editTab">Edit Tab</h4>
+                                                </div>
+                                                <div class="modal-body" ng-form="editForm">
+                                                    <div class="form-group" ng-class="{'has-error': editForm.editTabTitle.$invalid && editForm.editTabTitle.$touched}">
+                                                        <label for="editTabTitle">Tab Title</label>
+                                                        <input id="editTabTitle" name="editTabTitle" type="text" class="form-control" ng-model="editTabTitle" required />
+                                                    </div>
+                                                    <div class="form-group" ng-class="{'has-error': editForm.editTabContent.$invalid && editForm.editTabContent.$touched}">
+                                                        <label for="editTabContent">Tab Content</label>
+                                                        <textarea id="editTabContent" name="editTabContent" class="form-control" rows="15" ckeditor ng-model="editTabContent" required="required"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success" ng-click="editTab()">Save Tab</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div class="form-group" ng-controller="SaveState">
+                                            Hidden Input
+                                            <input id="saveInput" type="text" class="form-control" value='[{"title":"Tab #1","content":"<p>Cool Content.</p>"},{"title":"Tab #2","content":"<p>Cool Content #2.</p>"}]' />
+                                            <br />
+                                            <input id="outputHtml" class="form-control" type="text" value="{{saveInput}}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
+
         </div>
+
     </div>
     <footer class="page-footer font-small blue pt-4" id="footer">
 
@@ -112,15 +212,207 @@
 
     </footer>
 </div>
-
+<!-- /#page-content-wrapper -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.4/ckeditor.js'></script>
 <script>
-    CKEDITOR.replace('editor1', {
-        fullPage: true,
-        extraPlugins: 'docprops',
-        // Disable content filtering because if you use full page mode, you probably
-        // want to  freely enter any HTML content in source mode without any limitations.
-        allowedContent: true,
-        height: 320,
-        removeButtons: 'PasteFromWord'
+    // String.trim() polyfill
+    String.prototype.trim || (String.prototype.trim = function () { return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '') });
+
+    var tabsApp = angular.module('tabsApp', []).config(function ($sceProvider) {
+        $sceProvider.enabled(false);
+    });
+
+    tabsApp.factory('TabList', function () {
+        var list = angular.fromJson($('#saveInput').val()),
+            results = {},
+            edit = {
+                item: {}
+            };
+
+        results.output = '';
+        results.update = function (theValue) {
+            results.output = theValue;
+        };
+
+        list.add = function (theValue) {
+            list.push(theValue);
+        };
+
+        list.remove = function (i) {
+            var index = list.indexOf(i);
+            list.splice(index, 1);
+        };
+
+        list.edit = function (i, newValue) {
+            var index = list.indexOf(i);
+            list.splice(index, 1, newValue);
+        };
+
+        edit.indexOf = function (i) {
+            var tab = list.indexOf(i);
+            return tab;
+        }
+
+        edit.find = function (i) {
+            var tab = list.indexOf(i);
+            edit.item = list[tab];
+        }
+
+        edit.reset = function () {
+            edit.item = {};
+        }
+
+        return {
+            list: list,
+            edit: edit,
+            results: results
+        };
+    });
+
+    tabsApp.service('UpdateService', function (TabList) {
+        this.output = function () {
+            'use strict';
+            var tabs = TabList.list,
+                nav = [],
+                navFull = '<ul class="nav nav-tabs">{{nav}}</ul><br />',
+                contentPanes = [],
+                contentFull = '<div class="tab-content">{{content}}</div>',
+                compiledTemplate;
+
+
+            for (var i = 0; i < tabs.length; i++) {
+                var title = tabs[i].title,
+                    content = tabs[i].content,
+                    cleanTitle = title.replace(/#| /g, '-').toLowerCase(),
+                    navTemplate = '<li class="' + (i == 0 ? 'active' : '') +
+                        '"><a href="#tab-' + cleanTitle + '" aria-controls="' +
+                        cleanTitle + '" role="tab" data-toggle="tab">' + title + '</a></li>',
+                    contentTemplate = '<div id="tab-' + cleanTitle +
+                        '" role="tabpanel" class="tab-pane fade ' +
+                        (i == 0 ? 'in active' : '') + '">' + content + '</div>';
+                nav.push(navTemplate);
+                contentPanes.push(contentTemplate);
+            }
+
+            compiledTemplate =
+                navFull.replace('{{nav}}', nav.join('')) +
+                contentFull.replace('{{content}}', contentPanes.join(''));
+
+            TabList.results.update(compiledTemplate);
+        }
+
+        this.update = function () {
+            $('#saveInput').val(angular.toJson(TabList.list));
+            this.output();
+        }
+    });
+
+    tabsApp.controller('ListTabs', function ($scope, TabList, UpdateService) {
+        $scope.tabs = TabList.list;
+        UpdateService.update();
+
+        $scope.deleteDialog = function (i) {
+            $('#deleteDialog').modal('show');
+            $scope.deleteIndex = i;
+        };
+
+        $scope.deleteTab = function () {
+            TabList.list.remove($scope.deleteIndex);
+            UpdateService.update();
+            $scope.deleteIndex = null;
+            $('#deleteDialog').modal('hide');
+            $('.nav-tabs li:first-child a').tab('show');
+        };
+
+        $scope.findTab = function (i) {
+            TabList.edit.find(i);
+            $('#editTabModal').modal('show');
+        };
+    });
+
+    tabsApp.controller('AddTab', function ($scope, TabList, UpdateService) {
+        $scope.addTab = function () {
+            if (!$scope.addForm.$invalid) {
+                TabList.list.add({
+                    title: $scope.tabTitle,
+                    content: $scope.tabContent
+                });
+
+                $scope.tabTitle = '';
+                $scope.tabContent = '';
+                $scope.addForm.$setUntouched();
+
+                $('#addTabModal').modal('hide');
+                UpdateService.update();
+            }
+        };
+    });
+
+    tabsApp.controller('EditTab', function ($scope, TabList, UpdateService) {
+        $scope.$watch(function ($scope) {
+            return TabList.edit.item;
+        }, function () {
+            $scope.editTabTitle = TabList.edit.item.title;
+            $scope.editTabContent = TabList.edit.item.content;
+        }, true);
+
+        $scope.editTab = function () {
+            if (!$scope.editForm.$invalid) {
+                TabList.list.edit(TabList.edit.item, {
+                    title: $scope.editTabTitle,
+                    content: $scope.editTabContent
+                })
+
+                $scope.editTabTitle = '';
+                $scope.editTabContent = '';
+                $scope.editForm.$setUntouched();
+
+                $('#editTabModal').modal('hide');
+                UpdateService.update();
+                TabList.edit.reset();
+
+                $('.nav-tabs li:first-child a').tab('show');
+            }
+        };
+    });
+
+    tabsApp.directive('ckeditor', function () {
+        return {
+            require: '?ngModel',
+            link: function (scope, element, attrs, ngModel) {
+                var config, editor, updateModel;
+                config = editor = CKEDITOR.replace(element[0], config);
+                if (!ngModel) {
+                    return;
+                }
+                editor.on('instanceReady', function () {
+                    return editor.setData(ngModel.$viewValue);
+                });
+                updateModel = function () {
+                    return scope.$apply(function () {
+                        return ngModel.$setViewValue(editor.getData());
+                    });
+                };
+                editor.on('change', updateModel);
+                editor.on('dataReady', updateModel);
+                editor.on('key', updateModel);
+                editor.on('paste', updateModel);
+                editor.on('selectionChange', updateModel);
+                return ngModel.$render = function () {
+                    return editor.setData(ngModel.$viewValue);
+                };
+            }
+        };
+    });
+
+    tabsApp.controller('SaveState', function ($scope, TabList) {
+        $scope.$watch(function ($scope) {
+            return TabList.results;
+        }, function () {
+            $scope.saveInput = TabList.results.output;
+        }, true);
     });
 </script>
+

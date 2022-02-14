@@ -345,7 +345,7 @@
     font-weight: bold;
     font-size: 15px;
     line-height: 18px;
-    color: #000000;
+    color: #ffffff;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
@@ -899,4 +899,16 @@ margin:10px;
     font-weight: bold;
     font-size: 1.2em;
     margin-bottom: 20px;
+}
+#edit-tab{
+    width:auto;
+    height:auto;
+}
+#cancel-popup {
+    width: auto;
+    height: auto;
+}
+#delete-popup {
+    width: auto;
+    height: auto;
 }
