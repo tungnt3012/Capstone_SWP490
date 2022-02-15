@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Capstone_SWP490.Repositories;
+using Capstone_SWP490.Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +10,8 @@ namespace Capstone_SWP490.Controllers
 {
     public class HomeController : Controller
     {
-    
-            public ActionResult ShirtSizing()
+        private readonly Ipage_contentRepository _ipage_contentRepository = new page_contentRepository();
+        public ActionResult ShirtSizing()
         {
             ViewBag.Message = "Your contact page.";
 
@@ -27,17 +29,30 @@ namespace Capstone_SWP490.Controllers
 
             return View();
         }
+        public ActionResult GetContentAccommodations()
+        {
+            return Json(_ipage_contentRepository.GetPage_ContentByPageId("Accommodations"), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult LocalInformation()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
         }
+        public ActionResult GetContentLocalInformation()
+        {
+            return Json(_ipage_contentRepository.GetPage_ContentByPageId("LocalInformation"), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Rules()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
+        }
+        public ActionResult GetContentRule()
+        {
+            return Json(_ipage_contentRepository.GetPage_ContentByPageId("RULE"),JsonRequestBehavior.AllowGet);
         }
         public ActionResult EventDetail()
         {
@@ -87,6 +102,11 @@ namespace Capstone_SWP490.Controllers
 
             return View();
         }
+        public ActionResult GetContentRegistrationTitle()
+        {
+            return Json(_ipage_contentRepository.GetPage_ContentByPageId("GUID"), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult RegistrationFrom()
         {
             ViewBag.Message = "Your contact page.";
@@ -104,6 +124,11 @@ namespace Capstone_SWP490.Controllers
 
             return View();
         }
+        public ActionResult GetContentAbout()
+        {
+            return Json(_ipage_contentRepository.GetPage_ContentByPageId("ABOUT"), JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult Contact()
         {

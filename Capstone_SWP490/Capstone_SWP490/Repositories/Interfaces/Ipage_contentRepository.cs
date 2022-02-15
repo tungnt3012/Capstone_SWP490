@@ -9,5 +9,6 @@ namespace Capstone_SWP490.Repositories.Interfaces
 {
    public interface Ipage_contentRepository : IGenericRepository<page_content>
     {
+        List<page_content> GetPage_ContentByPageId(string stringId);
     }
 }

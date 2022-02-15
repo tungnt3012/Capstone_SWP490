@@ -16,65 +16,66 @@
             <div class="row">
                 <div class="col-lg-12" id="col-local">
                     <form>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <h3>Time Zone</h3>
-                                    <div class="border border-danger">
-                                        The Philippines follows the GMT +8 time zone
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <h3>Telecommunications</h3>
-                                    <div class="border border-danger">
-                                        When calling Manila from abroad, phone numbers follow the format: Landline Numbers: +63 2 #### #### Mobile Numbers: +63 9## ### ####
-                                        Prepaid mobile SIM cards are widely accessible in airports, malls, and convenience stores. ICPC Manila recommends the services of Smart Communications.
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="row" id="page-content">
                         </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <h3>Weather / Climate</h3>
-                                    <div class="border border-danger">
-                                        The Philippines has a tropical monsoon climate. The month of December falls within the dry season, with occasional rain showers. The average temperature in December falls between 22℃ and 32℃.
+                        @*<div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <h3>Time Zone</h3>
+                                        <div class="border border-danger">
+                                            The Philippines follows the GMT +8 time zone
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <h3>Telecommunications</h3>
+                                        <div class="border border-danger">
+                                            When calling Manila from abroad, phone numbers follow the format: Landline Numbers: +63 2 #### #### Mobile Numbers: +63 9## ### ####
+                                            Prepaid mobile SIM cards are widely accessible in airports, malls, and convenience stores. ICPC Manila recommends the services of Smart Communications.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                        @*<div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <h3>Weather / Climate</h3>
+                                        <div class="border border-danger">
+                                            The Philippines has a tropical monsoon climate. The month of December falls within the dry season, with occasional rain showers. The average temperature in December falls between 22℃ and 32℃.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <h3>Smoking</h3>
+                                        <div class="border border-danger">
+                                            Most places in Metro Manila adhere to the Clean Air Act, prohibiting smoking in all open and public spaces. Similarly, enclosed public spaces are smoke-free. The ICPC 2019 venues and Partner Hotels are generally non-smoking. Certain establishments may have a designated smoking area.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <h3>Smoking</h3>
-                                    <div class="border border-danger">
-                                        Most places in Metro Manila adhere to the Clean Air Act, prohibiting smoking in all open and public spaces. Similarly, enclosed public spaces are smoke-free. The ICPC 2019 venues and Partner Hotels are generally non-smoking. Certain establishments may have a designated smoking area.
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <h3>Currency</h3>
+                                        <div class="border border-danger">
+                                            The Philippine Peso (PHP) is the national currency of the Philippines. Foreign Currency Exchange centers and banks are easily accessible in most parts of the country.
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <h3>Currency</h3>
-                                    <div class="border border-danger">
-                                        The Philippine Peso (PHP) is the national currency of the Philippines. Foreign Currency Exchange centers and banks are easily accessible in most parts of the country.
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <h3>Registration Inclusions</h3>
+                                        <div class="border border-danger">
+                                            Register your team on the ICPC Web Site. More details may be found in the instructions for coaches.<br/>
+                                            Pay the registration fee of your team.<br/>
+                                            Send a copy of your payment transaction to info.discs@ateneo.edu.<br/>
+                                            You will receive a confirmation regarding your registration through your ICPC account.<br/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <h3>Registration Inclusions</h3>
-                                    <div class="border border-danger">
-                                        Register your team on the ICPC Web Site. More details may be found in the instructions for coaches.
-                                        Pay the registration fee of your team.
-                                        Send a copy of your payment transaction to info.discs@ateneo.edu.
-                                        You will receive a confirmation regarding your registration through your ICPC account.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            </div>*@
                     </form>
                 </div>
             </div>
@@ -163,3 +164,28 @@
     </footer>
 </div>
 
+<script>
+
+    GetListContent();
+    function GetListContent() {
+        $.ajax({
+            url: '@Url.Action("GetContentLocalInformation", "Home")',
+            type: 'GET',
+            success: function (results) {
+                if (results != null) {
+                    for (let i = 0; i < results.length; i++) {
+                        console.log("" + results[i].content);
+                        document.getElementById("page-content").innerHTML += `<div class="col-lg-6">
+                                <div class="form-group">
+                                    <h3>`+ results[i].title +`</h3>
+                                    <div class="border border-danger">
+                                        `+ results[i].content +`
+                                    </div>
+                                </div>
+                            </div>`;
+                    }
+                }
+            }
+        });
+    }
+</script>

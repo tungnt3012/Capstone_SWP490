@@ -25,14 +25,14 @@
                                 </label>
                             </div>
                             <div class="col-lg-12">
-                                <label class="Accommodations-Title" for="Event_Schedule">
-                                    Our Partner Hotels
-                                </label>
-                                <label class="Event-Content" for="Event_Schedule">
-                                    The organizers will provide shuttle service from the hotel to the contest venue and vice-versa for those staying at Microtel by Wyndham - Acropolis and Microtel by Wyndham - UP Technohub. The organizers will have walking companions from the hotel to the contest venue and vice-cersa for those staying at Oracle Hotel & Residences.
+                                <label class="Accommodations-Title" for="Event_Schedule"  id="page-content-title">
+                                    @*Our Partner Hotels*@
                                 </label>
                             </div>
-                            <div class="col-lg-12" style="overflow:auto;">
+                            <div class="col-lg-12" style="overflow:auto;" id="page-content-content" >
+                                @*<label class="Event-Content" for="Event_Schedule">
+                                    The organizers will provide shuttle service from the hotel to the contest venue and vice-versa for those staying at Microtel by Wyndham - Acropolis and Microtel by Wyndham - UP Technohub. The organizers will have walking companions from the hotel to the contest venue and vice-cersa for those staying at Oracle Hotel & Residences.
+                                </label>
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -72,7 +72,7 @@
                                         </tr>
 
                                     </tbody>
-                                </table>
+                                </table>*@
                             </div>
 
                         </div>
@@ -163,3 +163,21 @@
     </footer>
 </div>
 <!-- /#page-content-wrapper -->
+<script>
+    GetListContent();
+    function GetListContent() {
+        $.ajax({
+            url: '@Url.Action("GetContentAccommodations", "Home")',
+            type: 'GET',
+            success: function (results) {
+                if (results != null) {
+                    for (let i = 0; i < results.length; i++) {
+                        console.log("" + results[i].content);
+                        document.getElementById("page-content-title").innerHTML += results[i].title;
+                        document.getElementById("page-content-content").innerHTML += results[i].content;
+                    }
+                }
+            }
+        });
+    }
+</script>
