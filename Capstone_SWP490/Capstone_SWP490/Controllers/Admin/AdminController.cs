@@ -13,5 +13,9 @@ namespace Capstone_SWP490.Controllers.Admin
         {
             return View();
         }
+        public ActionResult Admin()
+        {
+            return View();
+        }
     }
 }
