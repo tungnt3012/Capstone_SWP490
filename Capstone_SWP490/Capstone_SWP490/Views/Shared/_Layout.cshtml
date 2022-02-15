@@ -130,12 +130,96 @@
                 </li>
             </ul>
         </div>
-        @RenderBody()
-    </div>
-    @RenderSection("scripts", required: false)
-    <script src="~/Scripts/home.js" asp-append-version="true"></script>
+        <div id="page-content-wrapper">
+            @RenderBody()
+            <footer class="page-footer font-small blue pt-4" id="footer">
 
-    <script src="~/Scripts/bootstrap.js" asp-append-version="true"></script>
+                <!-- Footer Links -->
+                <div class="container-fluid text-center text-md-left">
+
+                    <!-- Grid row -->
+                    <div class="row" id="footer-main">
+                        <div class="container">
+                            <!-- Grid column -->
+                            <div class="col-lg-3 col-xs-6">
+
+                                <!-- Links -->
+
+
+                                <ul class="list-unstyled">
+                                    <li onclick="location.href='@Url.Action("Index", "Home")';return false;">
+                                        <a href="#!">Home</a>
+                                    </li>
+                                    <li onclick="location.href='@Url.Action("Guide", "Registration")';return false;">
+                                        <a href="#!">How to register</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <!-- Grid column -->
+                            <!-- Grid column -->
+                            <div class="col-lg-3 col-xs-6">
+
+                                <!-- Links -->
+
+
+                                <ul class="list-unstyled">
+                                    <li  onclick="location.href='@Url.Action("ScheduleOfActivities", "Home")';return false;">
+                                        <a href="#!">Schedule Of Activities</a>
+                                    </li>
+                                    <li onclick="location.href='@Url.Action("Event", "Home")';return false;">
+                                        <a href="#!">Event</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <!-- Grid column -->
+                            <!-- Grid column -->
+                            <div class="col-lg-3 col-xs-6">
+
+                                <!-- Links -->
+
+                                <ul class="list-unstyled">
+                                    <li onclick="location.href='@Url.Action("Rules", "Home")';return false;">
+                                        <a href="#!">Rule</a>
+                                    </li>
+                                    <li onclick="location.href='@Url.Action("LocalInformation", "Home")';return false;">
+                                        <a href="#!">
+                                            Local Information
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-3 col-xs-6">
+
+                                <!-- Links -->
+
+                                <ul class="list-unstyled">
+
+                                    <img src="~/image/image 29.png">
+
+                                </ul>
+
+                            </div>
+
+                            <!-- Grid column -->
+                        </div>
+                    </div>
+                    <!-- Grid row -->
+
+                </div>
+                <!-- Footer Links -->
+                <!-- Copyright -->
+                <!-- Copyright -->
+
+            </footer>
+        </div>
+        </div>
+        @RenderSection("scripts", required: false)
+        <script src="~/Scripts/home.js" asp-append-version="true"></script>
+
+        <script src="~/Scripts/bootstrap.js" asp-append-version="true"></script>
 
 
 </body>

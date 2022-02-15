@@ -141,6 +141,12 @@
         /* transition: padding-left .5s ease; */
         width: 100%
     }
+    .content-area2-image {
+        float: right;
+        padding: 5px 0px 0px 0px;
+        display:none !important;
+    }
+
     .Event-Schedule {
         font-size: 50px !important;
     }
@@ -356,7 +362,7 @@
 .content-area1-title {
     left: 45px;
     top: 13px;
-    font-size: 12px;
+    font-size: 11px;
     line-height: 29px;
     color: #FFFFFF;
     position: absolute;
@@ -370,6 +376,7 @@
     float: right;
     padding: 5px 0px 0px 0px;
 }
+
 
 .content-area1-image2 {
     float: right;
@@ -913,4 +920,9 @@ margin:10px;
 #delete-popup {
     width: auto;
     height: auto;
+}
+.content-area2-image {
+    float: right;
+    padding: 5px 0px 0px 0px;
+    display: block;
 }
