@@ -31,10 +31,10 @@
                                             <th scope="col">User</th>
                                             <th scope="col">Password</th>
                                             <th scope="col">First name</th>
-                                            <th scope="col">middle name</th>
+                                            <th scope="col">Middle name</th>
                                             <th scope="col">Last name</th>
-                                            <th scope="col">email</th>
-                                            <th scope="col">phone number</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Phone number</th>
                                             <th scope="col">ICPC ID</th>
                                             <th scope="col">Gender</th>
                                             <th scope="col">Year</th>
@@ -45,32 +45,114 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td scope="row">camping and bonfires</td>
-                                            <td>11:00 AM</td>
-                                            <td>12:00 AM</td>
-                                            <td>FPT university</td>
-                                            <td>0979718763</td>
-                                            <td><a href="/Home/EventDetail">Detail</a></td>
+                                            <td scope="row" style="padding-top:15px;">1</td>
+                                            <td style="padding-top:15px;">abc</td>
+                                            <td style="padding-top:15px;">123456</td>
+                                            <td style="padding-top:15px;">Nam</td>
+                                            <td style="padding-top:15px;">Van</td>
+                                            <td style="padding-top:15px;">Nguyen</td>
+                                            <td style="padding-top:15px;">nguyenvannam@gmail.com</td>
+                                            <td style="padding-top:15px;">0979718763</td>
+                                            <td style="padding-top:15px;">231231</td>
+                                            <td style="padding-top:15px;">Male</td>
+                                            <td style="padding-top:15px;">1998</td>
+                                            <td style="padding-top:15px;">gold: 1</td>
+                                            <td style="padding-top:15px;">User</td>
+                                            <td ><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="height:auto; width:auto;">
+                                             Edit
+                                             </button></td>
                                         </tr>
-                                        <tr>
-                                            <td scope="row">camping and bonfires</td>
-                                            <td>11:00 AM</td>
-                                            <td>12:00 AM</td>
-                                            <td>FPT university</td>
-                                            <td>0979718763</td>
-                                            <td><a href="/Home/EventDetail">Detail</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row">camping and bonfires</td>
-                                            <td>11:00 AM</td>
-                                            <td>12:00 AM</td>
-                                            <td>FPT university</td>
-                                            <td>0979718763</td>
-                                            <td><a href="/Home/EventDetail">Detail</a></td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
-
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Edit</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="firstName">User</label>
+                                                    <input type="text" class="form-control" id="User" name="User" aria-describedby="User" placeholder="User">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="firstName">Password</label>
+                                                    <input type="text" class="form-control" id="Password" name="Password" aria-describedby="Password" placeholder="Password">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="firstName">First name</label>
+                                                    <input type="text" class="form-control" id="firstName" name="firstName" aria-describedby="Frist name" placeholder="Frist name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="firstName">Middle name</label>
+                                                    <input type="text" class="form-control" id="Middlename" name="Middlename" aria-describedby="Middle name" placeholder="Middle name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="firstName">Last name</label>
+                                                    <input type="text" class="form-control" id="Lastname" name="Lastname" aria-describedby="Last name" placeholder="Last name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="firstName">Email</label>
+                                                    <input type="email" class="form-control" id="Email" name="Email" aria-describedby="Email" placeholder="Email">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="firstName">Phone number</label>
+                                                    <input type="number" class="form-control" id="Phone number" name="Phone number" aria-describedby="Phone number" placeholder="Phone number">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="firstName">ICPC ID</label>
+                                                    <input type="number" class="form-control" id="ICPCID" name="ICPCID" aria-describedby="ICPC ID" placeholder="ICPC ID">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputGender">Gender: </label>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="0">
+                                                        <label class="form-check-label" for="inlineRadio1">Male</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="1">
+                                                        <label class="form-check-label" for="inlineRadio2">Female</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="firstName">Year</label>
+                                                    <input type="datetime" class="form-control" id="Year" name="Year" aria-describedby="Year" placeholder="Year">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="firstName">Award</label>
+                                                    <input type="text" class="form-control" id="Award" name="Award" aria-describedby="Award" placeholder="Award">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInputGender">Member role</label>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="0">
+                                                        <label class="form-check-label" for="inlineRadio1">admin</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="2">
+                                                        <label class="form-check-label" for="inlineRadio2">Ban tổ chức</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="1">
+                                                        <label class="form-check-label" for="inlineRadio2">Coach</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="3">
+                                                        <label class="form-check-label" for="inlineRadio2">Contestant</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color:#000000;">Close</button>
+                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </form>
