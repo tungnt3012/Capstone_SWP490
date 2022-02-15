@@ -83,6 +83,10 @@
                                                         <label for="tabContent">Tab Content</label>
                                                         <textarea id="tabContent" name="tabContent" class="form-control" rows="15" ng-model="tabContent" ckeditor required="required"></textarea>
                                                     </div>
+                                                    <div class="form-group">
+                                                        <label for="editDoB">Date of birth</label>
+                                                        <input type="date" class="form-control" id="editDoB" aria-describedby="Last name" placeholder="Date of birth">
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-success" ng-click="addTab()">Save Tab</button>
@@ -106,6 +110,10 @@
                                                     <div class="form-group" ng-class="{'has-error': editForm.editTabContent.$invalid && editForm.editTabContent.$touched}">
                                                         <label for="editTabContent">Tab Content</label>
                                                         <textarea id="editTabContent" name="editTabContent" class="form-control" rows="15" ckeditor ng-model="editTabContent" required="required"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="editDoB">Date of birth</label>
+                                                        <input type="date" class="form-control" id="editDoB" aria-describedby="Last name" placeholder="Date of birth">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
