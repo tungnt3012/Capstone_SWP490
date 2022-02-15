@@ -18,9 +18,9 @@
             <div class="column">
                 <div class="col-lg-12">
                     <form>
-                        <div class="column">
+                        <div class="column" id="page-content">
 
-                            <div class="col-lg-12">
+                            @*<div class="col-lg-12">
                                 <label class="Event-Schedule" for="Event_Schedule">
                                     About the Event
                                 </label>
@@ -41,7 +41,7 @@
                                 <label class="Event-Content" for="Event_Schedule">
                                     Over time, the contest evolved into a multi-tier competition with the first championship round conducted in 1977. Since then, the contest has expanded into a worldwide collaborative of universities hosting regional competitions that advance teams to the annual global championship round, the ICPC World Finals.
                                 </label>
-                            </div>
+                            </div>*@
 
                         </div>
                     </form>
@@ -132,3 +132,30 @@
     </footer>
 </div>
 
+<script>
+    GetListContent();
+     function GetListContent() {
+        $.ajax({
+            url: '@Url.Action("GetContentAbout", "Home")',
+            type: 'GET',
+            success: function (results) {
+                if (results != null) {
+                    for (let i = 0; i < results.length; i++) {
+                        console.log("" + results[i].content);
+                        document.getElementById("page-content").innerHTML += `
+                                        <div class="col-lg-12">
+                                            <label class="Event-Schedule" for="Event_Schedule">
+                                                `+ results[i].title+`
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="Event-Content" for="Event_Schedule">
+                                                `+ results[i].content+`
+                                            </div>
+                                        </div>`;
+                    }
+                }
+            }
+        });
+    };
+</script>
