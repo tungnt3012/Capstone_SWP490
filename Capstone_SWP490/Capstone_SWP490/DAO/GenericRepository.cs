@@ -35,6 +35,12 @@ namespace Capstone_SWP490.DAO
             _dbset.Remove(entity);
             return await Save();
         }
+
+        public async Task<int> DeleteMany(IEnumerable<T> entity)
+        {
+            _dbset.RemoveRange(entity);
+            return await Save();
+        }
         public async Task<int> Save()
         {
             try

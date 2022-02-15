@@ -13,6 +13,11 @@ namespace Capstone_SWP490.Services
     {
         private readonly Iteam_memberRepository _iteam_memberRepository = new teamMemberRepository();
 
+        public List<team_member> getCoachTeamMember(int? teamId)
+        {
+            return _iteam_memberRepository.FindBy(x => x.team_id == teamId).ToList();
+        }
+
         public async Task<team_member> insert(team_member team_Member)
         {
             return await _iteam_memberRepository.Create(team_Member);

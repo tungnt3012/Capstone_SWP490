@@ -8,12 +8,12 @@ namespace Capstone_SWP490.Services.Interfaces
 {
     public interface ImemberService
     {
-        Task<member> insert(member member);
+        Task<member> insert(member member, int imported);
         Task<IEnumerable<member>> insertMany(IEnumerable<member> member);
         Task<int> update(member member, int key);
         Task<member> RegisterShirtSize(string username, string size);
         Task<int> deleteAsync(member member);
-        member GetMemberByUserId(int userId);
+        member GetMemberByUserId(int? userId);
 
     }
 }

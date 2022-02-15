@@ -11,5 +11,6 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<team> insert(team enties);
          Task<IEnumerable<team>> insertMany(IEnumerable<team> enties);
         List<team> findBySchoolId(int schoolId);
+        Task<int> delete(team team);
     }
 }

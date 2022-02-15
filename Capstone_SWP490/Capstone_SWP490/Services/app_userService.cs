@@ -21,17 +21,12 @@ namespace Capstone_SWP490.Services
         {
             return _iapp_UserRepository.GetAllApp_Users();
         }
-        public Task<app_user> CreateUser(app_user userIn)
+        public async Task<app_user> CreateUser(app_user userIn)
         {
             //if(_iapp_UserRepository.FindBy(x => x.user_name.Equals(userIn.user_name)) != null){
              //   throw new UserException("1","Email existed", null);
             //}
-            var userOut = _iapp_UserRepository.Create(userIn);
-            if (userOut != null)
-            {
-                return userOut;
-            }
-            return null;
+          return await _iapp_UserRepository.Create(userIn);
         }
 
         public bool CheckLogin(app_user app_User)
@@ -103,6 +98,21 @@ namespace Capstone_SWP490.Services
                 return viewModel;
             }
             return null;
+        }
+
+        public app_user getByUserId(int userId)
+        {
+            return  _iapp_UserRepository.FindBy(x => x.user_id == userId).FirstOrDefault();
+        }
+
+        public app_user getByUserId(int? userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> delete(app_user entity)
+        {
+            return  _iapp_UserRepository.Delete(entity);
         }
     }
 }

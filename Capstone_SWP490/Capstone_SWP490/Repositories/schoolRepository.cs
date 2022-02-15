@@ -9,7 +9,7 @@ namespace Capstone_SWP490.Repositories
 {
     public class schoolRepository : GenericRepository<school>, IschoolRepository
     {
-        public school checkExist(school school)
+        public school checkActive(school school)
         {
             if(school == null)
             {

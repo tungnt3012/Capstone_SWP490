@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a9e3f595904f4706a2d65392111858fe" Name="Diagram1">
+      <Diagram DiagramId="7f531982de7f413babe4c8128aebca50" Name="Diagram1">
         <EntityTypeShape EntityType="gocyberx_icpcModel.app_user" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="gocyberx_icpcModel.contest" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gocyberx_icpcModel.contest" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.contest_member" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.event" Width="1.5" PointX="5.75" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.member" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
@@ -17,12 +17,12 @@
         <EntityTypeShape EntityType="gocyberx_icpcModel.team_member" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.documentation" Width="1.5" PointX="7.75" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.image" Width="1.5" PointX="9.75" PointY="1.875" IsExpanded="true" />
-        <AssociationConnector Association="gocyberx_icpcModel.FK__member__user_id__24927208" ManuallyRouted="false" />
-        <AssociationConnector Association="gocyberx_icpcModel.FK__contest_m__conte__2F10007B" ManuallyRouted="false" />
-        <AssociationConnector Association="gocyberx_icpcModel.FK__contest_m__membe__300424B4" ManuallyRouted="false" />
-        <AssociationConnector Association="gocyberx_icpcModel.FK__team_memb__membe__29572725" ManuallyRouted="false" />
-        <AssociationConnector Association="gocyberx_icpcModel.FK__team__school_id__0519C6AF" ManuallyRouted="false" />
-        <AssociationConnector Association="gocyberx_icpcModel.FK__team_memb__team___2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="gocyberx_icpcModel.FK__member__user_id__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="gocyberx_icpcModel.FK__contest_m__conte__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="gocyberx_icpcModel.FK__contest_m__membe__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="gocyberx_icpcModel.FK__team_memb__membe__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="gocyberx_icpcModel.FK__team__school_id__07F6335A" ManuallyRouted="false" />
+        <AssociationConnector Association="gocyberx_icpcModel.FK__team_memb__team___2D27B809" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

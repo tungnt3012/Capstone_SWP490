@@ -9,5 +9,6 @@ namespace Capstone_SWP490.Services.Interfaces
     public interface Iteam_memberService
     {
         Task<team_member> insert(team_member team_Member);
+        List<team_member> getCoachTeamMember(int? teamId);
     }
 }

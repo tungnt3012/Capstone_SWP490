@@ -17,6 +17,6 @@ namespace Capstone_SWP490.DAO
         Task<int> Delete(T entity);
         Task<int> Save();
         Task<IEnumerable<T>> SQLCommand(string sql, string[] param);
-
+        Task<int> DeleteMany(IEnumerable<T> entity);
     }
 }
