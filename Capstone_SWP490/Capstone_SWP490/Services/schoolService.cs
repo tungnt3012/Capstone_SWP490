@@ -19,23 +19,33 @@ namespace Capstone_SWP490.Services
             return await _ischoolRepository.Delete(school);
         }
 
+        public void disable(school school)
+        {
+           _ischoolRepository.Update(school , school.school_id);
+        }
+
         public List<school> findByCoachId(int coachId)
         {
-            return _ischoolRepository.FindBy(x => x.coach_id == coachId).OrderByDescending(x=>x.update_date).ToList();
+            return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.enabled == true).OrderByDescending(x=>x.update_date).ToList();
         }
 
         public school findById(int id)
         {
-            return _ischoolRepository.FindBy(x => x.school_id == id).FirstOrDefault();
+            return _ischoolRepository.FindBy(x => x.school_id == id && x.enabled == true).FirstOrDefault();
         }
 
         public async Task<school> insert(school school)
         {
-            school existActive = _ischoolRepository.checkExist(school);
+            school existActive = _ischoolRepository.checkActive(school);
             if(existActive == null)
             {
                 school.active = true;
             }
+            else
+            {
+                school.active = false;
+            }
+            school.enabled = true;
          return await _ischoolRepository.Create(school);
         }
 

@@ -32,6 +32,7 @@ namespace Capstone_SWP490
         public Nullable<bool> active { get; set; }
         public string update_date { get; set; }
         public Nullable<int> coach_id { get; set; }
+        public Nullable<bool> enabled { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<team> teams { get; set; }

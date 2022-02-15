@@ -13,5 +13,7 @@ namespace Capstone_SWP490.Services.Interfaces
         List<school> findByCoachId(int coachId);
         school findById(int id);
 
+        void disable(school school);
+
     }
 }

@@ -235,7 +235,7 @@ namespace Capstone_SWP490.Helper
             app_user user = new app_user();
             user.psw = CreatePassword(8);
             user.user_name = member.email;
-            user.user_role = "MEMBER";
+            user.user_role = member.member_role == 1 ? "COACH" : member.member_role == 2 ?"VICE-COACH" : member.member_role == 3 ? "LEADER":"MEMBER";
             user.encrypted_psw = user.psw;
             user.full_name = member.first_name + " " + member.middle_name + " " + member.last_name;
             user.email = member.email;

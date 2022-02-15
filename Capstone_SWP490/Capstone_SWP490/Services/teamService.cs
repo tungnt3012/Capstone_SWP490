@@ -14,6 +14,11 @@ namespace Capstone_SWP490.Services
     {
         private readonly IteamRepository _iteamRepository = new teamRepository();
 
+        public Task<int> delete(team team)
+        {
+            return _iteamRepository.Delete(team);
+        }
+
         public List<team> findBySchoolId(int schoolId)
         {
             return _iteamRepository.FindBy(x => x.school_id == schoolId).ToList();
@@ -21,24 +26,32 @@ namespace Capstone_SWP490.Services
 
         public async Task<team> insert(team enties)
         {
-            if(_iteamRepository.checkExist(enties) != null)
+            if (!enties.type.Equals("COACH"))
             {
-                throw new TeamException("0", "Team Existed !", null);
+                try
+                {
+                    team existed = _iteamRepository.checkExist(enties);
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
             }
-         return await _iteamRepository.Create(enties);
+
+            return await _iteamRepository.Create(enties);
         }
 
         public async Task<IEnumerable<team>> insertMany(IEnumerable<team> enties)
         {
             List<team> beforeCreate = new List<team>();
-            foreach(var x in enties)
+            foreach (var x in enties)
             {
-                if(_iteamRepository.checkExist(x) != null)
+                if (_iteamRepository.checkExist(x) != null)
                 {
                     beforeCreate.Add(x);
                 }
             }
-          return await _iteamRepository.CreateMany(beforeCreate);
+            return await _iteamRepository.CreateMany(beforeCreate);
         }
     }
 }

@@ -145,6 +145,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="active" Type="bit" />
           <Property Name="update_date" Type="nvarchar" MaxLength="50" />
           <Property Name="coach_id" Type="int" />
+          <Property Name="enabled" Type="bit" />
         </EntityType>
         <EntityType Name="team">
           <Key>
@@ -414,6 +415,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="active" Type="Boolean" />
           <Property Name="update_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="coach_id" Type="Int32" />
+          <Property Name="enabled" Type="Boolean" />
           <NavigationProperty Name="teams" Relationship="Self.FK__team__school_id__07F6335A" FromRole="school" ToRole="team" />
         </EntityType>
         <EntityType Name="team">
@@ -695,6 +697,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="update_date" ColumnName="update_date" />
                 <ScalarProperty Name="coach_id" ColumnName="coach_id" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
