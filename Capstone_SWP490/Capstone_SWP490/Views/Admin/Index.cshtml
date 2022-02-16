@@ -5,425 +5,436 @@
         color: #ffffff !important;
         background: #30cf6b;
     }
+    body {
+        background-color: #ffffff;
+        
+    }
 
-    
+    .title {
+        width: 90vw;
+        height: fit-content;
+        color: white;
+        font-size: 2rem;
+        font-family: 'Playfair Display', serif;
+        font-weight: 800;
+    }
+
+    .input {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        gap: 2rem;
+        padding: 1rem;
+        border: 1px solid #000000;
+        height: 4.2rem;
+        overflow: hidden;
+        transition: height 1s ease;
+        max-width: 50rem;
+        background: #ffffff;
+        margin-left:20px;
+    }
+
+    #close {
+        margin-left: auto;
+        margin-top: -0.5rem;
+        margin-right: -0.7rem;
+        display: none;
+    }
+
+    .input .inputs1 {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .inputs2 textarea {
+        display: none;
+        max-width: 50rem;
+        min-width: 40rem;
+    }
+
+    .input .heading {
+        width: 35em;
+        height: 2rem;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: #000000;
+        font-family: 'Playfair Display', serif;
+
+    }
+
+    .input button {
+      
+    }
+
+        .input button:hover {
+            background-color: white;
+            color: black;
+            font-weight: bold;
+        }
+
+
+    .subcon {
+       
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+        .subcon:nth-child(1) {
+            grid-column-start: 1;
+            grid-column-end: 2;
+        }
+
+        .subcon:nth-child(2) {
+            grid-column-start: 2;
+            grid-column-end: 3;
+        }
+
+        .subcon:nth-child(3) {
+            grid-column-start: 3;
+            grid-column-end: 4;
+        }
+
+        .subcon:nth-child(4) {
+            grid-column-start: 4;
+            grid-column-end: 5;
+        }
+
+        .subcon:nth-child(5) {
+            grid-column-start: 5;
+            grid-column-end: 6;
+        }
+
+    .item {
+        border: 1px solid white;
+        padding: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+        .item #heading {
+            font-weight: bold;
+            font-size: 1.5em !important;
+        }
+
+        .item #delete_edit img {
+            height: 1.5rem;
+            margin-top: 1rem;
+            margin-right: 0.5rem;
+        }
+    #post-pins {
+        width: auto;
+        height: auto;
+        background-color: #007bff;
+        border: none;
+        color: #ffffff;
+        /* font-family: 'Playfair Display', serif; */
+        text-transform: uppercase;
+        margin-left: auto;
+        margin-top: 10px;
+    }
 </style>
-
-<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
-
-<div id="page-content-wrapper">
-    <div class="container-fluid xyz">
-        <div class="col-lg-12" id="content_area2_header">
-            <div class="col-lg-12" id="content_area2_title">
-                <label for="exampleInputTitle">Rules</label>
-            </div>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700;1,800&family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+<script src="//cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">administrators Rules</label>
         </div>
-        <div class="main">
-            <div class="column">
-                <div class="col-lg-12">
-                    <form>
-                        <div class="column">
-                            <div class="col-lg-12">
-                                <div class="container" ng-app="tabsApp">
-                                    <h2 class="page-header">
-                                        Edit Tabs
-                                        <button class="btn btn-sm btn-success pull-right" data-toggle="modal" data-target="#addTabModal"><i class="fa fa-plus"></i> Add Tab</button>
-                                    </h2>
-                                    <div id="outTemplate" ng-controller="ListTabs">
-                                        <ul class="nav nav-tabs">
-                                            <li ng-repeat="tab in tabs" ng-class="{active: $index == 0}">
-                                                <a href="#tab{{$index}}" aria-controls="tab{{$index}}" role="tab" data-toggle="tab" style="color: #555555">
-                                                    {{tab.title}}
-                                                    <button class="btn btn-xs btn-link" id="edit-tab" type="button" ng-click="findTab(tab)" style="color: #23527c;">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>&nbsp;
-                                                    <button class="close" title="Delete Tab" ng-click="deleteDialog(tab)">&times;</button>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <br />
-                                        <div class="tab-content">
-                                            <div id="tab{{$index}}" role="tabpanel" class="tab-pane fade" ng-repeat="tab in tabs" ng-class="{'in active': $index == 0}">
-                                                <div class="form-group">
-
-                                                </div>
-                                                <div ng-bind-html="tab.content"></div>
-                                            </div>
-                                        </div>
-
-                                        <div class="modal" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="dialog">
-                                            <div class="modal-dialog modal-sm" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" style="padding: 8px 15px;">
-                                                        <h4 class="modal-title">Confirm</h4>
-                                                    </div>
-                                                    <div class="modal-body">Are you sure you want to delete?</div>
-                                                    <div class="modal-footer" style="padding: 6px;">
-                                                        <button type="button" class="btn btn-sm btn-danger" ng-click="deleteTab()" id="delete-popup">Delete</button>
-                                                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" id="cancel-popup">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="modal fade" id="addTabModal" tabindex="-1" role="dialog" aria-labelledby="addTab">
-                                        <div class="modal-dialog modal-lg" role="document">
-                                            <div class="modal-content" ng-controller="AddTab">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title" id="addTab">Add Tab</h4>
-                                                </div>
-                                                <div class="modal-body" ng-form="addForm">
-                                                    <div class="form-group" ng-class="{'has-error': addForm.tabTitle.$invalid && addForm.tabTitle.$touched}">
-                                                        <label for="tabTitle">Tab Title</label>
-                                                        <input id="tabTitle" name="tabTitle" type="text" class="form-control" ng-model="tabTitle" required />
-                                                    </div>
-                                                    <div class="form-group" ng-class="{'has-error': addForm.tabContent.$invalid && addForm.tabContent.$touched}">
-                                                        <label for="tabContent">Tab Content</label>
-                                                        <textarea id="tabContent" name="tabContent" class="form-control" rows="15" ng-model="tabContent" ckeditor required="required"></textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="editDoB">Date of birth</label>
-                                                        <input type="date" class="form-control" id="editDoB" aria-describedby="Last name" placeholder="Date of birth">
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success" ng-click="addTab()">Save Tab</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="modal fade" id="editTabModal" tabindex="-1" role="dialog" aria-labelledby="editTab">
-                                        <div class="modal-dialog modal-lg" role="document">
-                                            <div class="modal-content" ng-controller="EditTab">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title" id="editTab">Edit Tab</h4>
-                                                </div>
-                                                <div class="modal-body" ng-form="editForm">
-                                                    <div class="form-group" ng-class="{'has-error': editForm.editTabTitle.$invalid && editForm.editTabTitle.$touched}">
-                                                        <label for="editTabTitle">Tab Title</label>
-                                                        <input id="editTabTitle" name="editTabTitle" type="text" class="form-control" ng-model="editTabTitle" required />
-                                                    </div>
-                                                    <div class="form-group" ng-class="{'has-error': editForm.editTabContent.$invalid && editForm.editTabContent.$touched}">
-                                                        <label for="editTabContent">Tab Content</label>
-                                                        <textarea id="editTabContent" name="editTabContent" class="form-control" rows="15" ckeditor ng-model="editTabContent" required="required"></textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="editDoB">Date of birth</label>
-                                                        <input type="date" class="form-control" id="editDoB" aria-describedby="Last name" placeholder="Date of birth">
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success" ng-click="editTab()">Save Tab</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <div class="form-group" ng-controller="SaveState">
-                                            Hidden Input
-                                            <input id="saveInput" type="text" class="form-control" value='[{"title":"Tab #1","content":"<p>Cool Content.</p>"},{"title":"Tab #2","content":"<p>Cool Content #2.</p>"}]' />
-                                            <br />
-                                            <input id="outputHtml" class="form-control" type="text" value="{{saveInput}}" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-
     </div>
-    <footer class="page-footer font-small blue pt-4" id="footer">
-
-        <!-- Footer Links -->
-        <div class="container-fluid text-center text-md-left">
-
-            <!-- Grid row -->
-            <div class="row" id="footer-main">
-                <div class="container">
-                    <!-- Grid column -->
-                    <div class="col-lg-3 col-xs-6">
-
-                        <!-- Links -->
-
-
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="#!">Home</a>
-                            </li>
-                            <li>
-                                <a href="#!">How to register</a>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <!-- Grid column -->
-                    <!-- Grid column -->
-                    <div class="col-lg-3 col-xs-6">
-
-                        <!-- Links -->
-
-
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="#!">Accommodations</a>
-                            </li>
-                            <li>
-                                <a href="#!">Rules</a>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <!-- Grid column -->
-                    <!-- Grid column -->
-                    <div class="col-lg-3 col-xs-6">
-
-                        <!-- Links -->
-
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="#!">ICPC Asia Director's Blog</a>
-                            </li>
-                            <li>
-                                <a href="#!">ICPC Regional Rules</a>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <div class="col-lg-3 col-xs-6">
-
-                        <!-- Links -->
-
-                        <ul class="list-unstyled">
-
-                            <img src="~/image/image 29.png">
-
-                        </ul>
-
-                    </div>
-
-                    <!-- Grid column -->
+    <div class="main">
+        <div class="col-lg-12" id="col-local">
+           
+            <div class="input">
+                <img id="close" src="~/image/x-circle-fill.svg" />
+                <div class="inputs1">
+                    <input class="heading" type="text" placeholder="More information...">
+                    <button class="save_btn">Add</button>
+                    <button style="display: none" class="update_btn">update</button>
+                </div>
+                <div class="inputs2">
+                    <textarea id="editor" name="content" placeholder="Puke your Content in here! 🤮"></textarea>
+                    <button type="button" class="btn btn-primary" id="post-pins">Post Pins</button>
                 </div>
             </div>
-            <!-- Grid row -->
+            <div class="container">
+                <div class="subcon">
+                    <div class="item">
+                        <span id="heading" class="sonam">The Contest</span>
+                        <span id="content">
+                            <p>Ten (10) or more algorithmic problems will be posed for teams to solve in five (5) hours. While the contest is scheduled for five hours, the Regional Contest Director has the authority to alter the length of the contest in the even of unforeseen difficulties. Should the contest duration be altered, every attempt will be made to notify contestants in a timely and uniform manner.</p>
 
+                            <p>Problems will be posed in English. During the contest , all communications from contest officials to contestants will be in English.</p>
+
+                            <p>A contestant may submit a claim of ambiguity or error in a problem statement by submitting a clarification request using the contest management system. If the judges agree that ambiguity is present in the problem, a broadcast of the clarification will be made to all teams.</p>
+
+                            <p>Should a contestant require use of the restroom during the contest proper, the contestant will be accompanied by a designated usher.</p>
+
+                        </span>
+                        <span id="delete_edit">
+                            <img id="edit" src="~/image/pencil-fill.svg" />
+                            <img id="delete" src="~/image/trash-fill.svg" />
+                        </span>
+                    </div>
+                </div>
+                <div class="subcon">
+                    <div class="item">
+                        <span id="heading">Submissions</span>
+                        <span id="content">
+                            Ten (10) or more algorithmic problems will be posed for teams to solve in five (5) hours. While the contest is scheduled
+                            for five hours, the Regional Contest Director has the authority to alter the length of the contest in the even of unforeseen
+                            difficulties. Should the contest duration be altered, every attempt will be made to notify contestants in a timely and
+                            uniform manner.
+                        </span>
+                        <span id="delete_edit">
+                            <img id="edit" src="~/image/pencil-fill.svg" />
+                            <img id="delete" src="~/image/trash-fill.svg" />
+                        </span>
+                    </div>
+
+                </div>
+                <div class="subcon">
+                    <div class="item">
+                        <span id="heading">Scoring and Ranks</span>
+                        <span id="content">
+                            Ten (10) or more algorithmic problems will be posed for teams to solve in five (5) hours. While the contest is scheduled
+                            for five hours, the Regional Contest Director has the authority to alter the length of the contest in the even of unforeseen
+                            difficulties. Should the contest duration be altered, every attempt will be made to notify contestants in a timely and
+                            uniform manner.
+                        </span> <span id="delete_edit">
+                            <img id="edit" src="~/image/pencil-fill.svg" />
+                            <img id="delete" src="~/image/trash-fill.svg" />
+                        </span>
+                    </div>
+
+                </div>
+                <div class="subcon">
+                    <div class="item">
+                        <span id="heading">Contestant Conduct</span>
+                        <span id="content">
+                            Ten (10) or more algorithmic problems will be posed for teams to solve in five (5) hours. While the contest is scheduled
+                            for five hours, the Regional Contest Director has the authority to alter the length of the contest in the even of unforeseen
+                            difficulties. Should the contest duration be altered, every attempt will be made to notify contestants in a timely and
+                            uniform manner.
+                        </span> <span id="delete_edit">
+                            <img id="edit" src="~/image/pencil-fill.svg" />
+                            <img id="delete" src="~/image/trash-fill.svg" />
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- Footer Links -->
-        <!-- Copyright -->
-        <!-- Copyright -->
+    </div>
 
-    </footer>
 </div>
-<!-- /#page-content-wrapper -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.4/ckeditor.js'></script>
 <script>
-    // String.trim() polyfill
-    String.prototype.trim || (String.prototype.trim = function () { return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '') });
+    window.onload = () => {
 
-    var tabsApp = angular.module('tabsApp', []).config(function ($sceProvider) {
-        $sceProvider.enabled(false);
-    });
-
-    tabsApp.factory('TabList', function () {
-        var list = angular.fromJson($('#saveInput').val()),
-            results = {},
-            edit = {
-                item: {}
-            };
-
-        results.output = '';
-        results.update = function (theValue) {
-            results.output = theValue;
-        };
-
-        list.add = function (theValue) {
-            list.push(theValue);
-        };
-
-        list.remove = function (i) {
-            var index = list.indexOf(i);
-            list.splice(index, 1);
-        };
-
-        list.edit = function (i, newValue) {
-            var index = list.indexOf(i);
-            list.splice(index, 1, newValue);
-        };
-
-        edit.indexOf = function (i) {
-            var tab = list.indexOf(i);
-            return tab;
+        //for CKeditor 
+        CKEDITOR.replace('editor');
+        timer = setInterval(updateDiv, 100);
+        var data = "";
+        function updateDiv() {
+            data = CKEDITOR.instances.editor.getData();
         }
 
-        edit.find = function (i) {
-            var tab = list.indexOf(i);
-            edit.item = list[tab];
-        }
 
-        edit.reset = function () {
-            edit.item = {};
-        }
+        var totalnodes = 6;
+        document.querySelector('.save_btn').onclick = () => {
+            document.getElementById('close').style.display = 'none';
+            var item = document.createElement("div");
+            var span1 = document.createElement("span");
+            var span2 = document.createElement("span");
+            var span3 = document.createElement("span");
+            var edit = document.createElement('img');
+            var delete_ = document.createElement('img');
 
-        return {
-            list: list,
-            edit: edit,
-            results: results
-        };
-    });
+            var subcons = document.querySelector('.container').children;
+            var placingAddress = totalnodes + 1;
 
-    tabsApp.service('UpdateService', function (TabList) {
-        this.output = function () {
-            'use strict';
-            var tabs = TabList.list,
-                nav = [],
-                navFull = '<ul class="nav nav-tabs">{{nav}}</ul><br />',
-                contentPanes = [],
-                contentFull = '<div class="tab-content">{{content}}</div>',
-                compiledTemplate;
+            var heading = document.querySelector('.heading').value;
+
+            function putdata(arg) {
+                item.className = "item";
+
+                span1.id = "haading";
+                span1.style.fontSize = '1.5em';
+                span1.style.fontWeight = 'bold';
+                span1.innerHTML = heading;
+                document.querySelector('.heading').value = '';
+
+                span2.id = "content";
+                data = CKEDITOR.instances.editor.getData();
+                span2.innerHTML = data;
+                CKEDITOR.instances.editor.setData('');
+
+                span3.id = "delete_edit";
+
+                edit.id = "edit";
+                edit.src = "/image/pencil-fill.svg";
 
 
-            for (var i = 0; i < tabs.length; i++) {
-                var title = tabs[i].title,
-                    content = tabs[i].content,
-                    cleanTitle = title.replace(/#| /g, '-').toLowerCase(),
-                    navTemplate = '<li class="' + (i == 0 ? 'active' : '') +
-                        '"><a href="#tab-' + cleanTitle + '" aria-controls="' +
-                        cleanTitle + '" role="tab" data-toggle="tab">' + title + '</a></li>',
-                    contentTemplate = '<div id="tab-' + cleanTitle +
-                        '" role="tabpanel" class="tab-pane fade ' +
-                        (i == 0 ? 'in active' : '') + '">' + content + '</div>';
-                nav.push(navTemplate);
-                contentPanes.push(contentTemplate);
-            }
+                delete_.id = "delete";
+                delete_.src = "/image/trash-fill.svg";
 
-            compiledTemplate =
-                navFull.replace('{{nav}}', nav.join('')) +
-                contentFull.replace('{{content}}', contentPanes.join(''));
+                span3.appendChild(edit);
+                span3.appendChild(delete_);
 
-            TabList.results.update(compiledTemplate);
-        }
+                item.appendChild(span1);
+                item.appendChild(span2);
+                item.appendChild(span3);
 
-        this.update = function () {
-            $('#saveInput').val(angular.toJson(TabList.list));
-            this.output();
-        }
-    });
+                subcons[arg].appendChild(item);
+                totalnodes += 1;
 
-    tabsApp.controller('ListTabs', function ($scope, TabList, UpdateService) {
-        $scope.tabs = TabList.list;
-        UpdateService.update();
+                document.querySelector('.input').style.height = 4.2 + 'rem';
+                document.querySelector('.heading').placeholder = 'Take a Note...';
+                document.querySelector('.heading').style.borderBottom = '0px solid black';
+                document.querySelector('.input').style.position = 'initial';
+                document.querySelector('.container').style.opacity = 100 + '%';
 
-        $scope.deleteDialog = function (i) {
-            $('#deleteDialog').modal('show');
-            $scope.deleteIndex = i;
-        };
+                //adding functionality to the edit button
+                var edit_btns = document.querySelectorAll("#edit");
+                edit_btns.forEach(btns => btns.onclick = (e) => {
+                    document.querySelector('.save_btn').style.display = 'none';
+                    document.querySelector('.update_btn').style.display = 'initial';
+                    document.querySelector('.input').style.height = 'fit-content';
+                    document.querySelector('.input').style.position = 'absolute';
+                    document.querySelector('.input').style.zIndex = 5;
+                    document.querySelector('.container').style.opacity = 10 + '%';
+                    document.querySelector('.heading').placeholder = 'Heading';
+                    document.querySelector('.heading').style.borderBottom = '2px solid black';
 
-        $scope.deleteTab = function () {
-            TabList.list.remove($scope.deleteIndex);
-            UpdateService.update();
-            $scope.deleteIndex = null;
-            $('#deleteDialog').modal('hide');
-            $('.nav-tabs li:first-child a').tab('show');
-        };
+                    document.querySelector('.heading').value = e.target.parentElement.parentElement.firstElementChild.innerHTML;
+                    CKEDITOR.instances.editor.setData(e.target.parentElement.parentElement.firstElementChild.nextElementSibling.innerHTML);
 
-        $scope.findTab = function (i) {
-            TabList.edit.find(i);
-            $('#editTabModal').modal('show');
-        };
-    });
-
-    tabsApp.controller('AddTab', function ($scope, TabList, UpdateService) {
-        $scope.addTab = function () {
-            if (!$scope.addForm.$invalid) {
-                TabList.list.add({
-                    title: $scope.tabTitle,
-                    content: $scope.tabContent
+                    document.querySelector('.update_btn').onclick = () => {
+                        e.target.parentElement.parentElement.firstElementChild.innerHTML = document.querySelector('.heading').value;
+                        document.querySelector('.heading').value = '';
+                        e.target.parentElement.parentElement.firstElementChild.nextElementSibling.innerHTML = CKEDITOR.instances.editor.getData();
+                        CKEDITOR.instances.editor.setData('');
+                        document.querySelector('.save_btn').style.display = 'initial';
+                        document.querySelector('.update_btn').style.display = 'none';
+                        document.querySelector('.input').style.height = 4.2 + 'rem';
+                        document.querySelector('.input').style.position = 'initial';
+                        document.querySelector('.input').style.zIndex = 1;
+                        document.querySelector('.container').style.opacity = 100 + '%';
+                        document.querySelector('.heading').value = '';
+                        document.querySelector('.heading').placeholder = 'Take a Note...';
+                        document.querySelector('.heading').style.borderBottom = '0px solid black';
+                    }
                 });
 
-                $scope.tabTitle = '';
-                $scope.tabContent = '';
-                $scope.addForm.$setUntouched();
+                //adding functionality to the delete button
+                var delete_btns = document.querySelectorAll("#delete");
+                delete_btns.forEach(btns => btns.onclick = (e) => {
+                    e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+                });
 
-                $('#addTabModal').modal('hide');
-                UpdateService.update();
             }
-        };
-    });
 
-    tabsApp.controller('EditTab', function ($scope, TabList, UpdateService) {
-        $scope.$watch(function ($scope) {
-            return TabList.edit.item;
-        }, function () {
-            $scope.editTabTitle = TabList.edit.item.title;
-            $scope.editTabContent = TabList.edit.item.content;
-        }, true);
-
-        $scope.editTab = function () {
-            if (!$scope.editForm.$invalid) {
-                TabList.list.edit(TabList.edit.item, {
-                    title: $scope.editTabTitle,
-                    content: $scope.editTabContent
-                })
-
-                $scope.editTabTitle = '';
-                $scope.editTabContent = '';
-                $scope.editForm.$setUntouched();
-
-                $('#editTabModal').modal('hide');
-                UpdateService.update();
-                TabList.edit.reset();
-
-                $('.nav-tabs li:first-child a').tab('show');
-            }
-        };
-    });
-
-    tabsApp.directive('ckeditor', function () {
-        return {
-            require: '?ngModel',
-            link: function (scope, element, attrs, ngModel) {
-                var config, editor, updateModel;
-                config = editor = CKEDITOR.replace(element[0], config);
-                if (!ngModel) {
-                    return;
+            if (data.length !== 0) {
+                for (let i = placingAddress; i > 0; i--) {
+                    if (i - 5 == 1 || i - 10 == 1 || i - 15 == 1 || i - 20 == 1) {
+                        putdata(0);
+                        break;
+                    }
+                    else if (i - 5 == 2 || i - 10 == 2 || i - 15 == 2 || i - 20 == 2) {
+                        putdata(1);
+                        break;
+                    }
+                    else if (i - 5 == 3 || i - 10 == 3 || i - 15 == 3 || i - 20 == 3) {
+                        putdata(2);
+                        break;
+                    }
+                    else if (i - 5 == 4 || i - 10 == 4 || i - 15 == 4 || i - 20 == 4) {
+                        putdata(3);
+                        break;
+                    }
+                    else if (i - 5 == 5 || i - 10 == 5 || i - 15 == 5 || i - 20 == 5) {
+                        putdata(4);
+                        break;
+                    }
                 }
-                editor.on('instanceReady', function () {
-                    return editor.setData(ngModel.$viewValue);
-                });
-                updateModel = function () {
-                    return scope.$apply(function () {
-                        return ngModel.$setViewValue(editor.getData());
-                    });
-                };
-                editor.on('change', updateModel);
-                editor.on('dataReady', updateModel);
-                editor.on('key', updateModel);
-                editor.on('paste', updateModel);
-                editor.on('selectionChange', updateModel);
-                return ngModel.$render = function () {
-                    return editor.setData(ngModel.$viewValue);
-                };
             }
-        };
-    });
 
-    tabsApp.controller('SaveState', function ($scope, TabList) {
-        $scope.$watch(function ($scope) {
-            return TabList.results;
-        }, function () {
-            $scope.saveInput = TabList.results.output;
-        }, true);
-    });
+        }
+
+        document.querySelector('.heading').onclick = () => {
+            document.getElementById('close').style.display = 'initial';
+            document.querySelector('.input').style.height = 'fit-content';
+            document.querySelector('.input').style.position = 'absolute';
+            document.querySelector('.input').style.zIndex = 5;
+            document.querySelector('.container').style.opacity = 10 + '%';
+
+            document.querySelector('.heading').placeholder = 'Heading';
+            document.querySelector('.heading').style.borderBottom = '2px solid black';
+        }
+
+        document.getElementById('close').onclick = () => {
+            document.querySelector('.input').style.height = 4.2 + 'rem';
+            document.querySelector('.input').style.position = 'initial';
+            document.querySelector('.input').style.zIndex = 1;
+            document.querySelector('.container').style.opacity = 100 + '%';
+            document.querySelector('.heading').value = '';
+            CKEDITOR.instances.editor.setData('');
+            document.querySelector('.save_btn').style.display = 'initial';
+            document.querySelector('.update_btn').style.display = 'none';
+            document.querySelector('.heading').placeholder = 'Take a Note...';
+            document.querySelector('.heading').style.borderBottom = '0px solid black';
+            document.getElementById('close').style.display = 'none';
+        }
+
+
+        //adding functionality to the edit button
+        var edit_btns = document.querySelectorAll("#edit");
+        edit_btns.forEach(btns => btns.onclick = (e) => {
+            document.getElementById('close').style.display = 'initial';
+            document.querySelector('.save_btn').style.display = 'none';
+            document.querySelector('.update_btn').style.display = 'initial';
+            document.querySelector('.input').style.height = 'fit-content';
+            document.querySelector('.input').style.position = 'absolute';
+            document.querySelector('.input').style.zIndex = 5;
+            document.querySelector('.container').style.opacity = 10 + '%';
+            document.querySelector('.heading').placeholder = 'Heading';
+            document.querySelector('.heading').style.borderBottom = '2px solid black';
+
+            document.querySelector('.heading').value = e.target.parentElement.parentElement.firstElementChild.innerHTML;
+            CKEDITOR.instances.editor.setData(e.target.parentElement.parentElement.firstElementChild.nextElementSibling.innerHTML);
+
+            document.querySelector('.update_btn').onclick = () => {
+                e.target.parentElement.parentElement.firstElementChild.innerHTML = document.querySelector('.heading').value;
+                document.querySelector('.heading').value = '';
+                e.target.parentElement.parentElement.firstElementChild.nextElementSibling.innerHTML = CKEDITOR.instances.editor.getData();
+                CKEDITOR.instances.editor.setData('');
+                document.querySelector('.save_btn').style.display = 'initial';
+                document.querySelector('.update_btn').style.display = 'none';
+                document.querySelector('.input').style.height = 4.2 + 'rem';
+                document.querySelector('.input').style.position = 'initial';
+                document.querySelector('.input').style.zIndex = 1;
+                document.querySelector('.container').style.opacity = 100 + '%';
+                document.querySelector('.heading').placeholder = 'Take a Note...';
+                document.querySelector('.heading').style.borderBottom = '0px solid black';
+                document.getElementById('close').style.display = 'none';
+            }
+        });
+
+
+
+        //adding functionality to the delete button
+        var delete_btns = document.querySelectorAll("#delete");
+        delete_btns.forEach(btns => btns.onclick = (e) => {
+            e.target.parentElement.parentElement.parentElement.removeChild(e.target.parentElement.parentElement);
+        });
+
+    }
+
 </script>
 
