@@ -14,8 +14,9 @@ namespace Capstone_SWP490.Models.coachViewModel
         public string phone_numer { get; set; }
 
         public string school_name { get; set; }
-        public string short_name { get; set; }
+        public string institution_name  { get; set; }
 
+        public string school_address { get; set; }
         public string type { get; set; }
     }
 }

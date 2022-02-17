@@ -103,13 +103,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="col-lg-6">
-                                                <label for="formFile" class="form-label">Short Name: </label>: <span style="color: @(Model.school.short_name == "" ? "red" : "black")">@(Model.school.short_name == "" ? "N/A" : Model.school.short_name)</span>
-                                            </div>
-                                            <div class="col-lg-6"></div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="col-lg-6">
-                                                <label for="formFile" class="form-label">Type: </label>: <span style="color: @(Model.school.type == "" ? "red" : "black")">@(Model.school.type == "" ? "N/A" : Model.school.type)</span>
+                                                <label for="formFile" class="form-label">Short Name: </label>: <span style="color: @(Model.school.institution_name == "" ? "red" : "black")">@(Model.school.institution_name == "" ? "N/A" : Model.school.institution_name)</span>
                                             </div>
                                             <div class="col-lg-6"></div>
                                         </div>
@@ -120,17 +114,22 @@
                                             <div class="col-lg-6">
                                             </div>
                                         </div>
+                                        if (Model.coach != null)
+                                        {
                                         <div class="col-lg-12">
                                             <div class="col-lg-6"><label for="formFile" class="form-label">Coach: </label> @(Model.coach.first_name + " " + Model.coach.middle_name + " " + Model.coach.last_name) - <label for="formFile" class="form-label">Email: </label> @Model.coach.email - <label for="formFile" class="form-label">Phone: </label> @Model.coach.phone_number</div>
                                             <div class="col-lg-6">
                                             </div>
                                         </div>
+                                        }
+                                        if (Model.vice_coach != null)
+                                        {
                                         <div class="col-lg-12">
 
                                             <div class="col-lg-6"><label for="formFile" class="form-label">Vice Coach: </label> @(Model.vice_coach.first_name + " " + Model.vice_coach.middle_name + " " + Model.vice_coach.last_name) - <label for="formFile" class="form-label">Email: </label> @Model.vice_coach.email - <label for="formFile" class="form-label">Phone: </label> @Model.vice_coach.phone_number</div>
                                             <div class="col-lg-6"></div>
                                         </div>
-
+                                        }
                                         <br><br />
                                         <div class="col-lg-12">
                                             <div class="col-lg-6">

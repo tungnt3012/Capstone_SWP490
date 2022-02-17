@@ -11,14 +11,14 @@ using System.Web;
 
 namespace Capstone_SWP490.Services
 {
-    public class schoolService  : IschoolService
+    public class schoolService : IschoolService
     {
         private readonly IschoolRepository _ischoolRepository = new schoolRepository();
 
         public int count(int coach_id)
         {
             List<school> schools = _ischoolRepository.FindBy(x => x.coach_id == coach_id).ToList();
-            if(schools != null)
+            if (schools != null)
             {
                 return schools.Count;
             }
@@ -32,17 +32,17 @@ namespace Capstone_SWP490.Services
 
         public void disable(school school)
         {
-           _ischoolRepository.Update(school , school.school_id);
+            _ischoolRepository.Update(school, school.school_id);
         }
 
-        public  int disableUsingStore(int schoolId)
+        public int disableUsingStore(int schoolId)
         {
-           return  _ischoolRepository.getContext().Disable_School_Data(schoolId);
+            return _ischoolRepository.getContext().Disable_School_Data(schoolId);
         }
 
         public List<school> findByCoachId(int coachId)
         {
-            return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.enabled == true).OrderByDescending(x=>x.update_date).ToList();
+            return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.enabled == true).OrderByDescending(x => x.update_date).ToList();
         }
 
         public async Task<school> findById(int id)
@@ -51,26 +51,34 @@ namespace Capstone_SWP490.Services
         }
         public school findInUsing(int coachId)
         {
-           return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active == true).FirstOrDefault();
+            return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active == true).FirstOrDefault();
         }
         public async Task<school> insert(school school)
         {
             school existActive = _ischoolRepository.checkActive(school);
-            if(existActive == null)
+            school.active = (existActive == null);
+            try
             {
-                school.active = true;
+                school = await _ischoolRepository.Create(school);
             }
-            else
+            catch (Exception e)
             {
-                school.active = false;
+                if (e is SchoolException)
+                {
+                    throw e;
+                }
+                school = null;
             }
-            school.enabled = true;
-         return await _ischoolRepository.Create(school);
+            if (school == null)
+            {
+                throw new Exception("SYSTEM ERROR");
+            }
+            return school;
         }
 
         public Task<int> update(school school)
         {
-         return  _ischoolRepository.Update(school, school.school_id);
+            return _ischoolRepository.Update(school, school.school_id);
         }
     }
 }

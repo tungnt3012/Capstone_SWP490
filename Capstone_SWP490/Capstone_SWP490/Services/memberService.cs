@@ -16,25 +16,8 @@ namespace Capstone_SWP490.Services
         private readonly Iapp_userRepository _iapp_UserRepository = new app_userRepository();
         private readonly Iteam_memberRepository _iteam_memberRepository = new teamMemberRepository();
         private readonly IschoolRepository _ischoolRepository = new schoolRepository();
-        public async Task<member> insert(member member, int imported)
+        public async Task<member> insert(member member)
         {
-            member existedByEmail = getByEmail(member.email);
-            if(existedByEmail == null)
-            {
-                return await _imemberRepository.Create(member);
-            }
-            team_member teamMember = _iteam_memberRepository.FindBy(x => x.member_id == existedByEmail.member_id).FirstOrDefault();
-            if (teamMember != null)
-            {
-                team existedTeam = teamMember.team;
-
-                if (existedTeam != null)
-                {
-                    school existedSchool = _ischoolRepository.FindBy(x => x.school_id == existedTeam.school_id).FirstOrDefault();
-                    if (existedSchool != null && existedSchool.coach_id != imported)
-                        throw new MemberException("1", "Email is used", null);
-                }
-            }
             return await _imemberRepository.Create(member);
         }
 

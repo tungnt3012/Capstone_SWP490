@@ -136,17 +136,16 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           </Key>
           <Property Name="school_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="school_name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="short_name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="type" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="city" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="institution_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="address" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="district" Type="nvarchar" MaxLength="50" />
-          <Property Name="province" Type="nvarchar" MaxLength="50" />
           <Property Name="insert_date" Type="varchar" MaxLength="50" />
           <Property Name="active" Type="bit" />
           <Property Name="update_date" Type="nvarchar" MaxLength="50" />
           <Property Name="coach_id" Type="int" />
           <Property Name="enabled" Type="bit" />
+          <Property Name="rector_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="website" Type="nvarchar" MaxLength="100" />
+          <Property Name="phone_number" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="team">
           <Key>
@@ -238,8 +237,20 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="spSomeRoutine" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Code" Type="int" Mode="In" />
+          <Parameter Name="StatusLog" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="Check_Email_In_Use" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_gocyberx">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="coach_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="Disable_App_User_Data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_icpc">
           <Parameter Name="school_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Disable_App_User_School" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_icpc">
+          <Parameter Name="school_id" Type="int" Mode="In" />
+          <Parameter Name="coach_id" Type="int" Mode="In" />
         </Function>
         <Function Name="Disable_Member_Data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_icpc">
           <Parameter Name="school_id" Type="int" Mode="In" />
@@ -248,6 +259,18 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="Disable_Team_Data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_icpc">
+          <Parameter Name="school_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Enable_App_User_Data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_icpc">
+          <Parameter Name="school_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Enable_Member_Data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_icpc">
+          <Parameter Name="school_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Enable_School_Data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_icpc">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Enable_Team_Data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_icpc">
           <Parameter Name="school_id" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="gocyberx_icpcModelStoreContainer">
@@ -420,17 +443,16 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           </Key>
           <Property Name="school_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="school_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="short_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="institution_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="district" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="insert_date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="active" Type="Boolean" />
           <Property Name="update_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="coach_id" Type="Int32" />
           <Property Name="enabled" Type="Boolean" />
+          <Property Name="rector_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="teams" Relationship="Self.FK__team__school_id__07F6335A" FromRole="school" ToRole="team" />
         </EntityType>
         <EntityType Name="team">
@@ -588,8 +610,20 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             <End Role="team" EntitySet="teams" />
             <End Role="team_member" EntitySet="team_member" />
           </AssociationSet>
+          <FunctionImport Name="spSomeRoutine">
+            <Parameter Name="Code" Mode="In" Type="Int32" />
+            <Parameter Name="StatusLog" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Check_Email_In_Use">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="coach_id" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="Disable_App_User_Data">
             <Parameter Name="school_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Disable_App_User_School">
+            <Parameter Name="school_id" Mode="In" Type="Int32" />
+            <Parameter Name="coach_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Disable_Member_Data">
             <Parameter Name="school_id" Mode="In" Type="Int32" />
@@ -598,6 +632,18 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Disable_Team_Data">
+            <Parameter Name="school_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Enable_App_User_Data">
+            <Parameter Name="school_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Enable_Member_Data">
+            <Parameter Name="school_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Enable_School_Data">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Enable_Team_Data">
             <Parameter Name="school_id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -716,17 +762,16 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
               <MappingFragment StoreEntitySet="school">
                 <ScalarProperty Name="school_id" ColumnName="school_id" />
                 <ScalarProperty Name="school_name" ColumnName="school_name" />
-                <ScalarProperty Name="short_name" ColumnName="short_name" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="institution_name" ColumnName="institution_name" />
                 <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="district" ColumnName="district" />
-                <ScalarProperty Name="province" ColumnName="province" />
                 <ScalarProperty Name="insert_date" ColumnName="insert_date" />
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="update_date" ColumnName="update_date" />
                 <ScalarProperty Name="coach_id" ColumnName="coach_id" />
                 <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="rector_name" ColumnName="rector_name" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -773,10 +818,17 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spSomeRoutine" FunctionName="gocyberx_icpcModel.Store.spSomeRoutine" />
+          <FunctionImportMapping FunctionImportName="Check_Email_In_Use" FunctionName="gocyberx_icpcModel.Store.Check_Email_In_Use" />
           <FunctionImportMapping FunctionImportName="Disable_App_User_Data" FunctionName="gocyberx_icpcModel.Store.Disable_App_User_Data" />
+          <FunctionImportMapping FunctionImportName="Disable_App_User_School" FunctionName="gocyberx_icpcModel.Store.Disable_App_User_School" />
           <FunctionImportMapping FunctionImportName="Disable_Member_Data" FunctionName="gocyberx_icpcModel.Store.Disable_Member_Data" />
           <FunctionImportMapping FunctionImportName="Disable_School_Data" FunctionName="gocyberx_icpcModel.Store.Disable_School_Data" />
           <FunctionImportMapping FunctionImportName="Disable_Team_Data" FunctionName="gocyberx_icpcModel.Store.Disable_Team_Data" />
+          <FunctionImportMapping FunctionImportName="Enable_App_User_Data" FunctionName="gocyberx_icpcModel.Store.Enable_App_User_Data" />
+          <FunctionImportMapping FunctionImportName="Enable_Member_Data" FunctionName="gocyberx_icpcModel.Store.Enable_Member_Data" />
+          <FunctionImportMapping FunctionImportName="Enable_School_Data" FunctionName="gocyberx_icpcModel.Store.Enable_School_Data" />
+          <FunctionImportMapping FunctionImportName="Enable_Team_Data" FunctionName="gocyberx_icpcModel.Store.Enable_Team_Data" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

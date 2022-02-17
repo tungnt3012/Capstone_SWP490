@@ -40,6 +40,28 @@ namespace Capstone_SWP490
         public virtual DbSet<documentation> documentations { get; set; }
         public virtual DbSet<image> images { get; set; }
     
+        public virtual int spSomeRoutine(Nullable<int> code, ObjectParameter statusLog)
+        {
+            var codeParameter = code.HasValue ?
+                new ObjectParameter("Code", code) :
+                new ObjectParameter("Code", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spSomeRoutine", codeParameter, statusLog);
+        }
+    
+        public virtual int Check_Email_In_Use(string email, Nullable<int> coach_id)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var coach_idParameter = coach_id.HasValue ?
+                new ObjectParameter("coach_id", coach_id) :
+                new ObjectParameter("coach_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Check_Email_In_Use", emailParameter, coach_idParameter);
+        }
+    
         public virtual int Disable_App_User_Data(Nullable<int> school_id)
         {
             var school_idParameter = school_id.HasValue ?
@@ -47,6 +69,19 @@ namespace Capstone_SWP490
                 new ObjectParameter("school_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Disable_App_User_Data", school_idParameter);
+        }
+    
+        public virtual int Disable_App_User_School(Nullable<int> school_id, Nullable<int> coach_id)
+        {
+            var school_idParameter = school_id.HasValue ?
+                new ObjectParameter("school_id", school_id) :
+                new ObjectParameter("school_id", typeof(int));
+    
+            var coach_idParameter = coach_id.HasValue ?
+                new ObjectParameter("coach_id", coach_id) :
+                new ObjectParameter("coach_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Disable_App_User_School", school_idParameter, coach_idParameter);
         }
     
         public virtual int Disable_Member_Data(Nullable<int> school_id)
@@ -74,6 +109,42 @@ namespace Capstone_SWP490
                 new ObjectParameter("school_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Disable_Team_Data", school_idParameter);
+        }
+    
+        public virtual int Enable_App_User_Data(Nullable<int> school_id)
+        {
+            var school_idParameter = school_id.HasValue ?
+                new ObjectParameter("school_id", school_id) :
+                new ObjectParameter("school_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Enable_App_User_Data", school_idParameter);
+        }
+    
+        public virtual int Enable_Member_Data(Nullable<int> school_id)
+        {
+            var school_idParameter = school_id.HasValue ?
+                new ObjectParameter("school_id", school_id) :
+                new ObjectParameter("school_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Enable_Member_Data", school_idParameter);
+        }
+    
+        public virtual int Enable_School_Data(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Enable_School_Data", idParameter);
+        }
+    
+        public virtual int Enable_Team_Data(Nullable<int> school_id)
+        {
+            var school_idParameter = school_id.HasValue ?
+                new ObjectParameter("school_id", school_id) :
+                new ObjectParameter("school_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Enable_Team_Data", school_idParameter);
         }
     }
 }

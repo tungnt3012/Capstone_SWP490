@@ -10,9 +10,6 @@ namespace Capstone_SWP490.Models.school_memberViewModel
         private static readonly ILog Log = LogManager.GetLogger(typeof(school_memberViewModel));
         public school_memberViewModel()
         {
-            this.school = new school();
-            this.coach = new member();
-            this.vice_coach = new member();
             this.error = new List<insert_member_result_ViewModel>();
         }
         public List<insert_member_result_ViewModel> error { get; set; }
