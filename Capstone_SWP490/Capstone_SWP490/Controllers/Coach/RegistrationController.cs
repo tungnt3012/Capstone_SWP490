@@ -70,6 +70,10 @@ namespace Capstone_SWP490.Controllers.Coach
         {
             return View();
         }
+        public ActionResult RegistrationCoach()
+        {
+            return View();
+        }
 
         public ActionResult MemberDetail(string id, string teamId)
         {
