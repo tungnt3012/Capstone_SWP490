@@ -16,7 +16,8 @@ namespace Capstone_SWP490.DAO
         Task<int> Update(T entity, int key);
         Task<int> Delete(T entity);
         Task<int> Save();
-        Task<IEnumerable<T>> SQLCommand(string sql, string[] param);
+        Task<IEnumerable<T>> SQLCommand(string sql, object[] param);
         Task<int> DeleteMany(IEnumerable<T> entity);
+        gocyberx_icpcEntities getContext();
     }
 }

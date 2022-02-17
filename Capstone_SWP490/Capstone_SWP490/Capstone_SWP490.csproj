@@ -155,6 +155,9 @@
     <Compile Include="app_user.cs">
       <DependentUpon>icpc.tt</DependentUpon>
     </Compile>
+    <Compile Include="Common\Const\APP_CONST.cs" />
+    <Compile Include="Common\Const\SESSION_CONST.cs" />
+    <Compile Include="Common\Const\ACTION_CONST.cs" />
     <Compile Include="Common\ExcelImportPosition\IExcelPosition.cs" />
     <Compile Include="Common\ExcelImportPosition\MemberImport.cs" />
     <Compile Include="Common\ExcelImportPosition\SchoolImport.cs" />
@@ -165,8 +168,11 @@
     <Compile Include="contest_member.cs">
       <DependentUpon>icpc.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\Coach\RegistrationController.cs" />
+    <Compile Include="Controllers\Coach\SignUpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="DAO\GenericRepository.cs" />
     <Compile Include="DAO\IGenericRepository.cs" />
     <Compile Include="DAO\SqlDataAccess.cs" />
@@ -178,11 +184,18 @@
     <Compile Include="event.cs">
       <DependentUpon>icpc.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExceptionHandler\Interfaces\IException.cs" />
+    <Compile Include="ExceptionHandler\MemberException.cs" />
+    <Compile Include="ExceptionHandler\ReadExcelException.cs" />
+    <Compile Include="ExceptionHandler\SchoolException.cs" />
+    <Compile Include="ExceptionHandler\TeamException.cs" />
+    <Compile Include="ExceptionHandler\UserException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\MailReaderHelper.cs" />
+    <Compile Include="Helper\MailHelper.cs" />
     <Compile Include="Helper\RegistrationHelper.cs" />
+    <Compile Include="Helper\StringUtils.cs" />
     <Compile Include="icpc.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -207,7 +220,10 @@
     <Compile Include="member_event.cs">
       <DependentUpon>icpc.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\insert_member_result_ViewModel\insert_member_result_ViewModel.cs" />
+    <Compile Include="Models\app_userViewModel\app_userViewModel.cs" />
+    <Compile Include="Models\registrationViewModel\IndexViewModel.cs" />
+    <Compile Include="Models\school_memberViewModel\insert_member_result_ViewModel.cs" />
+    <Compile Include="Models\memberViewModel\memberViewModel.cs" />
     <Compile Include="Models\school_memberViewModel\school_memberViewModel.cs" />
     <Compile Include="Models\UsersViewModel.cs" />
     <Compile Include="page_content.cs">
@@ -315,6 +331,7 @@
     <Content Include="icpc.edmx.diagram">
       <DependentUpon>icpc.edmx</DependentUpon>
     </Content>
+    <Content Include="App_Data\registration_form.xlsx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -359,9 +376,18 @@
     <Content Include="Views\Registration\Index.cshtml" />
     <Content Include="Views\Registration\Guide.cshtml" />
     <Content Include="Views\Registration\MemberDetail.cshtml" />
+    <Content Include="Views\Home\AdminScheduleOfActivities.cshtml" />
+    <Content Include="Views\Login\ChangePassword.cshtml" />
+    <Content Include="Views\Login\ChangePasswordFirst.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Login\RegisShirtSizing.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_HeaderLayout.cshtml" />
+    <Content Include="Views\SignUp\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\temp\" />
+    <Folder Include="Models\insert_member_result_ViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

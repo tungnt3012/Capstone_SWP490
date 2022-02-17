@@ -18,5 +18,7 @@ namespace Capstone_SWP490.Services.Interfaces
         app_user getByUserId(int? userId);
 
         Task<int> delete(app_user entity);
+
+        Task<app_user> CreateuserForImportMember(app_user userIn, int coachId);
     }
 }

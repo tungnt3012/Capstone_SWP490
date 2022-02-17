@@ -36,6 +36,7 @@ namespace Capstone_SWP490
         public string shirt_sizing { get; set; }
         public Nullable<bool> event_notify { get; set; }
         public Nullable<int> icpc_id { get; set; }
+        public Nullable<bool> enabled { get; set; }
     
         public virtual app_user app_user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

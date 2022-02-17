@@ -12,6 +12,8 @@ namespace Capstone_SWP490
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class gocyberx_icpcEntities : DbContext
     {
@@ -37,5 +39,41 @@ namespace Capstone_SWP490
         public virtual DbSet<team_member> team_member { get; set; }
         public virtual DbSet<documentation> documentations { get; set; }
         public virtual DbSet<image> images { get; set; }
+    
+        public virtual int Disable_App_User_Data(Nullable<int> school_id)
+        {
+            var school_idParameter = school_id.HasValue ?
+                new ObjectParameter("school_id", school_id) :
+                new ObjectParameter("school_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Disable_App_User_Data", school_idParameter);
+        }
+    
+        public virtual int Disable_Member_Data(Nullable<int> school_id)
+        {
+            var school_idParameter = school_id.HasValue ?
+                new ObjectParameter("school_id", school_id) :
+                new ObjectParameter("school_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Disable_Member_Data", school_idParameter);
+        }
+    
+        public virtual int Disable_School_Data(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Disable_School_Data", idParameter);
+        }
+    
+        public virtual int Disable_Team_Data(Nullable<int> school_id)
+        {
+            var school_idParameter = school_id.HasValue ?
+                new ObjectParameter("school_id", school_id) :
+                new ObjectParameter("school_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Disable_Team_Data", school_idParameter);
+        }
     }
 }

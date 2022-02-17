@@ -114,5 +114,10 @@ namespace Capstone_SWP490.Services
         {
             return  _iapp_UserRepository.Delete(entity);
         }
+
+        public Task<app_user> CreateuserForImportMember(app_user userIn, int coachId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

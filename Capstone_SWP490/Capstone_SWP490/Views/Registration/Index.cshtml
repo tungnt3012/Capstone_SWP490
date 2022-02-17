@@ -28,10 +28,10 @@
                         <div class="col-lg-6" id="btn-registrantionTitle-index">
                             @using (Html.BeginForm("Result", "Registration", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
-                                <label for="formFile" class="form-label">
-                                    - Default file input <a href="#">example </a><br />
-                                    - Visit @Html.ActionLink("Registration Guide", "Guide", "Registration") for more detail
-                                </label>
+                            <label for="formFile" class="form-label">
+                                - Default file input <a href="@Url.Action("DownloadSample", "Registration")">example </a><br />
+                                - Visit @Html.ActionLink("Registration Guide", "Guide", "Registration") for more detail
+                            </label>
                                 <br>
                                 <input class="form-control" type="file" id="file" name="file" accept=".xlsx, .xls, .csv">
                                 <button class="btn btn-primary" value="Upload" id="registration_upload">Upload</button>}
@@ -70,21 +70,23 @@
                                         <td style="padding-top: 15px;">@item.short_name</td>
                                         <td style="padding-top: 15px;">@item.insert_date</td>
                                         <td style="padding-top: 15px;">@item.update_date</td>
-                                       
-                                            @if (item.active != null && item.active)
-                                            {
-                                               <td style="padding-top: 15px;"><label style="color: green" id="in-use">IN USE</label></td>
-                                            }
-                                            else
-                                            {
-                                                <td><button type="button" class="btn btn-success" id="btn-enable">Accept </button></td>
-                                            }
 
-                                             <td style="padding-top: 15px;"><a href="@Url.Action("history", "Registration")?school_id=@item.school_id">Detail</a></td>
-                                             <td style="padding-top: 15px;"><a href="@Url.Action("RemoveSchool", "Registration")?id=@item.school_id">Remove</a></td>
+                                        @if (item.active != null && item.active)
+                                        {
+                                            <td style="padding-top: 15px;"><label style="color: green" id="in-use">IN USE</label></td>
+                                        }
+                                        else
+                                        {
+                                            <td><button type="button" class="btn btn-success" id="btn-enable" onclick="acceptSchool(@item.school_id)">Accept </button></td>
+                                        }
 
+                                        <td style="padding-top: 15px;"><a href="@Url.Action("history", "Registration")?school_id=@item.school_id">Detail</a></td>
+                                        @if (item.active != null && !item.active)
+                                        {
+                                            <td style="padding-top: 15px;"><a href="@Url.Action("RemoveSchool", "Registration")?id=@item.school_id">Remove</a></td>
 
-                                       
+                                        }
+
 
                                     </tr>
                                             { stt += 1;}
@@ -142,7 +144,7 @@
     </div>
 
 
-<script>
+    <script>
     $(document).ready(function () {
         $("#newModal").modal("show");
         $("#newModal").on('hide.bs.modal', function () {
@@ -152,6 +154,10 @@
 
         });
     });
-</script>
+
+        function acceptSchool(id) {
+            window.location.href = "@Url.Action("AcceptSchool", "Registration")?id=" + id;
+        }
+    </script>
 
 

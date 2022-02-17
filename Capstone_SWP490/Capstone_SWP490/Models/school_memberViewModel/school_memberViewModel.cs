@@ -21,6 +21,7 @@ namespace Capstone_SWP490.Models.school_memberViewModel
         public member vice_coach { get; set; }
         public team displayTeam { get; set; }
         public contest displayContest { get; set; }
+        public string source { get; set; }
         public void setDisplayTeam(int teamId)
         {
             if (school.teams.Count == 0)
