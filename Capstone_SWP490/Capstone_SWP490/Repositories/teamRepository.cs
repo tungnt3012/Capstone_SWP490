@@ -23,7 +23,7 @@ namespace Capstone_SWP490.Repositories
                     DateTime now = DateTime.Now;
                     if(insertSchoolDate.Year != now.Year)
                     {
-                        throw new TeamException("0", "Team '"+team.team_name+"' đã được đăng ký bởi trường "+ existedSchool.school_name + "(" + existedSchool.short_name +") " +
+                        throw new TeamException("0", "Team '"+team.team_name+"' đã được đăng ký bởi trường "+ existedSchool.school_name + "(" + existedSchool.institution_name +") " +
                             "vui lòng chọn tên khác" , null);
                     }
                 }

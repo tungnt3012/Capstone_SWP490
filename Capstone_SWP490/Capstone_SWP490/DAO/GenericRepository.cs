@@ -18,6 +18,11 @@ namespace Capstone_SWP490.DAO
             this._entities = new gocyberx_icpcEntities();
             _dbset = _entities.Set<T>();
         }
+
+        public gocyberx_icpcEntities getContext()
+        {
+            return _entities;
+        }
         public GenericRepository(gocyberx_icpcEntities _context)
         {
             this._entities = _context;
@@ -49,7 +54,7 @@ namespace Capstone_SWP490.DAO
             }
             catch (Exception ex)
             {
-                return -1;
+                throw ex;
             }
         }
         public async Task<int> Update(T entity, int key)
@@ -65,7 +70,7 @@ namespace Capstone_SWP490.DAO
         {
             return _dbset.AsEnumerable<T>();
         }
-        public async Task<IEnumerable<T>> SQLCommand(string sql, string[] param)
+        public async Task<IEnumerable<T>> SQLCommand(string sql, object[] param)
         {
             return await Task.Run(() => _dbset.SqlQuery(sql, param).AsEnumerable<T>());
         }

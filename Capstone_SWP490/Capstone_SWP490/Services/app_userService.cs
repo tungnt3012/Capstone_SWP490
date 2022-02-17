@@ -3,6 +3,7 @@ using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Services.Interfaces;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Capstone_SWP490.Services
 
         private readonly Iapp_userRepository _iapp_UserRepository = new app_userRepository();
         private readonly ImemberRepository _imemberRepository = new memberRepository();
-
+        private static readonly ILog Log = LogManager.GetLogger(typeof(app_userService));
         public List<app_user> GetAllUser()
         {
             return _iapp_UserRepository.GetAllApp_Users();
@@ -24,9 +25,9 @@ namespace Capstone_SWP490.Services
         public async Task<app_user> CreateUser(app_user userIn)
         {
             //if(_iapp_UserRepository.FindBy(x => x.user_name.Equals(userIn.user_name)) != null){
-             //   throw new UserException("1","Email existed", null);
+            //   throw new UserException("1","Email existed", null);
             //}
-          return await _iapp_UserRepository.Create(userIn);
+            return await _iapp_UserRepository.Create(userIn);
         }
 
         public bool CheckLogin(app_user app_User)
@@ -102,17 +103,55 @@ namespace Capstone_SWP490.Services
 
         public app_user getByUserId(int userId)
         {
-            return  _iapp_UserRepository.FindBy(x => x.user_id == userId).FirstOrDefault();
+            return _iapp_UserRepository.FindBy(x => x.user_id == userId).FirstOrDefault();
         }
 
-        public app_user getByUserId(int? userId)
+        public app_user getByUserName(string username)
         {
-            throw new NotImplementedException();
+            return _iapp_UserRepository.FindBy(x => x.user_name == username).FirstOrDefault();
         }
 
         public Task<int> delete(app_user entity)
         {
-            return  _iapp_UserRepository.Delete(entity);
+            return _iapp_UserRepository.Delete(entity);
+        }
+
+        public bool isEmailInUse(string userName, int coachId)
+        {
+            app_user existedUser = getByUserName(userName);
+            if (existedUser != null)
+            {
+                try
+                {
+                    member m = existedUser.members.FirstOrDefault();
+                    school school = m.team_member.FirstOrDefault().team.school;
+                    if (school.coach_id != coachId)
+                    {
+                        return true;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e.Message);
+                }
+            }
+            return false;
+        }
+
+        public Task<app_user> creatUserForImportMember(app_user user, int coachId)
+        {
+            app_user existedUser = getByUserName(user.user_name);
+            //check existed in previous imports
+            if (existedUser != null)
+            {
+                return Task.FromResult(existedUser);
+            }
+            return CreateUser(user);
+        }
+
+        public async Task<int> update(app_user user)
+        {
+            return await _iapp_UserRepository.Update(user, user.user_id);
         }
     }
 }

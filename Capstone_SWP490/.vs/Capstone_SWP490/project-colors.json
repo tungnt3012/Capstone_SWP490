@@ -5,6 +5,11 @@
       "ProjectGuid": "bfdd4322-dad6-48f2-9089-d44dd74b2c6f",
       "DisplayName": "Capstone_SWP490",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1

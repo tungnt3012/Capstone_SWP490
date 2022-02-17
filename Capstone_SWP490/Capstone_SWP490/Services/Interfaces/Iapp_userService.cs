@@ -15,8 +15,12 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<bool> UpdatePasswordFirst(string username, string password, bool send_event);
         Task<bool> UpdatePassword(string username, string password);
         app_userViewModel GetUserByUsername(string username);
-        app_user getByUserId(int? userId);
 
         Task<int> delete(app_user entity);
+        bool isEmailInUse(string userName, int coachId);
+        app_user getByUserName(string username);
+
+        Task<app_user> creatUserForImportMember(app_user user, int coachId);
+        Task<int> update(app_user user);
     }
 }
