@@ -53,5 +53,10 @@ namespace Capstone_SWP490.Services
             }
             return await _iteamRepository.CreateMany(beforeCreate);
         }
+
+        public Task<int> update(team team)
+        {
+            return _iteamRepository.Update(team, team.team_id);
+        }
     }
 }

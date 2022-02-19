@@ -29,7 +29,7 @@ namespace Capstone_SWP490.Models.school_memberViewModel
             
             try
             {
-                if (teamId == -1)
+                if (teamId == 0)
                 {
                     displayTeam = school.teams.FirstOrDefault();
                 }
