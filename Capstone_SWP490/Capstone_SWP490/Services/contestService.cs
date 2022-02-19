@@ -15,5 +15,19 @@ namespace Capstone_SWP490.Services
         {
             return _icontestRepository.getByCode(code);
         }
+
+        public contest getByCodeOrName(string code, string name)
+        {
+            if (code == null || name == null)
+            {
+                throw new Exception("Contest code and name cannot null");
+            }
+            return _icontestRepository.FindBy(x => x.code.Equals(code) || x.contest_name.Equals(name)).FirstOrDefault();
+        }
+
+        public contest getById(int? id)
+        {
+            return _icontestRepository.FindBy(x => x.contest_id == id).FirstOrDefault();
+        }
     }
 }

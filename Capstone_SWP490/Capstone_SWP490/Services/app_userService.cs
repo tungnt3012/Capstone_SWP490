@@ -124,6 +124,10 @@ namespace Capstone_SWP490.Services
                 try
                 {
                     member m = existedUser.members.FirstOrDefault();
+                    if(m == null)
+                    {
+                        return false;
+                    }
                     school school = m.team_member.FirstOrDefault().team.school;
                     if (school.coach_id != coachId)
                     {

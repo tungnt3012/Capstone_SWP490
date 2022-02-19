@@ -18,6 +18,6 @@ namespace Capstone_SWP490
         public string page_id { get; set; }
         public string title { get; set; }
         public string content { get; set; }
-        public Nullable<int> position { get; set; }
+        public int position { get; set; }
     }
 }

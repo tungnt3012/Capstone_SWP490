@@ -7,18 +7,37 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Capstone_SWP490.ExceptionHandler;
+using log4net;
 
 namespace Capstone_SWP490.Services
 {
     public class memberService : ImemberService
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(memberService));
         private readonly ImemberRepository _imemberRepository = new memberRepository();
         private readonly Iapp_userRepository _iapp_UserRepository = new app_userRepository();
         private readonly Iteam_memberRepository _iteam_memberRepository = new teamMemberRepository();
         private readonly IschoolRepository _ischoolRepository = new schoolRepository();
         public async Task<member> insert(member member)
         {
-            return await _imemberRepository.Create(member);
+            try
+            {
+                member = await _imemberRepository.Create(member);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                if (e is MemberException)
+                {
+                    throw e;
+                }
+                member = null;
+            }
+            if (member == null)
+            {
+                throw new Exception("SYSTEM ERROR");
+            }
+            return member;
         }
 
         public async Task<IEnumerable<member>> insertMany(IEnumerable<member> member)

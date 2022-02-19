@@ -27,13 +27,13 @@ namespace Capstone_SWP490.Helper
                 return null;
             return teams.Find(x => x.team.team_name == teamName);
         }
-        public bool isTeamLeader(member member, member compared)
+        public bool isTeamLeader(member leader, member compared)
         {
             if (compared == null)
             {
                 return false;
             }
-            return (member.email.Equals(compared.email));
+            return (leader.email.Equals(compared.email));
         }
         public string createFileName(string fileExtension)
         {
@@ -161,14 +161,14 @@ namespace Capstone_SWP490.Helper
 
         public bool IsValidEmail(string email)
         {
-            var trimmedEmail = email.Trim();
-
-            if (trimmedEmail.EndsWith("."))
-            {
-                return false;
-            }
             try
             {
+                var trimmedEmail = email.Trim();
+
+                if (trimmedEmail.EndsWith("."))
+                {
+                    return false;
+                }
                 var addr = new System.Net.Mail.MailAddress(email);
                 return addr.Address == trimmedEmail;
             }
@@ -249,20 +249,19 @@ namespace Capstone_SWP490.Helper
             int coachUserId = result.coach.app_user.user_id;
             List<team> teamList = new List<team>();
             insert_member_result_ViewModel error;
-            contest contest = new contest();
+            contest contest = null;
             team team;
             member leader;
             contest_member contestMember;
             team_member teamMember;
             int rowCount = teamSheet.Dimension.End.Row;     //get row count
             int teamId = 0;
-            int col;
 
             for (int row = teamObject.getStartAtRow(); row <= rowCount; row++)
             {
                 try
                 {
-                    col = teamObject.getStartAtCol();
+                    int col = teamObject.getStartAtCol();
                     var cellVal = teamSheet.Cells[row, col].Value + "";
                     //check for contest column value
                     if (!cellVal.Equals(""))
@@ -287,23 +286,18 @@ namespace Capstone_SWP490.Helper
 
                     //read team
                     string teamName = teamSheet.Cells[row, ++col].Value + "";
-                    string leaderFullName = teamSheet.Cells[row, ++col].Value + "";
-                    string leaderEmail = teamSheet.Cells[row, ++col].Value + "";
-                    string leaderPhone = teamSheet.Cells[row, ++col].Value + "";
-                    //skip because team leader email or team name is not valid
-                    if (StringUtils.isNullOrEmpty(teamName) || !IsValidEmail(leaderEmail))
+                    if (StringUtils.isNullOrEmpty(teamName))
                     {
                         error = new insert_member_result_ViewModel();
                         error.objectName = "MEMBER-LEADER";
                         error.parentObject = "TEAM";
                         error.occur_position = "Row = " + row;
-                        error.msg = "Team leader email and Team Name cannot be blank";
+                        error.msg = "Team Name cannot be blank";
                         result.error.Add(error);
                         continue;
                     }
 
                     team = getTeamByTeamName(teamList, teamName);
-
                     //skip because team existed
                     if (!StringUtils.isNullOrEmpty(team.team_name))
                     {
@@ -311,7 +305,22 @@ namespace Capstone_SWP490.Helper
                         error.objectName = "TEAM";
                         error.parentObject = "TEAM";
                         error.occur_position = "Row = " + row;
-                        error.msg = "The Team '" + teamName + "'existed";
+                        error.msg = "The Team '" + teamName + "'cannot be blank";
+                        result.error.Add(error);
+                        continue;
+                    }
+
+                    string leaderFullName = teamSheet.Cells[row, ++col].Value + "";
+                    string leaderEmail = teamSheet.Cells[row, ++col].Value + "";
+                    string leaderPhone = teamSheet.Cells[row, ++col].Value + "";
+                    //skip because team leader email or team name is not valid
+                    if (StringUtils.isNullOrEmpty(leaderFullName) || !IsValidEmail(leaderEmail))
+                    {
+                        error = new insert_member_result_ViewModel();
+                        error.objectName = "MEMBER-LEADER";
+                        error.parentObject = "TEAM";
+                        error.occur_position = "Row = " + row;
+                        error.msg = "Team leader Name and email  cannot be blank";
                         result.error.Add(error);
                         continue;
                     }
@@ -320,7 +329,9 @@ namespace Capstone_SWP490.Helper
                     team.school = result.school;
                     team.school_id = result.school.school_id;
                     team.team_name = teamName;
-
+                    team.contest_id = contest.contest_id;
+                    team.contest = contest;
+                    team.enabled = true;
                     //read leader
                     leader = new member();
                     leader.member_role = 3;
@@ -357,12 +368,12 @@ namespace Capstone_SWP490.Helper
                     contestMember.contest_id = contest.contest_id;
                     leader.contest_member.Add(contestMember);
 
-                    //add leader to member of team
+                    //add leader to team
                     teamMember = new team_member();
                     teamMember.member = leader;
                     teamMember.team = team;
-
                     team.team_member.Add(teamMember);
+
                     if (team != null)
                     {
                         teamList.Add(team);
@@ -381,27 +392,6 @@ namespace Capstone_SWP490.Helper
             }
             result.school.teams = teamList;
             return result;
-        }
-
-        public string[,] readExcelSheetCustom(ExcelWorksheet sheet, int[,] positionList)
-        {
-            int dataLen = positionList.Length / 2;
-            string[,] data = new string[dataLen, 1];
-            try
-            {
-                for (int i = 0; i < dataLen; i++)
-                {
-                    ExcelRange cell = sheet.Cells[positionList[i, 0], positionList[i, 1]];
-                    var val = cell.Value;
-
-                    data[i, 0] = (val == null) ? "" : val + "";
-                }
-                return data;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
         }
 
         public async Task<school_memberViewModel> readSchoolSheet(school_memberViewModel result, ExcelWorksheet schoolSheet, SchoolImport importObject)
@@ -506,6 +496,7 @@ namespace Capstone_SWP490.Helper
                 {
                     vice_coach.member_role = 2;
                     vice_coach.app_user = await createAppUserForMember(vice_coach, loginedId);
+                    vice_coach.user_id = vice_coach.app_user.user_id;
                     result.vice_coach = vice_coach;
                 }
             }
@@ -560,7 +551,7 @@ namespace Capstone_SWP490.Helper
             return new team();
         }
 
-        public bool checkExistEmail(List<string> emailList, string email)
+        public bool isExistEmail(List<string> emailList, string email)
         {
             return emailList.Where(x => x.Equals(email)).FirstOrDefault() != null;
         }
@@ -590,16 +581,19 @@ namespace Capstone_SWP490.Helper
         }
         public async Task<school_memberViewModel> readMemberSheet(school_memberViewModel result, ExcelWorksheet memberSheet, MemberImport memberImport)
         {
+            List<string> memberEmail = new List<string>();
             int coachUserId = result.coach.app_user.user_id;
             insert_member_result_ViewModel error;
             int rowCount = memberSheet.Dimension.End.Row;     //get row count
+            int colCount = memberSheet.Dimension.End.Column;
             int memberId = 1;
             int col;
             team team = null;
             member member;
+            team_member leaderMember = new team_member();
             team_member teamMember;
-            List<team> teamList = new List<team>();
             List<team_member> teamMemberList = new List<team_member>();
+            List<int> exceptRemoveLeader = new List<int>();
             for (int row = memberImport.getStartAtRow(); row <= rowCount; row++)
             {
                 string errMsg = "";
@@ -618,9 +612,14 @@ namespace Capstone_SWP490.Helper
                             error.objectName = "MEMBER_NORMAL";
                             error.parentObject = "MEMBER";
                             error.occur_position = "Row = " + row;
-                            error.msg = "- the Team '" + cellVal + "' not existed, please check at sheet 'TEAM'";
+                            error.msg = "- the Team '" + cellVal + "' not defined in sheet TEAM yet, please check at sheet 'TEAM'";
                             result.error.Add(error);
                         }
+                        else
+                        {
+                            leaderMember = team.team_member.FirstOrDefault();
+                        }
+
                     }
                     //skip
                     if (team == null)
@@ -640,50 +639,71 @@ namespace Capstone_SWP490.Helper
                     DateTime memberDob = toDateTime(dtString);
                     member.dob = toDateTime(dtString);
                     string email = memberSheet.Cells[row, ++col].Value + "";
+                    member.email = email;
                     member.phone_number = memberSheet.Cells[row, ++col].Value + "";
                     member.icpc_id = toInt32(memberSheet.Cells[row, ++col].Value + "", -1);
                     member.gender = getGender(memberSheet.Cells[row, ++col].Value + "");
                     member.year = toInt32(memberSheet.Cells[row, ++col].Value + "", 0);
                     member.award = memberSheet.Cells[row, ++col].Value + "";
+                    member.enabled = true;
+                    string validateMemberMsg = validateMemberImport(member);
 
-                    if (IsValidEmail(email))
+                    if (isExistEmail(memberEmail, member.email))
                     {
-                        member.email = "";
+                        validateMemberMsg += "- Email used by other member";
                     }
-                    else
+
+                    if (!validateMemberMsg.Equals(""))
                     {
-                        member.email = email;
-                    }
-                    //skip if both email and name is blank
-                    if (StringUtils.isNullOrEmpty(memberName) || StringUtils.isNullOrEmpty(member.email))
-                    {
-                        errMsg = "- Member name or email cannot blank ";
                         error = new insert_member_result_ViewModel();
                         error.objectName = "MEMBER_NORMAL";
                         error.parentObject = "MEMBER";
                         error.occur_position = "Row = " + row;
-                        error.msg = errMsg;
+                        error.msg = validateMemberMsg;
                         result.error.Add(error);
                         continue;
                     }
 
-                    if (!isOver15YearOld(memberDob))
+                    contest_member contestTeam = new contest_member();
+                    contestTeam.contest = leaderMember.team.contest;
+                    contestTeam.member = member;
+                    member.contest_member.Add(contestTeam);
+                    //read individual contest
+                    Dictionary<int, contest> individualContestList = new Dictionary<int, contest>();
+                    for (int j = col + 1; j <= colCount; j++)
                     {
-                        errMsg += "- Member age must greater than or equal 15 year old ";
-                        member.dob = new DateTime();
+                        var contestName = memberSheet.Cells[memberImport.getStartAtRow() - 1, j].Value + "";
+                        contestName = contestName.Trim();
+                        if (!contestName.Equals(""))
+                        {
+                            string code = extractFirstWordCharacter(contestName);
+                            contest individual = _icontestService.getByCodeOrName(code, contestName);
+                            if (individual != null)
+                            {
+                                individualContestList.Add(j, individual);
+                            }
+                        }
+
                     }
-                    team_member leader = team.team_member.Where(x => x.member.member_role == 3).FirstOrDefault();
-                    contest_member contestMemmber = new contest_member();
-                    contestMemmber.contest = leader.member.contest_member.FirstOrDefault().contest;
-                    contestMemmber.member = member;
-                    member.contest_member.Add(contestMemmber);
+                    for (int j = col + 1; j <= colCount; j++)
+                    {
+                        var joinedText = memberSheet.Cells[row, j].Value + "";
+                        if (joinedText.Trim().ToUpper().Equals("YES"))
+                        {
+                            contest_member individualMember = new contest_member();
+                            individualMember.contest = individualContestList[j];
+                            individualMember.member = member;
+                            member.contest_member.Add(individualMember);
+                        }
+                    }
                     //because of leader added before therefore will be skipped
-                    if (!isTeamLeader(member, leader.member))
+                    if (!isTeamLeader(leaderMember.member, member))
                     {
                         teamMember = new team_member();
                         member.app_user = await createAppUserForMember(member, coachUserId);
                         teamMember.member = member;
                         teamMember.team = team;
+                        memberEmail.Add(member.email);
                         //add to team
                         result.school.teams.Where(x => x.team_id == team.team_id).FirstOrDefault().team_member.Add(teamMember);
                     }
@@ -691,9 +711,11 @@ namespace Capstone_SWP490.Helper
                     {
                         //update leader data
                         member.member_role = 3;
-                        leader.member = member;
+                        member.app_user = leaderMember.member.app_user;
+                        leaderMember.member = member;
                         //leader.member.dateStr = member.dateStr;
-                        team.team_member.Where(x => x.member.member_role == 3).FirstOrDefault().member = leader.member;
+                        team.team_member.Where(x => x.member.member_role == 3).FirstOrDefault().member = leaderMember.member;
+                        exceptRemoveLeader.Add(team.team_id);
                     }
                 }
                 catch (Exception e)
@@ -712,8 +734,77 @@ namespace Capstone_SWP490.Helper
                     result.error.Add(error);
                 }
             }
-
+            List<team> teamList = result.school.teams.ToList();
+            List<team> removedTeam = new List<team>();
+            foreach (var t in teamList)
+            {
+                //remove team leader that defined in sheet team but not defined in sheet memeber
+                if (!exceptRemoveLeader.Exists(x => x == t.team_id))
+                {
+                    team_member leaderMemberRemove = t.team_member.Where(x => x.member.member_role == 3).FirstOrDefault();
+                    team currentRemoveLeader = teamList.Where(x => x.team_id == t.team_id).FirstOrDefault();
+                    teamList.Where(x => x.team_id == t.team_id).FirstOrDefault().team_member.Remove(leaderMemberRemove);
+                    error = new insert_member_result_ViewModel();
+                    error.objectName = "MEMBER_NORMAL";
+                    error.parentObject = "N/A";
+                    error.occur_position = "MEMBER";
+                    error.msg = "The team " + currentRemoveLeader.team_name + " leader defined at sheet team was removed because not define detail information in sheet member";
+                    result.error.Add(error);
+                    if (currentRemoveLeader.team_member.Count > 0)
+                    {
+                        teamList.Where(x => x.team_id == t.team_id).FirstOrDefault().team_member.FirstOrDefault().member.member_role = 3;
+                    }
+                    else
+                    {
+                        removedTeam.Add(currentRemoveLeader);
+                        error = new insert_member_result_ViewModel();
+                        error.objectName = "MEMBER_NORMAL";
+                        error.parentObject = "N/A";
+                        error.occur_position = "N/A";
+                        error.msg = "The team " + currentRemoveLeader.team_name + " have no member";
+                        result.error.Add(error);
+                    }
+                }
+            }
+            foreach (var item in removedTeam)
+            {
+                teamList.Remove(item);
+            }
+            result.school.teams = teamList;
             return result;
+        }
+
+        private string extractFirstWordCharacter(string s)
+        {
+            if (s == null)
+            {
+                return "";
+            }
+            string result = "";
+            string[] arr = s.Split(' ');
+            foreach (string item in arr)
+            {
+                result += item.ElementAt(0);
+            }
+            return result.ToUpper();
+        }
+        public string validateMemberImport(member member)
+        {
+            string memberFullName = member.first_name + member.middle_name + member.last_name + "";
+            string errmsg = "";
+            if (memberFullName.Trim().Equals(""))
+            {
+                errmsg += "- Member name cannot be blank\n";
+            }
+            if (!IsValidEmail(member.email))
+            {
+                errmsg += "- Member email is blank or invalid\n";
+            }
+            if (member.dob == null || !isOver15YearOld(member.dob))
+            {
+                errmsg += "- Member age must greater than or equal 15\n";
+            }
+            return errmsg;
         }
         public member cleanMember(member member)
         {

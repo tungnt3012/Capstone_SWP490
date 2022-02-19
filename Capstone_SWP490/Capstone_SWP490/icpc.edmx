@@ -24,7 +24,7 @@
             <PropertyRef Name="contest_id" />
           </Key>
           <Property Name="contest_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="constest_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="contest_name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="start_date" Type="datetime" Nullable="false" />
           <Property Name="end_date" Type="datetime" Nullable="false" />
@@ -128,7 +128,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="page_id" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="title" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="content" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="position" Type="int" />
+          <Property Name="position" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="school">
           <Key>
@@ -156,6 +156,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="school_id" Type="int" />
           <Property Name="type" Type="nchar" MaxLength="10" />
           <Property Name="enabled" Type="bit" />
+          <Property Name="contest_id" Type="int" />
         </EntityType>
         <EntityType Name="team_member">
           <Key>
@@ -353,7 +354,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             <PropertyRef Name="contest_id" />
           </Key>
           <Property Name="contest_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="constest_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contest_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="start_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="end_date" Type="DateTime" Nullable="false" Precision="3" />
@@ -435,7 +436,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="page_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="position" Type="Int32" />
+          <Property Name="position" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="school">
           <Key>
@@ -464,6 +465,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="school_id" Type="Int32" />
           <Property Name="type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="enabled" Type="Boolean" />
+          <Property Name="contest_id" Type="Int32" />
           <NavigationProperty Name="school" Relationship="Self.FK__team__school_id__07F6335A" FromRole="team" ToRole="school" />
           <NavigationProperty Name="team_member" Relationship="Self.FK__team_memb__team___2D27B809" FromRole="team" ToRole="team_member" />
         </EntityType>
@@ -672,7 +674,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             <EntityTypeMapping TypeName="gocyberx_icpcModel.contest">
               <MappingFragment StoreEntitySet="contest">
                 <ScalarProperty Name="contest_id" ColumnName="contest_id" />
-                <ScalarProperty Name="constest_name" ColumnName="constest_name" />
+                <ScalarProperty Name="contest_name" ColumnName="contest_name" />
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="start_date" ColumnName="start_date" />
                 <ScalarProperty Name="end_date" ColumnName="end_date" />
@@ -783,6 +785,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
                 <ScalarProperty Name="school_id" ColumnName="school_id" />
                 <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="contest_id" ColumnName="contest_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

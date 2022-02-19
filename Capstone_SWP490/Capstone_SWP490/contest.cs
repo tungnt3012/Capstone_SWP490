@@ -21,7 +21,7 @@ namespace Capstone_SWP490
         }
     
         public int contest_id { get; set; }
-        public string constest_name { get; set; }
+        public string contest_name { get; set; }
         public string code { get; set; }
         public System.DateTime start_date { get; set; }
         public System.DateTime end_date { get; set; }
