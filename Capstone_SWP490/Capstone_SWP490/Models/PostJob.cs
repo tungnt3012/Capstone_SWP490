@@ -23,6 +23,7 @@ namespace Capstone_SWP490.Models
                     if ((scheduleTime2 + 5*60000) >= now)
                     {
                         item.enabled = true;
+                        item.schedule_date = null;
                         _postService.update(item);
                     }
                 }
