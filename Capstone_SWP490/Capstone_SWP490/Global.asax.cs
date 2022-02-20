@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone_SWP490.Scheduler;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,7 @@ namespace Capstone_SWP490
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            PostScheduler.Start();
             log4net.Config.XmlConfigurator.Configure();
         }
     }

@@ -166,6 +166,23 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="team_id" Type="int" />
           <Property Name="member_id" Type="int" />
         </EntityType>
+        <EntityType Name="post">
+          <Key>
+            <PropertyRef Name="post_id" />
+          </Key>
+          <Property Name="post_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="post_by" Type="int" Nullable="false" />
+          <Property Name="insert_date" Type="nvarchar" MaxLength="30" />
+          <Property Name="update_date" Type="nvarchar" MaxLength="30" />
+          <Property Name="title" Type="nvarchar" MaxLength="100" />
+          <Property Name="short_description" Type="nvarchar" MaxLength="100" />
+          <Property Name="content" Type="nvarchar" MaxLength="1000" />
+          <Property Name="html_content" Type="nvarchar" MaxLength="1300" />
+          <Property Name="featured" Type="varchar" MaxLength="100" />
+          <Property Name="enabled" Type="bit" />
+          <Property Name="schedule_date" Type="nvarchar" MaxLength="50" />
+          <Property Name="post_to" Type="varchar" MaxLength="100" />
+        </EntityType>
         <Association Name="FK__contest_m__conte__31EC6D26">
           <End Role="contest" Type="Self.contest" Multiplicity="1" />
           <End Role="contest_member" Type="Self.contest_member" Multiplicity="*" />
@@ -199,6 +216,18 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             </Principal>
             <Dependent Role="member">
               <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__post__post_by__59063A47">
+          <End Role="app_user" Type="Self.app_user" Multiplicity="1" />
+          <End Role="post" Type="Self.post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="app_user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="post_by" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -285,6 +314,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <EntitySet Name="school" EntityType="Self.school" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="team" EntityType="Self.team" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="team_member" EntityType="Self.team_member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="post" EntityType="Self.post" Schema="gocyberx_gocyberx" store:Type="Tables" />
           <EntitySet Name="documentation" EntityType="Self.documentation" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [documentation].[doc_id] AS [doc_id], 
@@ -315,6 +345,10 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <AssociationSet Name="FK__member__user_id__276EDEB3" Association="Self.FK__member__user_id__276EDEB3">
             <End Role="app_user" EntitySet="app_user" />
             <End Role="member" EntitySet="member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__post__post_by__59063A47" Association="Self.FK__post__post_by__59063A47">
+            <End Role="app_user" EntitySet="app_user" />
+            <End Role="post" EntitySet="post" />
           </AssociationSet>
           <AssociationSet Name="FK__team__school_id__07F6335A" Association="Self.FK__team__school_id__07F6335A">
             <End Role="school" EntitySet="school" />
@@ -348,6 +382,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="verified" Type="Boolean" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="members" Relationship="Self.FK__member__user_id__276EDEB3" FromRole="app_user" ToRole="member" />
+          <NavigationProperty Name="posts" Relationship="Self.FK__post__post_by__59063A47" FromRole="app_user" ToRole="post" />
         </EntityType>
         <EntityType Name="contest">
           <Key>
@@ -479,6 +514,24 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <NavigationProperty Name="member" Relationship="Self.FK__team_memb__membe__2C3393D0" FromRole="team_member" ToRole="member" />
           <NavigationProperty Name="team" Relationship="Self.FK__team_memb__team___2D27B809" FromRole="team_member" ToRole="team" />
         </EntityType>
+        <EntityType Name="post">
+          <Key>
+            <PropertyRef Name="post_id" />
+          </Key>
+          <Property Name="post_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="post_by" Type="Int32" Nullable="false" />
+          <Property Name="insert_date" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="update_date" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="short_description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="html_content" Type="String" MaxLength="1300" FixedLength="false" Unicode="true" />
+          <Property Name="featured" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="enabled" Type="Boolean" />
+          <Property Name="schedule_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="post_to" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="app_user" Relationship="Self.FK__post__post_by__59063A47" FromRole="post" ToRole="app_user" />
+        </EntityType>
         <EntityType Name="documentation">
           <Key>
             <PropertyRef Name="doc_id" />
@@ -512,6 +565,18 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             </Principal>
             <Dependent Role="member">
               <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__post__post_by__59063A47">
+          <End Role="app_user" Type="Self.app_user" Multiplicity="1" />
+          <End Role="post" Type="Self.post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="app_user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="post_by" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -586,11 +651,16 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <EntitySet Name="schools" EntityType="Self.school" />
           <EntitySet Name="teams" EntityType="Self.team" />
           <EntitySet Name="team_member" EntityType="Self.team_member" />
+          <EntitySet Name="posts" EntityType="Self.post" />
           <EntitySet Name="documentations" EntityType="Self.documentation" />
           <EntitySet Name="images" EntityType="Self.image" />
           <AssociationSet Name="FK__member__user_id__276EDEB3" Association="Self.FK__member__user_id__276EDEB3">
             <End Role="app_user" EntitySet="app_user" />
             <End Role="member" EntitySet="members" />
+          </AssociationSet>
+          <AssociationSet Name="FK__post__post_by__59063A47" Association="Self.FK__post__post_by__59063A47">
+            <End Role="app_user" EntitySet="app_user" />
+            <End Role="post" EntitySet="posts" />
           </AssociationSet>
           <AssociationSet Name="FK__contest_m__conte__31EC6D26" Association="Self.FK__contest_m__conte__31EC6D26">
             <End Role="contest" EntitySet="contests" />
@@ -795,6 +865,24 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="team_id" ColumnName="team_id" />
                 <ScalarProperty Name="member_id" ColumnName="member_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="posts">
+            <EntityTypeMapping TypeName="gocyberx_icpcModel.post">
+              <MappingFragment StoreEntitySet="post">
+                <ScalarProperty Name="post_id" ColumnName="post_id" />
+                <ScalarProperty Name="post_by" ColumnName="post_by" />
+                <ScalarProperty Name="insert_date" ColumnName="insert_date" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="short_description" ColumnName="short_description" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="html_content" ColumnName="html_content" />
+                <ScalarProperty Name="featured" ColumnName="featured" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="schedule_date" ColumnName="schedule_date" />
+                <ScalarProperty Name="post_to" ColumnName="post_to" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

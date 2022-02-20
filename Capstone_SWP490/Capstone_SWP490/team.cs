@@ -28,8 +28,8 @@ namespace Capstone_SWP490
         public Nullable<int> contest_id { get; set; }
     
         public virtual school school { get; set; }
+        public virtual contest contest { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<team_member> team_member { get; set; }
-        public virtual contest contest { get; set; }
     }
 }

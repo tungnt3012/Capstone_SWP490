@@ -37,6 +37,7 @@ namespace Capstone_SWP490
         public virtual DbSet<school> schools { get; set; }
         public virtual DbSet<team> teams { get; set; }
         public virtual DbSet<team_member> team_member { get; set; }
+        public virtual DbSet<post> posts { get; set; }
         public virtual DbSet<documentation> documentations { get; set; }
         public virtual DbSet<image> images { get; set; }
     
