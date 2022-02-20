@@ -452,8 +452,6 @@ namespace Capstone_SWP490.Controllers.Coach
 
                             }
                         }
-                        if (isSendMail)
-                        {
                             try
                             {
                                 new MailHelper().sendMailToInsertedUser(insertUser);
@@ -462,7 +460,6 @@ namespace Capstone_SWP490.Controllers.Coach
                             {
                                 Log.Error(e.Message);
                             }
-                        }
                     }
                 }
             }

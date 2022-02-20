@@ -16,12 +16,17 @@ namespace Capstone_SWP490.Controllers
 
 
         // GET: Post
-        public ActionResult Index()
+        public ActionResult Index(string status)
         {
             app_userViewModel logined = (app_userViewModel)Session["profile"];
-            List<post> listPost = _postService.getByAuthorId(logined.user_id);
+            if(logined == null)
+            {
+                return RedirectToAction("", "Home");
+            }
+            List<post> listPost = _postService.getByAuthorId(logined.user_id,status);
             postList_ViewModel model = new postList_ViewModel();
             model.posts = listPost;
+            model.status = status;
             return View(model);
         }
 
@@ -127,6 +132,7 @@ namespace Capstone_SWP490.Controllers
                     @ViewData["EDIT_ERROR"] = "In Case Of Schedule Post, Schedule Date Cannot be empty or earlier than Now";
                     return View(model);
                 }
+                model.post.enabled = false;
             }
             if (model.post.title == null || model.post.title.Equals(""))
             {
