@@ -18,6 +18,7 @@ namespace Capstone_SWP490
         public app_user()
         {
             this.members = new HashSet<member>();
+            this.posts = new HashSet<post>();
         }
     
         public int user_id { get; set; }
@@ -32,5 +33,7 @@ namespace Capstone_SWP490
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<member> members { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<post> posts { get; set; }
     }
 }
