@@ -47,7 +47,7 @@ namespace Capstone_SWP490.Services
 
         public async Task<school> findById(int id)
         {
-            return _ischoolRepository.FindBy(x => x.school_id == id && x.enabled == true).FirstOrDefault();
+            return  _ischoolRepository.FindBy(x => x.school_id == id && x.enabled == true).FirstOrDefault();
         }
         public school findInUsing(int coachId)
         {

@@ -16,10 +16,21 @@ namespace Capstone_SWP490.Services
         private static readonly ILog Log = LogManager.GetLogger(typeof(postService));
         private readonly IpostRepository _ipostRepository = new postRepository();
 
-        public List<post> getByAuthorId(int authorId)
+        public List<post> getByAuthorId(int authorId, string status)
         {
             try
             {
+                if (status != null)
+                {
+                    if (status.Equals("posted"))
+                    {
+                        return _ipostRepository.FindBy(x => x.post_by == authorId && x.enabled == true).ToList();
+                    }
+                    else if (status.Equals("scheduling"))
+                    {
+                        return _ipostRepository.FindBy(x => x.post_by == authorId && x.enabled == false && (x.schedule_date != null && !x.schedule_date.Equals(""))).ToList();
+                    }
+                }
                 return _ipostRepository.FindBy(x => x.post_by == authorId).ToList();
             }
             catch (Exception e)
