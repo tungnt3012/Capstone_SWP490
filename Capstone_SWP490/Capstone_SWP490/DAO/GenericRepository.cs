@@ -54,7 +54,7 @@ namespace Capstone_SWP490.DAO
             }
             catch (Exception ex)
             {
-                throw ex;
+                return -1;
             }
         }
         public async Task<int> Update(T entity, int key)

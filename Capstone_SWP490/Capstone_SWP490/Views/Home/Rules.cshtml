@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Rule";
+    ViewBag.Title = "Home Page";
     var lstContent = ViewData["ListRule"] as List<Capstone_SWP490.page_content>;
 
 }
@@ -11,19 +11,19 @@
     }
 </style>
 
-    <div class="container-fluid xyz">
-        <div class="col-lg-12" id="content_area2_header">
-            <div class="col-lg-12" id="content_area2_title">
-                <label for="exampleInputTitle">Rules</label>
-            </div>
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Rules</label>
         </div>
-        <div class="main">
-            <div class="column">
-                <div class="col-lg-12">
-                    <form>
-                        <div class="column">
+    </div>
+    <div class="main">
+        <div class="column">
+            <div class="col-lg-12">
+                <form>
+                    <div class="column" id="page-content">
 
-                            <div class="col-lg-12">
+                        @*<div class="col-lg-12">
                                 <label class="Event-Schedule" for="Event_Schedule">
                                     <img src="~/image/image 24.png">The Contest
                                 </label>
@@ -122,19 +122,44 @@
                                 <label class="Event-Content" for="Event_Schedule">
                                     Should a contestant require use of the restroom during the contest proper, the contestant will be accompanied by a designated usher.
                                 </label>
-                            </div>
+                            </div>*@
 
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-
         </div>
 
     </div>
 
+</div>
+
 <!-- /#page-content-wrapper -->
 <!-- /#page-content-wrapper -->
-<
-
-
+<script>
+    GetListContent();
+    function GetListContent() {
+        $.ajax({
+            url: '@Url.Action("GetContentRule", "Home")',
+            type: 'GET',
+            success: function (results) {
+                if (results != null) {
+                    for (let i = 0; i < results.length; i++) {
+                        console.log("" + results[i].content);
+                        document.getElementById("page-content").innerHTML += `<div class="col-lg-12">
+                                        <div class="col-lg-12">
+                                            <label class="Event-Schedule" for="Event_Schedule">
+                                                `+ results[i].title+`
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="Event-Content" for="Event_Schedule">
+                                                `+ results[i].content+`
+                                            </div>
+                                        </div>
+                                    </div>`;
+                    }
+                }
+            }
+        });
+    };
+</script>
