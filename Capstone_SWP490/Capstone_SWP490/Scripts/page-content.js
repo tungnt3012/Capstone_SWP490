@@ -18,8 +18,8 @@ document.getElementById('close').onclick = () => {
     document.querySelector('.container').style.opacity = 100 + '%';
     document.querySelector('.heading').value = '';
     CKEDITOR.instances.editor.setData('');
-    //document.querySelector('.save_btn').style.display = 'initial';
-    //document.querySelector('.update_btn').style.display = 'none';
+    document.querySelector('.save_btn').style.display = 'initial';
+    document.querySelector('.update_btn').style.display = 'none';
     //document.querySelector('.heading').placeholder = 'Take a Note...';
     //document.querySelector('.heading').style.borderBottom = '0px solid black';
     document.getElementById('close').style.display = 'none';
