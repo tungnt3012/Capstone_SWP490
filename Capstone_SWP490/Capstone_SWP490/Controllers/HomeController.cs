@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.Repositories;
+﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Services;
 using Capstone_SWP490.Services.Interfaces;
@@ -55,36 +56,45 @@ namespace Capstone_SWP490.Controllers
             ViewBag.Message = "Your contact page.";
             return View();
         }
+
         public ActionResult GetContentRule()
         {
             return Json(_ipage_contentRepository.GetPage_ContentByPageId("RULE"), JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
-        public JsonResult UpdateListContent(List<page_content> page_Contents)
+        public async Task<ActionResult> UpdateListContent(List<page_content> page_Contents)
         {
-            var result = _ipage_contentService.UpdateListPageContent(page_Contents);
-            return Json(result);
+            AjaxResponseViewModel<IEnumerable<page_content>> ajaxResponse = await _ipage_contentService.UpdateListPageContent(page_Contents);
+            return Json(ajaxResponse);
         }
 
         [HttpPost]
-        public JsonResult UpdateSingleContent(page_content page_Contents)
+        public async Task<ActionResult> UpdateSingleContent(page_content page_Contents)
         {
-            var result = _ipage_contentService.UpdateSingleContent(page_Contents);
-            return Json(result);
+            AjaxResponseViewModel<page_content> ajaxResponse = await _ipage_contentService.UpdateSingleContent(page_Contents);
+            return Json(ajaxResponse);
         }
 
         [HttpPost]
-        public JsonResult DeleteSingleContent(page_content page_Contents)
+        public async Task<ActionResult> DeleteSingleContent(page_content page_Contents)
         {
-            var result = _ipage_contentService.DeleteSingleContent(page_Contents);
-            return Json(result);
+            AjaxResponseViewModel<bool> ajaxResponse = await _ipage_contentService.DeleteSingleContent(page_Contents);
+            return Json(ajaxResponse);
         }
 
         [HttpPost]
-        public JsonResult CreatePageContent(page_content page_Contents)
+        public async Task<ActionResult> CreatePageContent(page_content page_Contents)
         {
-            var result = _ipage_contentService.CreatePageContent(page_Contents);
-            return Json(result);
+            AjaxResponseViewModel<page_content> ajaxResponse = await _ipage_contentService.CreatePageContent(page_Contents);
+            return Json(ajaxResponse);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> PinPageContent(page_content page_Contents)
+        {
+            AjaxResponseViewModel<bool> ajaxResponse = await _ipage_contentService.PinPageContent(page_Contents);
+            return Json(ajaxResponse);
         }
 
         public ActionResult EventDetail()
