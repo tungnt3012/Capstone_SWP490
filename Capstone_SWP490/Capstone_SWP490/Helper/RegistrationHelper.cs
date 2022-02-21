@@ -12,6 +12,7 @@ using Capstone_SWP490.Common.ExcelImportPosition;
 using interfaces = Capstone_SWP490.Services.Interfaces;
 using services = Capstone_SWP490.Services;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace Capstone_SWP490.Helper
 {
@@ -571,11 +572,13 @@ namespace Capstone_SWP490.Helper
             user.psw = CreatePassword(8);
             user.user_name = member.email;
             user.user_role = member.member_role == 1 ? "COACH" : member.member_role == 2 ? "VICE-COACH" : member.member_role == 3 ? "LEADER" : "MEMBER";
-            user.encrypted_psw = user.psw;
+            user.encrypted_psw = createEncryptedPassWord(user.psw);
             user.full_name = member.first_name + " " + member.middle_name + " " + member.last_name;
             user.email = member.email;
             user.verified = false;
             user.active = false;
+            user.insert_date = DateTime.Now + "";
+            user.update_date = DateTime.Now + "";
             user = await _iapp_UserService.creatUserForImportMember(user, coachId);
             return user;
         }
@@ -841,6 +844,22 @@ namespace Capstone_SWP490.Helper
             }
             return false;
 
+        }
+
+        public string createEncryptedPassWord(string plainText)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+            // Compute hash from the bytes of text
+            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(plainText));
+            // Get hash result after compute it
+            byte[] result = md5.Hash;
+            StringBuilder strBuilder = new StringBuilder();
+            for (int i = 0; i < result.Length; i++)
+            {
+                strBuilder.Append(result[i].ToString("x2"));
+            }
+
+            return strBuilder.ToString();
         }
     }
 

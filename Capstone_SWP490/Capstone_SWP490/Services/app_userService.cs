@@ -124,7 +124,7 @@ namespace Capstone_SWP490.Services
                 try
                 {
                     member m = existedUser.members.FirstOrDefault();
-                    if(m == null)
+                    if (m == null)
                     {
                         return false;
                     }
@@ -156,6 +156,26 @@ namespace Capstone_SWP490.Services
         public async Task<int> update(app_user user)
         {
             return await _iapp_UserRepository.Update(user, user.user_id);
+        }
+
+        public List<app_user> findCoach(string status)
+        {
+            List<app_user> result;
+            status = status.ToUpper();
+            if (status != null && status.Equals("ALL"))
+            {
+                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH")).ToList();
+            }
+            else if (status.Equals("ENABLED"))
+            {
+                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.active == true).ToList();
+            }
+            else
+            {
+                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.active == false).OrderBy(x => x.active).ToList();
+            }
+
+            return result.OrderBy(x => x.update_date).ToList();
         }
     }
 }

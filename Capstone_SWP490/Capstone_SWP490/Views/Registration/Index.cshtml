@@ -80,7 +80,8 @@
                                             <td><button type="button" class="btn btn-success" id="btn-enable" onclick="acceptSchool(@item.school_id)">Accept </button></td>
                                         }
 
-                                        <td style="padding-top: 15px;"><a href="@Url.Action("history", "Registration")?school_id=@item.school_id">Detail</a></td>
+                                        <td style="padding-top: 15px;">
+                                        <a href="@Url.Action("history", "Registration")?school_id=@item.school_id">Detail</a></td>
                                         @if (item.active != null && !item.active)
                                         {
                                             <td style="padding-top: 15px;"><a href="@Url.Action("RemoveSchool", "Registration")?id=@item.school_id">Remove</a></td>
