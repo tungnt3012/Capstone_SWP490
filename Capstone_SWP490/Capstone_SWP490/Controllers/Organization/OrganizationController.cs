@@ -21,7 +21,7 @@ namespace Capstone_SWP490.Controllers.Orgnazition
         private readonly interfaces.IschoolService _ischoolService = new services.schoolService();
         private static readonly ILog Log = LogManager.GetLogger(typeof(OrgnazationController));
         // GET: Orgnazation
-        public ActionResult CoachAccount(string status, int? pageIndex)
+        public ActionResult CoachAccount(organization_ListViewModel model, int? pageIndex)
         {
             try
             {
@@ -29,14 +29,13 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                 {
                     pageIndex = 1;
                 }
-                if (status == null || status.Equals(""))
+                if (model.status == null || model.Equals(""))
                 {
-                    status = "all";
+                    model.status = "All";
                 }
                 organization_ViewModel itemModel;
-                organization_ListViewModel model = new organization_ListViewModel();
                 List<organization_ViewModel> data = new List<organization_ViewModel>();
-                List<app_user> coachUser = _iapp_UserService.findCoach(status);
+                List<app_user> coachUser = _iapp_UserService.findCoach(model.status,model.keyword);
                 foreach (var item in coachUser)
                 {
                     itemModel = new organization_ViewModel();
@@ -54,21 +53,23 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                     }
                     data.Add(itemModel);
                 }
-                model.status = status;
                 model.total_data = data.Count;
-                model.total_page = model.total_data / PAGE_SIZE;
+                int totalPage = (model.total_data % PAGE_SIZE != 0 ? (model.total_data / PAGE_SIZE + 1) : model.total_data / PAGE_SIZE);
+                model.total_page = totalPage;
                 model.pageIndex = (int)pageIndex;
+                int index = ((int)pageIndex - 1) * PAGE_SIZE;
+                int size = data.Count - index;
                 try
                 {
-                    model.data = data.GetRange(((int)pageIndex - 1) * PAGE_SIZE, PAGE_SIZE);
+                    model.data = data.GetRange(index, size);
                 }
                 catch
                 {
-                    model.data = data.GetRange(((int)pageIndex - 1) * PAGE_SIZE, data.Count);
+                    model.data = data.GetRange(index, size);
                 }
                 return View(model);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log.Error(e.Message);
                 return RedirectToAction("", ACTION_CONST.Home.CONTROLLER);

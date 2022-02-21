@@ -30,8 +30,14 @@
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                        <label for="firstName">Filter By Status:</label>
-                                                        @Html.DropDownListFor(x => x.status, new SelectList(Model.comboxStatus), new { @class = "form-control", id = "cbStatus" })
+                                                        @using (Html.BeginForm("CoachAccount", "Orgnazation", FormMethod.Post))
+                                                        {
+                                                            <label for="firstName">Select Status:</label>
+                                                            @Html.DropDownListFor(x => x.status, new SelectList(Model.comboxStatus), new { @class = "form-control", id = "cbStatus" })
+                                                            <label for="firstName">Search By Name/Email:</label>
+                                                            @Html.TextBoxFor(x => x.keyword, new { @class = "form-control" })
+                                                            <button style="margin-top: 10px">Apply Filter</button>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,9 +120,5 @@
 
         });
     });
-    document.getElementById("cbStatus").addEventListener('change', function () {
-        var selected = document.getElementById("cbStatus").value;
-        document.getElementById("statusRaw").value = selected;
-        document.getElementById("changeStatus").submit();
-    });
+
 </script>

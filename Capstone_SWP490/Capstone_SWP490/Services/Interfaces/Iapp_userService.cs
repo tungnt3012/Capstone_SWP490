@@ -23,6 +23,6 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<app_user> creatUserForImportMember(app_user user, int coachId);
         Task<int> update(app_user user);
 
-        List<app_user> findCoach(string status);
+        List<app_user> findCoach(string status, string keyword);
     }
 }

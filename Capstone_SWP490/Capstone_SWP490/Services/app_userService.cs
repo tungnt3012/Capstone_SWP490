@@ -158,21 +158,25 @@ namespace Capstone_SWP490.Services
             return await _iapp_UserRepository.Update(user, user.user_id);
         }
 
-        public List<app_user> findCoach(string status)
+        public List<app_user> findCoach(string status, string keyword)
         {
+            if(keyword== null)
+            {
+                keyword = "";
+            }
             List<app_user> result;
             status = status.ToUpper();
             if (status != null && status.Equals("ALL"))
             {
-                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH")).ToList();
+                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).ToList();
             }
             else if (status.Equals("ENABLED"))
             {
-                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.active == true).ToList();
+                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.active == true && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).ToList();
             }
             else
             {
-                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.active == false).OrderBy(x => x.active).ToList();
+                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.active == false && ( x.email.Contains(keyword) || x.full_name.Contains(keyword))).OrderBy(x => x.active).ToList();
             }
 
             return result.OrderBy(x => x.update_date).ToList();

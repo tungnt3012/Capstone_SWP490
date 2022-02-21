@@ -24,5 +24,6 @@ namespace Capstone_SWP490.Models.organization_ViewModel
         public int total_page { get; set; }
 
         public List<string> comboxStatus { get; }
+        public string keyword { get; set; }
     }
 }
