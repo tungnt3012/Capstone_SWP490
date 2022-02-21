@@ -18,6 +18,8 @@
           <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="verified" Type="bit" Nullable="false" />
           <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="insert_date" Type="nvarchar" MaxLength="100" />
+          <Property Name="update_date" Type="nchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="contest">
           <Key>
@@ -381,6 +383,8 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="verified" Type="Boolean" Nullable="false" />
           <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="insert_date" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="update_date" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="members" Relationship="Self.FK__member__user_id__276EDEB3" FromRole="app_user" ToRole="member" />
           <NavigationProperty Name="posts" Relationship="Self.FK__post__post_by__59063A47" FromRole="app_user" ToRole="post" />
         </EntityType>
@@ -737,6 +741,8 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="verified" ColumnName="verified" />
                 <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="insert_date" ColumnName="insert_date" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

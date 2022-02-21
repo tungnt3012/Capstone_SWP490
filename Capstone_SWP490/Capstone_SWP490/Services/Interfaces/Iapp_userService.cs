@@ -19,8 +19,10 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<int> delete(app_user entity);
         bool isEmailInUse(string userName, int coachId);
         app_user getByUserName(string username);
-
+        app_user getByUserId(int id);
         Task<app_user> creatUserForImportMember(app_user user, int coachId);
         Task<int> update(app_user user);
+
+        List<app_user> findCoach(string status);
     }
 }

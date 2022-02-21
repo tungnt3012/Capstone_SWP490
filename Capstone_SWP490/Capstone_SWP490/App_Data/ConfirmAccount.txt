@@ -1,0 +1,7 @@
+<p>Wellcome to <b><mark>ICPC Asia-VietNam Regional Contest</mark></b>
+<p>Hi<b>{0}</b>,</p>
+<p>Your account has been accepted by Organization</p>
+<p>password :<b><mark>{1}</mark><b>
+<p>
+  visit: <a href="{2}">{3}</a>
+</p>

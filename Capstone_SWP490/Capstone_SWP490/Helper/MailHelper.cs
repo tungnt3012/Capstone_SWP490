@@ -13,11 +13,11 @@ namespace Capstone_SWP490.Helper
     public class MailHelper
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(MailHelper));
-        public string readEmailCreateAccount()
+        public string readMailContent(string fname)
         {
             try
             {
-                string path = HttpContext.Current.Server.MapPath("~/App_Data/CreateAccount.txt");//Path of the xml script  
+                string path = HttpContext.Current.Server.MapPath("~/App_Data/"+ fname);//Path of the xml script  
                 return File.ReadAllText(path); ;
             }
             catch (Exception e)
@@ -50,7 +50,7 @@ namespace Capstone_SWP490.Helper
         public void sendMailToInsertedUser(app_user user)
         {
             EmailModel emailModel = new EmailModel();
-            string mailContent = readEmailCreateAccount();
+            string mailContent = readMailContent("CreateAccount.txt");
             emailModel.toEmail = user.email;
             string hostName = "";
             try
@@ -63,6 +63,26 @@ namespace Capstone_SWP490.Helper
             }
             string changePswUrl = hostName + "/Login";
             emailModel.body = string.Format(mailContent, user.psw, changePswUrl, changePswUrl);
+            emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
+            sendMailAsync(emailModel);
+        }
+
+        public void sendMailAfterConfirm(app_user user)
+        {
+            EmailModel emailModel = new EmailModel();
+            string mailContent = readMailContent("ConfirmAccount");
+            emailModel.toEmail = user.email;
+            string hostName = "";
+            try
+            {
+                hostName = WebConfigurationManager.AppSettings["HostName"];
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+            }
+            string changePswUrl = hostName + "/Login";
+            emailModel.body = string.Format(mailContent, user.full_name,user.psw, changePswUrl, changePswUrl);
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
             sendMailAsync(emailModel);
         }
