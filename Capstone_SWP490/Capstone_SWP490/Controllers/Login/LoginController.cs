@@ -65,10 +65,6 @@ namespace Capstone_SWP490.Controllers
                     //add session
                     Session.Add("username", user.user_name);
                     Session["profile"] = user;
-                    if (user.user_role.Equals("ORGANIZER"))
-                    {
-                        return RedirectToAction("Index", "Admin");
-                    }
                     if (user.verified == false)
                     {
                         return RedirectToAction("ChangePasswordFirst", "Login");
