@@ -6,7 +6,6 @@ document.querySelector('.heading').onclick = () => {
     document.querySelector('.input').style.position = 'absolute';
     document.querySelector('.input').style.zIndex = 5;
     document.querySelector('.container').style.opacity = 10 + '%';
-
     //document.querySelector('.heading').placeholder = 'Heading';
     //document.querySelector('.heading').style.borderBottom = '2px solid black';
 }
@@ -66,14 +65,6 @@ function EditBtn(e) {
 
         AjaxUpdateContentById(e);
     }
-
-    let objectContent = {
-        content_id: _content_id,
-        title: _title,
-        content: _content,
-        page_id: _page_id,
-        position: _content_position
-    };
 }
 
 //function GetListContent() {
