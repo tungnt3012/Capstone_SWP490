@@ -7,6 +7,8 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -32,8 +34,14 @@ namespace Capstone_SWP490.Services
 
         public bool CheckLogin(app_user app_User)
         {
+            string pass = app_User.psw;
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            UTF8Encoding utf8 = new UTF8Encoding();
+            byte[] data = md5.ComputeHash(utf8.GetBytes(pass));
+            var passConverted = Convert.ToBase64String(data);
+
             var u = _iapp_UserRepository.FindBy(x => x.user_name == app_User.user_name
-                && x.psw == app_User.psw).FirstOrDefault();
+                && x.encrypted_psw == passConverted).FirstOrDefault();
             if (u != null)
             {
                 return true;
@@ -94,7 +102,9 @@ namespace Capstone_SWP490.Services
                     verified = u.verified,
                     full_name = u.full_name,
                     email = u.email,
-                    active = u.active
+                    active = u.active,
+                    psw = u.psw,
+                    encrypted_psw = u.encrypted_psw
                 };
                 return viewModel;
             }

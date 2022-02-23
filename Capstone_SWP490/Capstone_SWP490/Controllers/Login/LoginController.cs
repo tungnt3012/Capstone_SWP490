@@ -5,6 +5,8 @@ using Capstone_SWP490.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -53,15 +55,21 @@ namespace Capstone_SWP490.Controllers
         [HttpPost]
         public ActionResult Login(app_user app_User)
         {
-            try
+
+            if (HttpContext.Session["username"] != null)
             {
-                if (HttpContext.Session["username"] != null)
+                return RedirectToAction("Index", "Home");
+            }
+            var user = _iapp_UserService.GetUserByUsername(app_User.user_name);
+            if (user != null)
+            {
+                if (user.active == false)
                 {
-                    return RedirectToAction("Index", "Home");
+                    ViewData["LoginError"] = "User is Deactive";
+                    return View();
                 }
                 if (_iapp_UserService.CheckLogin(app_User))
                 {
-                    var user = _iapp_UserService.GetUserByUsername(app_User.user_name);
                     //add session
                     Session.Add("username", user.user_name);
                     Session["profile"] = user;
@@ -69,23 +77,13 @@ namespace Capstone_SWP490.Controllers
                     {
                         return RedirectToAction("ChangePasswordFirst", "Login");
                     }
-                    if (user.verified == false && user.active == false)
-                    {
-                        ViewData["LoginError"] = "User is Deactive";
-                        return View();
-                    }
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    ViewData["LoginError"] = "Wrong username or password";
-                    return View();
-                }
-            }
-            catch (Exception)
-            {
+                ViewData["LoginError"] = "Wrong username or password";
                 return View();
             }
+            ViewData["LoginError"] = "Username not exist";
+            return View();
         }
 
         public ActionResult Logout()
@@ -114,11 +112,17 @@ namespace Capstone_SWP490.Controllers
         {
             if (HttpContext.Session["username"] != null)
             {
+                MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                UTF8Encoding utf8 = new UTF8Encoding();
+                byte[] data = md5.ComputeHash(utf8.GetBytes(app_UserIn.psw));
+
+                var passToData = Convert.ToBase64String(data);
+
                 if (!String.IsNullOrWhiteSpace(app_UserIn.psw) && !String.IsNullOrWhiteSpace(app_UserIn.repsw)
                      && app_UserIn.psw == app_UserIn.repsw
                      && app_UserIn.psw.Length >= 6 && app_UserIn.repsw.Length >= 6)
                 {
-                    if (await _iapp_UserService.UpdatePasswordFirst(HttpContext.Session["username"].ToString(), app_UserIn.psw, app_UserIn.send_me_event))
+                    if (await _iapp_UserService.UpdatePasswordFirst(HttpContext.Session["username"].ToString(), passToData, app_UserIn.send_me_event))
                     {
                         return RedirectToAction("RegisShirtSizing", "Login");
                     }
@@ -148,11 +152,17 @@ namespace Capstone_SWP490.Controllers
         {
             if (HttpContext.Session["username"] != null)
             {
+                MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                UTF8Encoding utf8 = new UTF8Encoding();
+                byte[] data = md5.ComputeHash(utf8.GetBytes(app_UserIn.psw));
+
+                var passToData = Convert.ToBase64String(data);
+
                 if (!String.IsNullOrWhiteSpace(app_UserIn.psw) && !String.IsNullOrWhiteSpace(app_UserIn.repsw)
                     && app_UserIn.psw == app_UserIn.repsw
                     && app_UserIn.psw.Length >= 6 && app_UserIn.repsw.Length >= 6)
                 {
-                    if (await _iapp_UserService.UpdatePassword(HttpContext.Session["username"].ToString(), app_UserIn.psw))
+                    if (await _iapp_UserService.UpdatePassword(HttpContext.Session["username"].ToString(), passToData))
                     {
                         ViewData["ChangePasswordSuccess"] = "Change Password Successfully";
                         return View();
