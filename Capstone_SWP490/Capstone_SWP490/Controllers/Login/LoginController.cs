@@ -133,8 +133,11 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("Login", "Login");
         }
 
+
+        [Authorize(Roles = "ORGANIZER")]
         public ActionResult ChangePassword()
         {
+            Console.WriteLine("role ");
             if (HttpContext.Session["username"] != null)
             {
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
@@ -174,6 +177,7 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("Login", "Login");
         }
 
+        [Authorize(Roles = "ORGANIZER")]
         public ActionResult RegisShirtSizing()
         {
             if (HttpContext.Session["username"] != null)
@@ -183,6 +187,7 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("Login", "Login");
         }
 
+        [Authorize(Roles = "ORGANIZER")]
         [HttpPost]
         public async Task<ActionResult> RegisShirtSizing(member member)
         {
