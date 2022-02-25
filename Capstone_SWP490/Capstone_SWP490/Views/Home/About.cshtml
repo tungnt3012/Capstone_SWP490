@@ -10,137 +10,6 @@
         background: #30cf6b;
     }
 
-    body {
-        background-color: #ffffff;
-    }
-
-    .title {
-        width: 90vw;
-        height: fit-content;
-        color: white;
-        font-size: 2rem;
-        font-family: 'Playfair Display', serif;
-        font-weight: 800;
-    }
-
-    .input {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: start;
-        gap: 2rem;
-        padding: 1rem;
-        border: 1px solid #000000;
-        height: 4.2rem;
-        overflow: hidden;
-        transition: height 1s ease;
-        max-width: 50rem;
-        background: #ffffff;
-        margin-left: 20px;
-    }
-
-    #close {
-        margin-left: auto;
-        margin-top: -0.5rem;
-        margin-right: -0.7rem;
-        display: none;
-    }
-
-    .input .inputs1 {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    .inputs2 textarea {
-        display: none;
-        max-width: 50rem;
-        min-width: 40rem;
-    }
-
-    .input .heading {
-        width: 35em;
-        height: 2rem;
-        background-color: transparent;
-        border: none;
-        outline: none;
-        color: #000000;
-        font-family: 'Playfair Display', serif;
-    }
-
-    .input button {
-    }
-
-        .input button:hover {
-            background-color: white;
-            color: black;
-            font-weight: bold;
-        }
-
-
-    .subcon {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-        .subcon:nth-child(1) {
-            grid-column-start: 1;
-            grid-column-end: 2;
-        }
-
-        .subcon:nth-child(2) {
-            grid-column-start: 2;
-            grid-column-end: 3;
-        }
-
-        .subcon:nth-child(3) {
-            grid-column-start: 3;
-            grid-column-end: 4;
-        }
-
-        .subcon:nth-child(4) {
-            grid-column-start: 4;
-            grid-column-end: 5;
-        }
-
-        .subcon:nth-child(5) {
-            grid-column-start: 5;
-            grid-column-end: 6;
-        }
-
-    .item {
-        border: 1px solid white;
-        padding: 0.8rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-        .item #heading {
-            font-weight: bold;
-            font-size: 1.5em !important;
-        }
-
-        .item #delete_edit img {
-            height: 1.5rem;
-            margin-top: 1rem;
-            margin-right: 0.5rem;
-        }
-
-    #post-pins {
-        width: auto;
-        height: auto;
-        background-color: #007bff;
-        border: none;
-        color: #ffffff;
-        /* font-family: 'Playfair Display', serif; */
-        text-transform: uppercase;
-        margin-left: auto;
-        margin-top: 10px;
-    }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700;1,800&family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
 <script src="//cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
@@ -153,7 +22,7 @@
     </div>
     <div class="main">
         <div class="column">
-            <div class="col-lg-12">
+            <div class="col-lg-12" id="col-local">
                 @if (Session["username"] != null)
                 {
                     if (profile.user_role.Equals("ORGANIZER"))
