@@ -122,7 +122,7 @@ namespace Capstone_SWP490.Controllers
                      && app_UserIn.psw == app_UserIn.repsw
                      && app_UserIn.psw.Length >= 6 && app_UserIn.repsw.Length >= 6)
                 {
-                    if (await _iapp_UserService.UpdatePasswordFirst(HttpContext.Session["username"].ToString(), passToData, app_UserIn.send_me_event))
+                    if (await _iapp_UserService.UpdatePasswordFirst(HttpContext.Session["username"].ToString(), app_UserIn.psw, passToData, app_UserIn.send_me_event))
                     {
                         return RedirectToAction("RegisShirtSizing", "Login");
                     }
@@ -162,7 +162,7 @@ namespace Capstone_SWP490.Controllers
                     && app_UserIn.psw == app_UserIn.repsw
                     && app_UserIn.psw.Length >= 6 && app_UserIn.repsw.Length >= 6)
                 {
-                    if (await _iapp_UserService.UpdatePassword(HttpContext.Session["username"].ToString(), passToData))
+                    if (await _iapp_UserService.UpdatePassword(HttpContext.Session["username"].ToString(),app_UserIn.psw, passToData))
                     {
                         ViewData["ChangePasswordSuccess"] = "Change Password Successfully";
                         return View();

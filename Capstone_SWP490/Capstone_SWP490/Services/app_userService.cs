@@ -49,7 +49,7 @@ namespace Capstone_SWP490.Services
             return false;
         }
 
-        public async Task<bool> UpdatePasswordFirst(string username, string password, bool send_event)
+        public async Task<bool> UpdatePasswordFirst(string username, string password, string passwordEncrypted, bool send_event)
         {
             var findUser = _iapp_UserRepository.FindBy(x => x.user_name == username && x.verified == false).FirstOrDefault();
             if (findUser != null)
@@ -63,6 +63,7 @@ namespace Capstone_SWP490.Services
                 if (await _imemberRepository.Update(findMemberInfo, findMemberInfo.member_id) != -1)
                 {
                     findUser.psw = password;
+                    findUser.encrypted_psw = passwordEncrypted;
                     findUser.verified = true;
                     var rsUpdate = await _iapp_UserRepository.Update(findUser, findUser.user_id);
                     if (rsUpdate != -1)
@@ -74,12 +75,13 @@ namespace Capstone_SWP490.Services
             return false;
         }
 
-        public async Task<bool> UpdatePassword(string username, string password)
+        public async Task<bool> UpdatePassword(string username, string password, string passwordEncrypted)
         {
             var findUser = _iapp_UserRepository.FindBy(x => x.user_name == username).FirstOrDefault();
             if (findUser != null)
             {
                 findUser.psw = password;
+                findUser.encrypted_psw = passwordEncrypted;
                 var rsUpdate = await _iapp_UserRepository.Update(findUser, findUser.user_id);
                 if (rsUpdate != -1)
                 {

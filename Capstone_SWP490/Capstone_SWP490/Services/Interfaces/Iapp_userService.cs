@@ -12,8 +12,8 @@ namespace Capstone_SWP490.Services.Interfaces
         List<app_user> GetAllUser();
         Task<app_user> CreateUser(app_user userIn);
         bool CheckLogin(app_user app_User);
-        Task<bool> UpdatePasswordFirst(string username, string password, bool send_event);
-        Task<bool> UpdatePassword(string username, string password);
+        Task<bool> UpdatePasswordFirst(string username, string password, string passwordEncryted,bool send_event);
+        Task<bool> UpdatePassword(string username, string password, string passwordEncryted);
         app_userViewModel GetUserByUsername(string username);
 
         Task<int> delete(app_user entity);
