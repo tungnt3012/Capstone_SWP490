@@ -79,7 +79,7 @@ else
                              for (let i = 0; i < results.length; i++) {
                                  console.log("" + results[i].content);
                                  document.getElementById("page-content").innerHTML +=
-                                     `<div class="col-lg-6" id="content-item">
+                                     `<div class="col-lg" id="content-item">
                                             <h3 class="" id="page-title" content-id="`+ results[i].content_id + `" page-id="` + results[i].page_id + `" content-position="` + results[i].position + `">
                                                 `+ results[i].title + `
                                             </h3>
@@ -99,7 +99,7 @@ else
                         for (let i = 0; i < results.length; i++) {
                             console.log("" + results[i].content);
                             document.getElementById("page-content").innerHTML +=
-                                `<div class="col-lg-6" id="content-item">
+                                `<div class="col-lg" id="content-item">
                                             <h3 class="" id="page-title" content-id="`+ results[i].content_id + `" page-id="` + results[i].page_id + `" content-position="` + results[i].position + `">
                                                 `+ results[i].title + `
                                             </h3>

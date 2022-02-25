@@ -9,7 +9,7 @@ namespace Capstone_SWP490.MyRoleProvider
     public class SiteRole : RoleProvider
     {
         public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public MyRoleProvider() 
+        public SiteRole() 
     {}
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
