@@ -135,7 +135,7 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("Login", "Login");
         }
 
-        [Authorize/*(Roles = "ORGANIZER")*/]
+        //[Authorize/*(Roles = "ORGANIZER")*/]
         public ActionResult ChangePassword()
         {
             Console.WriteLine("role ");
