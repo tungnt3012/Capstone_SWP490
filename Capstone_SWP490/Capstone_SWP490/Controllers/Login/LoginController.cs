@@ -1,10 +1,12 @@
 ﻿using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Models.memberViewModel;
+using Capstone_SWP490.MyRoleProvider;
 using Capstone_SWP490.Services;
 using Capstone_SWP490.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -133,8 +135,7 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("Login", "Login");
         }
 
-
-        [Authorize(Roles = "ORGANIZER")]
+        [Authorize/*(Roles = "ORGANIZER")*/]
         public ActionResult ChangePassword()
         {
             Console.WriteLine("role ");
@@ -165,7 +166,7 @@ namespace Capstone_SWP490.Controllers
                     && app_UserIn.psw == app_UserIn.repsw
                     && app_UserIn.psw.Length >= 6 && app_UserIn.repsw.Length >= 6)
                 {
-                    if (await _iapp_UserService.UpdatePassword(HttpContext.Session["username"].ToString(),app_UserIn.psw, passToData))
+                    if (await _iapp_UserService.UpdatePassword(HttpContext.Session["username"].ToString(), app_UserIn.psw, passToData))
                     {
                         ViewData["ChangePasswordSuccess"] = "Change Password Successfully";
                         return View();
@@ -177,7 +178,7 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("Login", "Login");
         }
 
-        [Authorize(Roles = "ORGANIZER")]
+        //[Authorize(Roles = "ORGANIZER")]
         public ActionResult RegisShirtSizing()
         {
             if (HttpContext.Session["username"] != null)
@@ -187,7 +188,7 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("Login", "Login");
         }
 
-        [Authorize(Roles = "ORGANIZER")]
+        //[Authorize(Roles = "ORGANIZER")]
         [HttpPost]
         public async Task<ActionResult> RegisShirtSizing(member member)
         {
