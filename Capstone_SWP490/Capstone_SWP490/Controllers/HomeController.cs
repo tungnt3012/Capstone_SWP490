@@ -23,6 +23,12 @@ namespace Capstone_SWP490.Controllers
 
             return View();
         }
+        public ActionResult EventUpload()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
         public ActionResult Downloads()
         {
             ViewBag.Message = "Your contact page.";
