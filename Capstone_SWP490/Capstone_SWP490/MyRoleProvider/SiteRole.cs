@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Security;
 
 namespace Capstone_SWP490.MyRoleProvider
@@ -9,8 +10,8 @@ namespace Capstone_SWP490.MyRoleProvider
     public class SiteRole : RoleProvider
     {
         public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public SiteRole() 
-    {}
+        private int _cacheTimeoutInMinute = 20;
+
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
             throw new NotImplementedException();
@@ -33,7 +34,10 @@ namespace Capstone_SWP490.MyRoleProvider
 
         public override string[] GetAllRoles()
         {
-            throw new NotImplementedException();
+            using (var usersContext = new gocyberx_icpcEntities())
+            {
+                return usersContext.app_user.Select(r => r.user_role).ToArray();
+            }
         }
 
         public override string[] GetRolesForUser(string username)
@@ -51,15 +55,8 @@ namespace Capstone_SWP490.MyRoleProvider
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            string[] roles = GetRolesForUser(username);
-            foreach (string role in roles)
-            {
-                if (roleName.Equals(role, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
-            }
-            return false;
+            var userRoles = GetRolesForUser(username);
+            return userRoles.Contains(roleName);
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
