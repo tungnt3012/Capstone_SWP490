@@ -19,29 +19,29 @@
         </div>
     </div>
     <div class="main">
-            <div class="col-lg-12" id="col-local">
-                @if (Session["username"] != null)
+        <div class="col-lg-12" id="col-local">
+            @if (Session["username"] != null)
+            {
+                if (profile.user_role.Equals("ORGANIZER"))
                 {
-                    if (profile.user_role.Equals("ORGANIZER"))
-                    {
-                        <div class="input">
-                            <img id="close" src="~/image/x-circle-fill.svg" />
-                            <div class="inputs1">
-                                <input class="heading" type="text" placeholder="More information...">
-                                <button class="save_btn btn-success" onclick="AjaxCreateContent()">Add</button>
-                                <button style="display: none" class="update_btn">Update</button>
-                            </div>
-                            <div class="inputs2">
-                                <textarea id="editor" name="content" placeholder="Puke your Content in here! 🤮"></textarea>
-                                @*<button type="button" class="btn btn-primary" id="post-pins">Post Pins</button>*@
-                            </div>
+                    <div class="input">
+                        <img id="close" src="~/image/x-circle-fill.svg" />
+                        <div class="inputs1">
+                            <input class="heading" type="text" placeholder="More information...">
+                            <button class="save_btn btn-success" onclick="AjaxCreateContent()">Add</button>
+                            <button style="display: none" class="update_btn">Update</button>
                         </div>
-                    }
+                        <div class="inputs2">
+                            <textarea id="editor" name="content" placeholder="Puke your Content in here! 🤮"></textarea>
+                            @*<button type="button" class="btn btn-primary" id="post-pins">Post Pins</button>*@
+                        </div>
+                    </div>
                 }
-                <div class="row" id="page-content">
-                </div>
+            }
+            <div class="row" id="page-content">
             </div>
-        
+        </div>
+
     </div>
 
 </div>
@@ -58,7 +58,7 @@ else
 }
 <!-- /#page-content-wrapper -->
 <!-- /#page-content-wrapper -->
-<script src="~/Scripts/page-content.js"> </script>
+<script src="~/Scripts/page-content.js"></script>
 <script>
     GetListContent();
 
@@ -73,8 +73,7 @@ else
             success: function (results) {
                 document.getElementById("page-content").innerHTML = "";
                 if (results != null) {
-                    if (vas!="") {
-                        if (role == 'ORGANIZER') {
+                    if (vas != "" && role == 'ORGANIZER') {
                             //fill input CKeditor
                              for (let i = 0; i < results.length; i++) {
                                  console.log("" + results[i].content);
@@ -93,7 +92,6 @@ else
                                             </div>
                                        </div>`;
                              }
-                         }
                     }
                     else {
                         for (let i = 0; i < results.length; i++) {

@@ -218,8 +218,7 @@ else
             success: function (results) {
                 document.getElementById("page-content").innerHTML = "";
                 if (results != null) {
-                    if (vas!="") {
-                        if (role == 'ORGANIZER') {
+                    if (vas != "" && role == 'ORGANIZER') {
                              for (let i = 0; i < results.length; i++) {
                                  console.log("" + results[i].content);
                                  document.getElementById("page-content").innerHTML +=
@@ -237,7 +236,6 @@ else
                                             </div>
                                        </div>`;
                              }
-                         }
                     }
                     else {
                         for (let i = 0; i < results.length; i++) {

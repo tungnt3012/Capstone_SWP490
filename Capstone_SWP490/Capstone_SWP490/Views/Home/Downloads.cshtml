@@ -1,60 +1,482 @@
-﻿@{ ViewBag.Title = "Home Page"; }
+﻿@{
+    ViewBag.Title = "Downloads";
+    var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
+
+}
 <style>
     #menu-downloads {
         color: #ffffff !important;
         background: #30cf6b;
     }
 
+    body {
+        background-color: #ffffff;
+    }
+
+    .title {
+        width: 90vw;
+        height: fit-content;
+        color: white;
+        font-size: 2rem;
+        font-family: 'Playfair Display', serif;
+        font-weight: 800;
+    }
+
+    .input {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        gap: 2rem;
+        padding: 1rem;
+        border: 1px solid #000000;
+        height: 4.2rem;
+        overflow: hidden;
+        transition: height 1s ease;
+        max-width: 50rem;
+        background: #ffffff;
+        margin-left: 20px;
+    }
+
+    #close {
+        margin-left: auto;
+        margin-top: -0.5rem;
+        margin-right: -0.7rem;
+        display: none;
+    }
+
+    .input .inputs1 {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .inputs2 textarea {
+        display: none;
+        max-width: 50rem;
+        min-width: 40rem;
+    }
+
+    .input .heading {
+        width: 35em;
+        height: 2rem;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: #000000;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .input button {
+    }
+
+        .input button:hover {
+            background-color: white;
+            color: black;
+            font-weight: bold;
+        }
+
+
+    .subcon {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+        .subcon:nth-child(1) {
+            grid-column-start: 1;
+            grid-column-end: 2;
+        }
+
+        .subcon:nth-child(2) {
+            grid-column-start: 2;
+            grid-column-end: 3;
+        }
+
+        .subcon:nth-child(3) {
+            grid-column-start: 3;
+            grid-column-end: 4;
+        }
+
+        .subcon:nth-child(4) {
+            grid-column-start: 4;
+            grid-column-end: 5;
+        }
+
+        .subcon:nth-child(5) {
+            grid-column-start: 5;
+            grid-column-end: 6;
+        }
+
+    .item {
+        border: 1px solid white;
+        padding: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+        .item #heading {
+            font-weight: bold;
+            font-size: 1.5em !important;
+        }
+
+        .item #delete_edit img {
+            height: 1.5rem;
+            margin-top: 1rem;
+            margin-right: 0.5rem;
+        }
+
+    #post-pins {
+        width: auto;
+        height: auto;
+        background-color: #007bff;
+        border: none;
+        color: #ffffff;
+        /* font-family: 'Playfair Display', serif; */
+        text-transform: uppercase;
+        margin-left: auto;
+        margin-top: 10px;
+    }
 </style>
-
-    <div class="container-fluid xyz">
-        <div class="col-lg-12" id="content_area2_header">
-            <div class="col-lg-12" id="content_area2_title">
-                <label for="exampleInputTitle">Downloads</label>
-            </div>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700;1,800&family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+<script src="//cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Downloads</label>
         </div>
-        <div class="main">
-            <div class="column">
-                <div class="col-lg-12" id="Dowload-page">
-                    <form>
-                        <div class="column">
-                            <div class="col-lg-12">
-                                <label class="Download-Title" for="Event_Schedule">
-                                    <img src="~/image/image 35.png">Downloads
-                                </label>
+    </div>
+    <div class="main">
+        <div class="column">
+            <div class="col-lg-12" id="Dowload-page">
+                @if (Session["username"] != null)
+                {
+                    if (profile.user_role.Equals("ORGANIZER"))
+                    {
+                        <div class="input">
+                            <img id="close" src="~/image/x-circle-fill.svg" />
+                            <div class="inputs1">
+                                <input class="heading" type="text" placeholder="More information...">
+                                <button class="save_btn btn-success" onclick="AjaxCreateContent()">Add</button>
+                                <button style="display: none" class="update_btn">Update</button>
                             </div>
-
-                            <div class="col-lg-12">
-                                <label class="Dowload-Content" for="Event_Schedule">
-                                    <a href="#">Invitation Letter</a>
-                                </label>
-                            </div>
-                            <div class="col-lg-12">
-                                <label class="Dowload-Content" for="Event_Schedule">
-                                    <a href="#">Program Booklet</a>
-                                </label>
-                            </div>
-                            <div class="col-lg-12">
-                                <label class="Dowload-Content" for="Event_Schedule">
-                                    <a href="#">Practice Session Problem Set</a>
-                                </label>
-                            </div>
-                            <div class="col-lg-12">
-                                <label class="Dowload-Content" for="Event_Schedule">
-                                    <a href="#">Official Contest Problem Set</a>
-                                </label>
-                            </div>
-                            <div class="col-lg-12">
-                                <label class="Dowload-Content" for="Event_Schedule">
-                                    <a href="#">Solution Sketches</a>
-                                </label>
+                            <div class="inputs2">
+                                <textarea id="editor" name="content" placeholder="Puke your Content in here! 🤮"></textarea>
+                                @*<button type="button" class="btn btn-primary" id="post-pins">Post Pins</button>*@
                             </div>
                         </div>
-                    </form>
+                    }
+                }
+                <div class="row" id="page-content">
                 </div>
+                @*<div class="column">
+                        <div class="col-lg-12">
+                            <label class="Download-Title" for="Event_Schedule">
+                                <img src="~/image/image 35.png">Downloads
+                            </label>
+                        </div>
+                        <div class="col-lg-12">
+                            <label class="Dowload-Content" for="Event_Schedule">
+                                <a href="#">Invitation Letter</a>
+                            </label>
+                        </div>
+                        <div class="col-lg-12">
+                            <label class="Dowload-Content" for="Event_Schedule">
+                                <a href="#">Program Booklet</a>
+                            </label>
+                        </div>
+                        <div class="col-lg-12">
+                            <label class="Dowload-Content" for="Event_Schedule">
+                                <a href="#">Practice Session Problem Set</a>
+                            </label>
+                        </div>
+                        <div class="col-lg-12">
+                            <label class="Dowload-Content" for="Event_Schedule">
+                                <a href="#">Official Contest Problem Set</a>
+                            </label>
+                        </div>
+                        <div class="col-lg-12">
+                            <label class="Dowload-Content" for="Event_Schedule">
+                                <a href="#">Solution Sketches</a>
+                            </label>
+                        </div>
+                    </div>*@
             </div>
         </div>
     </div>
-  
+</div>
+
+<input type="hidden" id="userss" value="@Session["username"]">
+@if (Session["username"] != null)
+{
+    <input type="hidden" id="user_role" value="@profile.user_role">
+}
+else
+{
+    <input type="hidden" id="user_role" value="0">
+}
+
+<script src="~/Scripts/page-content.js"></script>
+<script>
+    GetListContent();
+
+    function GetListContent() {
+        var vas = $("#userss").val();
+        var role = $("#user_role").val();
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetContentDownloads", "Home")',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (results) {
+                document.getElementById("page-content").innerHTML = "";
+                if (results != null) {
+                    if (vas != "" && role == 'ORGANIZER') {
+                             for (let i = 0; i < results.length; i++) {
+                                 console.log("" + results[i].content);
+                                 document.getElementById("page-content").innerHTML +=
+                                     `<div class="col-lg" id="content-item">
+                                            <label class="Download-Title" id="page-title" content-id="`+ results[i].content_id + `" page-id="` + results[i].page_id + `" content-position="` + results[i].position + `">
+                                                `+ results[i].title + `
+                                            </label>
+                                            <div class="Dowload-Content" style="overflow:auto;" id="page-content0">
+                                                `+ results[i].content + `
+                                            </div>
+                                            <div class="col-lg-12" id="delete_edit">
+                                               <button class="btn-sm btn-warning" onclick="EditBtn(this)">Edit</button>
+                                                <button class="btn-sm btn-primary" onclick="AjaxPinContentById(this)" >Pin</button>
+                                                <button class="btn-sm btn-danger" onclick="AjaxDeleteContentById(this)" >Delete</button>
+                                            </div>
+                                       </div>`;
+                             }
+                    }
+                    else {
+                        for (let i = 0; i < results.length; i++) {
+                            console.log("" + results[i].content);
+                            document.getElementById("page-content").innerHTML +=
+                                `<div class="col-lg" id="content-item">
+                                            <label class="front-size-title" id="page-title" content-id="`+ results[i].content_id + `" page-id="` + results[i].page_id + `" content-position="` + results[i].position + `">
+                                                `+ results[i].title + `
+                                            </label>
+                                            <div class="border border-danger" style="overflow:auto;" id="page-content0">
+                                                `+ results[i].content + `
+                                            </div>
+                                            <div class="col-lg-12" id="delete_edit">
+                                            </div>
+                                       </div>`;
+                        }
+                    }
+                }
+            }
+        });
+    };
+
+    function AjaxCreateContent() {
+
+        var heading = document.querySelector('.heading').value;
+        var contents = CKEDITOR.instances.editor.getData();
+
+        let objectContent = {
+            title: heading,
+            content: contents,
+            page_id: "Downloads",
+            position: 0
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CreatePageContent", "Home")',
+            data: JSON.stringify(objectContent),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (rs) {
+                if (rs != null) {
+                    var s = rs;
+                    if (rs.Status == 1) {
+                        alert("success");
+                    } else {
+                        alert("Fail");
+                    }
+                }
+            }
+        });
+
+        document.querySelector('.input').style.height = 4.2 + 'rem';
+        document.querySelector('.input').style.position = 'initial';
+        document.querySelector('.input').style.zIndex = 1;
+        document.querySelector('.container').style.opacity = 100 + '%';
+        document.querySelector('.heading').value = '';
+        CKEDITOR.instances.editor.setData('');
+        document.querySelector('.save_btn').style.display = 'initial';
+        document.querySelector('.update_btn').style.display = 'none';
+        document.querySelector('.heading').placeholder = 'Take a Note...';
+        document.querySelector('.heading').style.borderBottom = '0px solid black';
+        document.getElementById('close').style.display = 'none';
+
+        GetListContent();
+    }
+
+function AjaxSaveListContent() {
+    var pageContent = document.getElementById('page-content');
+    let lstContent = [];
+    if (pageContent.childElementCount > 0) {
+        for (var i = 0; i < pageContent.childElementCount; i++) {
+            var classList = pageContent.children[i];
+            var _content_id = classList.children[0].getAttribute("content-id");
+            var _page_id = classList.children[0].getAttribute("page-id");
+            var _title = classList.children[0].innerHTML;
+            var _content = classList.children[1].innerHTML;
+
+            let objectContent = {
+                content_id: _content_id,
+                title: _title,
+                content: _content,
+                page_id: _page_id,
+                position: i
+            };
+            lstContent.push(objectContent);
+        }
+    }
+    console.log("id= " + lstContent[0].id + " title= " + lstContent[0].title + "content= " + lstContent[0].content + "position= " + lstContent[0].position);
+
+    $.ajax({
+        type: 'POST',
+      url: '@Url.Action("UpdateListContent", "Home")',
+        data: JSON.stringify(lstContent),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (rs) {
+            if (rs.Status == 1) {
+                alert("success");
+            } else {
+                alert("fail");
+            }
+        }
+    });
+    GetListContent();
+}
+
+function AjaxUpdateContentById(e) {
+    var crrItem = e.parentElement.parentElement;
+    var _content_id = crrItem.children[0].getAttribute("content-id");
+    var _page_id = crrItem.children[0].getAttribute("page-id");
+    var _content_position = crrItem.children[0].getAttribute("content-position");
+    var _title = crrItem.children[0].innerHTML;
+    var _content = crrItem.children[1].innerHTML;
+
+    let objectContent = {
+        content_id: _content_id,
+        title: _title,
+        content: _content,
+        page_id: _page_id,
+        position: _content_position
+    };
+
+    console.log("id= " + objectContent.id + " title= " + objectContent.title + "content= " + objectContent.content);
+
+    $.ajax({
+        type: 'POST',
+        url: '@Url.Action("UpdateSingleContent", "Home")',
+        data: JSON.stringify(objectContent),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (rs) {
+            if (rs.Status == 1) {
+                alert("success");
+            } else {
+                alert("fail");
+            }
+        }
+    });
+    GetListContent();
+}
+
+function AjaxDeleteContentById(e) {
+
+    if (confirm("DELETE this Content ???") == true) {
+        var crrItem = e.parentElement.parentElement;
+        var _content_id = crrItem.children[0].getAttribute("content-id");
+        var _page_id = crrItem.children[0].getAttribute("page-id");
+        var _content_position = crrItem.children[0].getAttribute("content-position");
+        var _title = crrItem.children[0].innerHTML;
+        var _content = crrItem.children[1].innerHTML;
+
+        let objectContent = {
+            content_id: _content_id,
+            title: _title,
+            content: _content,
+            page_id: _page_id,
+            position: _content_position
+        };
+
+        console.log("id= " + objectContent.id + " title= " + objectContent.title + "content= " + objectContent.content);
+
+        $.ajax({
+            type: 'POST',
+          url: '@Url.Action("DeleteSingleContent", "Home")',
+            data: JSON.stringify(objectContent),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (rs) {
+                var s = rs;
+                if (rs.Status == 1) {
+                    alert("success");
+                } else {
+                    alert("fail");
+                }
+            }
+        });
+        GetListContent();
+    }
+}
+
+function AjaxPinContentById(e) {
+    //step 1: get all content list and sort
+    //step 2: check if id == content-id => add the first
+    //step 3: add all content in list
+
+    if (confirm("PIN this Content ???") == true) {
+        var crrItem = e.parentElement.parentElement;
+        var _content_id = crrItem.children[0].getAttribute("content-id");
+        var _content_position = crrItem.children[0].getAttribute("content-position");
+        var _page_id = crrItem.children[0].getAttribute("page-id");
+        var _title = crrItem.children[0].innerHTML;
+        var _content = crrItem.children[1].innerHTML;
+
+        let objectContent = {
+            content_id: _content_id,
+            title: _title,
+            content: _content,
+            page_id: _page_id,
+            position: _content_position
+        };
+
+        console.log("id= " + objectContent.id + " title= " + objectContent.title + "content= " + objectContent.content);
+
+        $.ajax({
+            type: 'POST',
+          url: '@Url.Action("PinPageContent", "Home")',
+            data: JSON.stringify(objectContent),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (rs) {
+                var s = rs;
+                if (rs.Status == 1) {
+                    alert("success");
+                } else {
+                    alert("fail");
+                }
+            }
+        });
+        GetListContent();
+    }
+}
+
+
+</script>
 
 <!-- /#page-content-wrapper -->
