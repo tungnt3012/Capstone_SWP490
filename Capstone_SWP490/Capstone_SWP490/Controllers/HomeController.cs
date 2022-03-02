@@ -68,6 +68,11 @@ namespace Capstone_SWP490.Controllers
             return Json(_ipage_contentRepository.GetPage_ContentByPageId("RULE"), JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetContentDownloads()
+        {
+            return Json(_ipage_contentRepository.GetPage_ContentByPageId("Downloads"), JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public async Task<ActionResult> UpdateListContent(List<page_content> page_Contents)
         {
