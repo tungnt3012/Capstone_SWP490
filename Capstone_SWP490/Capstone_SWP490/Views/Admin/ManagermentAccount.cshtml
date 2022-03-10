@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "ManagermentAccount";
+    var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
+    var lstUsers = ViewData["Users"] as Capstone_SWP490.Models.PagingOutput<List<Capstone_SWP490.Models.app_userViewModel.app_userViewModel>>;
+}
+
+<style>
+    #menu-event {
+        color: #ffffff !important;
+        background: #30cf6b;
+    }
+</style>
+
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Managerment Account</label>
+        </div>
+    </div>
+    <div class="main">
+        <div class="column">
+            <div class="col-lg-12">
+                <br />
+                <div class="column">
+                    <div class="col-lg-12" style="overflow:auto">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">Account Name</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Verify</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-events">
+                                @if (lstUsers.Data != null)
+                                {
+                                    foreach (var x in lstUsers.Data)
+                                    {
+                                        <tr>
+                                            <td>@x.full_name</td>
+                                            <td>@x.email</td>
+                                            <td>@x.user_role</td>
+                                            <td>@x.verified</td>
+                                            <td style="color: @(x.active == true ? "green" : " red")">@(x.active == true ? "Active" : "Deactive")</td>
+                                            <td>
+                                                @if (x.active == true)
+                                                {
+                                                    <a href="@Url.Action("DisableUsers", "Admin")?user_id=@x.user_id">Deactive</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("EnableUsers", "Admin")?user_id=@x.user_id">Active</a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<input type="hidden" id="userss" value="@Session["username"]">
+@if (Session["username"] != null)
+{
+    <input type="hidden" id="user_role" value="@profile.user_role">
+}
+else
+{
+    <input type="hidden" id="user_role" value="0">
+}
