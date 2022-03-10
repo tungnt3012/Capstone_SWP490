@@ -63,6 +63,12 @@ namespace Capstone_SWP490.Controllers.Admin
             return RedirectToAction("ManagermentAccount", "Admin");
         }
 
+        public ActionResult NextPage(int pageIndex)
+        {
+            var lstPosts = _iapp_UserService.GetListUsersManager(pageIndex, 10);
+            ViewData["Users"] = lstPosts;
+            return View("ManagermentAccount");
+        }
 
         public ActionResult ManagermentRole()
         {

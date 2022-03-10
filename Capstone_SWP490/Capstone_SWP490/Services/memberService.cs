@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Capstone_SWP490.ExceptionHandler;
 using log4net;
+using Capstone_SWP490.Models;
 
 namespace Capstone_SWP490.Services
 {
@@ -85,6 +86,29 @@ namespace Capstone_SWP490.Services
         public member GetMemberByUserId(int? userId)
         {
             return _imemberRepository.FindBy(x => x.user_id == userId).FirstOrDefault();
+        }
+
+        public async Task<AjaxResponseViewModel<bool>> JoinEvent(int id)
+        {
+            var output = new AjaxResponseViewModel<bool>
+            {
+                Status = 0,
+                Data = false
+            };
+            var mem = _imemberRepository.FindBy(x => x.member_id == id).FirstOrDefault();
+            if (mem != null)
+            {
+                mem.event_notify = true;
+                if(await _imemberRepository.Update(mem, mem.member_id) != -1)
+                {
+                    output.Message = "success";
+                    output.Data = true;
+                    output.Status = 1;
+                    return output;
+                }
+            }
+            output.Message = "Fail";
+            return output;
         }
     }
 }

@@ -60,6 +60,17 @@
                                 }
                             </tbody>
                         </table>
+                        <div class="text-center" id="p-paging">
+                            <ul class="pagination pagination-sm no-margin">
+                                <li><a href="/Admin/NextPage?pageIndex=0">&laquo;</a></li>
+                                @for (int i = 0; i < lstUsers.TotalPage; i++)
+                                {
+                                    int n = i + 1;
+                                    <li><a href="/Admin/NextPage?pageIndex=@n">@n</a></li>
+                                }
+                                <li><a href="/Admin/NextPage?pageIndex=@lstUsers.TotalPage">&raquo;</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

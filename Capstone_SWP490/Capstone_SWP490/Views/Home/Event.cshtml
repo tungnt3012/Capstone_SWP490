@@ -37,7 +37,7 @@
                                 <input type="date" class="form-control" id="to-date" value="none" placeholder="To">
                             </div>
                             <div class="col-lg-4" style="padding-top: 10px">
-                                <button class="btn btn-primary" id="btn-search" onclick=""> Search</button>
+                                <button class="btn btn-primary" id="btn-search" onclick="SearchEvent()"> Search</button>
                             </div>
                         </div>
                     </div>
@@ -83,6 +83,10 @@
                                                     <td><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
                                                     <td><a href="#">Delete</a></td>
                                                 }
+                                                else
+                                                {
+                                                    <td><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
+                                                }
                                             }
                                             else
                                             {
@@ -116,9 +120,13 @@ else
 }
 
 <script>
-SearchEvent();
+
     function SearchEvent() {
-        var vas = $("#userss").val();
+
+        var fromdate = $("#from-date").val();
+        var todate = $("#to-date").val();
+        alert("Searching " + fromdate + " To " + todate)
+        @*var vas = $("#userss").val();
         var role = $("#user_role").val();
         $.ajax({
             type: 'GET',
@@ -144,7 +152,7 @@ SearchEvent();
                     }
                 }
             }
-        });
+        });*@
     };
 
 </script>

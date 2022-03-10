@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "EVENT DETAIL";
     var events = ViewData["Events"] as Capstone_SWP490.Models.events_ViewModel.eventsViewModel;
+    var member = ViewData["Members"] as Capstone_SWP490.member;
 }
 <style>
     #menu-event {
@@ -9,6 +10,7 @@
     }
 </style>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <div class="container-fluid xyz">
     <div class="col-lg-12" id="content_area2_header">
@@ -104,11 +106,20 @@
 
                     @if (Session["username"] != null)
                     {
-                        <div class="col-lg-12">
-                            <div class="col-lg-6">
-                                <button type="submit" class="btn btn-primary" id="btn-registration_title"><a href="#" class="button">Join now</a></button>
-                            </div>
-                        </div>
+                        if (member != null)
+                        {
+                            if (member.event_notify == false)
+                            {
+                                <div class="col-lg-12">
+                                    <div class="col-lg-6">
+                                        <button type="submit" class="btn btn-primary" onclick="JoinEvent(this)" member-id="@member.member_id" id="btn-registration_title">
+                                            @*<a href="/Home/JoinEvent?userId=@member.member_id" class="button">Join Now</a>*@
+                                            Join Now
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        }
                     }
                 </div>
             </div>
@@ -117,3 +128,28 @@
 </div>
 
 
+<script>
+
+    function JoinEvent(e) {
+        var x = $(e).attr("member-id");
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("JoinEvent", "Home")',
+            data: JSON.stringify({ 'userId': x }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (rs) {
+                if (rs != null) {
+                    var s = rs;
+                    if (rs.Status == 1) {
+                        alert("Join Event Successfully!!!");
+                        location.reload();
+                    } else {
+                        alert("Fail");
+                    }
+                }
+            }
+        });
+    }
+
+</script>

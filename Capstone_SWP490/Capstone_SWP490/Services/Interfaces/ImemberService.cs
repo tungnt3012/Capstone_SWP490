@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone_SWP490.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<int> deleteAsync(member member);
         member GetMemberByUserId(int? userId);
         member getByEmail(string email);
+
+        Task<AjaxResponseViewModel<bool>> JoinEvent(int id);
 
     }
 }

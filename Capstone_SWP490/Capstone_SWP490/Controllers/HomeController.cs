@@ -17,6 +17,9 @@ namespace Capstone_SWP490.Controllers
         private readonly Ipage_contentRepository _ipage_contentRepository = new page_contentRepository();
         private readonly Ipage_contentService _ipage_contentService = new page_contentService();
         private readonly IeventService _ieventService = new eventService();
+        private readonly Iapp_userService _iapp_UserService = new app_userService();
+        private readonly ImemberService _imemberService = new memberService();
+
 
         public ActionResult ShirtSizing()
         {
@@ -111,9 +114,26 @@ namespace Capstone_SWP490.Controllers
 
         public ActionResult EventDetail(int id)
         {
+            if (HttpContext.Session["username"] != null)
+            {
+                var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                if (u != null)
+                {
+                    ViewData["Events"] = _ieventService.GetEventsById(id);
+                    var member = _imemberService.GetMemberByUserId(u.user_id);
+                    ViewData["Members"] = member;
+                    return View();
+                }
+            }
             ViewBag.Message = "Your contact page.";
             ViewData["Events"] = _ieventService.GetEventsById(id);
             return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> JoinEvent(int userId)
+        {
+            AjaxResponseViewModel<bool> ajaxResponse = await _imemberService.JoinEvent(userId);
+            return Json(ajaxResponse);
         }
         public ActionResult Event()
         {
