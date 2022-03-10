@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.ExceptionHandler;
+using Capstone_SWP490.Models;
 using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
@@ -172,7 +173,7 @@ namespace Capstone_SWP490.Services
 
         public List<app_user> findCoach(string status, string keyword)
         {
-            if(keyword== null)
+            if (keyword == null)
             {
                 keyword = "";
             }
@@ -188,10 +189,62 @@ namespace Capstone_SWP490.Services
             }
             else
             {
-                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.active == false && ( x.email.Contains(keyword) || x.full_name.Contains(keyword))).OrderBy(x => x.active).ToList();
+                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.active == false && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).OrderBy(x => x.active).ToList();
             }
 
             return result.OrderBy(x => x.update_date).ToList();
+        }
+
+        public PagingOutput<List<app_userViewModel>> GetListUsersManager(int pageIndex, int pageSize)
+        {
+            var allUser = _iapp_UserRepository.GetAll().ToList();
+            if (allUser != null)
+            {
+                var users = allUser.Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(x => new app_userViewModel() { 
+                        user_id = x.user_id,
+                        active = x.active,
+                        email = x.email,
+                        encrypted_psw = x.encrypted_psw,
+                        full_name = x.full_name,
+                        psw = x.psw,
+                        repsw = x.psw,
+                        user_name =x.user_name,
+                        user_role =x.user_role,
+                        verified =x.verified
+                    }).ToList();
+                int totalPage = allUser.Count / pageSize;
+                if (allUser.Count % pageSize > 0)
+                {
+                    totalPage = (allUser.Count / pageSize) + 1;
+                }
+                var paging = new PagingOutput<List<app_userViewModel>>
+                {
+                    Data = users,
+                    Index = pageIndex,
+                    PageSize = pageSize,
+                    TotalItem = allUser.Count,
+                    TotalPage = totalPage
+                };
+                return paging;
+            }
+            return null;
+
+        }
+
+        public async Task<bool> SwitchableUsers(int user_id,bool status )
+        {
+            var user = _iapp_UserRepository.FindBy(x => x.user_id == user_id).FirstOrDefault();
+            if (user != null)
+            {
+                user.active = status;
+                if(await _iapp_UserRepository.Update(user, user.user_id) != -1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

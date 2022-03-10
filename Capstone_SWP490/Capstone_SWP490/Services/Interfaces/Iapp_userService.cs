@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.Models.app_userViewModel;
+﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.app_userViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,10 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<bool> UpdatePasswordFirst(string username, string password, string passwordEncryted,bool send_event);
         Task<bool> UpdatePassword(string username, string password, string passwordEncryted);
         app_userViewModel GetUserByUsername(string username);
+        PagingOutput<List<app_userViewModel>> GetListUsersManager(int pageIndex, int pageSize);
+        Task<bool> SwitchableUsers(int user_id, bool status);
+        
+
 
         Task<int> delete(app_user entity);
         bool isEmailInUse(string userName, int coachId);
