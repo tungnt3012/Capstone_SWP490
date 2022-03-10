@@ -32,5 +32,30 @@ namespace Capstone_SWP490.Controllers.Admin
         {
             return View();
         }
+
+        public ActionResult ManagermentAccount()
+        {
+            var data = _iapp_UserService.GetListUsersManager(0, 10);
+            ViewData["Users"] = data;
+            return View();
+        }
+
+        public ActionResult DisableUsers(int user_id)
+        {
+            ViewData["Users"] = _iapp_UserService.SwitchableUsers(user_id, false);
+            return RedirectToAction("ManagermentAccount", "Admin");
+        }
+
+        public ActionResult EnableUsers(int user_id)
+        {
+            ViewData["Users"] = _iapp_UserService.SwitchableUsers(user_id, true);
+            return RedirectToAction("ManagermentAccount", "Admin");
+        }
+
+
+        public ActionResult ManagermentRole()
+        {
+            return View();
+        }
     }
 }

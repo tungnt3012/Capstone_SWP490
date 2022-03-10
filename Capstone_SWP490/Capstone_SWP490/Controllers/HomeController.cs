@@ -16,6 +16,7 @@ namespace Capstone_SWP490.Controllers
     {
         private readonly Ipage_contentRepository _ipage_contentRepository = new page_contentRepository();
         private readonly Ipage_contentService _ipage_contentService = new page_contentService();
+        private readonly IeventService _ieventService = new eventService();
 
         public ActionResult ShirtSizing()
         {
@@ -108,16 +109,16 @@ namespace Capstone_SWP490.Controllers
             return Json(ajaxResponse);
         }
 
-        public ActionResult EventDetail()
+        public ActionResult EventDetail(int id)
         {
             ViewBag.Message = "Your contact page.";
-
+            ViewData["Events"] = _ieventService.GetEventsById(id);
             return View();
         }
         public ActionResult Event()
         {
             ViewBag.Message = "Your contact page.";
-
+            ViewData["Events"] = _ieventService.GetAllEvents();
             return View();
         }
         public ActionResult ScheduleOfActivities()
