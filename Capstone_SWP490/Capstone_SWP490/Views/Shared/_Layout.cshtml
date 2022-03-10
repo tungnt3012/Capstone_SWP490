@@ -21,13 +21,17 @@
     @{ Html.RenderPartial("_HeaderLayout", profile);}
     <div id="wrapper">
         <!-- Sidebar -->
-        @if (profile == null)
+        @*@if (profile == null)
         {
             Html.RenderPartial("_GuestMenu", profile);
-        }
-        else if (profile != null && profile.user_role != null && profile.user_role == "ORGANIZER")
+        }*@
+        @if (profile != null && profile.user_role != null && profile.user_role == "ORGANIZER")
         {
             Html.RenderPartial("_OrganizationMenu", profile);
+        }
+        else if (profile != null && profile.user_role != null && profile.user_role == "ADMIN")
+        {
+            Html.RenderPartial("_AdminMenu", profile);
         }
         else
         {
