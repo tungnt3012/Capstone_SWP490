@@ -1,4 +1,4 @@
-﻿
+﻿@model Capstone_SWP490.@event
 @{
     ViewBag.Title = "EventUpload";
 }
@@ -10,7 +10,6 @@
     }
 </style>
 
-
 <div class="container-fluid xyz">
     <div class="col-lg-12" id="content_area2_header">
         <div class="col-lg-12" id="content_area2_title">
@@ -20,64 +19,70 @@
     <div class="main">
         <div class="column">
             <div class="col-lg-12">
-                <form>
-                    <div class="column">
-                        <div class="col-lg-12" id="cars-shedule1">
-                            <div class="form-group">
-                                <label for="cars">Choose a car:</label>
-                                <select name="cars" id="cars">
-                                    <option value="volvo">Event</option>
-                                    <option value="saab">Activate</option>
-                                    
-                                </select>
+                @using (Html.BeginForm("EventUpload", "Home"))
+                {
+                    <div class="column" style="padding-top:20px">
+                        <div class="form-group">
+                            <label for="type-event">Choose a Type of Event:</label>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <select class="form-control col-lg-6" name="select-events" id="events">
+                                        <option value="">Event</option>
+                                        <option value="">Activate</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="Title">Title</label>
-                                <input type="text" class="form-control" id="EventTitle" name="Title" value="" aria-describedby="Title" placeholder="Title">
-                            </div>
-                            <div class="form-group">
-                                <label for="Desctiption">Desctiption</label>
-                                <textarea class="form-control" id="EventDesctiption" name="Desctiption" rows="4" placeholder="Description of the event"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="Location">Start date</label>
-                                <input type="date" class="form-control" id="EventStartDate" name="TiLocationtle" value="" aria-describedby="EventStartDate" placeholder="Start Date">
-                            </div>
-                            <div class="form-group">
-                                <label for="Location">End date</label>
-                                <input type="date" class="form-control" id="EventEndDate" name="EventEndDate" value="" aria-describedby="EventEnDate" placeholder="End Start">
-                            </div>
-                            <div class="form-group">
-                                <label for="Location">venue</label>
-                                <input type="text" class="form-control" id="EventLocation" name="TiLocationtle" value="" aria-describedby="Location" placeholder="Location">
-                            </div>
-                            <div class="form-group">
-                                <label for="ContactorPhone">Contactor phone</label>
-                                <input type="text" class="form-control" id="EventContactorPhone" name="ContactorPhone" value="" aria-describedby="ContactorPhone" placeholder="ContactorPhone">
-                            </div>
-                            <div class="form-group">
-                                <label for="ContactorEmail">Contactor email</label>
-                                <input type="email" class="form-control" id="EventContactorEmail" name="EventContactorEmail" value="" aria-describedby="EventContactorEmail" placeholder="ContactorEmail">
-                            </div>
-                            <div class="form-group">
-                                <label for="ContactorName">Contactor Name</label>
-                                <input type="text" class="form-control" id="EventContactorName" name="EventContactorName" value="" aria-describedby="EventContactorName" placeholder="ContactorName">
-                            </div>
-                            <div class="form-group">
-                                <label for="Fanpage">Fanpage</label>
-                                <input type="text" class="form-control" id="EventFanpage" name="EventFanpage" value="" aria-describedby="EventFanpage" placeholder="Fanpage">
-                            </div>
-                            <div class="form-group">
-                                <label for="Fanpage">Note</label>
-                                <input type="text" class="form-control" id="EventNote" name="EventNote" value="" aria-describedby="EventNote" placeholder="Note">
-                            </div>
-                            <div class="form-group">
+                        </div>
+                        <div class="form-group">
+                            <label for="Title">Title</label>
+                            @*<input type="text" class="form-control" id="EventTitle" name="Title" value="" aria-describedby="Title" placeholder="Title">*@
+                            @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "EventTitle", name = "Title", value = "", placeholder = "Title" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Desctiption">Desctiption</label>
+                            @*<textarea class="form-control" id="EventDesctiption" name="Desctiption" rows="4" placeholder="Description of the event"></textarea>*@
+                            @Html.TextAreaFor(m => m.desctiption, new { @class = "form-control", id = "EventDesctiption", name = "Desctiption", value = "", placeholder = "Description of the event" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">Start date</label>
+                            @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", name = "EventStartDate", value = "", placeholder = "Start date" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">End date</label>
+                            @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", name = "EventEndDate", value = "", placeholder = "End date" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">venue</label>
+                            <input type="text" class="form-control" id="EventLocation" name="TiLocationtle" value="" aria-describedby="Location" placeholder="Location">
+                        </div>
+                        <div class="form-group">
+                            <label for="ContactorPhone">Contactor phone</label>
+                            <input type="text" class="form-control" id="EventContactorPhone" name="ContactorPhone" value="" aria-describedby="ContactorPhone" placeholder="ContactorPhone">
+                        </div>
+                        <div class="form-group">
+                            <label for="ContactorEmail">Contactor email</label>
+                            <input type="email" class="form-control" id="EventContactorEmail" name="EventContactorEmail" value="" aria-describedby="EventContactorEmail" placeholder="ContactorEmail">
+                        </div>
+                        <div class="form-group">
+                            <label for="ContactorName">Contactor Name</label>
+                            <input type="text" class="form-control" id="EventContactorName" name="EventContactorName" value="" aria-describedby="EventContactorName" placeholder="ContactorName">
+                        </div>
+                        <div class="form-group">
+                            <label for="Fanpage">Fanpage</label>
+                            <input type="text" class="form-control" id="EventFanpage" name="EventFanpage" value="" aria-describedby="EventFanpage" placeholder="Fanpage">
+                        </div>
+                        <div class="form-group">
+                            <label for="Fanpage">Note</label>
+                            <input type="text" class="form-control" id="EventNote" name="EventNote" value="" aria-describedby="EventNote" placeholder="Note">
+                        </div>
+                        <div class="form-group">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-primary" id="event-upload">Add</button>
                                 <button type="button" class="btn btn-secondary" id="event-canner">Canner</button>
-                                <button type="button" class="btn btn-primary" id="event-upload">Upload</button>
                             </div>
                         </div>
                     </div>
-                </form>
+                }
             </div>
         </div>
 

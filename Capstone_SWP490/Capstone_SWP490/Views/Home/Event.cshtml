@@ -1,4 +1,8 @@
-﻿@{ ViewBag.Title = "Event"; }
+﻿@{
+    ViewBag.Title = "Event";
+    var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
+    var lstEvent = ViewData["Events"] as List<Capstone_SWP490.Models.events_ViewModel.eventsViewModel>;
+}
 <style>
     #menu-event {
         color: #ffffff !important;
@@ -7,86 +11,140 @@
 </style>
 
 
-    <div class="container-fluid xyz">
-        <div class="col-lg-12" id="content_area2_header">
-            <div class="col-lg-12" id="content_area2_title">
-                <label for="exampleInputTitle">Event</label>
-            </div>
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Event</label>
         </div>
-        <div class="main">
-            <div class="column">
-                <div class="col-lg-12">
-                    <form>
-                        <div class="column">
-                            <div class="col-lg-12" id="cars-shedule1">
-                                <select name="cars" id="cars" class="cars-shedule">
-                                    <option value="volvo">25-01-2022</option>
-                                    <option value="saab">26-01-2022</option>
-                                </select>
+    </div>
+    <div class="main">
+        <div class="column">
+            <div class="col-lg-12">
+                <div class="column">
+                    <div class="form-group">
+                        <label class="Event-Schedule" for="Event_Schedule">
+                            Event Schedule
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label for="type-event">Date FROM:</label>
+                                <input type="date" class="form-control" id="from-date" value="none" placeholder="From">
                             </div>
-                            <div class="col-lg-12">
-                                <label class="Event-Schedule" for="Event_Schedule">
-                                    Event Schedule
-                                </label>
+                            <div class="col-lg-4">
+                                <label for="type-event">Date TO:</label>
+                                <input type="date" class="form-control" id="to-date" value="none" placeholder="To">
                             </div>
-                            <div class="col-lg-12">
-                                <button type="button" class="btn btn-success">Add</button>
-                            </div>
-                            <div class="col-lg-12" style="overflow:auto">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">title</th>
-                                            <th scope="col">Time Start</th>
-                                            <th scope="col">Time End</th>
-                                            <th scope="col">Location</th>
-                                            <th scope="col">Contactor phone</th>
-                                            <th scope="col"></th>
-                                            <th scope="col"></th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td scope="row">camping and bonfires</td>
-                                            <td>11:00 AM</td>
-                                            <td>12:00 AM</td>
-                                            <td>FPT university</td>
-                                            <td>0979718763</td>
-                                            <td><a href="/Home/EventUpload">Edit</a></td>
-                                            <td><a href="/Home/EventDetail">Detail</a></td>
-                                            <td><a href="#">Delete</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row">camping and bonfires</td>
-                                            <td>11:00 AM</td>
-                                            <td>12:00 AM</td>
-                                            <td>FPT university</td>
-                                            <td>0979718763</td>
-                                            <td><a href="/Home/EventUpload">Edit</a></td>
-                                            <td><a href="/Home/EventDetail">Detail</a></td>
-                                            <td><a href="#">Delete</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td scope="row">camping and bonfires</td>
-                                            <td>11:00 AM</td>
-                                            <td>12:00 AM</td>
-                                            <td>FPT university</td>
-                                            <td>0979718763</td>
-                                            <td><a href="/Home/EventUpload">Edit</a></td>
-                                            <td><a href="/Home/EventDetail">Detail</a></td>
-                                            <td><a href="#">Delete</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
+                            <div class="col-lg-4" style="padding-top: 10px">
+                                <button class="btn btn-primary" id="btn-search" onclick=""> Search</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    @if (Session["username"] != null)
+                    {
+                        if (profile.user_role.Equals("ORGANIZER"))
+                        {
+                            <div class="pull-right">
+                                <button type="button" onclick="window.location.href='/Home/EventUpload'" class="btn btn-success">Add</button>
+                            </div>
+                        }
+                    }
+                    <div class="col-lg-12" style="overflow:auto">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Time Start</th>
+                                    <th scope="col">Time End</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Contactor phone</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-events">
+                                @if (lstEvent != null)
+                                {
+                                    foreach (var x in lstEvent)
+                                    {
+                                        <tr>
+                                            <td scope="row">@x.title</td>
+                                            <td>@x.start_date</td>
+                                            <td>@x.end_date</td>
+                                            <td>@x.venue</td>
+                                            <td>@x.contactor_phone</td>
+                                            @if (Session["username"] != null)
+                                            {
+                                                if (profile.user_role.Equals("ORGANIZER"))
+                                                {
+                                                    <td><a href="/Home/EventUpload">Edit</a></td>
+                                                    <td><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
+                                                    <td><a href="#">Delete</a></td>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <td><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
+                                            }
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr><td><i>No event</i></td></tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
         </div>
 
     </div>
- 
+
+</div>
+<input type="hidden" id="userss" value="@Session["username"]">
+@if (Session["username"] != null)
+{
+    <input type="hidden" id="user_role" value="@profile.user_role">
+}
+else
+{
+    <input type="hidden" id="user_role" value="0">
+}
+
+<script>
+SearchEvent();
+    function SearchEvent() {
+        var vas = $("#userss").val();
+        var role = $("#user_role").val();
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetContentAbout", "Home")',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (results) {
+                document.getElementById("page-content").innerHTML = "";
+                if (results != null) {
+                    if (vas != "" && role == 'ORGANIZER') {
+                             for (let i = 0; i < results.length; i++) {
+                                 console.log("" + results[i].content);
+                                 document.getElementById("table-events").innerHTML +=
+                                     ``;
+                             }
+                    }
+                    else {
+                        for (let i = 0; i < results.length; i++) {
+                            console.log("" + results[i].content);
+                            document.getElementById("table-events").innerHTML +=
+                                ``;
+                        }
+                    }
+                }
+            }
+        });
+    };
+
+</script>
