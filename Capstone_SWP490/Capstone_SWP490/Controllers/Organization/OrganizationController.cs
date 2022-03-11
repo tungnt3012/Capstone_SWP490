@@ -1,4 +1,4 @@
-﻿using Capstone_SWP490.Common.Const;
+﻿using Capstone_SWP490.Constant.Const;
 using Capstone_SWP490.Helper;
 using Capstone_SWP490.Models.organization_ViewModel;
 using Capstone_SWP490.Services;

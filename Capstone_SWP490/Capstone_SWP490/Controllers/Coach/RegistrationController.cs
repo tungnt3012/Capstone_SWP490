@@ -18,8 +18,8 @@ using System.Threading.Tasks;
 using System.Net;
 using Capstone_SWP490.ExceptionHandler;
 using System.Web.Configuration;
-using Capstone_SWP490.Common.Enums;
-using Capstone_SWP490.Common.Const;
+using Capstone_SWP490.Constant.Enums;
+using Capstone_SWP490.Constant.Const;
 using Capstone_SWP490.Models.registrationViewModel;
 using Capstone_SWP490.Models.app_userViewModel;
 
@@ -41,8 +41,7 @@ namespace Capstone_SWP490.Controllers.Coach
         // GET: Registration
         public ActionResult Index()
         {
-            //check user session
-            if (HttpContext.Session["username"] != null)
+            try
             {
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
                 //if user is COACH or CO-COACH so return Import file excel 
@@ -60,9 +59,14 @@ namespace Capstone_SWP490.Controllers.Coach
                     }
                     return View(model);
                 }
+                //if user is NOT COACH or CO-COACH so return view Guild 
+                return RedirectToAction(ACTION_CONST.Registration.GUIDE, ACTION_CONST.Registration.CONTROLLER);
             }
-            //if user is NOT COACH or CO-COACH so return view Guild 
-            return RedirectToAction(ACTION_CONST.Registration.GUIDE, ACTION_CONST.Registration.CONTROLLER);
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return RedirectToAction(ACTION_CONST.Home.INDEX, ACTION_CONST.Home.CONTROLLER);
+            }
         }
 
         public ActionResult Guide()
@@ -70,31 +74,48 @@ namespace Capstone_SWP490.Controllers.Coach
             return View();
         }
 
-        public ActionResult MemberDetail(string id, string teamId)
+        public ActionResult MemberDetail(int? id, int? teamId)
         {
-            school_memberViewModel data = (school_memberViewModel)HttpContext.Session[SESSION_CONST.Registration.SCHOOL_SESSION];
-            if (data == null)
-            {
-                return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER);
-            }
-            if (id == null || id.Equals("") || teamId == null || teamId.Equals(""))
-            {
-                return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER, new { team = 0 });
-            }
-            int memberId;
-            int teamIdInt;
             try
             {
-                memberId = registrationHelper.toInt32(id, -1);
-                teamIdInt = registrationHelper.toInt32(teamId, -1);
-                team_member teamMember = registrationHelper.getTeamMember(memberId, data.school.teams.Where(x => x.team_id == teamIdInt).First());
+                school_memberViewModel data = (school_memberViewModel)HttpContext.Session[SESSION_CONST.Registration.SCHOOL_SESSION];
+                if (data == null)
+                {
+                    return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER);
+                }
+                if (id == null || teamId == null)
+                {
+                    return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER, new { team = 0 });
+                }
+                team_member teamMember = registrationHelper.getTeamMember((int)id, data.school.teams.Where(x => x.team_id == (int)teamId).FirstOrDefault());
                 if (teamMember != null)
                 {
-                    return View(teamMember);
+                    member_detail_ViewModel model = new member_detail_ViewModel();
+                    model.team_id = (int)teamMember.team_id;
+                    model.member_id = (int)teamMember.member_id;
+                    model.first_name = teamMember.member.first_name;
+                    model.middle_name = teamMember.member.middle_name;
+                    model.last_name = teamMember.member.last_name;
+                    model.dob = teamMember.member.dob;
+                    model.email = teamMember.member.email;
+                    model.phone_number = teamMember.member.phone_number;
+                    model.icpc_id = teamMember.member.icpc_id;
+                    model.year = teamMember.member.year;
+                    model.gender = teamMember.member.gender;
+                    model.award = teamMember.member.award;
+                    model.is_leader = teamMember.member.member_role == 3;
+                    List<contest_member> contestMember = teamMember.member.contest_member.ToList();
+                    List<member_contest_ViewModel> listContestModel = registrationHelper.createContestViewMode(contestMember);
+                    model.contest_Members = listContestModel;
+                    return View(model);
                 }
+                return RedirectToAction(ACTION_CONST.Registration.TEAM_DETAIL, ACTION_CONST.Home.CONTROLLER);
             }
-            catch { }
-            return View();
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return RedirectToAction(ACTION_CONST.Home.INDEX, ACTION_CONST.Home.CONTROLLER);
+            }
         }
 
         [HttpPost]
@@ -120,15 +141,22 @@ namespace Capstone_SWP490.Controllers.Coach
 
         public ActionResult SaveChangeTeam(string teamName, int teamId, int contestId)
         {
-            school_memberViewModel data = (school_memberViewModel)HttpContext.Session[SESSION_CONST.Registration.SCHOOL_SESSION];
-            if (data == null)
+            try
             {
-                return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
+                school_memberViewModel data = (school_memberViewModel)HttpContext.Session[SESSION_CONST.Registration.SCHOOL_SESSION];
+                if (data == null)
+                {
+                    return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
+                }
+                if (!StringUtils.isNullOrEmpty(teamName))
+                {
+                    data.school.teams.Where(x => x.team_id == teamId).FirstOrDefault().team_name = teamName;
+                    Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
+                }
             }
-            if (!teamName.Trim().Equals(""))
+            catch (Exception e)
             {
-                data.school.teams.Where(x => x.team_id == teamId).FirstOrDefault().team_name = teamName;
-                Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
+                Log.Error(e.Message);
             }
             return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER);
         }
@@ -168,7 +196,7 @@ namespace Capstone_SWP490.Controllers.Coach
         public async Task<ActionResult> InsertMember()
         {
             List<insert_member_result_ViewModel> result = new List<insert_member_result_ViewModel>();
-            app_userViewModel logined = (app_userViewModel)Session["profile"];
+            app_userViewModel logined = (app_userViewModel)Session[SESSION_CONST.Global.LOGIN_SESSION];
             insert_member_result_ViewModel error;
             school inserted_school = null;
             List<team> listTeam;
@@ -452,14 +480,14 @@ namespace Capstone_SWP490.Controllers.Coach
 
                             }
                         }
-                            try
-                            {
-                                new MailHelper().sendMailToInsertedUser(insertUser);
-                            }
-                            catch (Exception e)
-                            {
-                                Log.Error(e.Message);
-                            }
+                        try
+                        {
+                            new MailHelper().sendMailToInsertedUser(insertUser);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Error(e.Message);
+                        }
                     }
                 }
             }
@@ -500,32 +528,9 @@ namespace Capstone_SWP490.Controllers.Coach
             }
             return team;
         }
-        private async Task<member> insertViceCoachAsync(member viceCoach, int importer)
-        {
-            try
-            {
-                viceCoach = await _imemberService.insert(viceCoach);
-            }
-            catch (Exception e)
-            {
-                Log.Error(e.Message);
-                if (e is MemberException)
-                {
-                    throw e;
-                }
-                viceCoach = null;
-            }
-            if (viceCoach == null)
-            {
-                throw new Exception(SYSTEM_ERROR);
-            }
-            return viceCoach;
-        }
 
         [HttpPost]
-        public ActionResult MemberDetail(int? teamId, int? id, string firstName, string middleName,
-            string lastName, string dob, string email, string phone, int icpc, int year,
-            string gender, string award, short member_role)
+        public ActionResult MemberDetail(member_detail_ViewModel model, List<string> contest_members)
         {
             school_memberViewModel data = (school_memberViewModel)HttpContext.Session[SESSION_CONST.Registration.SCHOOL_SESSION];
             if (data == null)
@@ -535,47 +540,64 @@ namespace Capstone_SWP490.Controllers.Coach
             try
             {
 
-                team_member teamMember = data.school.teams.Where(x => x.team_id == teamId).FirstOrDefault().
-                     team_member.Where(y => y.member.member_id == id).FirstOrDefault();
+                team_member teamMember = data.school.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
+                     team_member.Where(y => y.member.member_id == model.member_id).FirstOrDefault();
                 string errorMsg = "";
-                if (firstName.Trim().Equals(""))
+                if (StringUtils.isNullOrEmpty(model.first_name))
                 {
                     errorMsg = "First Name cannot be empty";
                 }
-                else if (middleName.Trim().Equals(""))
+                else if (StringUtils.isNullOrEmpty(model.middle_name))
                 {
                     errorMsg = "Middle Name cannot be empty";
                 }
-                else if (lastName.Trim().Equals(""))
+                else if (StringUtils.isNullOrEmpty(model.last_name))
                 {
                     errorMsg = "Last Name cannot be empty";
                 }
                 if (!errorMsg.Equals(""))
                 {
                     @ViewData["Update_ERROR"] = errorMsg;
-                    return View(teamMember);
+                    List<member_contest_ViewModel> listContestModel = registrationHelper.createContestViewMode(teamMember.member.contest_member.ToList());
+                    model.contest_Members = listContestModel;
+                    return View(model);
                 }
-                teamMember.member.first_name = firstName;
-                teamMember.member.middle_name = middleName;
-                teamMember.member.last_name = lastName;
-                teamMember.member.dob = registrationHelper.toDateTime(dob);
-                //member.dateStr = member.dob.Year + "-" + member.dob.Month + "-" + member.dob.Day;
-                teamMember.member.email = email;
-                teamMember.member.phone_number = phone;
-                teamMember.member.year = year;
-                teamMember.member.gender = registrationHelper.toShort(gender);
-                teamMember.member.award = award;
-                teamMember.member.icpc_id = icpc;
-                teamMember.member.member_role = member_role;
+                teamMember.member.first_name = model.first_name;
+                teamMember.member.middle_name = model.middle_name;
+                teamMember.member.last_name = model.last_name;
+                teamMember.member.dob = CommonHelper.toDateTime(model.dob.ToString());
+                teamMember.member.email = model.email;
+                teamMember.member.phone_number = model.phone_number;
+                teamMember.member.year = model.year == null ? 0 : (int)model.year;
+                teamMember.member.gender = model.gender;
+                teamMember.member.award = model.award;
+                teamMember.member.icpc_id = model.icpc_id;
+                teamMember.member.member_role = (model.is_leader ? (short)3 : (short)4);
+                teamMember.member.contest_member.Clear();
+                foreach (var contestCode in contest_members)
+                {
+
+                    contest contest = _icontestService.getByCode(contestCode);
+                    if (contest != null)
+                    {
+                        contest_member cm = new contest_member();
+                        cm.member_id = teamMember.member.member_id;
+                        cm.member = teamMember.member;
+                        cm.contest_id = contest.contest_id;
+                        cm.contest = contest;
+                        teamMember.member.contest_member.Add(cm);
+                    }
+                }
+
                 try
                 {
                     registrationHelper.validImportMember(teamMember.member);
-                    if (member_role == 3)
+                    if (model.is_leader)
                     {
-                        data.school.teams.Where(x => x.team_id == teamId).FirstOrDefault().
+                        data.school.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
                              team_member.Where(y => y.member.member_role == 3).FirstOrDefault().member.member_role = 4;
-                        data.school.teams.Where(x => x.team_id == teamId).FirstOrDefault().
-                            team_member.Where(y => y.member.member_id == id).FirstOrDefault().member.member_role = 3;
+                        data.school.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
+                            team_member.Where(y => y.member.member_id == model.member_id).FirstOrDefault().member.member_role = 3;
                     }
 
                     Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
@@ -583,14 +605,14 @@ namespace Capstone_SWP490.Controllers.Coach
                 catch (Exception e)
                 {
                     @ViewData["Update_ERROR"] = e.Message;
-                    return View(teamMember);
+                    return View(model);
                 }
             }
             catch (Exception e)
             {
                 Log.Error(e.Message);
             }
-            return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER, new { team = teamId });
+            return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER, new { team = model.team_id });
         }
 
         [HttpGet]
@@ -804,7 +826,7 @@ namespace Capstone_SWP490.Controllers.Coach
         {
             school_memberViewModel result = new school_memberViewModel();
             member coach = new member();
-            app_userViewModel logined = (app_userViewModel)Session["profile"];
+            app_userViewModel logined = (app_userViewModel)Session[SESSION_CONST.Global.LOGIN_SESSION];
             coach.app_user = _iapp_UserService.getByUserName(logined.user_name);
             result.coach = coach;
             insert_member_result_ViewModel error;
