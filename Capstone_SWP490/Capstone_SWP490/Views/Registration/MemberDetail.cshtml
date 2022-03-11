@@ -1,4 +1,5 @@
-﻿@{ ViewBag.Title = "Memeber | Detail"; }
+﻿@model  Capstone_SWP490.Models.school_memberViewModel.member_detail_ViewModel
+@{ ViewBag.Title = "Memeber | Detail"; }
 
 <style>
     #menu-registration {
@@ -10,28 +11,28 @@
 <div class="container-fluid xyz">
     <div class="col-lg-12" id="content_area2_header">
         <div class="col-lg-12" id="content_area2_title">
-            <label for="exampleInputTitle">Detail for Member: @(Model.member.first_name + " " + Model.member.middle_name + " " + Model.member.last_name)  </label>
+            <label for="exampleInputTitle">Detail Member</label>
         </div>
     </div>
     <div class="main">
         <div class="row">
             <span style="color:red">@ViewData["Update_ERROR"]</span>
             <div class="col-lg-12" id="registration-memberdetail">
-                @using (Html.BeginForm("MemberDetail", "Registration", FormMethod.Post))
+                @using (Html.BeginForm("MemberDetail", "Registration", FormMethod.Post, new { id = "form" }))
                 {
-                    <input type="hidden" name="teamId" value="@Model.team.team_id" />
-                    <input type="hidden" name="id" value="@Model.member.member_id" />
+                    @Html.TextBoxFor(x => x.team_id, new { @class = "form-control", type = "hidden" })
+                    @Html.TextBoxFor(x => x.member_id, new { @class = "form-control", type = "hidden" })
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="firstName">First name</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName" value="@Model.member.first_name" aria-describedby="Frist name" placeholder="Frist name">
+                                @Html.TextBoxFor(x => x.first_name, new { @class = "form-control", id = "firstName", type = "text", placeholder = "Frist name", @readonly = true })
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="middleName">Middle name</label>
-                                <input type="text" class="form-control" id="middleName" name="middleName" value="@Model.member.middle_name" aria-describedby="Middle name" placeholder="Middle name">
+                                @Html.TextBoxFor(x => x.middle_name, new { @class = "form-control", id = "middleName", type = "text", placeholder = "Middle name", @readonly = true })
                             </div>
                         </div>
                     </div>
@@ -39,13 +40,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="lastName">Last name</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName" value="@Model.member.last_name" aria-describedby="Date of birth" placeholder="Last name">
+                                @Html.TextBoxFor(x => x.last_name, new { @class = "form-control", id = "lastName", type = "text", placeholder = "Last name", @readonly = true })
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="dob">Date of birth</label>
-                                <input type="date" class="form-control" id="dob" name="dob" value="@(Model.member.dob == new DateTime() ? "" : (Model.member.dob.Year +"-" + (Model.member.dob.Month < 10 ? "0" + Model.member.dob.Month : Model.member.dob.Month) + "-"+ (Model.member.dob.Day < 10 ? "0" + Model.member.dob.Day : Model.member.dob.Day)))" aria-describedby="Last name" placeholder="Date of birth">
+                                @Html.TextBoxFor(x => x.dob, new { @class = "form-control", id = "dob", type = "date", @Value = Model.dob.ToString("yyyy-MM-dd"), @readonly = true })
                             </div>
                         </div>
                     </div>
@@ -53,13 +54,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="@Model.member.email" aria-describedby="emai" placeholder="Enter email">
+                                @Html.TextBoxFor(x => x.email, new { @class = "form-control", id = "exampleInputEmail1", type = "email", placeholder = "Email", @readonly = true })
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="phone">Phone</label>
-                                <input type="text" class="form-control" id="exampleInputPhone" name="phone" value="@Model.member.phone_number" aria-describedby="Phone" placeholder="Phone">
+                                @Html.TextBoxFor(x => x.phone_number, new { @class = "form-control", id = "exampleInputPhone", type = "text", placeholder = "Phone Number", @readonly = true })
                             </div>
                         </div>
                     </div>
@@ -67,73 +68,76 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="icpc">ICPC</label>
-                                <input type="number" class="form-control" id="exampleInputICPC" name="icpc" value="@(Model.member.icpc_id== null ? 0 : Model.member.icpc_id)" aria-describedby="ICPC" placeholder="ICPC">
+                                @Html.TextBoxFor(x => x.icpc_id, new { @class = "form-control", id = "exampleInputICPC", type = "number", placeholder = "ICPC", @readonly = true })
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="year">Year</label>
-                                <input type="text" class="form-control" id="exampleInputYear" name="year" value="@Model.member.year" aria-describedby="Year of studying" placeholder="Year of studying">
+                                <label for="year">Year Of Studying</label>
+                                @Html.TextBoxFor(x => x.year, new { @class = "form-control", id = "exampleInputYear", type = "number", placeholder = "Year of studying", @readonly = true })
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputGender">Gender: </label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="0" checked="@(Model.member.gender == 0 ? "checked" : "")">
+                            @Html.RadioButtonFor(x => x.gender, 0, new { @class = "form-check-input", id = "inlineRadio1", @disabled = true });
                             <label class="form-check-label" for="inlineRadio1">Male</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="1" @(Model.member.gender == 1 ? "checked" : "")>
+                            @Html.RadioButtonFor(x => x.gender, 1, new { @class = "form-check-input", id = "inlineRadio1", @disabled = true })
                             <label class="form-check-label" for="inlineRadio2">Female</label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            @Html.RadioButtonFor(x => x.gender, 2, new { @class = "form-check-input", id = "inlineRadio1", @disabled = true })
+                            <label class="form-check-label" for="inlineRadio2">Other</label>
+                        </div>
                     </div>
-                    if (Model.member.member_role == 4)
+                    if (!Model.is_leader)
                     {
+
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="exampleInputGender">MEMBER ROLE: </label>
-                                    <select class="form-control" name="member_role">
-                                        <option value="3" @(Model.member.member_role == 3 ? "selected" : "")>LEADER</option>
-                                        <option value="4" @(Model.member.member_role == 4 ? "selected" : "")>MEMBER</option>
-                                    </select>
+                                    <label for="exampleInputGender">SET AS LEADER MEMBER: </label>
+                                    @Html.CheckBoxFor(x => x.is_leader, new { @class = "form-check-input", id = "inlineRadio1", @readonly = true })
                                 </div>
                             </div>
                         </div>
                     }
                     else
                     {
-                        <input type="hidden" name="member_role" value="3" />
+                        @Html.TextBoxFor(x => x.is_leader, new { type = "hidden" })
                     }
                     <div class="form-group">
                         <label for="exampleFormControlTextareaAward">Award</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="award" rows="4" placeholder="Declare previously won prizes(National, International)">
-                        @Model.member.award
-                        </textarea>
+                        @Html.TextAreaFor(x => x.award, new { @class = "form-control", id = "award", type = "text", placeholder = "Awards", @readonly = true })
                     </div>
-                    if (Model.member.contest_member != null && Model.member.contest_member.Count >= 2)
+
+                    if (Model.contest_Members != null && Model.contest_Members.Count >= 2)
                     {
                         <div class="form-group">
                             <label for="exampleFormControlTextareaAward">Individual Contest:</label>
-                            <select class="form-control" name="member_role" size="4">
-                                '
-                                @foreach (var item in Model.member.contest_member)
-                                {
-                                    <option>@(item.contest.contest_name + "(" + item.contest.code + ")")</option>
-                                }
-                            </select>
+                            @foreach (var item in Model.contest_Members)
+                            {
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="contest_members" value="@(item.code)" @(item.selected ? "checked" : "") disabled />
+                                    <label class="form-check-label" for="inlineRadio1">@(item.name)</label>
+                                </div>
+                            }
+
                         </div>
                     }
-                    <div class="form-group">
-                        <button type="submit" id="save" class="btn btn-primary">Save</button>
-                        @if (Model.member.member_role == 4)
-                        {
-                            <button type="button" id="delete" class="btn btn-danger" style="color: #000000;">Delete</button>
-                        }
-                        <button type="button" id="cancel" class="btn btn-secondary" style="color:#000000;">Cancel</button>
-                    </div>
+
                 }
+                <div class="form-group">
+                    <button type="submit" id="save" class="btn btn-primary" onclick="toggleButton()">Edit</button>
+                    @if (!Model.is_leader)
+                    {
+                        <button type="button" id="delete" class="btn btn-danger" style="color: #000000;">Delete</button>
+                    }
+                    <button type="button" id="cancel" class="btn btn-secondary" style="color:#000000;">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
@@ -142,12 +146,29 @@
 
 <script type="text/javascript">
     document.getElementById("cancel").addEventListener('click', function () {
-         window.location.href ="@Url.Action("TeamDetail", "Registration")?id=@Model.team.team_id";
+         window.location.href ="@Url.Action("TeamDetail", "Registration")?id=@Model.team_id";
     });
         document.getElementById("delete").addEventListener('click', function () {
-         window.location.href ="@Url.Action("RemoveMember", "Registration")?team_id=@Model.team.team_id&member_id=@Model.member.member_id";
+         window.location.href ="@Url.Action("RemoveMember", "Registration")?team_id=@Model.team_id&member_id=@Model.member_id";
         });
     document.getElementById("save").addEventListener('click', function () {
         alert('Data stored succesfull at locally. please back to page Detail School then click Save Changes to save into our system')
     });
+    function toggleButton() {
+        var btn = document.getElementById("save").textContent;
+        if (btn == 'Edit') {
+            btn = document.getElementById("save").textContent = 'Save';
+            enableForm();
+        } else {
+            document.getElementById("form").submit();
+        }}
+    function enableForm() {
+        var btn = document.getElementById("save").textContent;
+            var form = document.getElementById("form");
+            var elements = form.elements;
+            for (var i = 0, len = elements.length; i < len; ++i) {
+                elements[i].readOnly = false
+                elements[i].disabled = false;
+            }
+    }
 </script>

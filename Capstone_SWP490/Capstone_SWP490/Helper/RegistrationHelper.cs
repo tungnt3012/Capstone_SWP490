@@ -7,12 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
-using iImport = Capstone_SWP490.Common.ExcelImportPosition;
 using Capstone_SWP490.Common.ExcelImportPosition;
 using interfaces = Capstone_SWP490.Services.Interfaces;
 using services = Capstone_SWP490.Services;
 using System.Threading.Tasks;
-using System.Security.Cryptography;
+using Capstone_SWP490.Constant.Const;
 
 namespace Capstone_SWP490.Helper
 {
@@ -22,6 +21,7 @@ namespace Capstone_SWP490.Helper
         private readonly interfaces.IcontestService _icontestService = new services.contestService();
         private readonly interfaces.Iapp_userService _iapp_UserService = new services.app_userService();
         private readonly interfaces.ImemberService _imemberService = new services.memberService();
+        private readonly CommonHelper commonHelper = new CommonHelper();
         public team_member getTeamByTeamName(List<team_member> teams, string teamName)
         {
             if (teams == null)
@@ -43,7 +43,7 @@ namespace Capstone_SWP490.Helper
 
         public member validImportMember(member member)
         {
-            string role = member.member_role == 1 ? "COACH" : member.member_role == 2 ? "VICE-COACH" : member.member_role == 3 ? "LEADER" : "MEMBER";
+            string role = APP_CONST.SCHOOL_ROLE.getRole(member.member_role);
             if (member.first_name.Equals("") && member.middle_name.Equals("") && member.last_name.Equals(""))
             {
                 throw new Exception(role + " name cannot be empty !");
@@ -60,6 +60,33 @@ namespace Capstone_SWP490.Helper
                 }
             }
             return member;
+        }
+      public List<member_contest_ViewModel> createContestViewMode(List<contest_member> contestMember)
+        {
+            List<member_contest_ViewModel> listContestModel = new List<member_contest_ViewModel>();
+            member_contest_ViewModel contestModel;
+            List<contest> individualContest = _icontestService.getIndividualContest();
+            foreach (var item in individualContest)
+            {
+                contestModel = new member_contest_ViewModel();
+                contestModel.code = item.code;
+                contestModel.name = item.contest_name;
+                contest_member joined = contestMember.Where(x => x.contest.max_contestant == 0 && x.contest.code.Equals(item.code)).FirstOrDefault();
+                if (joined != null)
+                {
+                    contestModel.selected = true;
+                }
+                else
+                {
+                    contestModel.selected = false;
+                }
+                //remove team contest (remove user from teeam contest at team detail only)
+                if (item.max_contestant == 0)
+                {
+                    listContestModel.Add(contestModel);
+                }
+            }
+            return listContestModel;
         }
         public school_memberViewModel updateCoach(string[,] data, school_memberViewModel result)
         {
@@ -107,10 +134,9 @@ namespace Capstone_SWP490.Helper
         }
         public school getSchool(string[,] data)
         {
-            string name = upperCaseFirstCharacter(data[0, 0]);
+            string name = StringUtils.upperCaseFirstCharacter(data[0, 0]);
             string shortName = data[1, 0].ToUpper();
             string address = data[2, 0];
-            string type = upperCaseFirstCharacter(data[3, 0]);
             if (StringUtils.isNullOrEmpty(name) || StringUtils.isNullOrEmpty(shortName))
             {
                 throw new SchoolException("1", "School name or short name cannot be null", null);
@@ -128,7 +154,7 @@ namespace Capstone_SWP490.Helper
             {
                 return "";
             }
-            return upperCaseFirstCharacter(arr.FirstOrDefault());
+            return StringUtils.upperCaseFirstCharacter(arr.FirstOrDefault());
         }
         public string extractLastName(string name)
         {
@@ -137,7 +163,7 @@ namespace Capstone_SWP490.Helper
             {
                 return "";
             }
-            return upperCaseFirstCharacter(arr.LastOrDefault());
+            return StringUtils.upperCaseFirstCharacter(arr.LastOrDefault());
         }
         public string extractMiddleName(string name)
         {
@@ -146,13 +172,13 @@ namespace Capstone_SWP490.Helper
             {
                 return "";
             }
-            if (arr.Length == 3) { return upperCaseFirstCharacter(arr[1]); }
+            if (arr.Length == 3) { return StringUtils.upperCaseFirstCharacter(arr[1]); }
             string result = "";
             for (int i = 1; i < arr.Length - 1; i++)
             {
-                result += " ";
+                result += " " + arr[i];
             }
-            return upperCaseFirstCharacter(result);
+            return StringUtils.upperCaseFirstCharacter(result);
         }
         public school cleanSchool(school school)
         {
@@ -178,40 +204,6 @@ namespace Capstone_SWP490.Helper
                 return false;
             }
         }
-        public int toInt32(string s, int valueIfAbsent)
-        {
-            try
-            {
-                return Int32.Parse(s);
-            }
-            catch
-            {
-                return valueIfAbsent;
-            }
-        }
-        public short toShort(string s)
-        {
-            try
-            {
-                return short.Parse(s);
-            }
-            catch
-            {
-                return -1;
-            }
-        }
-
-        public DateTime toDateTime(string s)
-        {
-            try
-            {
-                return DateTime.Parse(s);
-            }
-            catch
-            {
-                return new DateTime();
-            }
-        }
         public short getGender(string text)
         {
             if (text.ToUpper().Equals("NAM") || text.ToUpper().Equals("MALE"))
@@ -223,26 +215,6 @@ namespace Capstone_SWP490.Helper
                 return 1;
             }
             return 2;
-        }
-
-        public string upperCaseFirstCharacter(string text)
-        {
-            if (text.Length == 0)
-            {
-                return text;
-            }
-
-            string result = "";
-            string[] arr = text.Trim().Split(' ');
-            for (int i = 0; i < arr.Length; i++)
-            {
-                if (!arr[i].Equals(" ") && !arr[i].Equals(""))
-                {
-                    string upper = arr[i].ToUpper();
-                    result += arr[i].Replace(arr[i].ElementAt(0), upper.ElementAt(0)) + " ";
-                }
-            }
-            return result.Trim();
         }
 
         public async Task<school_memberViewModel> readTeamSheet(school_memberViewModel result, ExcelWorksheet teamSheet, TeamImport teamObject)
@@ -520,17 +492,6 @@ namespace Capstone_SWP490.Helper
             }
             return null;
         }
-        public string CreatePassword(int length)
-        {
-            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-            StringBuilder res = new StringBuilder();
-            Random rnd = new Random();
-            while (0 < length--)
-            {
-                res.Append(valid[rnd.Next(valid.Length)]);
-            }
-            return res.ToString();
-        }
         public team_member getTeamMember(int memberId, team team)
         {
             team_member result = team.team_member.Where(x => x.member.member_id == memberId).FirstOrDefault();
@@ -569,10 +530,12 @@ namespace Capstone_SWP490.Helper
             }
 
             app_user user = new app_user();
-            user.psw = CreatePassword(8);
+            string rawPassword = CommonHelper.CreatePassword(8);
+            string encryptedPassword = CommonHelper.createEncryptedPassWord(rawPassword);
+            user.psw = rawPassword;
             user.user_name = member.email;
-            user.user_role = member.member_role == 1 ? "COACH" : member.member_role == 2 ? "VICE-COACH" : member.member_role == 3 ? "LEADER" : "MEMBER";
-            user.encrypted_psw = createEncryptedPassWord(user.psw);
+            user.user_role = APP_CONST.APP_ROLE.getUserRole(member.member_role);
+            user.encrypted_psw = encryptedPassword;
             user.full_name = member.first_name + " " + member.middle_name + " " + member.last_name;
             user.email = member.email;
             user.verified = false;
@@ -639,14 +602,14 @@ namespace Capstone_SWP490.Helper
                     member.middle_name = extractMiddleName(memberName);
                     member.last_name = extractLastName(memberName);
                     string dtString = memberSheet.Cells[row, ++col].Value + "";
-                    DateTime memberDob = toDateTime(dtString);
-                    member.dob = toDateTime(dtString);
+                    DateTime memberDob = CommonHelper.toDateTime(dtString);
+                    member.dob = CommonHelper.toDateTime(dtString);
                     string email = memberSheet.Cells[row, ++col].Value + "";
                     member.email = email;
                     member.phone_number = memberSheet.Cells[row, ++col].Value + "";
-                    member.icpc_id = toInt32(memberSheet.Cells[row, ++col].Value + "", -1);
+                    member.icpc_id = CommonHelper.toInt32(memberSheet.Cells[row, ++col].Value + "", -1);
                     member.gender = getGender(memberSheet.Cells[row, ++col].Value + "");
-                    member.year = toInt32(memberSheet.Cells[row, ++col].Value + "", 0);
+                    member.year = CommonHelper.toInt32(memberSheet.Cells[row, ++col].Value + "", 0);
                     member.award = memberSheet.Cells[row, ++col].Value + "";
                     member.enabled = true;
                     string validateMemberMsg = validateMemberImport(member);
@@ -679,7 +642,7 @@ namespace Capstone_SWP490.Helper
                         contestName = contestName.Trim();
                         if (!contestName.Equals(""))
                         {
-                            string code = extractFirstWordCharacter(contestName);
+                            string code = StringUtils.extractFirstWordCharacter(contestName);
                             contest individual = _icontestService.getByCodeOrName(code, contestName);
                             if (individual != null)
                             {
@@ -776,21 +739,6 @@ namespace Capstone_SWP490.Helper
             result.school.teams = teamList;
             return result;
         }
-
-        private string extractFirstWordCharacter(string s)
-        {
-            if (s == null)
-            {
-                return "";
-            }
-            string result = "";
-            string[] arr = s.Split(' ');
-            foreach (string item in arr)
-            {
-                result += item.ElementAt(0);
-            }
-            return result.ToUpper();
-        }
         public string validateMemberImport(member member)
         {
             string memberFullName = member.first_name + member.middle_name + member.last_name + "";
@@ -844,22 +792,6 @@ namespace Capstone_SWP490.Helper
             }
             return false;
 
-        }
-
-        public string createEncryptedPassWord(string plainText)
-        {
-            MD5 md5 = new MD5CryptoServiceProvider();
-            // Compute hash from the bytes of text
-            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(plainText));
-            // Get hash result after compute it
-            byte[] result = md5.Hash;
-            StringBuilder strBuilder = new StringBuilder();
-            for (int i = 0; i < result.Length; i++)
-            {
-                strBuilder.Append(result[i].ToString("x2"));
-            }
-
-            return strBuilder.ToString();
         }
     }
 

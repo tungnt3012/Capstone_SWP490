@@ -102,7 +102,7 @@
                                                                     <td>@(item.member.gender == 0 ? "Male" : "Female")</td>
                                                                     <td style="color: @(item.member.year == -1 ? "red" : "black" )">@(item.member.year == -1 ? "N/A" : item.member.year)</td>
                                                                     <td>@(item.member.award == null || item.member.award.Trim() == "" ? "N/A" : item.member.award)</td>
-                                                                    <td>@(item.member.member_role == 3 ? "Leader" : "Member" )</td>
+                                                                    <td>@(item.member.member_role == 3 ? "Team Leader" : "Member" )</td>
                                                                     <td>Yes</td>
                                                                     <td>
                                                                         <a href="@Url.Action("MemberDetail", "Registration")?id=@item.member.member_id&teamId=@item.team.team_id">Detail</a>

@@ -29,5 +29,10 @@ namespace Capstone_SWP490.Services
         {
             return _icontestRepository.FindBy(x => x.contest_id == id).FirstOrDefault();
         }
+
+        public List<contest> getIndividualContest()
+        {
+            return _icontestRepository.FindBy(x => x.max_contestant == 0).ToList();
+        }
     }
 }
