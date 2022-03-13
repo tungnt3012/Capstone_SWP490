@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Contest";
+    var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
+}
+
+<style>
+    #menu-accommodations {
+        color: #ffffff !important;
+        background: #30cf6b;
+    }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700;1,800&family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+<script src="//cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Contest</label>
+        </div>
+    </div>
+    <div class="main">
+        <div class="column">
+            <div class="col-lg-12" style="padding-top:20px">
+                <div class="pull-right">
+                    <button type="button" onclick="window.location.href='/Home/ContestUpload'" class="btn btn-success">Add</button>
+                </div>
+                <div class="column">
+                    <table class="table table-striped" style="overflow:auto">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Contest name</th>
+                                <th scope="col">Start date</th>
+                                <th scope="col">Start end</th>
+                                <th scope="col">Max contestatant</th>
+                                <th scope="col">Note</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Practice</td>
+                                <td>3/10/2022 5:04:15 AM</td>
+                                <td>3/13/2022 5:04:20 AM</td>
+                                <td>5</td>
+                                <td>Do not violate inspection regulations</td>
+                                <td><a href="/Home/ContestUpload">Edit </a></td>
+                                <td><a href="#">Delete </a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

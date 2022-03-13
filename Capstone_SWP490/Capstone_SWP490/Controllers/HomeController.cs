@@ -211,5 +211,17 @@ namespace Capstone_SWP490.Controllers
 
             return View();
         }
+        public ActionResult Contest()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        public ActionResult ContestUpload()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
     }
 }
