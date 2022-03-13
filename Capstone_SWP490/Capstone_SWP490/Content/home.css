@@ -722,6 +722,7 @@ h2 {
 /*ScheduleOfActivities*/
 .cars-shedule {
     height: 32px;
+    border-radius:5px;
    
 }
 
