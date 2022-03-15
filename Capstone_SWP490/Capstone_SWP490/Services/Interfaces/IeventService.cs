@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.Models.events_ViewModel;
+﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.events_ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Capstone_SWP490.Services.Interfaces
 {
     public interface IeventService
     {
-        IEnumerable<eventsViewModel> GetEventsByDate(DateTime fromDateIn, DateTime toDateIn);
+        AjaxResponseViewModel<IEnumerable<eventsViewModel>>  GetEventsByDate(DateTime fromDateIn, DateTime toDateIn);
         IEnumerable<string> GetAllSectionEvent();
         IEnumerable<eventsViewModel> GetAllEvents();
         eventsViewModel GetEventsById(int id);

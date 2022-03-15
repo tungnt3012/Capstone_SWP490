@@ -122,37 +122,55 @@ else
 <script>
 
     function SearchEvent() {
-
         var fromdate = $("#from-date").val();
         var todate = $("#to-date").val();
-        alert("Searching " + fromdate + " To " + todate)
-        @*var vas = $("#userss").val();
+        var vas = $("#userss").val();
         var role = $("#user_role").val();
+        alert("Searching " + fromdate + " To " + todate)
+
+        let objectIn = {
+            start_date: fromdate,
+            end_date: todate
+        };
+
+
         $.ajax({
             type: 'GET',
-            url: '@Url.Action("GetContentAbout", "Home")',
+            url: '@Url.Action("SearchEvent", "Home")',
+            data: objectIn,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (results) {
-                document.getElementById("page-content").innerHTML = "";
                 if (results != null) {
+                    document.getElementById("table-events").innerHTML = "";
                     if (vas != "" && role == 'ORGANIZER') {
-                             for (let i = 0; i < results.length; i++) {
-                                 console.log("" + results[i].content);
-                                 document.getElementById("table-events").innerHTML +=
-                                     ``;
-                             }
-                    }
-                    else {
-                        for (let i = 0; i < results.length; i++) {
-                            console.log("" + results[i].content);
-                            document.getElementById("table-events").innerHTML +=
-                                ``;
+                        for (let i = 0; i < results.Data.length; i++) {
+                            document.getElementById("table-events").innerHTML += `<tr>
+                                            <td scope="row">`+ results.Data[i].title+`</td>
+                                            <td>`+ results.Data[i].start_date+`</td>
+                                            <td>`+ results.Data[i].end_date+`</td>
+                                            <td>`+ results.Data[i].venue+`</td>
+                                            <td>`+ results.Data[i].contactor_phone+`</td>
+                                            <td><a href="/Home/EventUpload">Edit</a></td>
+                                            <td><a href="/Home/EventDetail?id=`+ results.Data[i].event_id+`">Detail</a></td>
+                                            <td><a href="#">Delete</a></td>
+                                        </tr>`;
+                        }
+                    } else {
+                        for (let i = 0; i < results.Data.length; i++) {
+                            document.getElementById("table-events").innerHTML += `<tr>
+                                            <td scope="row">`+ results.Data[i].title + `</td>
+                                            <td>`+ results.Data[i].start_date + `</td>
+                                            <td>`+ results.Data[i].end_date + `</td>
+                                            <td>`+ results.Data[i].venue + `</td>
+                                            <td>`+ results.Data[i].contactor_phone + `</td>
+                                            <td><a href="/Home/EventDetail?id=`+ results.Data[i].event_id + `">Detail</a></td>
+                                        </tr>`;
                         }
                     }
                 }
             }
-        });*@
+        });
     };
 
 </script>

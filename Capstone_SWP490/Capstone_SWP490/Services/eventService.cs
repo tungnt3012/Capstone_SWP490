@@ -1,10 +1,12 @@
-﻿using Capstone_SWP490.Models.events_ViewModel;
+﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.events_ViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Capstone_SWP490.Services
@@ -48,9 +50,58 @@ namespace Capstone_SWP490.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<eventsViewModel> GetEventsByDate(DateTime fromDateIn, DateTime toDateIn)
+        public AjaxResponseViewModel<IEnumerable<eventsViewModel>> GetEventsByDate(DateTime fromDateIn, DateTime toDateIn)
         {
-            throw new NotImplementedException();
+            var output = new AjaxResponseViewModel<IEnumerable<eventsViewModel>>
+            {
+                Status = 0,
+                Data = null
+            };
+            DateTime temp = Convert.ToDateTime("01/01/0001");
+            var events = new List<@event>();
+            if (fromDateIn == temp && toDateIn == temp)
+            {
+                events = _ieventRepository.GetAll().ToList();
+            }
+            if (fromDateIn == temp)
+            {
+                events = _ieventRepository.FindBy(x=>x.end_date<toDateIn).ToList();
+            }
+            if (toDateIn == temp)
+            {
+                events = _ieventRepository.FindBy(x => x.start_date > fromDateIn).ToList();
+            }
+            //var events = _ieventRepository.FindBy(x => x.start_date > fromDateIn && x.end_date < toDateIn).ToList();
+            var lstEventsViewModels = new List<eventsViewModel>();
+            if (events != null)
+            {
+                foreach (var x in events)
+                {
+                    var e = new eventsViewModel
+                    {
+                        event_id = x.event_id,
+                        contactor_email = x.contactor_phone,
+                        contactor_name = x.contactor_name,
+                        contactor_phone = x.contactor_phone,
+                        desctiption = x.desctiption,
+                        end_date = x.end_date,
+                        event_type = x.event_type,
+                        fan_page = x.fan_page,
+                        note = x.note,
+                        shirt_id = x.shirt_id,
+                        start_date = x.start_date,
+                        title = x.title,
+                        venue = x.venue,
+                    };
+                    lstEventsViewModels.Add(e);
+                }
+                output.Message = "success";
+                output.Data = lstEventsViewModels;
+                output.Status = 1;
+                return output;
+            }
+            output.Message = "Fail";
+            return output;
         }
 
         public eventsViewModel GetEventsById(int id)

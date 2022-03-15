@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.events_ViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Services;
@@ -140,6 +141,13 @@ namespace Capstone_SWP490.Controllers
             ViewBag.Message = "Your contact page.";
             ViewData["Events"] = _ieventService.GetAllEvents();
             return View();
+        }
+        public ActionResult SearchEvent(@event eventIn)
+        {
+            //AjaxResponseViewModel<IEnumerable<eventsViewModel>> ajaxResponse = await _ieventService.GetEventsByDate(fromDate,toDate);
+            //return Json(ajaxResponse);
+            var rs = _ieventService.GetEventsByDate(eventIn.start_date, eventIn.end_date);
+            return Json(rs, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ScheduleOfActivities()
         {
