@@ -27,6 +27,10 @@
                         </label>
                     </div>
                     <div class="form-group">
+                        <h5 style="color:red"> @ViewData["error"] </h5>
+                        <h5 style="color:green"> @ViewData["success"] </h5>
+                    </div>
+                    <div class="form-group">
                         <div class="row">
                             <div class="col-lg-4">
                                 <label for="type-event">Date FROM:</label>
@@ -81,7 +85,7 @@
                                                 {
                                                     <td><a href="/Home/EventEdit?id=@x.event_id">Edit</a></td>
                                                     <td><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
-                                                    <td><a href="#">Delete</a></td>
+                                                    <td><a href="/Home/EventDelete?id=@x.event_id">Delete</a></td>
                                                 }
                                                 else
                                                 {
@@ -153,7 +157,7 @@ else
                                             <td>`+ results.Data[i].contactor_phone+`</td>
                                             <td><a href="/Home/EventEdit?id=`+ results.Data[i].event_id +`">Edit</a></td>
                                             <td><a href="/Home/EventDetail?id=`+ results.Data[i].event_id+`">Detail</a></td>
-                                            <td><a href="#">Delete</a></td>
+                                            <td><a href="/Home/EventDelete?id=`+ results.Data[i].event_id +`">Delete</a></td>
                                         </tr>`;
                         }
                     } else {

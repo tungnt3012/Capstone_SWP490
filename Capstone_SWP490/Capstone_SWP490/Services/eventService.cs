@@ -14,9 +14,9 @@ namespace Capstone_SWP490.Services
     public class eventService : IeventService
     {
         private readonly IeventRepository _ieventRepository = new eventRepository();
-        public IEnumerable<eventsViewModel> GetAllEvents()
+        public IEnumerable<eventsViewModel> GetAllEventsAvailale()
         {
-            var events = _ieventRepository.GetAll();
+            var events = _ieventRepository.FindBy(x=>x.event_type!=0).ToList();
             var lstEventsViewModels = new List<eventsViewModel>();
             if (events != null)
             {
@@ -61,15 +61,15 @@ namespace Capstone_SWP490.Services
             var events = new List<@event>();
             if (fromDateIn == temp && toDateIn == temp)
             {
-                events = _ieventRepository.GetAll().ToList();
+                events = _ieventRepository.FindBy(x => x.event_type != 0).ToList();
             }
             if (fromDateIn == temp)
             {
-                events = _ieventRepository.FindBy(x => x.end_date < toDateIn).ToList();
+                events = _ieventRepository.FindBy(x => x.end_date < toDateIn&& x.event_type != 0).ToList();
             }
             if (toDateIn == temp)
             {
-                events = _ieventRepository.FindBy(x => x.start_date > fromDateIn).ToList();
+                events = _ieventRepository.FindBy(x => x.start_date > fromDateIn && x.event_type != 0).ToList();
             }
             //var events = _ieventRepository.FindBy(x => x.start_date > fromDateIn && x.end_date < toDateIn).ToList();
             var lstEventsViewModels = new List<eventsViewModel>();
@@ -217,6 +217,20 @@ namespace Capstone_SWP490.Services
                 }
             }
             return null;
+        }
+
+        public async Task<bool> DeleteEvent(int id)
+        {
+            var e = _ieventRepository.FindBy(x => x.event_id == id).FirstOrDefault();
+            if (e != null)
+            {
+                e.event_type = 0;
+                if(await _ieventRepository.Update(e, e.event_id) != -1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

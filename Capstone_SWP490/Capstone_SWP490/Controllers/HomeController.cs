@@ -65,6 +65,20 @@ namespace Capstone_SWP490.Controllers
             ViewData["error"] = "*Add Event Failed !!!";
             return View(events);
         }
+
+        public async Task<ActionResult> EventDelete(int id)
+        {
+            var rsCreate = await _ieventService.DeleteEvent(id);
+            ViewData["Events"] = _ieventService.GetAllEventsAvailale();
+            if (rsCreate == true)
+            {
+                ViewData["success"] = "*Delete Event Successfully !!!";
+                return View("Event");
+            }
+            ViewData["error"] = "*Delete Event Failed !!!";
+            return View("Event");
+        }
+
         public ActionResult Downloads()
         {
             ViewBag.Message = "Your contact page.";
@@ -170,7 +184,7 @@ namespace Capstone_SWP490.Controllers
         public ActionResult Event()
         {
             ViewBag.Message = "Your contact page.";
-            ViewData["Events"] = _ieventService.GetAllEvents();
+            ViewData["Events"] = _ieventService.GetAllEventsAvailale();
             return View();
         }
         public ActionResult SearchEvent(@event eventIn)

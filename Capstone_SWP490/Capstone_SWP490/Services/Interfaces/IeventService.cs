@@ -12,9 +12,10 @@ namespace Capstone_SWP490.Services.Interfaces
     {
         AjaxResponseViewModel<IEnumerable<eventsViewModel>>  GetEventsByDate(DateTime fromDateIn, DateTime toDateIn);
         IEnumerable<string> GetAllSectionEvent();
-        IEnumerable<eventsViewModel> GetAllEvents();
+        IEnumerable<eventsViewModel> GetAllEventsAvailale();
         eventsViewModel GetEventsById(int id);
         Task<eventsViewModel> UpdateEvent(eventsViewModel eventsIn);
         Task<eventsViewModel> CreateEvent(eventsViewModel eventsIn);
+        Task<bool> DeleteEvent(int id);
     }
 }
