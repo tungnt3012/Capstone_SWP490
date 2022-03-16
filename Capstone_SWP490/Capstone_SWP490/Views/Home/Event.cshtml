@@ -79,7 +79,7 @@
                                             {
                                                 if (profile.user_role.Equals("ORGANIZER"))
                                                 {
-                                                    <td><a href="/Home/EventUpload">Edit</a></td>
+                                                    <td><a href="/Home/EventEdit?id=@x.event_id">Edit</a></td>
                                                     <td><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
                                                     <td><a href="#">Delete</a></td>
                                                 }
@@ -151,7 +151,7 @@ else
                                             <td>`+ results.Data[i].end_date+`</td>
                                             <td>`+ results.Data[i].venue+`</td>
                                             <td>`+ results.Data[i].contactor_phone+`</td>
-                                            <td><a href="/Home/EventUpload">Edit</a></td>
+                                            <td><a href="/Home/EventEdit?id=`+ results.Data[i].event_id +`">Edit</a></td>
                                             <td><a href="/Home/EventDetail?id=`+ results.Data[i].event_id+`">Detail</a></td>
                                             <td><a href="#">Delete</a></td>
                                         </tr>`;

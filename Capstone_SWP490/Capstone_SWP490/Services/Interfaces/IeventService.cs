@@ -14,5 +14,7 @@ namespace Capstone_SWP490.Services.Interfaces
         IEnumerable<string> GetAllSectionEvent();
         IEnumerable<eventsViewModel> GetAllEvents();
         eventsViewModel GetEventsById(int id);
+        Task<eventsViewModel> UpdateEvent(eventsViewModel eventsIn);
+        Task<eventsViewModel> CreateEvent(eventsViewModel eventsIn);
     }
 }

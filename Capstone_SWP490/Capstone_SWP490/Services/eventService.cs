@@ -65,7 +65,7 @@ namespace Capstone_SWP490.Services
             }
             if (fromDateIn == temp)
             {
-                events = _ieventRepository.FindBy(x=>x.end_date<toDateIn).ToList();
+                events = _ieventRepository.FindBy(x => x.end_date < toDateIn).ToList();
             }
             if (toDateIn == temp)
             {
@@ -125,6 +125,96 @@ namespace Capstone_SWP490.Services
                     title = events.title,
                     venue = events.venue,
                 };
+            }
+            return null;
+        }
+
+        public async Task<eventsViewModel> UpdateEvent(eventsViewModel eventsIn)
+        {
+            var e = _ieventRepository.FindBy(x => x.event_id == eventsIn.event_id).FirstOrDefault();
+            if (e != null)
+            {
+                e.title = eventsIn.title;
+                e.desctiption = eventsIn.desctiption;
+                e.start_date = eventsIn.start_date;
+                e.end_date = eventsIn.end_date;
+                e.venue = eventsIn.venue;
+                e.contactor_phone = eventsIn.contactor_phone;
+                e.contactor_email = eventsIn.contactor_email;
+                e.contactor_name = eventsIn.contactor_name;
+                e.fan_page = eventsIn.fan_page;
+                e.note = eventsIn.note;
+                e.event_type = eventsIn.event_type;
+                if (await _ieventRepository.Update(e, e.event_id) != -1)
+                {
+                    return new eventsViewModel
+                    {
+                        event_id = e.event_id,
+                        contactor_email = e.contactor_phone,
+                        contactor_name = e.contactor_name,
+                        contactor_phone = e.contactor_phone,
+                        desctiption = e.desctiption,
+                        end_date = e.end_date,
+                        event_type = e.event_type,
+                        fan_page = e.fan_page,
+                        note = e.note,
+                        start_date = e.start_date,
+                        title = e.title,
+                        venue = e.venue,
+                    };
+                }
+            };
+            return null;
+        }
+
+        public async Task<eventsViewModel> CreateEvent(eventsViewModel eventsIn)
+        {
+            //var e = _ieventRepository.FindBy(x => x.event_id == eventsIn.event_id).FirstOrDefault();
+            if (!string.IsNullOrWhiteSpace(eventsIn.title)
+                && !string.IsNullOrWhiteSpace(eventsIn.desctiption)
+                && !string.IsNullOrWhiteSpace(eventsIn.venue)
+                && !string.IsNullOrWhiteSpace(eventsIn.contactor_name)
+                && !string.IsNullOrWhiteSpace(eventsIn.contactor_email)
+                && !string.IsNullOrWhiteSpace(eventsIn.contactor_email)
+                && !string.IsNullOrWhiteSpace(eventsIn.contactor_phone)
+                && !string.IsNullOrWhiteSpace(eventsIn.fan_page)
+                && Convert.ToDateTime("01/01/0001")!=eventsIn.start_date
+                && Convert.ToDateTime("01/01/0001")!=eventsIn.end_date)
+            {
+                var e = new @event
+                {
+                    title = eventsIn.title,
+                    desctiption = eventsIn.desctiption,
+                    start_date = eventsIn.start_date,
+                    end_date = eventsIn.end_date,
+                    venue = eventsIn.venue,
+                    contactor_phone = eventsIn.contactor_phone,
+                    contactor_email = eventsIn.contactor_email,
+                    contactor_name = eventsIn.contactor_name,
+                    fan_page = eventsIn.fan_page,
+                    note = eventsIn.note ?? "",
+                    event_type = eventsIn.event_type,
+                };
+
+                var newEvent = await _ieventRepository.Create(e);
+                if (newEvent != null)
+                {
+                    return new eventsViewModel
+                    {
+                        event_id = newEvent.event_id,
+                        contactor_email = newEvent.contactor_phone,
+                        contactor_name = newEvent.contactor_name,
+                        contactor_phone = newEvent.contactor_phone,
+                        desctiption = newEvent.desctiption,
+                        end_date = newEvent.end_date,
+                        event_type = newEvent.event_type,
+                        fan_page = newEvent.fan_page,
+                        note = newEvent.note,
+                        start_date = newEvent.start_date,
+                        title = newEvent.title,
+                        venue = newEvent.venue,
+                    };
+                }
             }
             return null;
         }

@@ -28,11 +28,42 @@ namespace Capstone_SWP490.Controllers
 
             return View();
         }
+
+        public ActionResult EventEdit(int id)
+        {
+            ViewBag.Message = "Your contact page.";
+            var events = _ieventService.GetEventsById(id);
+            return View(events);
+        }
+        [HttpPost]
+        public async Task<ActionResult> EventEdit(eventsViewModel events)
+        {
+            var rsUpdate = await _ieventService.UpdateEvent(events);
+            if (rsUpdate != null)
+            {
+                ViewData["success"] = "*Edit Event Successfully !!!";
+                return View(rsUpdate);
+            }
+            ViewData["error"] = "*Edit Event Failed !!!";
+            return View(events);
+        }
+
         public ActionResult EventUpload()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> EventUpload(eventsViewModel events)
+        {
+            var rsCreate = await _ieventService.CreateEvent(events);
+            if (rsCreate != null)
+            {
+                ViewData["success"] = "*Add Event Successfully !!!";
+                return View(rsCreate);
+            }
+            ViewData["error"] = "*Add Event Failed !!!";
+            return View(events);
         }
         public ActionResult Downloads()
         {
