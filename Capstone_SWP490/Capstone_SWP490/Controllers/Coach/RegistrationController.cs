@@ -43,21 +43,24 @@ namespace Capstone_SWP490.Controllers.Coach
         {
             try
             {
-                var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
-                //if user is COACH or CO-COACH so return Import file excel 
-                if (u.user_role.Equals("COACH") || u.user_role.Equals("CO-COACH"))
+                if (HttpContext.Session["username"] != null)
                 {
-                    IndexViewModel model = new IndexViewModel();
-                    List<school> schools = _ischoolService.findByCoachId(u.user_id);
-                    model.school = schools;
-                    List<insert_member_result_ViewModel> result = (List<insert_member_result_ViewModel>)Session[SESSION_CONST.Registration.INSERT_RESULT];
-                    Session.Remove(SESSION_CONST.Registration.INSERT_RESULT);
-                    //case insert data to database then check result in session
-                    if (result != null && result.Count > 0)
+                    var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                    //if user is COACH or CO-COACH so return Import file excel 
+                    if (u.user_role.Equals("COACH") || u.user_role.Equals("CO-COACH"))
                     {
-                        model.insert_result = result;
+                        IndexViewModel model = new IndexViewModel();
+                        List<school> schools = _ischoolService.findByCoachId(u.user_id);
+                        model.school = schools;
+                        List<insert_member_result_ViewModel> result = (List<insert_member_result_ViewModel>)Session[SESSION_CONST.Registration.INSERT_RESULT];
+                        Session.Remove(SESSION_CONST.Registration.INSERT_RESULT);
+                        //case insert data to database then check result in session
+                        if (result != null && result.Count > 0)
+                        {
+                            model.insert_result = result;
+                        }
+                        return View(model);
                     }
-                    return View(model);
                 }
                 //if user is NOT COACH or CO-COACH so return view Guild 
                 return RedirectToAction(ACTION_CONST.Registration.GUIDE, ACTION_CONST.Registration.CONTROLLER);

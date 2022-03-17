@@ -14,7 +14,7 @@ namespace Capstone_SWP490.Repositories
             //var lstPage_Content = FindBy(x => x.page_id.Equals(stringId)).ToList();
             var rs = (from data in FindBy(x => x.page_id.Equals(stringId)).ToList()
                       orderby data.position ascending
-                     select data).ToList();
+                      select data).ToList();
             return rs;
         }
     }

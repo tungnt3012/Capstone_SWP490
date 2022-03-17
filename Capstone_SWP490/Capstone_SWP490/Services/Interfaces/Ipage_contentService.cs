@@ -14,5 +14,6 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<AjaxResponseViewModel<bool>> DeleteSingleContent(page_content page_ContentsIn);
         Task<AjaxResponseViewModel<page_content>> CreatePageContent(page_content page_ContentsIn);
         Task<AjaxResponseViewModel<bool>> PinPageContent(page_content page_ContentsIn);
+        List<page_content> GetMenuContents(string user_role);
     }
 }

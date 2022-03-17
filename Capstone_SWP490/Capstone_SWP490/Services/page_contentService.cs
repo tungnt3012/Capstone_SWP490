@@ -58,6 +58,14 @@ namespace Capstone_SWP490.Services
             return output;
         }
 
+        public List<page_content> GetMenuContents(string user_role)
+        {
+            var rs = (from data in _ipage_contentRepository.FindBy(x => x.user_role.Equals(user_role)&&x.page_id.Equals("MENU") && x.status == 1).ToList()
+                      orderby data.position ascending
+                      select data).ToList();
+            return rs;
+        }
+
         public async Task<AjaxResponseViewModel<bool>> PinPageContent(page_content page_ContentsIn)
         {
             var output = new AjaxResponseViewModel<bool>

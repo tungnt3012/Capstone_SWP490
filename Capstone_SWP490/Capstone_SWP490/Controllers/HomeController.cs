@@ -123,6 +123,21 @@ namespace Capstone_SWP490.Controllers
             return Json(_ipage_contentRepository.GetPage_ContentByPageId("Downloads"), JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetGuestMenu()
+        {
+            return Json(_ipage_contentService.GetMenuContents("GUEST"), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetAdminMenu()
+        {
+            return Json(_ipage_contentService.GetMenuContents("ADMIN"), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetOrganizationMenu()
+        {
+            return Json(_ipage_contentService.GetMenuContents("ORGANIZER"), JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public async Task<ActionResult> UpdateListContent(List<page_content> page_Contents)
         {

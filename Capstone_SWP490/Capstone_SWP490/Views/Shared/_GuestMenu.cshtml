@@ -2,6 +2,9 @@
 @{
     var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
 }
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <div id="sidebar-wrapper">
     <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
         <li id="menu-image" onclick="location.href='@Url.Action("Index", "Home")';return false;">
@@ -17,7 +20,9 @@
                 </span>Home
             </a>
         </li>
-        <li id="menu-scoreboard" onclick="location.href='@Url.Action("#", "Home")';return false;">
+        <div id="menu-content"></div>
+
+        @*<li id="menu-scoreboard" onclick="location.href='@Url.Action("#", "Home")';return false;">
             <a href="#">
                 <span class="fa-stack fa-lg pull-left">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-easel2-fill" viewBox="0 0 16 16">
@@ -25,6 +30,25 @@
                         <path fill-rule="evenodd" d="M.5 11a.5.5 0 0 0 0 1h2.86l-.845 3.379a.5.5 0 0 0 .97.242L3.89 14h8.22l.405 1.621a.5.5 0 0 0 .97-.242L12.64 12h2.86a.5.5 0 0 0 0-1H.5Zm3.64 2 .25-1h7.22l.25 1H4.14Z" />
                     </svg>
                 </span>Scoreboard
+            </a>
+        </li>
+        <li id="menu-registration" onclick="location.href='@Url.Action("", "Registration")';return false;">
+            <a href="#">
+                <span class="fa-stack fa-lg pull-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                        <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                    </svg>
+                </span>Registration
+            </a>
+        </li>
+        <li id="menu-Contest" onclick="location.href='@Url.Action("Contest", "home")';return false;">
+            <a href="#">
+                <span class="fa-stack fa-lg pull-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-boxes" viewBox="0 0 16 16">
+                        <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434L7.752.066ZM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567L4.25 7.504ZM7.5 9.933l-2.75 1.571v3.134l2.75-1.571V9.933Zm1 3.134 2.75 1.571v-3.134L8.5 9.933v3.134Zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567-2.742 1.567Zm2.242-2.433V3.504L8.5 5.076V8.21l2.75-1.572ZM7.5 8.21V5.076L4.75 3.504v3.134L7.5 8.21ZM5.258 2.643 8 4.21l2.742-1.567L8 1.076 5.258 2.643ZM15 9.933l-2.75 1.571v3.134L15 13.067V9.933ZM3.75 14.638v-3.134L1 9.933v3.134l2.75 1.571Z" />
+                    </svg>
+                </span>Contest
             </a>
         </li>
         <li id="menu-scheduleofactivities" onclick="location.href='@Url.Action("ScheduleOfActivities", "Home")';return false;">
@@ -37,8 +61,8 @@
                 </span>Schedule Of Activities
             </a>
         </li>
-        <li id="menu-event" onclick="location.href='@Url.Action("Event", "Home")';return false;">
-            <a href="#">
+        <li id="menu-event">
+            <a href="/Home/Event">
                 <span class="fa-stack fa-lg pull-left">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-event-fill" viewBox="0 0 16 16">
                         <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
@@ -99,6 +123,34 @@
                     </svg>
                 </span>About
             </a>
-        </li>
+        </li>*@
+
     </ul>
 </div>
+
+<script>
+    GetListContent();
+    function GetListContent() {
+        console.log("get begin");
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetGuestMenu", "Home")',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (results) {
+                document.getElementById("menu-content").innerHTML = "";
+                if (results != null) {
+                    for (let i = 0; i < results.length; i++) {
+                        document.getElementById("menu-content").innerHTML += `<li>
+            <a href="`+ results[i].title + `">
+                `+ results[i].content + `
+            </a>
+        </li>`;
+                    }
+                    console.log("get Done");
+                }
+            }
+        });
+    };
+
+</script>
