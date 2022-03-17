@@ -131,6 +131,8 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="title" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="position" Type="int" Nullable="false" />
+          <Property Name="user_role" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="int" />
         </EntityType>
         <EntityType Name="school">
           <Key>
@@ -476,6 +478,8 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="position" Type="Int32" Nullable="false" />
+          <Property Name="user_role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" />
         </EntityType>
         <EntityType Name="school">
           <Key>
@@ -832,6 +836,8 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="content" ColumnName="content" />
                 <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="user_role" ColumnName="user_role" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
