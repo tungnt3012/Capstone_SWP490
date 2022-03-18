@@ -70,6 +70,10 @@ namespace Capstone_SWP490.Services
             if (toDateIn == temp)
             {
                 events = _ieventRepository.FindBy(x => x.start_date > fromDateIn && x.event_type != 0).ToList();
+            } 
+            if(fromDateIn!=temp && toDateIn != temp)
+            {
+                events = _ieventRepository.FindBy(x => x.start_date > fromDateIn && x.end_date < toDateIn).ToList();
             }
             //var events = _ieventRepository.FindBy(x => x.start_date > fromDateIn && x.end_date < toDateIn).ToList();
             var lstEventsViewModels = new List<eventsViewModel>();

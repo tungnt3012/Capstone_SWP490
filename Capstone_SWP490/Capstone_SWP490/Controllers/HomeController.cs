@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.contestViewModel;
 using Capstone_SWP490.Models.events_ViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
@@ -20,6 +21,7 @@ namespace Capstone_SWP490.Controllers
         private readonly IeventService _ieventService = new eventService();
         private readonly Iapp_userService _iapp_UserService = new app_userService();
         private readonly ImemberService _imemberService = new memberService();
+        private readonly IcontestService _icontestService = new contestService();
 
 
         public ActionResult ShirtSizing()
@@ -35,7 +37,7 @@ namespace Capstone_SWP490.Controllers
             var events = _ieventService.GetEventsById(id);
             return View(events);
         }
-        [HttpPost]
+        [HttpPost]                                                                           
         public async Task<ActionResult> EventEdit(eventsViewModel events)
         {
             var rsUpdate = await _ieventService.UpdateEvent(events);
@@ -282,14 +284,88 @@ namespace Capstone_SWP490.Controllers
         public ActionResult Contest()
         {
             ViewBag.Message = "Your contact page.";
-
+            ViewData["Contest"] = _icontestService.GetContests();
             return View();
         }
+
+        public ActionResult SearchContestType(@event eventIn)
+        {
+            //AjaxResponseViewModel<IEnumerable<eventsViewModel>> ajaxResponse = await _ieventService.GetEventsByDate(fromDate,toDate);
+            //return Json(ajaxResponse);
+            var rs = _ieventService.GetEventsByDate(eventIn.start_date, eventIn.end_date);
+            return Json(rs, JsonRequestBehavior.AllowGet);
+        }
+
+        //public ActionResult ContestDetail(int id)
+        //{
+        //    //if (HttpContext.Session["username"] != null)
+        //    //{
+        //    //    var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+        //    //    if (u != null)
+        //    //    {
+        //    //        ViewData["Contest"] = _icontestService.GetContestById(id);
+        //    //        return View();
+        //    //    }
+        //    //}
+        //    ViewBag.Message = "Your contact page.";
+        //    ViewData["Contest"] = _icontestService.GetContestById(id);
+        //    return View();
+        //}
+        public ActionResult ContestEdit(int id)
+        {
+            ViewBag.Message = "Your contact page.";
+            var contests = _icontestService.GetContestById(id);
+            return View(contests);
+        }
+        [HttpPost]
+        public async Task<ActionResult> ContestEdit(contestViewModel contest)
+        {
+            var rsUpdate = await _icontestService.UpdateContest(contest);
+            if (rsUpdate != null)
+            {
+                ViewData["success"] = "*Edit Contest Successfully !!!";
+                return View(rsUpdate);
+            }
+            ViewData["error"] = "*Edit Contest Failed !!!";
+            return View(contest);
+        }
+
         public ActionResult ContestUpload()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
         }
+        [HttpPost]
+        public async Task<ActionResult> ContestUpload(contestViewModel contest)
+        {
+            var rsCreate = await _icontestService.CreateContest(contest);
+            if (rsCreate != null)
+            {
+                ViewData["success"] = "*Add Contest Successfully !!!";
+                return View(rsCreate);
+            }
+            ViewData["error"] = "*Add Contest Failed !!!";
+            return View(rsCreate);
+        }
+
+        public async Task<ActionResult> ContestDelete(int id)
+        {
+            var rsCreate = await _icontestService.DeleteContest(id);
+            ViewData["Contest"] = _icontestService.GetAllContestAvailale();
+            if (rsCreate == true)
+            {
+                ViewData["success"] = "*Delete Contest Successfully !!!";
+                return View("Contest");
+            }
+            ViewData["error"] = "*Delete Contest Failed !!!";
+            return View("Contest");
+        }
+        
+        public ActionResult FilterContest(string keyFilter)
+        {
+            return Json(_icontestService.FilterContest(keyFilter), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
