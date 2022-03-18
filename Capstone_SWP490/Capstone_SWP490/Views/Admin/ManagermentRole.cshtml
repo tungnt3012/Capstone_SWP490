@@ -1,7 +1,164 @@
 ﻿
 @{
     ViewBag.Title = "Managerment Role Menu | Admin";
+    var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
+
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Managerment Account</label>
+        </div>
+    </div>
+    <div class="main">
+        <div class="column">
+            <div class="col-lg-12">
+                <br />
+                <div class="column">
+                    <div>
+                        <h5 style="color:green">@ViewData["success"]</h5>
+                        <h5 style="color:red">@ViewData["fail"]</h5>
+                    </div>
+                    <div class="col-lg-2 col-lg-offset-1" style="overflow:auto">
+                        <label>Role:</label>
+                        <select class="form-control" id="select-role" onchange="ChangeRole(this)">
+                            <option>Choose Role</option>
+                            <option value="ADMIN">ADMIN</option>
+                            <option value="ORGANIZER">ORGANIZER</option>
+                            <option value="GUEST">Orther</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-5 col-lg-offset-1" style="overflow:auto">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Menu name</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-events">
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<input type="hidden" id="userss" value="@Session["username"]">
+@if (Session["username"] != null)
+{
+    <input type="hidden" id="user_role" value="@profile.user_role">
+}
+else
+{
+    <input type="hidden" id="user_role" value="0">
 }
 
-<h2>ManagermentRole</h2>
 
+<script>
+    function ChangeRole(e) {
+        var x = e.value;
+        GetListContent(x);
+    }
+
+    function GetListContent(dataIn) {
+        console.log("get begin");
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetMenuContentByRole", "Admin")',
+            dataType: "json",
+            data: { roleName: dataIn},
+            contentType: "application/json; charset=utf-8",
+            success: function (results) {
+                document.getElementById("table-events").innerHTML = "";
+                if (results != null) {
+                    for (let i = 0; i < results.length; i++) {
+                        let str = `<tr>
+                                    <td>`+ results[i].title_menu_name +`</td>`;
+                        if (results[i].status == 1) {
+                            str += `<td style="color: green">Show</td>
+                                    @*<td><a href="@Url.Action("HideMenuContent", "Admin")?content_id=`+ results[i].content_id + `">Hide</a></td>*@
+                                    <td><a onclick="HideAction(`+ results[i].content_id + `);">Hide</a></td>
+                                    `;
+                        } else {
+                            str += `<td style="color: red">Hide</td>
+                                    @*<td><a href="@Url.Action("ShowMenuContent", "Admin")?content_id=`+ results[i].content_id + `">Show</a></td>*@
+                                    <td><a onclick="ShowAction(`+ results[i].content_id + `);">Show</a></td>
+                                    `;
+                        }
+                        str += `</tr>`;
+                        document.getElementById("table-events").innerHTML += str;
+                    }
+                    console.log("get Done");
+                } else {
+                    document.getElementById("table-events").innerHTML = `<tr>
+                                            <td><i>No data</i></td></tr>`;
+                }
+            }
+        });
+    };
+
+    function HideAction(dataIn) {
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("HideMenuContent", "Admin")',
+            data: JSON.stringify({ content_id: dataIn }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (results) {
+                document.getElementById("table-events").innerHTML = "";
+                if (results != null) {
+                    if (results.Status == 1) {
+
+                        var x = $("#select-role").val();
+                        $('#select-role option').filter(function () {
+                            return this.value === x
+                        }).prop('selected', true);
+
+                        GetListContent(x);
+                        console.log("get Done");
+                    } else {
+                        console.log("get FAIl");
+                    }
+                }
+            }
+        });
+    }
+
+    function ShowAction(dataIn) {
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ShowMenuContent", "Admin")',
+            data: JSON.stringify({ content_id: dataIn }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (results) {
+                document.getElementById("table-events").innerHTML = "";
+                if (results != null) {
+                    if (results.Status == 1) {
+                        var x = $("#select-role").val();
+                        $('#select-role option').filter(function () {
+                            return this.value === x
+                        }).prop('selected', true);
+
+                        GetListContent(x);
+                        console.log("get Done");
+                    } else {
+                        console.log("get FAIl");
+                    }
+                }
+            }
+        });
+    }
+
+</script>

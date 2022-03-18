@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.page_contentViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Services.Interfaces;
@@ -58,14 +59,65 @@ namespace Capstone_SWP490.Services
             return output;
         }
 
-        public List<page_content> GetMenuContents(string user_role)
+        public List<page_contentViewModel> GetMenuContents(string user_role)
         {
-            var rs = (from data in _ipage_contentRepository.FindBy(x => x.user_role.Equals(user_role)&&x.page_id.Equals("MENU") && x.status == 1).ToList()
+            var rs = (from data in _ipage_contentRepository.FindBy(x => x.user_role.Equals(user_role) && x.page_id.Equals("MENU") && x.status == 1).ToList()
                       orderby data.position ascending
                       select data).ToList();
-            return rs;
-        }
 
+            if (rs != null)
+            {
+                var newLst = new List<page_contentViewModel>();
+                foreach (var pc in rs)
+                {
+                    var _pc = new page_contentViewModel
+                    {
+                        content = pc.content,
+                        content_id = pc.content_id,
+                        page_id = pc.page_id,
+                        position = pc.position,
+                        status = pc.status,
+                        title = pc.title,
+                        title_menu_name = pc.title.Split(',')[1],
+                        title_menu_link = pc.title.Split(',')[0],
+                        user_role = pc.user_role
+                    };
+                    newLst.Add(_pc);
+                }
+                return newLst;
+            }
+
+            return null;
+        }
+        public List<page_contentViewModel> GetMenuContentByRole(string user_role)
+        {
+            var rs = (from data in _ipage_contentRepository.FindBy(x => x.user_role.Equals(user_role) && x.page_id.Equals("MENU")).ToList()
+                      orderby data.position ascending
+                      select data).ToList();
+            if (rs != null)
+            {
+                var newLst = new List<page_contentViewModel>();
+                foreach (var pc in rs)
+                {
+                    var _pc = new page_contentViewModel
+                    {
+                        content = pc.content,
+                        content_id = pc.content_id,
+                        page_id = pc.page_id,
+                        position = pc.position,
+                        status = pc.status,
+                        title = pc.title,
+                        title_menu_name = pc.title.Split(',')[1],
+                        title_menu_link = pc.title.Split(',')[0],
+                        user_role = pc.user_role
+                    };
+                    newLst.Add(_pc);
+                }
+                return newLst;
+            }
+
+            return null;
+        }
         public async Task<AjaxResponseViewModel<bool>> PinPageContent(page_content page_ContentsIn)
         {
             var output = new AjaxResponseViewModel<bool>
@@ -77,8 +129,8 @@ namespace Capstone_SWP490.Services
             if (findContent != null)
             {
                 var lstPageContent = (from data in _ipage_contentRepository.FindBy(x => x.page_id.Equals(page_ContentsIn.page_id)).ToList()
-                          orderby data.position ascending
-                          select data).ToList();
+                                      orderby data.position ascending
+                                      select data).ToList();
 
                 if (lstPageContent != null)
                 {
@@ -94,8 +146,8 @@ namespace Capstone_SWP490.Services
                                 return output;
                             }
                             pos++;
-                        }   
-                        if(item.content_id == findContent.content_id)
+                        }
+                        if (item.content_id == findContent.content_id)
                         {
                             findContent.position = 0;
                             if (await _ipage_contentRepository.Update(findContent, findContent.content_id) == -1)
@@ -168,6 +220,20 @@ namespace Capstone_SWP490.Services
             }
             output.Message = "fail";
             return output;
+        }
+
+        public async Task<AjaxResponseViewModel<bool>> UpdateStatusMenuContent(int content_id, int statusIn)
+        {
+            var pc = _ipage_contentRepository.FindBy(x => x.content_id == content_id).FirstOrDefault();
+            if (pc != null)
+            {
+                pc.status = statusIn;
+                if (await _ipage_contentRepository.Update(pc, pc.content_id) != -1)
+                {
+                    return new AjaxResponseViewModel<bool> { Data = true, Status = 1, Message = "Success" };
+                }
+            }
+            return new AjaxResponseViewModel<bool> { Data = false, Status = 0, Message = "Fail" };
         }
     }
 }

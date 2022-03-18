@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.page_contentViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<AjaxResponseViewModel<bool>> DeleteSingleContent(page_content page_ContentsIn);
         Task<AjaxResponseViewModel<page_content>> CreatePageContent(page_content page_ContentsIn);
         Task<AjaxResponseViewModel<bool>> PinPageContent(page_content page_ContentsIn);
-        List<page_content> GetMenuContents(string user_role);
+        List<page_contentViewModel> GetMenuContents(string user_role);
+        List<page_contentViewModel> GetMenuContentByRole(string user_role);
+        Task<AjaxResponseViewModel<bool>> UpdateStatusMenuContent(int content_id, int status);
     }
 }

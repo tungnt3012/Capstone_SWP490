@@ -1,8 +1,10 @@
-﻿using Capstone_SWP490.Services;
+﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Services;
 using Capstone_SWP490.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,6 +13,7 @@ namespace Capstone_SWP490.Controllers.Admin
     public class AdminController : Controller
     {
         private readonly Iapp_userService _iapp_UserService = new app_userService();
+        private readonly Ipage_contentService _ipage_contentService = new page_contentService();
 
         // GET: Admin
         public ActionResult Index()
@@ -74,5 +77,35 @@ namespace Capstone_SWP490.Controllers.Admin
         {
             return View();
         }
+
+        public ActionResult GetMenuContentByRole(string roleName)
+        {
+            return Json(_ipage_contentService.GetMenuContentByRole(roleName), JsonRequestBehavior.AllowGet);
+        }
+
+        //public ActionResult HideMenuContent(int content_id)
+        //{
+        //    return Json(_ipage_contentService.UpdateStatusMenuContent(content_id, 0), JsonRequestBehavior.AllowGet);
+
+        //}
+        //public ActionResult ShowMenuContent(int content_id)
+        //{
+        //    return Json(_ipage_contentService.UpdateStatusMenuContent(content_id, 1), JsonRequestBehavior.AllowGet);
+        //}
+
+        [HttpPost]
+        public async Task<ActionResult> HideMenuContent(int content_id)
+        {
+            AjaxResponseViewModel<bool> ajaxResponse = await _ipage_contentService.UpdateStatusMenuContent(content_id, 0);
+            return Json(ajaxResponse);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ShowMenuContent(int content_id)
+        {
+            AjaxResponseViewModel<bool> ajaxResponse = await _ipage_contentService.UpdateStatusMenuContent(content_id, 1);
+            return Json(ajaxResponse);
+        }
+
     }
 }
