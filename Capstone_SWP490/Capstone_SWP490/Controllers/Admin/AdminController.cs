@@ -83,16 +83,6 @@ namespace Capstone_SWP490.Controllers.Admin
             return Json(_ipage_contentService.GetMenuContentByRole(roleName), JsonRequestBehavior.AllowGet);
         }
 
-        //public ActionResult HideMenuContent(int content_id)
-        //{
-        //    return Json(_ipage_contentService.UpdateStatusMenuContent(content_id, 0), JsonRequestBehavior.AllowGet);
-
-        //}
-        //public ActionResult ShowMenuContent(int content_id)
-        //{
-        //    return Json(_ipage_contentService.UpdateStatusMenuContent(content_id, 1), JsonRequestBehavior.AllowGet);
-        //}
-
         [HttpPost]
         public async Task<ActionResult> HideMenuContent(int content_id)
         {
