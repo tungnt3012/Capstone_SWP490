@@ -346,6 +346,8 @@ namespace Capstone_SWP490.Helper
                     teamMember = new team_member();
                     teamMember.member = leader;
                     teamMember.team = team;
+                    teamMember.team_id = team.team_id;
+                    teamMember.member_id = leader.member_id;
                     team.team_member.Add(teamMember);
 
                     if (team != null)
@@ -670,6 +672,8 @@ namespace Capstone_SWP490.Helper
                         member.app_user = await createAppUserForMember(member, coachUserId);
                         teamMember.member = member;
                         teamMember.team = team;
+                        teamMember.member_id = member.member_id;
+                        teamMember.team_id = team.team_id;
                         memberEmail.Add(member.email);
                         //add to team
                         result.school.teams.Where(x => x.team_id == team.team_id).FirstOrDefault().team_member.Add(teamMember);
