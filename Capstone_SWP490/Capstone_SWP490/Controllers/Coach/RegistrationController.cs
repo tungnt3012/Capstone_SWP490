@@ -136,7 +136,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 foreach (var member in item.team_member)
                 {
                     _imemberService.update(member.member, member.member.member_id);
-                    _icontest_memberService.deleteMany(member.member.contest_member, member.member.member_id);
+                   
                 }
             }
             return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
