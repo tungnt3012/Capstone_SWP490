@@ -125,7 +125,6 @@ namespace Capstone_SWP490.Controllers.Coach
         public ActionResult SaveChange()
         {
             school_memberViewModel data = (school_memberViewModel)HttpContext.Session[SESSION_CONST.Registration.SCHOOL_SESSION];
-            List<insert_member_result_ViewModel> result = new List<insert_member_result_ViewModel>();
             if (data == null)
             {
                 return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
@@ -137,6 +136,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 foreach (var member in item.team_member)
                 {
                     _imemberService.update(member.member, member.member.member_id);
+                    _icontest_memberService.deleteMany(member.member.contest_member, member.member.member_id);
                 }
             }
             return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
@@ -717,6 +717,15 @@ namespace Capstone_SWP490.Controllers.Coach
                 _path = _path.Replace(".xlsx", ".txt");
                 file.SaveAs(_path);
                 school_memberViewModel data = await importAsync(_path);
+                if(data.school.teams.Count == 0)
+                {
+                    insert_member_result_ViewModel error = new insert_member_result_ViewModel();
+                    error.objectName = "School";
+                    error.parentObject = "ROOT";
+                    error.occur_position = "SCHOOL";
+                    error.msg = "No team recognized, please insert data carefully !";
+                    data.error.Add(error);
+                }
                 data.setDisplayTeam(0);
                 data.source = "IMPORT";
                 Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
@@ -871,7 +880,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     ExcelWorksheet teamSheet = registrationHelper.getSheetByName(sheets, teamImport.sheetName);
                     if (teamSheet == null)
                     {
-                        readTeamErrMsg = "Sheet 'Tean' not found";
+                        readTeamErrMsg = "Sheet 'Team' not found";
                     }
                     result = await registrationHelper.readTeamSheet(result, teamSheet, teamImport);
                     if (result.school.teams == null || result.school.teams.Count == 0)
