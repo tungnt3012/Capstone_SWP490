@@ -934,3 +934,7 @@ margin:10px;
 #event-canner{
     color:#000000;
 }
+#content-iframe{
+    height:100vh;
+    width:100%;
+}

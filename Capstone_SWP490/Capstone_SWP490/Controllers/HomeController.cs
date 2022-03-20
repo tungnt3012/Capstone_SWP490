@@ -30,6 +30,12 @@ namespace Capstone_SWP490.Controllers
 
             return View();
         }
+        public ActionResult Scoreboard()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
 
         public ActionResult EventEdit(int id)
         {
