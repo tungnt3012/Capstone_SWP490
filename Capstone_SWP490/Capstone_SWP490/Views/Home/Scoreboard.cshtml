@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "ABOUT";
+    var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
+
+}
+
+<style>
+</style>
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Scoreboard</label>
+        </div>
+    </div>
+    <div class="main2">
+        <div class="column">
+            <div class="col-lg-12" id="col-local">
+
+
+
+                <div class="col-lg-1">
+                    <div id="toc" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="https://icpcvn.github.io/2021/national/scoreboard.html">National</a>
+                        <a class="dropdown-item" href="https://icpcvn.github.io/2021/southern/scoreboard.html">Southern</a>
+                        <a class="dropdown-item" href="https://icpcvn.github.io/2021/central/scoreboard.html">Central</a>
+                        <a class="dropdown-item" href="https://icpcvn.github.io/2021/northern/scoreboard.html">Northern</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-11">
+                    <iframe class="col-lg-12" id="content-iframe">
+                    </iframe>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var $content = $('#content-iframe');
+        $('#toc a')
+            .click(function () {
+                $content.attr('src', $(this).attr('href'));
+                return false;
+            });
+    });
+</script>
