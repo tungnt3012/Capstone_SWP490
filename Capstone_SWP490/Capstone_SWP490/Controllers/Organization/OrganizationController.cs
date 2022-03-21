@@ -61,11 +61,13 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                 int size = data.Count - index;
                 try
                 {
-                    model.data = data.GetRange(index, size);
+                    model.data = data.Skip(index)
+                    .Take(PAGE_SIZE).ToList();
                 }
                 catch
                 {
-                    model.data = data.GetRange(index, size);
+                    model.data = data.Skip(index)
+                     .Take(PAGE_SIZE).ToList();
                 }
                 return View(model);
             }

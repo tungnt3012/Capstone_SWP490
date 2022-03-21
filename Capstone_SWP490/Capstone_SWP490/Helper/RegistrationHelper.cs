@@ -542,7 +542,7 @@ namespace Capstone_SWP490.Helper
             user.full_name = member.first_name + " " + member.middle_name + " " + member.last_name;
             user.email = member.email;
             user.verified = false;
-            user.active = false;
+            user.active = true;
             user.insert_date = DateTime.Now + "";
             user.update_date = DateTime.Now + "";
             user = await _iapp_UserService.creatUserForImportMember(user, coachId);
