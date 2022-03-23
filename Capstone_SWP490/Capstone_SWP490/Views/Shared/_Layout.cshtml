@@ -16,15 +16,16 @@
     @*<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,700&display=swap" rel="stylesheet">*@
     <link rel="stylesheet" href="~/Content/home.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Content/organizer.css" asp-append-version="true" />
+    <link href="~/Content/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     @{ Html.RenderPartial("_HeaderLayout", profile);}
     <div id="wrapper">
         <!-- Sidebar -->
         @*@if (profile == null)
-        {
-            Html.RenderPartial("_GuestMenu", profile);
-        }*@
+            {
+                Html.RenderPartial("_GuestMenu", profile);
+            }*@
         @if (profile != null && profile.user_role != null && profile.user_role == "ORGANIZER")
         {
             Html.RenderPartial("_OrganizationMenu", profile);
@@ -125,9 +126,9 @@
     </div>
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/home.js" asp-append-version="true"></script>
-
     <script src="~/Scripts/bootstrap.js" asp-append-version="true"></script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
 </body>
 </html>

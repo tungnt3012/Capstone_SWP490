@@ -41,7 +41,7 @@ namespace Capstone_SWP490.Services
 
         public List<contestViewModel> GetContests()
         {
-            var con = _icontestRepository.GetAll().ToList();
+            var con = _icontestRepository.FindBy(x=>x.max_contestant!=-1).ToList();
             if (con != null)
             {
                 var rsLst = new List<contestViewModel>();
