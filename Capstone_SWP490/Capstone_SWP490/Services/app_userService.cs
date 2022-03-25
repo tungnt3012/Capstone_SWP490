@@ -200,9 +200,7 @@ namespace Capstone_SWP490.Services
             var allUser = _iapp_UserRepository.GetAll().ToList();
             if (allUser != null)
             {
-                var users = allUser.Skip((pageIndex - 1) * pageSize)
-                    .Take(pageSize)
-                    .Select(x => new app_userViewModel() { 
+                var users = allUser.Select(x => new app_userViewModel() { 
                         user_id = x.user_id,
                         active = x.active,
                         email = x.email,
@@ -230,7 +228,6 @@ namespace Capstone_SWP490.Services
                 return paging;
             }
             return null;
-
         }
 
         public async Task<bool> SwitchableUsers(int user_id,bool status )

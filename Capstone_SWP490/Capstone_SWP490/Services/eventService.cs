@@ -29,12 +29,14 @@ namespace Capstone_SWP490.Services
                         contactor_name = x.contactor_name,
                         contactor_phone = x.contactor_phone,
                         desctiption = x.desctiption,
-                        end_date = x.end_date,
                         event_type = x.event_type,
                         fan_page = x.fan_page,
                         note = x.note,
                         shirt_id = x.shirt_id,
                         start_date = x.start_date,
+                        end_date = x.end_date,
+                        start_date_str= x.start_date.ToString("dd-MM-yyyy"),
+                        end_date_str= x.end_date.ToString("dd-MM-yyyy"),
                         title = x.title,
                         venue = x.venue,
                     };
@@ -65,15 +67,15 @@ namespace Capstone_SWP490.Services
             }
             if (fromDateIn == temp)
             {
-                events = _ieventRepository.FindBy(x => x.end_date < toDateIn&& x.event_type != 0).ToList();
+                events = _ieventRepository.FindBy(x => x.end_date <= toDateIn&& x.event_type != 0).ToList();
             }
             if (toDateIn == temp)
             {
-                events = _ieventRepository.FindBy(x => x.start_date > fromDateIn && x.event_type != 0).ToList();
+                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.event_type != 0).ToList();
             } 
             if(fromDateIn!=temp && toDateIn != temp)
             {
-                events = _ieventRepository.FindBy(x => x.start_date > fromDateIn && x.end_date < toDateIn).ToList();
+                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.end_date <= toDateIn).ToList();
             }
             //var events = _ieventRepository.FindBy(x => x.start_date > fromDateIn && x.end_date < toDateIn).ToList();
             var lstEventsViewModels = new List<eventsViewModel>();

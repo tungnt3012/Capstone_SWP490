@@ -16,7 +16,7 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<int> deleteAsync(member member);
         member GetMemberByUserId(int? userId);
         member getByEmail(string email);
-
+        member GetMemberByAvaibleUserId(int? userId);
         Task<AjaxResponseViewModel<bool>> JoinEvent(int id);
 
     }

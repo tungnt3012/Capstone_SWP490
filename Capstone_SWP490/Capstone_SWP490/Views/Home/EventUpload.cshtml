@@ -46,11 +46,12 @@
                         </div>
                         <div class="form-group">
                             <label for="Location">Start date</label>
-                            @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", name = "EventStartDate", placeholder = "Start date" })
+                            @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", @onchange= "checkDate()", name = "EventStartDate", placeholder = "Start date" })
                         </div>
                         <div class="form-group">
                             <label for="Location">End date</label>
-                            @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", name = "EventEndDate", placeholder = "End date" })
+                            @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()", name = "EventEndDate", placeholder = "End date" })
+                            <span style="color:red"><i id="text-error-date"></i></span>
                         </div>
                         <div class="form-group">
                             <label for="Location">venue</label>
@@ -58,11 +59,13 @@
                         </div>
                         <div class="form-group">
                             <label for="ContactorPhone">Contactor phone</label>
-                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
+                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", @onchange = "checkPhone()", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
+                            <span style="color:red"><i id="text-error-phone"></i></span>
                         </div>
                         <div class="form-group">
                             <label for="ContactorEmail">Contactor email</label>
-                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", name = "EventContactorEmail", value = "", placeholder = "ContactorEmail" })
+                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", @onchange = "checkEmail()",name = "EventContactorEmail", value = "", placeholder = "ContactorEmail" })
+                            <span style="color:red"><i id="text-error-email"></i></span>
                         </div>
                         <div class="form-group">
                             <label for="ContactorName">Contactor Name</label>
@@ -89,4 +92,52 @@
     </div>
 </div>
 
+<script>
 
+    function checkDate() {
+        var _startDate = $('#EventStartDate').val();
+        var _endDate = $('#EventEndDate').val();
+        if (_startDate > _endDate) {
+            $('#event-upload').attr("disabled", true);
+            $('#text-error-date').html("The End Date must NOT occur before the Start Date!!!");
+        } else {
+            $('#event-upload').attr("disabled", false);
+            $('#text-error-date').html("");
+        }
+    }
+
+    function checkEmail() {
+        var _email = $('#EventContactorEmail').val();
+        if (!isEmail(_email)) {
+            $('#event-upload').attr("disabled", true);
+            $('#text-error-email').html("The Email form must be abc@mail.com!!!");
+        } else {
+            $('#event-upload').attr("disabled", false);
+            $('#text-error-email').html("");
+        }
+    }
+
+    function checkPhone() {
+        var _phone = $('#EventContactorPhone').val();
+        if (!isPhone(_phone)) {
+            $('#event-upload').attr("disabled", true);
+            $('#text-error-phone').html("The Phone form has Start from 0 or 84!!!");
+        } else {
+            $('#event-upload').attr("disabled", false);
+            $('#text-error-phone').html("");
+        }
+    }
+
+    function isPhone(phone) {
+        var regex = /([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[1-4|6-9]]){3})+[0-9]{7}\b/g;
+        return regex.test(phone);
+    }
+
+
+    function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+   
+
+</script>

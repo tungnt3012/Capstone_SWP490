@@ -43,7 +43,7 @@ namespace Capstone_SWP490.Controllers.Admin
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
                 if (u.user_role.Equals("ADMIN"))
                 {
-                    var data = _iapp_UserService.GetListUsersManager(0, 10);
+                    var data = _iapp_UserService.GetListUsersManager(0, 1000);
                     ViewData["Users"] = data;
                     return View();
                 }

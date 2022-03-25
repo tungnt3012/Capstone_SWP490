@@ -110,5 +110,10 @@ namespace Capstone_SWP490.Services
             output.Message = "Fail";
             return output;
         }
+
+        public member GetMemberByAvaibleUserId(int? userId)
+        {
+            return _imemberRepository.FindBy(x => x.user_id == userId&&x.enabled==true).FirstOrDefault();
+        }
     }
 }

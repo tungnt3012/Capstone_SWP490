@@ -206,16 +206,29 @@ namespace Capstone_SWP490.Controllers
         }
         public ActionResult Event()
         {
+            if (HttpContext.Session["username"] != null)
+            {
+                var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                if (u != null)
+                {
+                    var member = _imemberService.GetMemberByAvaibleUserId(u.user_id);
+                    ViewData["Events"] = _ieventService.GetAllEventsAvailale();
+                    ViewData["Members"] = member;
+                    return View();
+                }
+            }
             ViewBag.Message = "Your contact page.";
             ViewData["Events"] = _ieventService.GetAllEventsAvailale();
             return View();
         }
+        [HttpPost]
         public ActionResult SearchEvent(@event eventIn)
         {
             //AjaxResponseViewModel<IEnumerable<eventsViewModel>> ajaxResponse = await _ieventService.GetEventsByDate(fromDate,toDate);
             //return Json(ajaxResponse);
-            var rs = _ieventService.GetEventsByDate(eventIn.start_date, eventIn.end_date);
-            return Json(rs, JsonRequestBehavior.AllowGet);
+            AjaxResponseViewModel<IEnumerable<eventsViewModel>> rs = _ieventService.GetEventsByDate(eventIn.start_date, eventIn.end_date);
+            //return Json(rs, JsonRequestBehavior.AllowGet);
+            return Json(rs);
         }
         public ActionResult ScheduleOfActivities()
         {

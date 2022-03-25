@@ -2,6 +2,7 @@
     ViewBag.Title = "Event";
     var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
     var lstEvent = ViewData["Events"] as List<Capstone_SWP490.Models.events_ViewModel.eventsViewModel>;
+    var member = ViewData["Members"] as Capstone_SWP490.member;
 }
 <style>
     #menu-event {
@@ -81,8 +82,8 @@
                                     {
                                         <tr>
                                             <td scope="row">@x.title</td>
-                                            <td>@x.start_date</td>
-                                            <td>@x.end_date</td>
+                                            <td>@x.start_date_str</td>
+                                            <td>@x.end_date_str</td>
                                             <td>@x.venue</td>
                                             <td>@x.contactor_phone</td>
                                             @if (Session["username"] != null)
@@ -112,6 +113,22 @@
                             </tbody>
                         </table>
                     </div>
+
+                    @if (Session["username"] != null)
+                    {
+                        if (member != null)
+                        {
+                            if (member.event_notify == false)
+                            {
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn btn-primary pull-right" onclick="JoinEvent(this)" member-id="@member.member_id" id="btn-registration_title">
+                                        @*<a href="/Home/JoinEvent?userId=@member.member_id" class="button">Join Now</a>*@
+                                        Join Now
+                                    </button>
+                                </div>
+                            }
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -136,7 +153,7 @@ else
         var todate = $("#to-date").val();
         var vas = $("#userss").val();
         var role = $("#user_role").val();
-        alert("Searching " + fromdate + " To " + todate)
+        //alert("Searching " + fromdate + " To " + todate)
 
         let objectIn = {
             start_date: fromdate,
@@ -145,9 +162,9 @@ else
 
 
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: '@Url.Action("SearchEvent", "Home")',
-            data: objectIn,
+            data: JSON.stringify(objectIn),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (results) {
@@ -155,10 +172,12 @@ else
                     document.getElementById("table-events").innerHTML = "";
                     if (vas != "" && role == 'ORGANIZER') {
                         for (let i = 0; i < results.Data.length; i++) {
+                            let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
+                            let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
                             document.getElementById("table-events").innerHTML += `<tr>
                                             <td scope="row">`+ results.Data[i].title+`</td>
-                                            <td>`+ results.Data[i].start_date+`</td>
-                                            <td>`+ results.Data[i].end_date+`</td>
+                                            <td>`+ _startDate+`</td>
+                                            <td>`+ _endDate+`</td>
                                             <td>`+ results.Data[i].venue+`</td>
                                             <td>`+ results.Data[i].contactor_phone+`</td>
                                             <td><a href="/Home/EventEdit?id=`+ results.Data[i].event_id +`">Edit</a></td>
@@ -168,10 +187,12 @@ else
                         }
                     } else {
                         for (let i = 0; i < results.Data.length; i++) {
+                            let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
+                            let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
                             document.getElementById("table-events").innerHTML += `<tr>
                                             <td scope="row">`+ results.Data[i].title + `</td>
-                                            <td>`+ results.Data[i].start_date + `</td>
-                                            <td>`+ results.Data[i].end_date + `</td>
+                                            <td>`+ _startDate + `</td>
+                                            <td>`+ _endDate + `</td>
                                             <td>`+ results.Data[i].venue + `</td>
                                             <td>`+ results.Data[i].contactor_phone + `</td>
                                             <td><a href="/Home/EventDetail?id=`+ results.Data[i].event_id + `">Detail</a></td>
@@ -183,4 +204,25 @@ else
         });
     };
 
+    function JoinEvent(e) {
+        var x = $(e).attr("member-id");
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("JoinEvent", "Home")',
+            data: JSON.stringify({ 'userId': x }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (rs) {
+                if (rs != null) {
+                    var s = rs;
+                    if (rs.Status == 1) {
+                        alert("Join Event Successfully!!!");
+                        location.reload();
+                    } else {
+                        alert("Fail");
+                    }
+                }
+            }
+        });
+    }
 </script>
