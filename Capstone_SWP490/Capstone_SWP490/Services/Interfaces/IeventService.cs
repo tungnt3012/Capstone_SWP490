@@ -11,8 +11,10 @@ namespace Capstone_SWP490.Services.Interfaces
     public interface IeventService
     {
         AjaxResponseViewModel<IEnumerable<eventsViewModel>>  GetEventsByDate(DateTime fromDateIn, DateTime toDateIn);
+        AjaxResponseViewModel<IEnumerable<eventsViewModel>> SearchEventActivities(DateTime fromDateIn, DateTime toDateIn);
         IEnumerable<string> GetAllSectionEvent();
         IEnumerable<eventsViewModel> GetAllEventsAvailale();
+        IEnumerable<eventsViewModel> GetAllActivitiesAvailale();
         eventsViewModel GetEventsById(int id);
         Task<eventsViewModel> UpdateEvent(eventsViewModel eventsIn);
         Task<eventsViewModel> CreateEvent(eventsViewModel eventsIn);

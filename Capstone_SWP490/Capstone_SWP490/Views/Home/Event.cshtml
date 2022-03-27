@@ -9,6 +9,15 @@
         color: #ffffff !important;
         background: #30cf6b;
     }
+    .title-table {
+        width: 530px;
+    }
+    .venue-table {
+        width: 120px;
+    }
+    .date-table {
+        width: 100px;
+    }
 </style>
 
 
@@ -81,10 +90,10 @@
                                     foreach (var x in lstEvent)
                                     {
                                         <tr>
-                                            <td scope="row">@x.title</td>
-                                            <td>@x.start_date_str</td>
-                                            <td>@x.end_date_str</td>
-                                            <td>@x.venue</td>
+                                            <td class="title-table">@x.title</td>
+                                            <td class="date-table">@x.start_date_str</td>
+                                            <td class="date-table">@x.end_date_str</td>
+                                            <td class="venue-table">@x.venue</td>
                                             <td>@x.contactor_phone</td>
                                             @if (Session["username"] != null)
                                             {
@@ -174,11 +183,12 @@ else
                         for (let i = 0; i < results.Data.length; i++) {
                             let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
                             let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
-                            document.getElementById("table-events").innerHTML += `<tr>
-                                            <td scope="row">`+ results.Data[i].title+`</td>
-                                            <td>`+ _startDate+`</td>
-                                            <td>`+ _endDate+`</td>
-                                            <td>`+ results.Data[i].venue+`</td>
+                            document.getElementById("table-events").innerHTML += `
+                                        <tr>
+                                            <td class="title-table">`+ results.Data[i].title+`</td>
+                                            <td class="date-table">`+ _startDate+`</td>
+                                            <td class="date-table">`+ _endDate+`</td>
+                                            <td class="venue-table">`+ results.Data[i].venue+`</td>
                                             <td>`+ results.Data[i].contactor_phone+`</td>
                                             <td><a href="/Home/EventEdit?id=`+ results.Data[i].event_id +`">Edit</a></td>
                                             <td><a href="/Home/EventDetail?id=`+ results.Data[i].event_id+`">Detail</a></td>
@@ -190,10 +200,10 @@ else
                             let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
                             let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
                             document.getElementById("table-events").innerHTML += `<tr>
-                                            <td scope="row">`+ results.Data[i].title + `</td>
-                                            <td>`+ _startDate + `</td>
-                                            <td>`+ _endDate + `</td>
-                                            <td>`+ results.Data[i].venue + `</td>
+                                            <td class="title-table">`+ results.Data[i].title + `</td>
+                                            <td class="date-table">`+ _startDate + `</td>
+                                            <td class="date-table">`+ _endDate + `</td>
+                                            <td class="venue-table">`+ results.Data[i].venue + `</td>
                                             <td>`+ results.Data[i].contactor_phone + `</td>
                                             <td><a href="/Home/EventDetail?id=`+ results.Data[i].event_id + `">Detail</a></td>
                                         </tr>`;

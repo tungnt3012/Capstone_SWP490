@@ -75,7 +75,65 @@ namespace Capstone_SWP490.Services
             } 
             if(fromDateIn!=temp && toDateIn != temp)
             {
-                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.end_date <= toDateIn).ToList();
+                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.end_date <= toDateIn && x.event_type != 0).ToList();
+            }
+            //var events = _ieventRepository.FindBy(x => x.start_date > fromDateIn && x.end_date < toDateIn).ToList();
+            var lstEventsViewModels = new List<eventsViewModel>();
+            if (events != null)
+            {
+                foreach (var x in events)
+                {
+                    var e = new eventsViewModel
+                    {
+                        event_id = x.event_id,
+                        contactor_email = x.contactor_phone,
+                        contactor_name = x.contactor_name,
+                        contactor_phone = x.contactor_phone,
+                        desctiption = x.desctiption,
+                        end_date = x.end_date,
+                        event_type = x.event_type,
+                        fan_page = x.fan_page,
+                        note = x.note,
+                        shirt_id = x.shirt_id,
+                        start_date = x.start_date,
+                        title = x.title,
+                        venue = x.venue,
+                    };
+                    lstEventsViewModels.Add(e);
+                }
+                output.Message = "success";
+                output.Data = lstEventsViewModels;
+                output.Status = 1;
+                return output;
+            }
+            output.Message = "Fail";
+            return output;
+        }
+
+        public AjaxResponseViewModel<IEnumerable<eventsViewModel>> SearchEventActivities(DateTime fromDateIn, DateTime toDateIn)
+        {
+            var output = new AjaxResponseViewModel<IEnumerable<eventsViewModel>>
+            {
+                Status = 0,
+                Data = null
+            };
+            DateTime temp = Convert.ToDateTime("01/01/0001");
+            var events = new List<@event>();
+            if (fromDateIn == temp && toDateIn == temp)
+            {
+                events = _ieventRepository.FindBy(x => x.event_type == 2).ToList();
+            }
+            if (fromDateIn == temp)
+            {
+                events = _ieventRepository.FindBy(x => x.end_date <= toDateIn && x.event_type == 2).ToList();
+            }
+            if (toDateIn == temp)
+            {
+                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.event_type == 2).ToList();
+            }
+            if (fromDateIn != temp && toDateIn != temp)
+            {
+                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.end_date <= toDateIn && x.event_type == 2).ToList();
             }
             //var events = _ieventRepository.FindBy(x => x.start_date > fromDateIn && x.end_date < toDateIn).ToList();
             var lstEventsViewModels = new List<eventsViewModel>();
@@ -237,6 +295,39 @@ namespace Capstone_SWP490.Services
                 }
             }
             return false;
+        }
+
+        public IEnumerable<eventsViewModel> GetAllActivitiesAvailale()
+        {
+            var events = _ieventRepository.FindBy(x => x.event_type == 2).ToList();
+            var lstEventsViewModels = new List<eventsViewModel>();
+            if (events != null)
+            {
+                foreach (var x in events)
+                {
+                    var e = new eventsViewModel
+                    {
+                        event_id = x.event_id,
+                        contactor_email = x.contactor_phone,
+                        contactor_name = x.contactor_name,
+                        contactor_phone = x.contactor_phone,
+                        desctiption = x.desctiption,
+                        event_type = x.event_type,
+                        fan_page = x.fan_page,
+                        note = x.note,
+                        shirt_id = x.shirt_id,
+                        start_date = x.start_date,
+                        end_date = x.end_date,
+                        start_date_str = x.start_date.ToString("dd-MM-yyyy"),
+                        end_date_str = x.end_date.ToString("dd-MM-yyyy"),
+                        title = x.title,
+                        venue = x.venue,
+                    };
+                    lstEventsViewModels.Add(e);
+                }
+                return lstEventsViewModels;
+            }
+            return null;
         }
     }
 }

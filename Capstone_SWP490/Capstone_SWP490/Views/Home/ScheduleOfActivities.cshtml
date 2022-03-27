@@ -1,74 +1,131 @@
-﻿@{ ViewBag.Title = "Schedule Of Activities"; }
+﻿@{
+    ViewBag.Title = "Schedule Of Activities";
+    var lstActivities = ViewData["Activities"] as List<Capstone_SWP490.Models.events_ViewModel.eventsViewModel>;
+}
 
 <style>
     #menu-scheduleofactivities {
         color: #ffffff !important;
         background: #30cf6b;
     }
-
+    .title-table {
+        width: 750px;
+    }
+    .venue-table {
+        width: 120px;
+    }
+    .date-table {
+        width: 100px;
+    }
 </style>
 
-    <div class="container-fluid xyz">
-        <div class="col-lg-12" id="content_area2_header">
-            <div class="col-lg-12" id="content_area2_title">
-                <label for="exampleInputTitle">Schedule of activity</label>
-            </div>
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Schedule of activity</label>
         </div>
-        <div class="main">
-            <div class="column">
-                <div class="col-lg-12">
-                    <form>
-                        <div class="column">
-                            <div class="col-lg-12" id="cars-shedule1">
-                                <select name="cars" id="cars" class="cars-shedule">
-                                    <option value="volvo">25-01-2022</option>
-                                    <option value="saab">26-01-2022</option>
-                                </select>
+    </div>
+    <div class="main">
+        <div class="column">
+            <div class="col-lg-12">
+                <div class="column">
+                    <div class="form-group">
+                        <label class="Event-Schedule" for="Event_Schedule">
+                            Activities Schedule
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label for="type-event">Date FROM:</label>
+                                <input type="date" class="form-control" id="from-date" value="none" placeholder="From">
                             </div>
-                            <div class="col-lg-12">
-                                <label class="Event-Schedule" for="Event_Schedule">
-                                    Event Schedule
-                                </label>
+                            <div class="col-lg-4">
+                                <label for="type-event">Date TO:</label>
+                                <input type="date" class="form-control" id="to-date" value="none" placeholder="To">
                             </div>
-                            <div class="col-lg-12" style="overflow:auto">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Time Start</th>
-                                            <th scope="col">Time End</th>
-                                            <th scope="col">Activity</th>
-                                            <th scope="col">Venue</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">11:00 AM</th>
-                                            <td>11:00 AM</td>
-                                            <td>Registration and Lunch</td>
-                                            <td>Leong Hall Roofdeck</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">11:00 AM</th>
-                                            <td>11:00 AM</td>
-                                            <td>Registration and Lunch</td>
-                                            <td>Leong Hall Roofdeck</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">11:00 AM</th>
-                                            <td>11:00 AM</td>
-                                            <td>Registration and Lunch</td>
-                                            <td>Leong Hall Roofdeck</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
+                            <div class="col-lg-4" style="padding-top: 10px">
+                                <button class="btn btn-primary" id="btn-search" onclick="SearchEvent()"> Search</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="col-lg-12" style="overflow:auto">
+                        <table class="table table-striped table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Time Start</th>
+                                    <th scope="col">Time End</th>
+                                    <th scope="col">Activity</th>
+                                    <th scope="col">Venue</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-events">
+                                @if (lstActivities != null)
+                                {
+                                    foreach (var x in lstActivities)
+                                    {
+                                        <tr>
+                                            <td class="date-table">@x.start_date_str</td>
+                                            <td class="date-table">@x.end_date_str</td>
+                                            <td class="title-table">@x.title</td>
+                                            <td class="venue-table">@x.venue</td>
+                                            <td><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr><td><i>No event</i></td></tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<script>
+
+    function SearchEvent() {
+        var fromdate = $("#from-date").val();
+        var todate = $("#to-date").val();
+
+        let objectIn = {
+            start_date: fromdate,
+            end_date: todate
+        };
 
 
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SearchEventActivities", "Home")',
+            data: JSON.stringify(objectIn),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (results) {
+                if (results.Status == 1) {
+                    document.getElementById("table-events").innerHTML = "";
+                    for (let i = 0; i < results.Data.length; i++) {
+                        let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
+                        let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
+                        document.getElementById("table-events").innerHTML += `
+                                        <tr>
+                                            <td class="date-table">`+ _startDate + `</td>
+                                            <td class="date-table">`+ _endDate + `</td>
+                                            <td class="title-table">`+ results.Data[i].title + `</td>
+                                            <td class="venue-table">`+ results.Data[i].venue + `</td>
+                                            <td><a href="/Home/EventDetail?id=`+ results.Data[i].event_id + `">Detail</a></td>
+                                        </tr>`;
+                    }
+                }
+            }
+        });
+    };
+
+
+</script>
 

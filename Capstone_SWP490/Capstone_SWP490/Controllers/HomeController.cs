@@ -230,10 +230,20 @@ namespace Capstone_SWP490.Controllers
             //return Json(rs, JsonRequestBehavior.AllowGet);
             return Json(rs);
         }
+
+        [HttpPost]
+        public ActionResult SearchEventActivities(@event eventIn)
+        {
+            //AjaxResponseViewModel<IEnumerable<eventsViewModel>> ajaxResponse = await _ieventService.GetEventsByDate(fromDate,toDate);
+            //return Json(ajaxResponse);
+            AjaxResponseViewModel<IEnumerable<eventsViewModel>> rs = _ieventService.SearchEventActivities(eventIn.start_date, eventIn.end_date);
+            //return Json(rs, JsonRequestBehavior.AllowGet);
+            return Json(rs);
+        }
         public ActionResult ScheduleOfActivities()
         {
             ViewBag.Message = "Your contact page.";
-
+            ViewData["Activities"] = _ieventService.GetAllActivitiesAvailale();
             return View();
         }
         public ActionResult Index()
