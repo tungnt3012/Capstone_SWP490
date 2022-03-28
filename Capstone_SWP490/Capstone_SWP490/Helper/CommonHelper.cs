@@ -22,18 +22,24 @@ namespace Capstone_SWP490.Helper
         }
         public static string createEncryptedPassWord(string plainText)
         {
-            MD5 md5 = new MD5CryptoServiceProvider();
-            // Compute hash from the bytes of text
-            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(plainText));
-            // Get hash result after compute it
-            byte[] result = md5.Hash;
-            StringBuilder strBuilder = new StringBuilder();
-            for (int i = 0; i < result.Length; i++)
-            {
-                strBuilder.Append(result[i].ToString("x2"));
-            }
+            //MD5 md5 = new MD5CryptoServiceProvider();
+            //// Compute hash from the bytes of text
+            //md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(plainText));
+            //// Get hash result after compute it
+            //byte[] result = md5.Hash;
+            //StringBuilder strBuilder = new StringBuilder();
+            //for (int i = 0; i < result.Length; i++)
+            //{
+            //    strBuilder.Append(result[i].ToString("x2"));
+            //}
 
-            return strBuilder.ToString();
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            UTF8Encoding utf8 = new UTF8Encoding();
+            byte[] data = md5.ComputeHash(utf8.GetBytes(plainText));
+
+            var passToData = Convert.ToBase64String(data);
+
+            return passToData;
         }
         public static int toInt32(string s, int valueIfAbsent)
         {
