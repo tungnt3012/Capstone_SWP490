@@ -9,7 +9,6 @@
         color: #ffffff !important;
         background: #30cf6b;
     }
-  
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700;1,800&family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
 <script src="//cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
@@ -59,14 +58,15 @@
                                 <div class="col-lg-4">
                                     <label for="Location">Contestant: </label>
                                     @Html.DropDownListFor(m => m.contest_type, new List<SelectListItem>
-                                                                         { new SelectListItem{Text="Individual", Value="Individual"},
-                                                                           new SelectListItem{Text="Team", Value="Team"}}, new { @class = "form-control", id = "select-type" })
+                                                                         { new SelectListItem{Text="Team", Value="Team"},
+                                                                           new SelectListItem{Text="Individual", Value="Individual"}}, new { @class = "form-control", id = "select-type" })
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="ContactorPhone">Max Contestant:</label>
                             @Html.TextBoxFor(m => m.max_contestant, new { @class = "form-control", @type = "number", id = "max-contestant", name = "MaxContestant", value = "", placeholder = "Max contestant" })
+                            <i id="error-contentant"></i>
                         </div>
                         <div class="form-group">
                             <label for="ContactorPhone">Note</label>
@@ -87,19 +87,32 @@
 </div>
 
 <script>
+
+    $(document).ready(function () {
+        if ($("#select-type").val() === 'Team') {
+            $("#max-contestant").val('2');
+            $("#error-contentant").html("*The Contestant must be bigger than 1");
+            $("#max-contestant").attr("disabled", false)
+        }
+    });
+
     $("#select-type").change(function () {
         if ($("#select-type").val() === 'Team') {
-            $("#max-contestant").val('');
-            $("#max-contestant").attr("disabled", true);
-        } else {
+            $("#max-contestant").val('2');
+            $("#error-contentant").html("*The Contestant must be bigger than 1");
             $("#max-contestant").attr("disabled", false);
+        } else {
+            $("#max-contestant").val('');
+            $("#error-contentant").html("");
+            $("#max-contestant").attr("disabled", true);
         }
     });
 
     $("#max-contestant").change(function () {
-        if ($("#max-contestant").val() < 0) {
-            $("#max-contestant").val('0');
+        if ($("#max-contestant").val() < 2) {
+            $("#max-contestant").val('2');
         }
     });
 
+    
 </script>
