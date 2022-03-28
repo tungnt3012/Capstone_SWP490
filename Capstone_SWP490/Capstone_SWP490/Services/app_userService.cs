@@ -55,7 +55,7 @@ namespace Capstone_SWP490.Services
             var findUser = _iapp_UserRepository.FindBy(x => x.user_name == username && x.verified == false).FirstOrDefault();
             if (findUser != null)
             {
-                var findMemberInfo = _imemberRepository.FindBy(x => x.user_id == findUser.user_id).FirstOrDefault();
+                var findMemberInfo = _imemberRepository.FindBy(x => x.user_id == findUser.user_id && x.enabled == true).FirstOrDefault();
                 if (findMemberInfo == null)
                 {
                     return false;
