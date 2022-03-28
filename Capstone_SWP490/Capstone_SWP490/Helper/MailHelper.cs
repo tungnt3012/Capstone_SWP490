@@ -70,7 +70,7 @@ namespace Capstone_SWP490.Helper
         public void sendMailAfterConfirm(app_user user)
         {
             EmailModel emailModel = new EmailModel();
-            string mailContent = readMailContent("ConfirmAccount");
+            string mailContent = readMailContent("ConfirmAccount.txt");
             emailModel.toEmail = user.email;
             string hostName = "";
             try

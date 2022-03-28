@@ -11,7 +11,7 @@
 <div class="container-fluid xyz">
     <div class="col-lg-12" id="content_area2_header">
         <div class="col-lg-12" id="content_area2_title">
-            <label for="exampleInputTitle"> @(Model != null && Model.source != null && Model.source == "IMPORT" ? "Import Result" : Model.source == "VIEW" ? "Detail for history import" : ""  )</label>
+            <label for="exampleInputTitle"> @((Model == null || (Model.source != null && Model.source == "IMPORT")) ? "Import Result" : Model.source == "VIEW" ? "Detail for history import" : ""  )</label>
         </div>
     </div>
     <div class="main">
@@ -141,7 +141,7 @@
 </div>
 
 <!-- Error model -->
-@if (Model.error != null && Model.error.Count > 0)
+@if (Model != null && Model.error != null && Model.error.Count > 0)
 {
     <div class="col-lg-6">
         <!-- Modal -->
