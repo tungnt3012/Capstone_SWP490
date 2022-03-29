@@ -682,8 +682,6 @@ input, select, textarea {
     font-weight: bold;
     font-size: 35px;
     line-height: 60px;
-    padding-top: 60px;
-    padding-bottom: 20px;
 }
 
 .Event-Content {
@@ -762,6 +760,7 @@ h2 {
     width: auto;
     margin-left: auto;
     margin-right: auto;
+    
 }
 
 #btn-registration_import {
@@ -1031,4 +1030,11 @@ ul li a {
     vertical-align: baseline;
     font-size: 24.0pt;
     font-weight: bold;
+}
+#Table_Size_All {
+    overflow: auto;
+    padding: 0px;
+}
+#under {
+    padding-top:50px;
 }
