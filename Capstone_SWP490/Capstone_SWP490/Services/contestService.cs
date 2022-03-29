@@ -82,17 +82,17 @@ namespace Capstone_SWP490.Services
 
                     if (contestIn.contest_type.Equals("Team"))
                     {
-                        c.max_contestant = 0;
+                        c.max_contestant = contestIn.max_contestant;
                     }
                     else if (contestIn.contest_type.Equals("Individual"))
                     {
-                        c.max_contestant = contestIn.max_contestant;
+                        c.max_contestant = 1;
                     }
 
                     c.note = contestIn.note;
                     if (await _icontestRepository.Update(c, c.contest_id) != -1)
                     {
-                        return new contestViewModel
+                        var cOutput = new contestViewModel
                         {
                             code = c.code,
                             contest_id = c.contest_id,
@@ -105,6 +105,15 @@ namespace Capstone_SWP490.Services
                             start_date = c.start_date,
                             venue = c.venue,
                         };
+                        if(cOutput.max_contestant == 1)
+                        {
+                            cOutput.contest_type = "Individual";
+                        }  
+                        if(cOutput.max_contestant > 1)
+                        {
+                            cOutput.contest_type = "Team";
+                        }
+                        return cOutput;
                     }
                 }
             }
@@ -131,16 +140,16 @@ namespace Capstone_SWP490.Services
                     };
                     if (contestIn.contest_type.Equals("Team"))
                     {
-                        c.max_contestant = 0;
+                        c.max_contestant = contestIn.max_contestant;
                     }
                     else if (contestIn.contest_type.Equals("Individual"))
                     {
-                        c.max_contestant = contestIn.max_contestant;
+                        c.max_contestant = 1;
                     }
                     var newContest = await _icontestRepository.Create(c);
                     if (newContest != null)
                     {
-                        return new contestViewModel
+                        var cOutput = new contestViewModel
                         {
                             code = newContest.code,
                             contest_id = newContest.contest_id,
@@ -153,6 +162,15 @@ namespace Capstone_SWP490.Services
                             start_date = newContest.start_date,
                             venue = newContest.venue,
                         };
+                        if (cOutput.max_contestant == 1)
+                        {
+                            cOutput.contest_type = "Individual";
+                        }
+                        if (cOutput.max_contestant > 1)
+                        {
+                            cOutput.contest_type = "Team";
+                        }
+                        return cOutput;
                     }
                 }
             }
@@ -206,7 +224,7 @@ namespace Capstone_SWP490.Services
             var newContest = _icontestRepository.FindBy(x => x.contest_id == id).FirstOrDefault();
             if (newContest != null)
             {
-                return new contestViewModel
+                var cOutput = new contestViewModel
                 {
                     code = newContest.code,
                     contest_id = newContest.contest_id,
@@ -219,6 +237,15 @@ namespace Capstone_SWP490.Services
                     start_date = newContest.start_date,
                     venue = newContest.venue,
                 };
+                if (cOutput.max_contestant == 1)
+                {
+                    cOutput.contest_type = "Individual";
+                }
+                if (cOutput.max_contestant > 1)
+                {
+                    cOutput.contest_type = "Team";
+                }
+                return cOutput;
             }
             return null;
         }

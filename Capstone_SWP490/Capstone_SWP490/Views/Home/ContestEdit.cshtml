@@ -35,17 +35,17 @@
                         </div>
                         <div class="form-group">
                             <label for="Title">Code</label>
-                            @Html.TextBoxFor(m => m.code, new { type = "text", @class = "form-control", id = "Code", name = "Code", placeholder = "Code" })
+                            @Html.TextBoxFor(m => m.code, new { type = "text", @class = "form-control ", id = "Code", name = "Code", placeholder = "Code" })
                         </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <label for="Location">Start date</label>
-                                    @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", @Value = Model.start_date.ToString("yyyy-MM-dd"), id = "ContestStartDate", name = "ContestStartDate", placeholder = "Start date" })
+                                    @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control datepicker", @Value = Model.start_date.ToString("yyyy-MM-dd"), id = "ContestStartDate", name = "ContestStartDate", placeholder = "Start date" })
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="Location">End date</label>
-                                    @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", @Value = Model.end_date.ToString("yyyy-MM-dd"), id = "ContesteEndDate", name = "ContestEndDate", placeholder = "End date" })
+                                    @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control datepicker", @Value = Model.end_date.ToString("yyyy-MM-dd"), id = "ContesteEndDate", name = "ContestEndDate", placeholder = "End date" })
                                 </div>
                             </div>
                         </div>
@@ -54,8 +54,8 @@
                                 <div class="col-lg-4">
                                     <label for="Location">Contestant: </label>
                                     @Html.DropDownListFor(m => m.contest_type, new List<SelectListItem>
-                                                                         { new SelectListItem{Text="Individual", Value="Individual"},
-                                                                           new SelectListItem{Text="Team", Value="Team"}}, new { @class = "form-control", id = "select-type" })
+                                                                         { new SelectListItem{Text="Team", Value="Team"},
+                                                                            new SelectListItem{Text="Individual", Value="Individual"}}, new { @class = "form-control", id = "select-type" })
                                 </div>
                             </div>
                         </div>
@@ -78,6 +78,7 @@
                                 <button type="button" class="btn btn-secondary" onclick="window.location.href='/Home/Contest'" id="event-canner">Cancel</button>
                             </div>
                         </div>
+                        <input id="item-value" max-contestant="@Model.max_contestant" contest_type="@Model.contest_type" hidden />
                     </div>
                 }
 
@@ -86,19 +87,39 @@
     </div>
 </div>
 
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script>
+    $(document).ready(function () {
+        if ($("#select-type").val() === 'Team') {
+            $("#max-contestant").val('2');
+            $("#error-contentant").html("*The Contestant must be bigger than 1");
+            $("#max-contestant").attr("disabled", false)
+        } else {
+            $("#max-contestant").val('');
+            $("#error-contentant").html("");
+            $("#max-contestant").attr("disabled", true);
+        }
+        var typeCrr = $("#item-value").attr("contest_type");
+        $("#select-type").val('' + typeCrr).change();
+
+    });
+   
     $("#select-type").change(function () {
         if ($("#select-type").val() === 'Team') {
-            $("#max-contestant").val('');
-            $("#max-contestant").attr("disabled", true);
-        } else {
+            var contestantCrr = $("#item-value").attr("max-contestant");
+            $("#max-contestant").val('' + contestantCrr);
+            $("#error-contentant").html("*The Contestant must be bigger than 1");
             $("#max-contestant").attr("disabled", false);
+        } else {
+            $("#max-contestant").val('');
+            $("#error-contentant").html("");
+            $("#max-contestant").attr("disabled", true);
         }
     });
 
     $("#max-contestant").change(function () {
-        if ($("#max-contestant").val() < 0) {
-            $("#max-contestant").val('0');
+        if ($("#max-contestant").val() < 2) {
+            $("#max-contestant").val('2');
         }
     });
 
