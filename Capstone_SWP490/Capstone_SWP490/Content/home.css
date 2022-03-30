@@ -143,6 +143,14 @@
         /* transition: padding-left .5s ease; */
         width: 100%
     }
+    #btn-search-event {
+        margin-top: 10px;
+    }
+
+    #btn-add-event {
+        margin-top: 10px;
+        float: right;
+    }
 
     .div-center {
         width: 900px !important;
@@ -1038,3 +1046,8 @@ ul li a {
 #under {
     padding-top:50px;
 }
+.panel-body{
+    padding:0px;
+}
+
+
