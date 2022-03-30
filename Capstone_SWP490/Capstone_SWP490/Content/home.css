@@ -151,6 +151,10 @@
         margin-top: 10px;
         float: right;
     }
+    .pull-right {
+        float: right !important;
+        margin-right: 0px !important;
+    }
 
     .div-center {
         width: 900px !important;
