@@ -527,8 +527,6 @@ input, select, textarea {
 
 .form-group {
     margin-bottom: 15px;
-    margin-left: 40px;
-    margin-right: 40px;
 }
 
 #btnHomeLogin {
@@ -1044,9 +1042,7 @@ ul li a {
 #under {
     padding-top:50px;
 }
-.panel-body{
-    padding:0px;
-}
+
 #not-empty{
     color:red;
 }
@@ -1054,4 +1050,6 @@ ul li a {
     font-weight: bold;
     line-height: 60px;
 }
-
+.paginate_button{
+    margin:5px !important;
+}
