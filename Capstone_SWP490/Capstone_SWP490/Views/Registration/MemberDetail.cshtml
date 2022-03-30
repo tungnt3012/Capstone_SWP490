@@ -16,7 +16,7 @@
     <div class="main">
         <div class="row">
             <span style="color:red">@ViewData["Update_ERROR"]</span>
-            <div class="col-lg-12" id="registration-memberdetail">
+            <div class="col-lg-12" id="under">
                 @using (Html.BeginForm("MemberDetail", "Registration", FormMethod.Post, new { id = "form" }))
                 {
                     @Html.TextBoxFor(x => x.team_id, new { @class = "form-control", type = "hidden" })

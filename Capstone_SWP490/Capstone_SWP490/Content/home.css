@@ -146,6 +146,12 @@
     #btn-search-event {
         margin-top: 10px;
     }
+    .add-post{
+        margin-top:10px;
+    }
+    #btn-registration-guide{
+        float:right;
+    }
 
     #btn-add-event {
         margin-top: 10px;
@@ -705,7 +711,6 @@ input, select, textarea {
     font-weight: normal;
     font-size: 23px;
     line-height: 28px;
-    padding-top: 60px;
     padding-bottom: 60px;
 }
 
@@ -754,9 +759,6 @@ h2 {
     padding-top: 50px;
 }
 /*LocalInformation*/
-#col-local {
-    padding-top: 50px;
-}
 
 #btn-registrantionTitle {
     padding-bottom: 20px;

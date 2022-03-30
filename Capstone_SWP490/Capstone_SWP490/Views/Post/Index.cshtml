@@ -23,24 +23,24 @@
     </div>
     <div class="main">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" id="under">
                 <br />
                 @*<a href="@Url.Action("Create", "Post")" style="text-decoration:underline">ADD NEW</a>*@
-                <div class="form-group pull-right">
-                    <button type="button" onclick="window.location.href='/Post/Create'" class="btn btn-success">Add New</button>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Status:</label>
+                        <select class="form-control" id="selectStatus">
+                            <option value="all" @(Model.status != null && Model.status != "postsed" && Model.status != "scheduling" ? "selected" : "")>All</option>
+                            <option value="postsed" @(Model.status != null && Model.status == "postsed" ? "selected" : "")>Posted</option>
+                            <option value="scheduling" @(Model.status != null && Model.status == "scheduling" ? "selected" : "")>Scheduling</option>
+                        </select>
+                    </div>
                 </div>
-                <br />
-                <br />
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Status:</label>
-                            <select class="form-control" id="selectStatus">
-                                <option value="all" @(Model.status != null && Model.status != "postsed" && Model.status != "scheduling" ? "selected" : "")>All</option>
-                                <option value="postsed" @(Model.status != null && Model.status == "postsed" ? "selected" : "")>Posted</option>
-                                <option value="scheduling" @(Model.status != null && Model.status == "scheduling" ? "selected" : "")>Scheduling</option>
-                            </select>
-                        </div>
+                <div class="col-lg-6">
+                    <div class="form-group pull-right">
+                        <button type="button" onclick="window.location.href='/Post/Create'" class="btn btn-success add-post">Add New</button>
+                    </div>
                     </div>
                 </div>
                 <div class="row">
