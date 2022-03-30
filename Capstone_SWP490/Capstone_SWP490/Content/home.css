@@ -1053,5 +1053,7 @@ ul li a {
 .panel-body{
     padding:0px;
 }
-
+#not-empty{
+    color:red;
+}
 

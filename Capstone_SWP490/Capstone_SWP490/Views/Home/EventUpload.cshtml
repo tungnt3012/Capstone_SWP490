@@ -37,42 +37,42 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="Title">Title</label>
+                            <label for="Title">Title<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "EventTitle", name = "Title", value = "", placeholder = "Title" })
                         </div>
                         <div class="form-group">
-                            <label for="Desctiption">Desctiption</label>
+                            <label for="Desctiption">Desctiption<span id="not-empty">*</span></label>
                             @Html.TextAreaFor(m => m.desctiption, new { @class = "form-control", id = "EventDesctiption", name = "Desctiption", value = "", placeholder = "Description of the event" })
                         </div>
                         <div class="form-group">
-                            <label for="Location">Start date</label>
+                            <label for="Location">Start date<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", @onchange= "checkDate()", name = "EventStartDate", placeholder = "Start date" })
                         </div>
                         <div class="form-group">
-                            <label for="Location">End date</label>
+                            <label for="Location">End date<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()", name = "EventEndDate", placeholder = "End date" })
                             <span style="color:red"><i id="text-error-date"></i></span>
                         </div>
                         <div class="form-group">
-                            <label for="Location">venue</label>
+                            <label for="Location">Venue<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.venue, new { @class = "form-control", id = "EventLocation", name = "TiLocationtle", value = "", placeholder = "Location" })
                         </div>
                         <div class="form-group">
-                            <label for="ContactorPhone">Contactor phone</label>
+                            <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", @onchange = "checkPhone()", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
                             <span style="color:red"><i id="text-error-phone"></i></span>
                         </div>
                         <div class="form-group">
-                            <label for="ContactorEmail">Contactor email</label>
+                            <label for="ContactorEmail">Contactor email<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", @onchange = "checkEmail()",name = "EventContactorEmail", value = "", placeholder = "ContactorEmail" })
                             <span style="color:red"><i id="text-error-email"></i></span>
                         </div>
                         <div class="form-group">
-                            <label for="ContactorName">Contactor Name</label>
+                            <label for="ContactorName">Contactor Name<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "ContactorName" })
                         </div>
                         <div class="form-group">
-                            <label for="Fanpage">Fanpage</label>
+                            <label for="Fanpage">Fanpage<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.fan_page, new { @class = "form-control", id = "EventFanpage", name = "EventFanpage", value = "", placeholder = "Fanpage" })
                         </div>
                         <div class="form-group">
