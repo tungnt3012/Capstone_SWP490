@@ -36,7 +36,7 @@
                        
                         <div class="col-lg-6" style="overflow:auto">
                             <div class="form-group">
-                                <label for="firstName">Schedule Date (For Schedule Only):</label><br />
+                                <label for="firstName">Schedule Date (For Schedule Only)<span id="not-empty">*</span></label><br />
                                 @Html.TextBoxFor(x => x.post.schedule_date, new { @class = "form-control", type = "datetime-local" })
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                     <div class="row">
                         <div class="col-lg-6" style="overflow:auto">
                             <div class="form-group">
-                                <label for="firstName">Post To  Fan page:</label>
+                                <label for="firstName">Post To  Fan page</label>
                                 &nbsp;<input type="checkbox" name="postToFanPage" @(Model != null && Model.action == "Edit" && Model.post.post_to != null && Model.post.post_to.Contains("FANPAGE") ? "checked" : "") />
                             </div>
                             </div>
@@ -54,7 +54,7 @@
                     <div class="row">
                         <div class="col-lg-12" style="overflow:auto">
                             <div class="form-group">
-                                <label for="firstName">Title:</label><br />
+                                <label for="firstName">Title<span id="not-empty">*</span></label><br />
                                 @Html.TextBoxFor(x => x.post.title, new { @class = "form-control" })
                             </div>
                             </div>
@@ -62,7 +62,7 @@
                     <div class="row">
                         <div class="col-lg-12" style="overflow:auto">
                             <div class="form-group">
-                                <label for="firstName">Short Description:</label><br />
+                                <label for="firstName">Short Description</label><br />
                                 @Html.TextAreaFor(x => x.post.short_description, new { @class = "form-control", @rows = 3 })
                             </div>
                             </div>
@@ -70,7 +70,7 @@
                     <div class="row">
                         <div class="col-lg-12" style="overflow:auto">
                             <div class="form-group">
-                                <label for="firstName">Content:</label><br />
+                                <label for="firstName">Content<span id="not-empty">*</span></label><br />
                                 @Html.TextAreaFor(x => x.post.html_content, new { id = "editor", @rows = 4 })
                             </div>
                             </div>
