@@ -185,14 +185,6 @@
     #footer-main {
         width: 1200px !important;
     }
-
-    #talbe-shirtSizing {
-        width: 80%;
-        float: right !important;
-        padding-top: 100px;
-        padding-left: 60px;
-    }
-
     #size-image {
         display: block !important;
     }
@@ -1057,5 +1049,9 @@ ul li a {
 }
 #not-empty{
     color:red;
+}
+#SizingTitle {
+    font-weight: bold;
+    line-height: 60px;
 }
 
