@@ -18,7 +18,12 @@
     </div>
     <div class="main">
         <div class="column">
-            <div class="col-lg-8 col-lg-offset-2">
+            <div class="col-lg-8 col-lg-offset-2" id="under">
+                <div class="form-group">
+                    <label class="Event-Schedule" for="Event_Schedule">
+                        Edit Event
+                    </label>
+                </div>
                 @using (Html.BeginForm("EventEdit", "Home"))
                 {
                     <div class="column" style="padding-top:20px">
@@ -27,39 +32,39 @@
                             <h5 style="color:green"> @ViewData["success"] </h5>
                         </div>
                         <!--<div class="form-group">
-                        <label for="type-event">Choose a Type of Event:</label>
-                        <div class="row">
-                            <div class="col-lg-3">-->
+            <label for="type-event">Choose a Type of Event:</label>
+            <div class="row">
+                <div class="col-lg-3">-->
                         @*<select class="form-control col-lg-6" name="select-events" id="events">
-                                <option value="">Event</option>
-                                <option value="">Activate</option>
-                            </select>*@
+                    <option value="">Event</option>
+                    <option value="">Activate</option>
+                </select>*@
                         <!--@Html.DropDownListFor(m => m.event_type, new List<SelectListItem>
-                                      { new SelectListItem{Text="Please Select"},
-                                        new SelectListItem{Text="Event", Value="1"},
-                                        new SelectListItem{Text="Activities", Value="2"}})
-                                </div>
-                            </div>
-                        </div>-->
+                          { new SelectListItem{Text="Please Select"},
+                            new SelectListItem{Text="Event", Value="1"},
+                            new SelectListItem{Text="Activities", Value="2"}})
+                    </div>
+                </div>
+            </div>-->
                         <div class="form-group">
                             <label for="Title">Title<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "EventTitle", name = "Title", value = "", placeholder = "Title" })
                             @*<div class="valid-feedback">
-                                Looks good!
-                            </div>*@
+                        Looks good!
+                    </div>*@
                         </div>
                         <div class="form-group">
                             <label for="Desctiption">Desctiption<span id="not-empty">*</span></label>
                             @Html.TextAreaFor(m => m.desctiption, new { @class = "form-control", id = "EventDesctiption", name = "Desctiption", value = "", placeholder = "Description of the event" })
                         </div>
                         @*<div class="form-group">
-                                <label for="Location">Start date<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", name = "EventStartDate", @Value = Model.start_date.ToString("yyyy-MM-dd"), placeholder = "Start date" })
-                            </div>
-                            <div class="form-group">
-                                <label for="Location">End date<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", name = "EventEndDate", @Value = Model.end_date.ToString("yyyy-MM-dd"), placeholder = "End date" })
-                            </div>*@
+                    <label for="Location">Start date<span id="not-empty">*</span></label>
+                    @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", name = "EventStartDate", @Value = Model.start_date.ToString("yyyy-MM-dd"), placeholder = "Start date" })
+                </div>
+                <div class="form-group">
+                    <label for="Location">End date<span id="not-empty">*</span></label>
+                    @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", name = "EventEndDate", @Value = Model.end_date.ToString("yyyy-MM-dd"), placeholder = "End date" })
+                </div>*@
 
                         <div class="row">
                             <div class="col-lg-6">
@@ -80,7 +85,7 @@
                                     <label for="Location">End date<span id="not-empty">*</span></label>
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()",name = "EventEndDate", @Value = Model.end_date.ToString("yyyy-MM-dd"), placeholder = "End date" })
+                                            @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()", name = "EventEndDate", @Value = Model.end_date.ToString("yyyy-MM-dd"), placeholder = "End date" })
                                         </div>
                                         <div class="col-lg-6">
                                             @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", @Value = Model.end_date.ToString("HH:mm"), placeholder = "End Time" })
@@ -95,17 +100,17 @@
                             @Html.TextBoxFor(m => m.venue, new { @class = "form-control", id = "EventLocation", name = "TiLocationtle", value = "", placeholder = "Location" })
                         </div>
                         @*<div class="form-group">
-                                <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
-                            </div>
-                            <div class="form-group">
-                                <label for="ContactorEmail">Contactor email<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", name = "EventContactorEmail", value = "", placeholder = "ContactorEmail" })
-                            </div>
-                            <div class="form-group">
-                                <label for="ContactorName">Contactor Name<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "ContactorName" })
-                            </div>*@
+                    <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
+                    @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
+                </div>
+                <div class="form-group">
+                    <label for="ContactorEmail">Contactor email<span id="not-empty">*</span></label>
+                    @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", name = "EventContactorEmail", value = "", placeholder = "ContactorEmail" })
+                </div>
+                <div class="form-group">
+                    <label for="ContactorName">Contactor Name<span id="not-empty">*</span></label>
+                    @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "ContactorName" })
+                </div>*@
                         <div class="form-group">
                             <label for="Fanpage">Fanpage<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.fan_page, new { @class = "form-control", id = "EventFanpage", name = "EventFanpage", value = "", placeholder = "Fanpage" })

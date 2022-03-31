@@ -9,14 +9,17 @@
         color: #ffffff !important;
         background: #30cf6b;
     }
+
     .title-table {
-        width: 530px;
+        /*width: 530px;*/
     }
+
     .venue-table {
         width: 120px;
     }
+
     .date-table {
-        width: 200px;
+        width: 120px;
     }
 </style>
 
@@ -70,10 +73,10 @@
                         <table class="table table-striped table-bordered table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">Title</th>
                                     <th scope="col">Time Start</th>
                                     <th scope="col">Time End</th>
                                     <th scope="col">Location</th>
+                                    <th scope="col">Title</th>
                                     @if (Session["username"] != null)
                                     {
                                         if (profile.user_role.Equals("ORGANIZER"))
@@ -91,10 +94,10 @@
                                     foreach (var x in lstEvent)
                                     {
                                         <tr>
-                                            <td class="title-table">@x.title</td>
                                             <td class="date-table">@x.start_date_str</td>
                                             <td class="date-table">@x.end_date_str</td>
                                             <td class="venue-table">@x.venue</td>
+                                            <td class="title-table">@x.title</td>
                                             @if (Session["username"] != null)
                                             {
                                                 if (profile.user_role.Equals("ORGANIZER"))

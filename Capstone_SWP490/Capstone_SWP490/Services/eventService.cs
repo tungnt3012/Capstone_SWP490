@@ -35,8 +35,8 @@ namespace Capstone_SWP490.Services
                         shirt_id = x.shirt_id,
                         start_date = x.start_date,
                         end_date = x.end_date,
-                        start_date_str= x.start_date.ToString("dd-MM-yyyy, HH:mm"),
-                        end_date_str= x.end_date.ToString("dd-MM-yyyy, HH:mm"),
+                        start_date_str= x.start_date.ToString("dd-MM-yyyy"),
+                        end_date_str= x.end_date.ToString("dd-MM-yyyy"),
                         title = x.title,
                         venue = x.venue,
                     };
