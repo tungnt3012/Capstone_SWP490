@@ -180,7 +180,7 @@
                 </div>
                 @if (Session["username"] != null)
                 {
-                    <div class="row">
+                    <div class="row" id="regis-btn">
                         <div class="col-lg-6">
                         </div>
                         <div class="col-lg-6" id="btn-registrantionTitle">
@@ -205,7 +205,17 @@ else
 
 <script src="~/Scripts/page-content.js"></script>
 <script>
-    GetListContent();
+
+    $(document).ready(function () {
+        GetListContent();
+        var _role = $("#user_role").val();
+        if (_role === "COACH") {
+            $("#regis-btn").attr("hidden", false);
+        } else {
+            $("#regis-btn").attr("hidden", true);
+        }
+    });
+
 
     function GetListContent() {
         var vas = $("#userss").val();
