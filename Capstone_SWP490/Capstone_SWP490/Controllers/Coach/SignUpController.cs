@@ -48,6 +48,8 @@ namespace Capstone_SWP490.Controllers.Coach
                 coachUser.verified = false;
                 coachUser.user_role = "COACH";
                 coachUser.email = data.email;
+                coachUser.insert_date = Convert.ToString(DateTime.Now);
+                coachUser.update_date = Convert.ToString(DateTime.Now);
                 coachUser.psw = CommonHelper.CreatePassword(8);
                 coachUser.encrypted_psw = CommonHelper.createEncryptedPassWord(coachUser.psw);
                 app_user created = await _iapp_UserService.CreateUser(coachUser);

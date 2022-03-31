@@ -43,20 +43,19 @@
                     <h5 style="color:green"> @ViewData["success"] </h5>
                 </div>
                 <div class="form-group">
+                    <p style="color:red"><i id="error-select-search"></i></p>
                     <div class="row">
                         <div class="col-lg-3">
                             <label for="type-event">Date Start:</label>
-                            <input type="date" class="form-control" id="from-date" value="none" placeholder="From">
+                            <input type="date" class="form-control" id="from-date" onchange="searchSelect()" value="none" placeholder="From">
                         </div>
                         <div class="col-lg-3">
                             <label for="type-event">Date End:</label>
-                            <input type="date" class="form-control" id="to-date" value="none" placeholder="To">
+                            <input type="date" class="form-control" id="to-date" onchange="searchSelect()" value="none" placeholder="To">
                         </div>
                         <div class="col-lg-3">
                             <button class="btn btn-primary" id="btn-search-event" onclick="SearchEvent()"> Search</button>
                         </div>
-
-
                         @if (Session["username"] != null)
                         {
                             if (profile.user_role.Equals("ORGANIZER"))
@@ -159,6 +158,22 @@ else
 }
 
 <script>
+
+    function searchSelect() {
+        var _formdate = $("#from-date").val();
+        var _todate = $("#to-date").val();
+        if (_formdate != '' && _todate != '') {
+            if (_formdate > _todate) {
+                $("#btn-search-event").attr("disabled", true);
+                $("#error-select-search").html("*Start Date must be BEFORE End Date!!!");
+            } else {
+                $("#btn-search-event").attr("disabled", false);
+                $("#error-select-search").html("");
+            }
+        }
+
+    }
+
 
     function SearchEvent() {
         var fromdate = $("#from-date").val();

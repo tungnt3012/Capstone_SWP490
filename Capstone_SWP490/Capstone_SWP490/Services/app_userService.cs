@@ -192,7 +192,51 @@ namespace Capstone_SWP490.Services
                 result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.active == false && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).OrderBy(x => x.active).ToList();
             }
 
-            return result.OrderBy(x => x.update_date).ToList();
+            var lstTemp = new List<app_userViewModel>();
+            var app_userTemp = new List<app_user>();
+            if (result.Count > 1)
+            {
+                foreach (var x in result)
+                {
+                    var newU = new app_userViewModel
+                    {
+                        active = x.active,
+                        email = x.email,
+                        full_name = x.full_name,
+                        user_id = x.user_id,
+                        user_name = x.user_name,
+                        user_role = x.user_role,
+                        verified = x.verified,
+                        insert_date = Convert.ToDateTime(x.insert_date),
+                        update_date = Convert.ToDateTime(x.update_date)
+                    };
+                    lstTemp.Add(newU);
+                }
+
+                var tmp = (from u in lstTemp
+                           orderby u.update_date descending
+                           select u).ToList(); 
+                                
+                foreach(var s in tmp)
+                {
+                    var newUTemp = new app_user
+                    {
+                        active = s.active,
+                        email = s.email,
+                        full_name = s.full_name,
+                        user_id = s.user_id,
+                        user_name = s.user_name,
+                        user_role = s.user_role,
+                        verified = s.verified,
+                        insert_date = Convert.ToString(s.insert_date),
+                        update_date = Convert.ToString(s.update_date)
+                    };
+                    app_userTemp.Add(newUTemp);
+                }
+            }
+
+            return app_userTemp;
+            //return result.OrderBy(x => x.update_date).ToList();
         }
 
         public PagingOutput<List<app_userViewModel>> GetListUsersManager(int pageIndex, int pageSize)
@@ -200,18 +244,19 @@ namespace Capstone_SWP490.Services
             var allUser = _iapp_UserRepository.GetAll().ToList();
             if (allUser != null)
             {
-                var users = allUser.Select(x => new app_userViewModel() { 
-                        user_id = x.user_id,
-                        active = x.active,
-                        email = x.email,
-                        encrypted_psw = x.encrypted_psw,
-                        full_name = x.full_name,
-                        psw = x.psw,
-                        repsw = x.psw,
-                        user_name =x.user_name,
-                        user_role =x.user_role,
-                        verified =x.verified
-                    }).ToList();
+                var users = allUser.Select(x => new app_userViewModel()
+                {
+                    user_id = x.user_id,
+                    active = x.active,
+                    email = x.email,
+                    encrypted_psw = x.encrypted_psw,
+                    full_name = x.full_name,
+                    psw = x.psw,
+                    repsw = x.psw,
+                    user_name = x.user_name,
+                    user_role = x.user_role,
+                    verified = x.verified
+                }).ToList();
                 int totalPage = allUser.Count / pageSize;
                 if (allUser.Count % pageSize > 0)
                 {
@@ -230,13 +275,13 @@ namespace Capstone_SWP490.Services
             return null;
         }
 
-        public async Task<bool> SwitchableUsers(int user_id,bool status )
+        public async Task<bool> SwitchableUsers(int user_id, bool status)
         {
             var user = _iapp_UserRepository.FindBy(x => x.user_id == user_id).FirstOrDefault();
             if (user != null)
             {
                 user.active = status;
-                if(await _iapp_UserRepository.Update(user, user.user_id) != -1)
+                if (await _iapp_UserRepository.Update(user, user.user_id) != -1)
                 {
                     return true;
                 }
