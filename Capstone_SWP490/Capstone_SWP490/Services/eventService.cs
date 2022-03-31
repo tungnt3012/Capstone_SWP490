@@ -60,6 +60,10 @@ namespace Capstone_SWP490.Services
                 Data = null
             };
             DateTime temp = Convert.ToDateTime("01/01/0001");
+            if (toDateIn != temp)
+            {
+                toDateIn += new TimeSpan(23, 59, 59);
+            }
             var events = new List<@event>();
             if (fromDateIn == temp && toDateIn == temp)
             {
@@ -67,7 +71,7 @@ namespace Capstone_SWP490.Services
             }
             if (fromDateIn == temp)
             {
-                events = _ieventRepository.FindBy(x => x.end_date <= toDateIn&& x.event_type != 0).ToList();
+                events = _ieventRepository.FindBy(x => x.end_date <= toDateIn && x.event_type != 0).ToList();
             }
             if (toDateIn == temp)
             {
@@ -86,12 +90,8 @@ namespace Capstone_SWP490.Services
                     var e = new eventsViewModel
                     {
                         event_id = x.event_id,
-                        contactor_email = x.contactor_phone,
-                        contactor_name = x.contactor_name,
-                        contactor_phone = x.contactor_phone,
                         desctiption = x.desctiption,
                         end_date = x.end_date,
-                        event_type = x.event_type,
                         fan_page = x.fan_page,
                         note = x.note,
                         shirt_id = x.shirt_id,
@@ -144,12 +144,8 @@ namespace Capstone_SWP490.Services
                     var e = new eventsViewModel
                     {
                         event_id = x.event_id,
-                        contactor_email = x.contactor_phone,
-                        contactor_name = x.contactor_name,
-                        contactor_phone = x.contactor_phone,
                         desctiption = x.desctiption,
                         end_date = x.end_date,
-                        event_type = x.event_type,
                         fan_page = x.fan_page,
                         note = x.note,
                         shirt_id = x.shirt_id,
@@ -176,12 +172,8 @@ namespace Capstone_SWP490.Services
                 return new eventsViewModel
                 {
                     event_id = events.event_id,
-                    contactor_email = events.contactor_phone,
-                    contactor_name = events.contactor_name,
-                    contactor_phone = events.contactor_phone,
                     desctiption = events.desctiption,
                     end_date = events.end_date,
-                    event_type = events.event_type,
                     fan_page = events.fan_page,
                     note = events.note,
                     shirt_id = events.shirt_id,
@@ -202,26 +194,18 @@ namespace Capstone_SWP490.Services
             {
                 e.title = eventsIn.title;
                 e.desctiption = eventsIn.desctiption;
-                e.start_date = eventsIn.start_date;
-                e.end_date = eventsIn.end_date;
+                e.start_date = eventsIn.start_date + eventsIn.start_time;
+                e.end_date = eventsIn.end_date + eventsIn.end_time;
                 e.venue = eventsIn.venue;
-                e.contactor_phone = eventsIn.contactor_phone;
-                e.contactor_email = eventsIn.contactor_email;
-                e.contactor_name = eventsIn.contactor_name;
                 e.fan_page = eventsIn.fan_page;
                 e.note = eventsIn.note;
-                e.event_type = eventsIn.event_type;
                 if (await _ieventRepository.Update(e, e.event_id) != -1)
                 {
                     return new eventsViewModel
                     {
                         event_id = e.event_id,
-                        contactor_email = e.contactor_phone,
-                        contactor_name = e.contactor_name,
-                        contactor_phone = e.contactor_phone,
                         desctiption = e.desctiption,
                         end_date = e.end_date,
-                        event_type = e.event_type,
                         fan_page = e.fan_page,
                         note = e.note,
                         start_date = e.start_date,
@@ -303,11 +287,7 @@ namespace Capstone_SWP490.Services
                     var e = new eventsViewModel
                     {
                         event_id = x.event_id,
-                        contactor_email = x.contactor_phone,
-                        contactor_name = x.contactor_name,
-                        contactor_phone = x.contactor_phone,
                         desctiption = x.desctiption,
-                        event_type = x.event_type,
                         fan_page = x.fan_page,
                         note = x.note,
                         shirt_id = x.shirt_id,

@@ -70,7 +70,7 @@
                                             @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", @onchange = "checkDate()", name = "EventStartDate", @Value = Model.start_date.ToString("yyyy-MM-dd"), placeholder = "Start date" })
                                         </div>
                                         <div class="col-lg-6">
-                                            @Html.TextBoxFor(m => m.start_time, new { type = "time", @class = "form-control", id = "EventStartTime", @onchange = "checkTime()", name = "EventStartTime", placeholder = "Start Time" })
+                                            @Html.TextBoxFor(m => m.start_time, new { type = "time", @class = "form-control", id = "EventStartTime", @onchange = "checkTime()", name = "EventStartTime", @Value = Model.start_date.ToString("HH:mm"), placeholder = "Start Time" })
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@
                                             @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()",name = "EventEndDate", @Value = Model.end_date.ToString("yyyy-MM-dd"), placeholder = "End date" })
                                         </div>
                                         <div class="col-lg-6">
-                                            @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", placeholder = "End Time" })
+                                            @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", @Value = Model.end_date.ToString("HH:mm"), placeholder = "End Time" })
                                         </div>
                                     </div>
                                     <span style="color:red"><i id="text-error-date"></i></span>
@@ -159,9 +159,6 @@
                 $('#event-upload').attr("disabled", false);
                 $('#text-error-date').html("");
             }
-        } else {
-            $('#event-upload').attr("disabled", false);
-            $('#text-error-date').html("");
-        }
+        } 
     }
 </script>
