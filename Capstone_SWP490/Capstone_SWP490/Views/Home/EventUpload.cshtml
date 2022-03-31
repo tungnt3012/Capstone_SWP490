@@ -18,7 +18,7 @@
     </div>
     <div class="main">
         <div class="column">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-lg-offset-2">
                 @using (Html.BeginForm("EventUpload", "Home"))
                 {
                     <div class="column" style="padding-top:20px">
@@ -26,16 +26,16 @@
                             <h5 style="color:red"> @ViewData["error"] </h5>
                             <h5 style="color:green"> @ViewData["success"] </h5>
                         </div>
-                        <div class="form-group">
-                            <label for="type-event">Choose a Type of Event:</label>
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    @Html.DropDownListFor(m => m.event_type, new List<SelectListItem>
-                                      { new SelectListItem{Text="Event", Value="1"},
-                                        new SelectListItem{Text="Activities", Value="2"}})
+                        @*<div class="form-group">
+                                <label for="type-event">Choose a Type of Event:</label>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        @Html.DropDownListFor(m => m.event_type, new List<SelectListItem>
+                                          { new SelectListItem{Text="Event", Value="1"},
+                                            new SelectListItem{Text="Activities", Value="2"}})
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>*@
                         <div class="form-group">
                             <label for="Title">Title<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "EventTitle", name = "Title", value = "", placeholder = "Title" })
@@ -44,33 +44,53 @@
                             <label for="Desctiption">Desctiption<span id="not-empty">*</span></label>
                             @Html.TextAreaFor(m => m.desctiption, new { @class = "form-control", id = "EventDesctiption", name = "Desctiption", value = "", placeholder = "Description of the event" })
                         </div>
-                        <div class="form-group">
-                            <label for="Location">Start date<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", @onchange= "checkDate()", name = "EventStartDate", placeholder = "Start date" })
-                        </div>
-                        <div class="form-group">
-                            <label for="Location">End date<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()", name = "EventEndDate", placeholder = "End date" })
-                            <span style="color:red"><i id="text-error-date"></i></span>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="Location">Start date<span id="not-empty">*</span></label>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", @onchange = "checkDate()", name = "EventStartDate", placeholder = "Start date" })
+                                        </div>
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.start_time, new { type = "time", @class = "form-control", id = "EventStartTime", @onchange = "checkTime()", name = "EventStartTime", placeholder = "Start Time" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="Location">End date<span id="not-empty">*</span></label>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()", name = "EventEndDate", placeholder = "End date" })
+                                        </div>
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", placeholder = "End Time" })
+                                        </div>
+                                    </div>
+                                    <span style="color:red"><i id="text-error-date"></i></span>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="Location">Venue<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.venue, new { @class = "form-control", id = "EventLocation", name = "TiLocationtle", value = "", placeholder = "Location" })
                         </div>
-                        <div class="form-group">
-                            <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", @onchange = "checkPhone()", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
-                            <span style="color:red"><i id="text-error-phone"></i></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="ContactorEmail">Contactor email<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", @onchange = "checkEmail()",name = "EventContactorEmail", value = "", placeholder = "ContactorEmail" })
-                            <span style="color:red"><i id="text-error-email"></i></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="ContactorName">Contactor Name<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "ContactorName" })
-                        </div>
+                        @*<div class="form-group">
+                                <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
+                                @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", @onchange = "checkPhone()", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
+                                <span style="color:red"><i id="text-error-phone"></i></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="ContactorEmail">Contactor email<span id="not-empty">*</span></label>
+                                @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", @onchange = "checkEmail()", name = "EventContactorEmail", value = "", placeholder = "ContactorEmail" })
+                                <span style="color:red"><i id="text-error-email"></i></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="ContactorName">Contactor Name<span id="not-empty">*</span></label>
+                                @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "ContactorName" })
+                            </div>*@
                         <div class="form-group">
                             <label for="Fanpage">Fanpage<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.fan_page, new { @class = "form-control", id = "EventFanpage", name = "EventFanpage", value = "", placeholder = "Fanpage" })
@@ -93,6 +113,15 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        var _startDate = $('#EventStartDate').val();
+        var _endDate = $('#EventEndDate').val();
+        if (_startDate === '' || _endDate == '') {
+            $('#event-upload').attr("disabled", true);
+        } else {
+            $('#event-upload').attr("disabled", false);
+        }
+    });
 
     function checkDate() {
         var _startDate = $('#EventStartDate').val();
@@ -104,40 +133,61 @@
             $('#event-upload').attr("disabled", false);
             $('#text-error-date').html("");
         }
+        checkTime();
     }
 
-    function checkEmail() {
-        var _email = $('#EventContactorEmail').val();
-        if (!isEmail(_email)) {
-            $('#event-upload').attr("disabled", true);
-            $('#text-error-email').html("The Email form must be abc@mail.com!!!");
+    function checkTime() {
+        var _startDate = $('#EventStartDate').val();
+        var _endDate = $('#EventEndDate').val();
+
+        var _startTime = $('#EventStartTime').val();
+        var _endTime = $('#EventEndTime').val();
+        if (_startDate == _endDate) {
+            if (_startTime == _endTime || _startTime > _endTime) {
+                $('#event-upload').attr("disabled", true);
+                $('#text-error-date').html("The End Time must be after the Start Time!!!");
+            } else {
+                $('#event-upload').attr("disabled", false);
+                $('#text-error-date').html("");
+            }
         } else {
             $('#event-upload').attr("disabled", false);
-            $('#text-error-email').html("");
+            $('#text-error-date').html("");
         }
     }
 
-    function checkPhone() {
-        var _phone = $('#EventContactorPhone').val();
-        if (!isPhone(_phone)) {
-            $('#event-upload').attr("disabled", true);
-            $('#text-error-phone').html("The Phone form has Start from 0 or 84!!!");
-        } else {
-            $('#event-upload').attr("disabled", false);
-            $('#text-error-phone').html("");
-        }
-    }
+    //function checkEmail() {
+    //    var _email = $('#EventContactorEmail').val();
+    //    if (!isEmail(_email)) {
+    //        $('#event-upload').attr("disabled", true);
+    //        $('#text-error-email').html("The Email form must be abc@mail.com!!!");
+    //    } else {
+    //        $('#event-upload').attr("disabled", false);
+    //        $('#text-error-email').html("");
+    //    }
+    //}
 
-    function isPhone(phone) {
-        var regex = /([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[1-4|6-9]]){3})+[0-9]{7}\b/g;
-        return regex.test(phone);
-    }
+    //function checkPhone() {
+    //    var _phone = $('#EventContactorPhone').val();
+    //    if (!isPhone(_phone)) {
+    //        $('#event-upload').attr("disabled", true);
+    //        $('#text-error-phone').html("The Phone form has Start from 0 or 84!!!");
+    //    } else {
+    //        $('#event-upload').attr("disabled", false);
+    //        $('#text-error-phone').html("");
+    //    }
+    //}
+
+    //function isPhone(phone) {
+    //    var regex = /([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[1-4|6-9]]){3})+[0-9]{7}\b/g;
+    //    return regex.test(phone);
+    //}
 
 
-    function isEmail(email) {
-        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        return regex.test(email);
-    }
-   
+    //function isEmail(email) {
+    //    var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    //    return regex.test(email);
+    //}
+
 
 </script>

@@ -13,6 +13,8 @@ namespace Capstone_SWP490.Models.events_ViewModel
         public string desctiption { get; set; }
         public DateTime start_date { get; set; }
         public DateTime end_date { get; set; }
+        public TimeSpan start_time { get; set; }
+        public TimeSpan end_time { get; set; }
         public string start_date_str { get; set; }
         public string end_date_str { get; set; }
         public string venue { get; set; }

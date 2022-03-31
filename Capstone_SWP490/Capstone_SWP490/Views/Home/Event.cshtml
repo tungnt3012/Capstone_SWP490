@@ -16,7 +16,7 @@
         width: 120px;
     }
     .date-table {
-        width: 100px;
+        width: 200px;
     }
 </style>
 
@@ -74,7 +74,6 @@
                                     <th scope="col">Time Start</th>
                                     <th scope="col">Time End</th>
                                     <th scope="col">Location</th>
-                                    <th scope="col">Contactor phone</th>
                                     @if (Session["username"] != null)
                                     {
                                         if (profile.user_role.Equals("ORGANIZER"))
@@ -96,7 +95,6 @@
                                             <td class="date-table">@x.start_date_str</td>
                                             <td class="date-table">@x.end_date_str</td>
                                             <td class="venue-table">@x.venue</td>
-                                            <td>@x.contactor_phone</td>
                                             @if (Session["username"] != null)
                                             {
                                                 if (profile.user_role.Equals("ORGANIZER"))
@@ -183,15 +181,14 @@ else
                     document.getElementById("table-events").innerHTML = "";
                     if (vas != "" && role == 'ORGANIZER') {
                         for (let i = 0; i < results.Data.length; i++) {
-                            let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
-                            let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
+                            let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).split("/").join("-");
+                            let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).split("/").join("-");
                             document.getElementById("table-events").innerHTML += `
                                         <tr>
                                             <td class="title-table">`+ results.Data[i].title+`</td>
                                             <td class="date-table">`+ _startDate+`</td>
                                             <td class="date-table">`+ _endDate+`</td>
                                             <td class="venue-table">`+ results.Data[i].venue+`</td>
-                                            <td>`+ results.Data[i].contactor_phone+`</td>
                                             <td><a href="/Home/EventEdit?id=`+ results.Data[i].event_id +`">Edit</a></td>
                                             <td><a href="/Home/EventDetail?id=`+ results.Data[i].event_id+`">Detail</a></td>
                                             <td><a href="/Home/EventDelete?id=`+ results.Data[i].event_id +`">Delete</a></td>
@@ -199,14 +196,13 @@ else
                         }
                     } else {
                         for (let i = 0; i < results.Data.length; i++) {
-                            let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
-                            let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
+                            let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).split("/").join("-");
+                            let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).split("/").join("-");
                             document.getElementById("table-events").innerHTML += `<tr>
                                             <td class="title-table">`+ results.Data[i].title + `</td>
                                             <td class="date-table">`+ _startDate + `</td>
                                             <td class="date-table">`+ _endDate + `</td>
                                             <td class="venue-table">`+ results.Data[i].venue + `</td>
-                                            <td>`+ results.Data[i].contactor_phone + `</td>
                                             <td><a href="/Home/EventDetail?id=`+ results.Data[i].event_id + `">Detail</a></td>
                                         </tr>`;
                         }

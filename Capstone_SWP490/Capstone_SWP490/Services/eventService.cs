@@ -35,8 +35,8 @@ namespace Capstone_SWP490.Services
                         shirt_id = x.shirt_id,
                         start_date = x.start_date,
                         end_date = x.end_date,
-                        start_date_str= x.start_date.ToString("dd-MM-yyyy"),
-                        end_date_str= x.end_date.ToString("dd-MM-yyyy"),
+                        start_date_str= x.start_date.ToString("dd-MM-yyyy, HH:mm"),
+                        end_date_str= x.end_date.ToString("dd-MM-yyyy, HH:mm"),
                         title = x.title,
                         venue = x.venue,
                     };
@@ -188,6 +188,8 @@ namespace Capstone_SWP490.Services
                     start_date = events.start_date,
                     title = events.title,
                     venue = events.venue,
+                    start_date_str = events.start_date.ToString("dd-MM-yyyy, HH:mm"),
+                    end_date_str = events.end_date.ToString("dd-MM-yyyy, HH:mm"),
                 };
             }
             return null;
@@ -237,10 +239,6 @@ namespace Capstone_SWP490.Services
             if (!string.IsNullOrWhiteSpace(eventsIn.title)
                 && !string.IsNullOrWhiteSpace(eventsIn.desctiption)
                 && !string.IsNullOrWhiteSpace(eventsIn.venue)
-                && !string.IsNullOrWhiteSpace(eventsIn.contactor_name)
-                && !string.IsNullOrWhiteSpace(eventsIn.contactor_email)
-                && !string.IsNullOrWhiteSpace(eventsIn.contactor_email)
-                && !string.IsNullOrWhiteSpace(eventsIn.contactor_phone)
                 && !string.IsNullOrWhiteSpace(eventsIn.fan_page)
                 && Convert.ToDateTime("01/01/0001")!=eventsIn.start_date
                 && Convert.ToDateTime("01/01/0001")!=eventsIn.end_date)
@@ -249,15 +247,12 @@ namespace Capstone_SWP490.Services
                 {
                     title = eventsIn.title,
                     desctiption = eventsIn.desctiption,
-                    start_date = eventsIn.start_date,
-                    end_date = eventsIn.end_date,
+                    start_date = eventsIn.start_date + eventsIn.start_time,
+                    end_date = eventsIn.end_date + eventsIn.end_time,
                     venue = eventsIn.venue,
-                    contactor_phone = eventsIn.contactor_phone,
-                    contactor_email = eventsIn.contactor_email,
-                    contactor_name = eventsIn.contactor_name,
                     fan_page = eventsIn.fan_page,
                     note = eventsIn.note ?? "",
-                    event_type = eventsIn.event_type,
+                    event_type = 1,
                 };
 
                 var newEvent = await _ieventRepository.Create(e);
