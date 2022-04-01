@@ -16,7 +16,7 @@ namespace Capstone_SWP490.Services
         private readonly IeventRepository _ieventRepository = new eventRepository();
         public IEnumerable<eventsViewModel> GetAllEventsAvailale()
         {
-            var events = _ieventRepository.FindBy(x=>x.event_type!=0).ToList();
+            var events = _ieventRepository.FindBy(x => x.event_type == 1).ToList();
             var lstEventsViewModels = new List<eventsViewModel>();
             if (events != null)
             {
@@ -35,8 +35,8 @@ namespace Capstone_SWP490.Services
                         shirt_id = x.shirt_id,
                         start_date = x.start_date,
                         end_date = x.end_date,
-                        start_date_str= x.start_date.ToString("dd-MM-yyyy"),
-                        end_date_str= x.end_date.ToString("dd-MM-yyyy"),
+                        start_date_str = x.start_date.ToString("dd-MM-yyyy"),
+                        end_date_str = x.end_date.ToString("dd-MM-yyyy"),
                         title = x.title,
                         venue = x.venue,
                     };
@@ -76,8 +76,8 @@ namespace Capstone_SWP490.Services
             if (toDateIn == temp)
             {
                 events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.event_type != 0).ToList();
-            } 
-            if(fromDateIn!=temp && toDateIn != temp)
+            }
+            if (fromDateIn != temp && toDateIn != temp)
             {
                 events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.end_date <= toDateIn && x.event_type != 0).ToList();
             }
@@ -224,8 +224,8 @@ namespace Capstone_SWP490.Services
                 && !string.IsNullOrWhiteSpace(eventsIn.desctiption)
                 && !string.IsNullOrWhiteSpace(eventsIn.venue)
                 && !string.IsNullOrWhiteSpace(eventsIn.fan_page)
-                && Convert.ToDateTime("01/01/0001")!=eventsIn.start_date
-                && Convert.ToDateTime("01/01/0001")!=eventsIn.end_date)
+                && Convert.ToDateTime("01/01/0001") != eventsIn.start_date
+                && Convert.ToDateTime("01/01/0001") != eventsIn.end_date)
             {
                 var e = new @event
                 {
@@ -268,7 +268,7 @@ namespace Capstone_SWP490.Services
             if (e != null)
             {
                 e.event_type = 0;
-                if(await _ieventRepository.Update(e, e.event_id) != -1)
+                if (await _ieventRepository.Update(e, e.event_id) != -1)
                 {
                     return true;
                 }
@@ -301,6 +301,43 @@ namespace Capstone_SWP490.Services
                     lstEventsViewModels.Add(e);
                 }
                 return lstEventsViewModels;
+            }
+            return null;
+        }
+
+        public List<eventsViewModel> GetSubEventsByEventId(int id)
+        {
+            var mainEvent = _ieventRepository.FindBy(x => x.event_id == id).FirstOrDefault();
+            if (mainEvent != null)
+            {
+                var lstSubEvent = new List<eventsViewModel>();
+                if (mainEvent.sub_event != null || !String.IsNullOrWhiteSpace(mainEvent.sub_event))
+                {
+                    string[] subEventId = mainEvent.sub_event.Split(',');
+                    foreach (var item in subEventId)
+                    {
+                        int subId = Convert.ToInt32(item.ToString());
+                        var sub = _ieventRepository.FindBy(x => x.event_id == subId && x.event_type == 2).FirstOrDefault();
+                        if (sub != null)
+                        {
+                            var subViewModel = new eventsViewModel
+                            {
+                                event_id = sub.event_id,
+                                title = sub.title,
+                                event_type = sub.event_type,
+                                desctiption = sub.desctiption,
+                                start_date = sub.start_date,
+                                end_date = sub.end_date,
+                                start_date_str = sub.start_date.ToString("dd-MM-yyyy, HH:mm"),
+                                end_date_str = sub.end_date.ToString("dd-MM-yyyy, HH:mm"),
+                                venue = sub.venue,
+                                note = sub.note
+                            };
+                            lstSubEvent.Add(subViewModel);
+                        }
+                    }
+                }
+                return lstSubEvent;
             }
             return null;
         }

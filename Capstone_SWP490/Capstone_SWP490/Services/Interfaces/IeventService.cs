@@ -16,6 +16,7 @@ namespace Capstone_SWP490.Services.Interfaces
         IEnumerable<eventsViewModel> GetAllEventsAvailale();
         IEnumerable<eventsViewModel> GetAllActivitiesAvailale();
         eventsViewModel GetEventsById(int id);
+        List<eventsViewModel> GetSubEventsByEventId(int id);
         Task<eventsViewModel> UpdateEvent(eventsViewModel eventsIn);
         Task<eventsViewModel> CreateEvent(eventsViewModel eventsIn);
         Task<bool> DeleteEvent(int id);

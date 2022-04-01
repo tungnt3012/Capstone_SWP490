@@ -27,5 +27,7 @@ namespace Capstone_SWP490
         public string fan_page { get; set; }
         public Nullable<short> shirt_id { get; set; }
         public string note { get; set; }
+        public string member_join { get; set; }
+        public string sub_event { get; set; }
     }
 }

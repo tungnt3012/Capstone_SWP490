@@ -58,7 +58,7 @@ namespace Capstone_SWP490.Controllers
 
         public ActionResult EventUpload()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Your Event Upload page.";
             return View();
         }
         [HttpPost]
@@ -73,7 +73,18 @@ namespace Capstone_SWP490.Controllers
             ViewData["error"] = "*Add Event Failed !!!";
             return View(events);
         }
+        public ActionResult SubEventUpload()
+        {
+            ViewBag.Message = "Your Sub-Event Upload page.";
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<ActionResult> SubEventUpload(eventsViewModel events)
+        {
+            ViewBag.Message = "Your Sub-Event Upload page.";
+            return View();
+        }
         public async Task<ActionResult> EventDelete(int id)
         {
             var rsCreate = await _ieventService.DeleteEvent(id);
@@ -189,6 +200,7 @@ namespace Capstone_SWP490.Controllers
                 if (u != null)
                 {
                     ViewData["Events"] = _ieventService.GetEventsById(id);
+                    ViewData["SubEvents"] = _ieventService.GetSubEventsByEventId(id);
                     var member = _imemberService.GetMemberByUserId(u.user_id);
                     ViewData["Members"] = member;
                     return View();
@@ -196,8 +208,16 @@ namespace Capstone_SWP490.Controllers
             }
             ViewBag.Message = "Your contact page.";
             ViewData["Events"] = _ieventService.GetEventsById(id);
+            ViewData["SubEvents"] = _ieventService.GetSubEventsByEventId(id);
             return View();
         }
+
+        public ActionResult SubEventDetail(int id)
+        {
+            ViewData["Events"] = _ieventService.GetEventsById(id);
+            return View();
+        }
+
         [HttpPost]
         public async Task<ActionResult> JoinEvent(int userId)
         {

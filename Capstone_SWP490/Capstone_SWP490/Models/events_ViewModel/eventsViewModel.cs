@@ -23,6 +23,7 @@ namespace Capstone_SWP490.Models.events_ViewModel
         public string contactor_phone { get; set; }
         public string fan_page { get; set; }
         public Nullable<short> shirt_id { get; set; }
+        public bool send_noti { get; set; }
         public string note { get; set; }
     }
 }
