@@ -584,7 +584,8 @@ input, select, textarea {
     font-weight: normal;
     font-size: 13px;
     line-height: 16px;
-    color: #000000;
+    color: #333333;
+}
 }
 
 .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
@@ -799,7 +800,8 @@ h2 {
     width: 150px;
     height: 45px;
     margin-bottom: 20px;
-    color: #000000;
+    color: #333333;
+}
 }
 
 /*footer*/
@@ -956,7 +958,8 @@ ul li a {
 #cancel-popup {
     width: auto;
     height: auto;
-    color: #000000;
+    color: #333333;
+}
 }
 
 #delete-popup {
@@ -971,7 +974,8 @@ ul li a {
 }
 
 #event-canner {
-    color: #000000;
+    color: #333333;
+}
 }
 
 #content-iframe {
@@ -1057,4 +1061,7 @@ margin-bottom:50px;
 .img-thumbnail{
     height:300px;
     width:300px;
+}
+.front-size-title{
+    color:#333333;
 }
