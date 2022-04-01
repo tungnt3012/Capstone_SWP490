@@ -83,7 +83,7 @@
                                             @if (Model.total_page >= 2)
                                             {
                                                 <ul class="pagination">
-                                                    <li class="page-item"><a class="page-link" href="@Url.Action("DisableCoach", "Orgnazation")?pageIndex=@((Model.pageIndex - 1) <= 0 ? Model.total_page : Model.pageIndex - 1)&status=@(Model.status)">Previous</a></li>
+                                                    <li class="page-item"><a class="page-link" href="@Url.Action("CoachAccount", "Orgnazation")?pageIndex=@((Model.pageIndex - 1) <= 0 ? Model.total_page : Model.pageIndex - 1)&status=@(Model.status)">Previous</a></li>
                                                     @for (int i = 1; i <= Model.total_page; i++)
                                                     {
                                                         <li class="page-item @(Model.pageIndex == i ? "active" : "")">
