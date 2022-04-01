@@ -1,0 +1,146 @@
+﻿@model Capstone_SWP490.Models.events_ViewModel.eventsViewModel
+@{
+    ViewBag.Title = "SubEventUpload";
+    var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Event</label>
+        </div>
+    </div>
+    <div class="main">
+        <div class="column">
+            <div class="col-lg-12" id="under">
+                <div class="form-group">
+                    <label class="Event-Schedule" for="Event_Schedule">
+                        Event Detail
+                    </label>
+                </div>
+                <div class="form-group">
+                    <h5 style="color:red"> @ViewData["error"] </h5>
+                    <h5 style="color:green"> @ViewData["success"] </h5>
+                </div>
+                <div class="form-group">
+                    <p style="color:red"><i id="error-select-search"></i></p>
+                    <div class="row">
+                        @if (Session["username"] != null)
+                        {
+                            if (profile.user_role.Equals("ORGANIZER"))
+                            {
+                                <div class="col-lg-3">
+                                    <button type="button" id="btn-add-event" onclick="window.location.href='/Home/EventUpload'" class="btn btn-success">Add</button>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                @using (Html.BeginForm("EventUpload", "Home"))
+                {
+                    <div class="column" style="padding-top:20px">
+                        <div class="form-group">
+                            <h5 style="color:red"> @ViewData["error"] </h5>
+                            <h5 style="color:green"> @ViewData["success"] </h5>
+                        </div>
+                        @*<div class="form-group">
+                                <label for="type-event">Choose a Type of Event:</label>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        @Html.DropDownListFor(m => m.event_type, new List<SelectListItem>
+                                          { new SelectListItem{Text="Event", Value="1"},
+                                            new SelectListItem{Text="Activities", Value="2"}})
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div class="form-group">
+                            <label for="Title">Title<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "EventTitle", name = "Title", value = "", placeholder = "Title" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Desctiption">Desctiption<span id="not-empty">*</span></label>
+                            @Html.TextAreaFor(m => m.desctiption, new { @class = "form-control", id = "EventDesctiption", name = "Desctiption", value = "", placeholder = "Description of the event" })
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="Location">Start date<span id="not-empty">*</span></label>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", @onchange = "checkDate()", name = "EventStartDate", placeholder = "Start date" })
+                                        </div>
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.start_time, new { type = "time", @class = "form-control", id = "EventStartTime", @onchange = "checkTime()", name = "EventStartTime", placeholder = "Start Time" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="Location">End date<span id="not-empty">*</span></label>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()", name = "EventEndDate", placeholder = "End date" })
+                                        </div>
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", placeholder = "End Time" })
+                                        </div>
+                                    </div>
+                                    <span style="color:red"><i id="text-error-date"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">Venue<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.venue, new { @class = "form-control", id = "EventLocation", name = "TiLocationtle", value = "", placeholder = "Location" })
+                        </div>
+                        @*<div class="form-group">
+                                <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
+                                @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", @onchange = "checkPhone()", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
+                                <span style="color:red"><i id="text-error-phone"></i></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="ContactorEmail">Contactor email<span id="not-empty">*</span></label>
+                                @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", @onchange = "checkEmail()", name = "EventContactorEmail", value = "", placeholder = "ContactorEmail" })
+                                <span style="color:red"><i id="text-error-email"></i></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="ContactorName">Contactor Name<span id="not-empty">*</span></label>
+                                @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "ContactorName" })
+                            </div>*@
+                        <div class="form-group">
+                            <label for="Fanpage">Fanpage<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.fan_page, new { @class = "form-control", id = "EventFanpage", name = "EventFanpage", value = "", placeholder = "Fanpage" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Fanpage">Note</label>
+                            @Html.TextBoxFor(m => m.note, new { @class = "form-control", id = "EventNote", name = "EventNote", value = "", placeholder = "Note" })
+                        </div>
+                        <div class="form-group">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary" id="event-upload">Add</button>
+                                <button type="button" class="btn btn-secondary" onclick="location.href='/Home/Event'; return false;" id="event-canner">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<input type="hidden" id="userss" value="@Session["username"]">
+@if (Session["username"] != null)
+{
+    <input type="hidden" id="user_role" value="@profile.user_role">
+}
+else
+{
+    <input type="hidden" id="user_role" value="0">
+}
