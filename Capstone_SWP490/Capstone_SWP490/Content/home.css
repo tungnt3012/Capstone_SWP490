@@ -51,6 +51,7 @@
     display: flex;
     flex-direction: column;
     height: calc(100vh - 60px);
+    background-color: #f5f5f5;
 }
     /*Them*/
     #page-content-wrapper .container-fluid {
@@ -214,9 +215,9 @@
     }
 
     .main {
-        width: 1200px !important;
-        margin-left: auto;
-        margin-right: auto;
+        width:auto;
+        margin-left: 15px;
+        margin-right: 15px;
     }
 
     .main-admin {
@@ -762,8 +763,8 @@ h2 {
 
 .main {
     width: auto;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 5px;
+    margin-right: 5px;
     
 }
 
@@ -801,9 +802,6 @@ h2 {
     color: #000000;
 }
 
-#registration-memberdetail {
-    margin-top: 50px;
-}
 /*footer*/
 #footer {
     left: 0;
@@ -1040,7 +1038,7 @@ ul li a {
     padding: 0px;
 }
 #under {
-    padding-top:50px;
+    padding-top:15px;
 }
 
 #not-empty{
@@ -1055,4 +1053,8 @@ ul li a {
 }
 #content-item{
 margin-bottom:50px;
+}
+.img-thumbnail{
+    height:300px;
+    width:300px;
 }

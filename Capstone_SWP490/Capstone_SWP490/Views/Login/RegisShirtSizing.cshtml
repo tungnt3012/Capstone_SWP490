@@ -15,14 +15,7 @@
         <div class="row">
             @using (Html.BeginForm("RegisShirtSizing", "Login"))
             {
-                <div class="col-lg-1">
-                    <div>
-                        <img src="~/static/Image/leght 1.png">
-                    </div>
-                </div>
-                <div class="col-lg-11">
-                    <div class="row">
-                        <div class="col-lg-12" id="talbe-shirtSizing">
+                        <div class="col-lg-10 col-lg-offset-1" id="under">
 
                             <table class="table table-striped">
                                 @if (Model != null)
@@ -140,8 +133,6 @@
                                 }
                             }
                         </div>
-                    </div>
-                </div>
             }
         </div>
     </div>

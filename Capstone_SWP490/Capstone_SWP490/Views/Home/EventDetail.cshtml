@@ -15,98 +15,95 @@
 <div class="container-fluid xyz">
     <div class="col-lg-12" id="content_area2_header">
         <div class="col-lg-12" id="content_area2_title">
-            <label for="exampleInputTitle">Event</label>
+            <label for="exampleInputTitle">Event Detail</label>
         </div>
     </div>
     <div class="main">
         <div class="column">
-            <div class="col-lg-12">
-                <div class="column">
-                    @if (events != null)
-                    {
-                        <div class="col-lg-12">
-                            <label class="Event-Detail" for="Event_Schedule">
-                                About the Event
-                            </label>
-                        </div>
-                        <div class="col-lg-12">
-                            <label class="Event-Title" for="Event_Schedule">
-                                Title:
-                            </label>
-                            <label class="Event-Content" for="Event_Schedule">
-                                @events.title
-                            </label>
-                        </div>
-                        <div class="col-lg-12">
-                            <label class="Event-Title" for="Event_Schedule">
-                                Time start:
-                            </label>
-                            <label class="Event-Content" for="Event_Schedule">
-                                @events.start_date_str
-                            </label>
-                        </div>
-                        <div class="col-lg-12">
-                            <label class="Event-Title" for="Event_Schedule">
-                                Time end:
-                            </label>
-                            <label class="Event-Content" for="Event_Schedule">
-                                @events.end_date_str
-                            </label>
-                        </div>
-                        <div class="col-lg-12">
-                            <label class="Event-Title" for="Event_Schedule">
-                                Desctiption:
-                            </label>
-                            <label class="Event-Content" for="Event_Schedule">
-                                @events.desctiption
-                            </label>
-                        </div>
-                        <div class="col-lg-12">
-                            <label class="Event-Title" for="Event_Schedule">
-                                Venue:
-                            </label>
-                            <label class="Event-Content" for="Event_Schedule">
-                                @events.venue
-                            </label>
-                        </div>
-                        <div class="col-lg-12">
-                            <label class="Event-Title" for="Event_Schedule">
-                                Contactor phone:
-                            </label>
-                            <label class="Event-Content" for="Event_Schedule">
-                                @events.contactor_phone
-                            </label>
-                        </div>
-                        <div class="col-lg-12">
-                            <label class="Event-Title" for="Event_Schedule">
-                                Contactor email:
-                            </label>
-                            <label class="Event-Content" for="Event_Schedule">
-                                @events.contactor_email
-                            </label>
-                        </div>
-                        <div class="col-lg-12">
-                            <label class="Event-Title" for="Event_Schedule">
-                                Contactor Name:
-                            </label>
-                            <label class="Event-Content" for="Event_Schedule">
-                                @events.contactor_name
-                            </label>
-                        </div>
-                        <div class="col-lg-12">
-                            <label class="Event-Title" for="Event_Schedule">
-                                Fanpage:
-                            </label>
-                            <label class="Event-Content" for="Event_Schedule">
-                                <a href="#">@events.fan_page</a>
-                            </label>
-                        </div>
-                    }
-
-
-                    
-                </div>
+            
+            <div class="col-lg-10 col-lg-offset-1" id="under">
+                @if (events != null)
+                {
+                    <div class="col-lg-12">
+                        <label class="front-size-title" for="Event_Schedule">
+                            About the Event
+                        </label>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="Event-Title" for="Event_Schedule">
+                            Title:
+                        </label>
+                        <label class="Event-Content" for="Event_Schedule">
+                            @events.title
+                        </label>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="Event-Title" for="Event_Schedule">
+                            Time start:
+                        </label>
+                        <label class="Event-Content" for="Event_Schedule">
+                            @events.start_date_str
+                        </label>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="Event-Title" for="Event_Schedule">
+                            Time end:
+                        </label>
+                        <label class="Event-Content" for="Event_Schedule">
+                            @events.end_date_str
+                        </label>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="Event-Title" for="Event_Schedule">
+                            Desctiption:
+                        </label>
+                        <label class="Event-Content" for="Event_Schedule">
+                            @events.desctiption
+                        </label>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="Event-Title" for="Event_Schedule">
+                            Venue:
+                        </label>
+                        <label class="Event-Content" for="Event_Schedule">
+                            @events.venue
+                        </label>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="Event-Title" for="Event_Schedule">
+                            Contactor phone:
+                        </label>
+                        <label class="Event-Content" for="Event_Schedule">
+                            @events.contactor_phone
+                        </label>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="Event-Title" for="Event_Schedule">
+                            Contactor email:
+                        </label>
+                        <label class="Event-Content" for="Event_Schedule">
+                            @events.contactor_email
+                        </label>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="Event-Title" for="Event_Schedule">
+                            Contactor Name:
+                        </label>
+                        <label class="Event-Content" for="Event_Schedule">
+                            @events.contactor_name
+                        </label>
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="Event-Title" for="Event_Schedule">
+                            Fanpage:
+                        </label>
+                        <label class="Event-Content" for="Event_Schedule">
+                            <a href="#">@events.fan_page</a>
+                        </label>
+                    </div>
+                }
             </div>
+            
         </div>
     </div>
 </div>
