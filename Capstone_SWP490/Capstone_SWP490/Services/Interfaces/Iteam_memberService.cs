@@ -10,5 +10,6 @@ namespace Capstone_SWP490.Services.Interfaces
     {
         Task<team_member> insert(team_member team_Member);
         List<team_member> getCoachTeamMember(int? teamId);
+        Task<int> delete(team_member entity);
     }
 }

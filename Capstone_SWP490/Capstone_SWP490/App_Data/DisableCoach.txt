@@ -1,0 +1,7 @@
+<p>Wellcome to <b><mark>ICPC Asia-VietNam Regional Contest</mark></b>
+<p>Hi<b>{0}</b>,</p>
+<p>Your account has been {1} by Organization</p>
+<p>reason :<b><mark>{2}</mark><b>
+<p>
+ Thank for your registration !
+</p>

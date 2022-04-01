@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.Models.app_userViewModel;
+﻿using Capstone_SWP490.Constant.Const;
+using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Models.memberViewModel;
 using Capstone_SWP490.MyRoleProvider;
 using Capstone_SWP490.Services;
@@ -67,7 +68,16 @@ namespace Capstone_SWP490.Controllers
             {
                 if (user.active == false)
                 {
-                    ViewData["LoginError"] = "User is Deactive";
+                    string msg;
+                    if (user.user_role.Equals(APP_CONST.APP_ROLE.getUserRole(1)))
+                    {
+                        msg = "Your account is not accepted by organization yet !";
+                    }
+                    else
+                    {
+                        msg = "Your account has been deactived";
+                    }
+                    ViewData["LoginError"] = msg;
                     return View();
                 }
                 if (_iapp_UserService.CheckLogin(app_User))

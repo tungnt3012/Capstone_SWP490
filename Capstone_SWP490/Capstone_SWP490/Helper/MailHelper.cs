@@ -1,4 +1,4 @@
-﻿using Capstone_SWP490.DTO;
+﻿using Capstone_SWP490.mailModel;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -83,6 +83,15 @@ namespace Capstone_SWP490.Helper
             }
             string changePswUrl = hostName + "/Login";
             emailModel.body = string.Format(mailContent, user.full_name,user.psw, changePswUrl, changePswUrl);
+            emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
+            sendMailAsync(emailModel);
+        }
+        public void sendMailDisableCoach(app_user user,string action, string reason)
+        {
+            EmailModel emailModel = new EmailModel();
+            string mailContent = readMailContent("DisableCoach.txt");
+            emailModel.toEmail = user.email;
+            emailModel.body = string.Format(mailContent,action, user.full_name, reason);
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
             sendMailAsync(emailModel);
         }

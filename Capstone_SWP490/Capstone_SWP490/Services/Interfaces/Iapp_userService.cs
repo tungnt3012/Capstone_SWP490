@@ -29,5 +29,7 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<int> update(app_user user);
 
         List<app_user> findCoach(string status, string keyword);
+
+        List<app_user> findNewRegistCoach(string keyword);
     }
 }
