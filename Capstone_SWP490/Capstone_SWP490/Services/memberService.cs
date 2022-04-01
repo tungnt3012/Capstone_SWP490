@@ -17,13 +17,11 @@ namespace Capstone_SWP490.Services
         private static readonly ILog Log = LogManager.GetLogger(typeof(memberService));
         private readonly ImemberRepository _imemberRepository = new memberRepository();
         private readonly Iapp_userRepository _iapp_UserRepository = new app_userRepository();
-        private readonly Iteam_memberRepository _iteam_memberRepository = new teamMemberRepository();
-        private readonly IschoolRepository _ischoolRepository = new schoolRepository();
         public async Task<member> insert(member member)
         {
             try
             {
-                member = await _imemberRepository.Create(member);
+                return await _imemberRepository.Create(member);
             }
             catch (Exception e)
             {

@@ -64,6 +64,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
+                                <label for="email">School Phone</label>
+                                @Html.TextBoxFor(x => x.school_phone, new { @class = "form-control", id = "exampleInputAddress", placeholder = "Enter School Phone Number " })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
                                 <label for="email">School address</label>
                                 @Html.TextBoxFor(x => x.school_address, new { @class = "form-control", id = "exampleInputAddress", placeholder = "Enter School Address " })
                             </div>

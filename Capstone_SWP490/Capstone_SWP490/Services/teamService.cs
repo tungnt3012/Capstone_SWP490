@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.ExceptionHandler;
+﻿using Capstone_SWP490.Constant.Const;
+using Capstone_SWP490.ExceptionHandler;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Services.Interfaces;
@@ -26,7 +27,7 @@ namespace Capstone_SWP490.Services
 
         public async Task<team> insert(team enties)
         {
-            if (!enties.type.Equals("COACH"))
+            if (!enties.type.Equals(APP_CONST.TEAM_ROLE.COACH_TEAM))
             {
                 try
                 {

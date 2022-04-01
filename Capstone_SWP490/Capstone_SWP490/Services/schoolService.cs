@@ -45,7 +45,7 @@ namespace Capstone_SWP490.Services
             return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.enabled == true).OrderByDescending(x => x.update_date).ToList();
         }
 
-        public async Task<school> findById(int id)
+        public school findActiveById(int id)
         {
             return  _ischoolRepository.FindBy(x => x.school_id == id && x.enabled == true).FirstOrDefault();
         }
@@ -59,7 +59,7 @@ namespace Capstone_SWP490.Services
             school.active = (existActive == null);
             try
             {
-                school = await _ischoolRepository.Create(school);
+                return await _ischoolRepository.Create(school);
             }
             catch (Exception e)
             {
@@ -79,6 +79,11 @@ namespace Capstone_SWP490.Services
         public Task<int> update(school school)
         {
             return _ischoolRepository.Update(school, school.school_id);
+        }
+
+        public school findById(int schoolId)
+        {
+            return _ischoolRepository.FindBy(x => x.coach_id == schoolId).FirstOrDefault();
         }
     }
 }

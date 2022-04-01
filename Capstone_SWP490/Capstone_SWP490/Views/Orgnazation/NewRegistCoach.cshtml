@@ -1,9 +1,9 @@
 ﻿@model Capstone_SWP490.Models.organization_ViewModel.organization_ListViewModel
-@{ ViewBag.Title = "Coach Account";
+@{ ViewBag.Title = "Organizer";
 }
 
 <style>
-    #menu-registration2 {
+    #menu_Coach {
         color: #ffffff !important;
         background: #30cf6b;
     }
@@ -12,35 +12,40 @@
 <div class="container-fluid xyz">
     <div class="col-lg-12" id="content_area2_header">
         <div class="col-lg-12" id="content_area2_title">
-            <label for="exampleInputTitle">Coach Management</label>
+            <label for="exampleInputTitle">New Registration</label>
         </div>
     </div>
     <div class="main">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-10 col-lg-offset-1" id="under">
                 <div class="row">
                     <div class="col-lg-12">
-                        <br />
+                        <div style="font-size: 20px; padding-bottom:10px">
+                            >> <a style="text-decoration: underline" href="@Url.Action("CoachAccount", "Orgnazation")">Coach Management</a>
+                        </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="row">
-                                    @if (Model != null)
-                                    {
-                                        <div class="col-lg-12" style="overflow:auto;">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        @using (Html.BeginForm("CoachAccount", "Orgnazation", FormMethod.Post))
-                                                        {
-                                                            <label for="firstName">Select Status:</label>
-                                                            @Html.DropDownListFor(x => x.status, new SelectList(Model.comboxStatus), new { @class = "form-control", id = "cbStatus" })
-                                                            <label for="firstName">Search By Name/Email:</label>
-                                                            @Html.TextBoxFor(x => x.keyword, new { @class = "form-control" })
-                                                            <button style="margin-top: 10px">Apply Filter</button>
-                                                        }
-                                                    </div>
-                                                </div>
+                                @if (Model == null || Model.data.Count == 0)
+                                {
+                                    <br />
+                                    <label>No new registration now !</label>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                @using (Html.BeginForm("Index", "Orgnazation", FormMethod.Get))
+                                                {
+                                                    @Html.TextBoxFor(x => x.keyword, new { @class = "form-control", placeholder = "Enter Name/Email" })
+                                                    <button style="margin-top: 10px">Search</button>
+                                                }
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12" style="overflow:auto;">
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
@@ -50,7 +55,6 @@
                                                         <th scope="col">School Name</th>
                                                         <th scope="col">Institution Name</th>
                                                         <th scope="col">Phone(school)</th>
-                                                        <th scope="col">Status</th>
                                                         <th scope="col"></th>
                                                     </tr>
                                                 </thead>
@@ -59,22 +63,16 @@
                                                     @foreach (var item in Model.data)
                                                     {
                                                         <tr>
-                                                            <td>@(item.full_name)</td>
+                                                            <td>@(item.full_name == null || item.full_name.Equals("") ? "N/A" : item.full_name)</td>
                                                             <td>@(item.email)</td>
-                                                            <td>@(item.coach_phone)</td>
-                                                            <td>@(item.school_name)</td>
-                                                            <td>@(item.institution_name)</td>
-                                                            <td>@(item.school_phone)</td>
-                                                            <td style="color: @(item.status == true ? "green" : " red")">@(item.status == true ? "Enabled" : "Disabled")</td>
+                                                            <td>@(item.coach_phone == null || item.coach_phone.Equals("") ? "N/A" : item.coach_phone)</td>
+                                                            <td>@(item.school_name == null || item.school_name.Equals("") ? "N/A" : item.school_name)</td>
+                                                            <td>@(item.institution_name == null || item.institution_name.Equals("") ? "N/A" : item.institution_name)</td>
+                                                            <td>@(item.school_phone == null || item.school_phone.Equals("") ? "N/A" : item.school_phone)</td>
                                                             <td>
-                                                                @if (item.status == true)
-                                                                {
-                                                                    <a onclick="triggerCoachId('@item.coach_id')" style="color: red; cursor: pointer" data-toggle="modal" data-target="#myModal">Deactive</a>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <a href="@Url.Action("EnableCoach", "Orgnazation")?user_id=@item.coach_id">Active</a>
-                                                                }
+                                                                <a style="cursor:pointer" href="@Url.Action("EnableCoach", "Orgnazation")?user_id=@item.coach_id">Accept</a>
+                                                                |
+                                                                <a onclick="triggerCoachId('@item.coach_id')" style="color: red; cursor: pointer" data-toggle="modal" data-target="#myModal">Reject</a>
                                                             </td>
                                                         </tr>
                                                     }
@@ -83,7 +81,7 @@
                                             @if (Model.total_page >= 2)
                                             {
                                                 <ul class="pagination">
-                                                    <li class="page-item"><a class="page-link" href="@Url.Action("DisableCoach", "Orgnazation")?pageIndex=@((Model.pageIndex - 1) <= 0 ? Model.total_page : Model.pageIndex - 1)&status=@(Model.status)">Previous</a></li>
+                                                    <li class="page-item"><a class="page-link" href="@Url.Action("CoachAccount", "Orgnazation")?pageIndex=@((Model.pageIndex - 1) <= 0 ? Model.total_page : Model.pageIndex - 1)&status=@(Model.status)">Previous</a></li>
                                                     @for (int i = 1; i <= Model.total_page; i++)
                                                     {
                                                         <li class="page-item @(Model.pageIndex == i ? "active" : "")">
@@ -93,9 +91,9 @@
                                                     <li class="page-item"><a class="page-link" href="@Url.Action("CoachAccount", "Orgnazation")?pageIndex=@((Model.pageIndex + 1) > Model.total_page ? 1 : Model.pageIndex + 1)&status=@(Model.status)">Next</a></li>
                                                 </ul>
                                             }
-                                        </div>}
-                                </div>
-
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
 
@@ -104,6 +102,7 @@
             </div>
         </div>
     </div>
+
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
@@ -112,16 +111,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Reason</h4>
+                    <h4 class="modal-title">Reject Reason</h4>
                 </div>
-                @using (Html.BeginForm("DisableCoach", "Orgnazation", FormMethod.Get, new { id = "reject-form" }))
+                @using (Html.BeginForm("RejectCoach", "Orgnazation", FormMethod.Get, new { id = "reject-form" }))
                 {
                     <div class="modal-body">
-                        <input id="coachId" type="hidden" name="user_id" />
+                        <input id="coachId" type="hidden" name="coachId" />
                         <textarea id="reason-text" class="form-control" name="reason" required></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button id="submit-reject" type="button" class="btn btn-danger" data-dismiss="modal">Deactive</button>
+                        <button id="submit-reject" type="button" class="btn btn-danger" data-dismiss="modal">Reject</button>
                         <button id="reset-reject" style="color:black" type="reset" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 }
@@ -129,14 +128,15 @@
 
         </div>
     </div>
-
 </div>
 
-
-<form id="changeStatus" method="GET" action="@Url.Action("CoachAccount", "Orgnazation")">
-    <input id="statusRaw" type="hidden" value="0" name="status" />
-</form>
 <script>
+
+    function onChanngeDropDown() {
+        var selected = document.getElementById("team").value;
+        document.getElementById("teamIdRaw").value = selected;
+        document.getElementById("changeTeam").submit();
+    }
     $(document).ready(function () {
         $("#newModal").modal("show");
         $("#newModal").on('hide.bs.modal', function () {
@@ -146,7 +146,6 @@
 
         });
     });
-
     document.getElementById("reset-reject").addEventListener('click', function () {
         document.getElementById("reason-text").value = "";
         document.getElementById("coachId").value = "";

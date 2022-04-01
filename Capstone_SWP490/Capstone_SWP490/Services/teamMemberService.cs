@@ -13,6 +13,11 @@ namespace Capstone_SWP490.Services
     {
         private readonly Iteam_memberRepository _iteam_memberRepository = new teamMemberRepository();
 
+        public async Task<int> delete(team_member entity)
+        {
+            return await _iteam_memberRepository.Delete(entity);
+        }
+
         public List<team_member> getCoachTeamMember(int? teamId)
         {
             return _iteam_memberRepository.FindBy(x => x.team_id == teamId).ToList();

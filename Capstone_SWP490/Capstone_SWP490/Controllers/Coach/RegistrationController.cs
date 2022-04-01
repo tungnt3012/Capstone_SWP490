@@ -1,11 +1,9 @@
-﻿using Capstone_SWP490.DTO;
-using Capstone_SWP490.Helper;
+﻿using Capstone_SWP490.Helper;
 using Capstone_SWP490.Models.school_memberViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using iImport = Capstone_SWP490.Common.ExcelImportPosition;
@@ -657,7 +655,7 @@ namespace Capstone_SWP490.Controllers.Coach
             {
                 data.source = "VIEW";
                 int schoolId = Int32.Parse(school_id);
-                school = await _ischoolService.findById(schoolId);
+                school =  _ischoolService.findActiveById(schoolId);
                 teams = school.teams.ToList();
                 app_userViewModel logined = (app_userViewModel)Session["profile"];
                 member storedCoach = _imemberService.GetMemberByUserId(logined.user_id);
@@ -785,7 +783,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 inUsing.active = false;
                 await _ischoolService.update(inUsing);
             }
-            school activeSchool = await _ischoolService.findById(id);
+            school activeSchool =  _ischoolService.findActiveById(id);
             if (activeSchool != null)
             {
                 activeSchool.active = true;
@@ -796,7 +794,7 @@ namespace Capstone_SWP490.Controllers.Coach
         public async Task<ActionResult> RemoveSchool(int id)
         {
             app_userViewModel logined = (app_userViewModel)Session["profile"];
-            school school = await _ischoolService.findById(id);
+            school school = _ischoolService.findActiveById(id);
             if (school == null)
             {
                 return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);

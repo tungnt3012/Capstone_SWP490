@@ -21,6 +21,7 @@ namespace Capstone_SWP490.Constant.Const
             public static string CONTROLLER = "Orgnazation";
             public static string INDEX = "";
             public static string COACH_ACCOUNT = "CoachAccount";
+            public static string NEW_REGIST_COACH = "NewRegistCoach";
         }
         public class Home
         {

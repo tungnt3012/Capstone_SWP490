@@ -12,7 +12,7 @@ namespace Capstone_SWP490.Models.coachViewModel
 
         public string email {get;set; }
         public string phone_numer { get; set; }
-
+        public string school_phone { get; set; }
         public string school_name { get; set; }
         public string institution_name  { get; set; }
 

@@ -168,6 +168,7 @@ namespace Capstone_SWP490.Services
 
         public async Task<int> update(app_user user)
         {
+            user.update_date = DateTime.Now+"";
             return await _iapp_UserRepository.Update(user, user.user_id);
         }
 
@@ -181,20 +182,20 @@ namespace Capstone_SWP490.Services
             status = status.ToUpper();
             if (status != null && status.Equals("ALL"))
             {
-                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).ToList();
+                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.update_date != null && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).ToList();
             }
             else if (status.Equals("ENABLED"))
             {
-                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.active == true && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).ToList();
+                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.update_date != null && x.active == true && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).ToList();
             }
             else
             {
-                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.active == false && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).OrderBy(x => x.active).ToList();
+                result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.update_date != null && x.active == false && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).OrderBy(x => x.active).ToList();
             }
 
             var lstTemp = new List<app_userViewModel>();
             var app_userTemp = new List<app_user>();
-            if (result.Count > 1)
+            if (result.Count >= 1)
             {
                 foreach (var x in result)
                 {
@@ -287,6 +288,60 @@ namespace Capstone_SWP490.Services
                 }
             }
             return false;
+        }
+
+        public List<app_user> findNewRegistCoach(string keyword)
+        {
+            if (keyword == null)
+            {
+                keyword = "";
+            }
+            List<app_user> result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.update_date == null && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).ToList();
+
+            var lstTemp = new List<app_userViewModel>();
+            var app_userTemp = new List<app_user>();
+            if (result.Count >= 1)
+            {
+                foreach (var x in result)
+                {
+                    var newU = new app_userViewModel
+                    {
+                        active = x.active,
+                        email = x.email,
+                        full_name = x.full_name,
+                        user_id = x.user_id,
+                        user_name = x.user_name,
+                        user_role = x.user_role,
+                        verified = x.verified,
+                        insert_date = Convert.ToDateTime(x.insert_date),
+                        update_date = Convert.ToDateTime(x.update_date)
+                    };
+                    lstTemp.Add(newU);
+                }
+
+                var tmp = (from u in lstTemp
+                           orderby u.update_date descending
+                           select u).ToList();
+
+                foreach (var s in tmp)
+                {
+                    var newUTemp = new app_user
+                    {
+                        active = s.active,
+                        email = s.email,
+                        full_name = s.full_name,
+                        user_id = s.user_id,
+                        user_name = s.user_name,
+                        user_role = s.user_role,
+                        verified = s.verified,
+                        insert_date = Convert.ToString(s.insert_date),
+                        update_date = Convert.ToString(s.update_date)
+                    };
+                    app_userTemp.Add(newUTemp);
+                }
+            }
+
+            return app_userTemp;
         }
     }
 }

@@ -11,12 +11,13 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<school> insert(school school);
         Task<int> deleteAsync(school school);
         List<school> findByCoachId(int coachId);
-        Task<school> findById(int id);
+        school findActiveById(int id);
 
         void disable(school school);
         int count(int coach_id);
        int disableUsingStore(int schoolId);
         school findInUsing(int coachId);
         Task<int> update(school school);
+        school findById(int schoolId);
     }
 }
