@@ -86,7 +86,9 @@ namespace Capstone_SWP490.Controllers
         }
 
         [HttpPost]
+#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         public async Task<ActionResult> SubEventUpload(eventsViewModel events)
+#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
             ViewBag.Message = "Your Sub-Event Upload page.";
             return View();

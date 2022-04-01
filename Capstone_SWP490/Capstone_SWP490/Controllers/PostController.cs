@@ -40,7 +40,9 @@ namespace Capstone_SWP490.Controllers
                 _postService.update(_post);
                 return RedirectToAction("", "Post");
             }
+#pragma warning disable CS0168 // The variable 'e' is declared but never used
             catch (Exception e)
+#pragma warning restore CS0168 // The variable 'e' is declared but never used
             {
                 return RedirectToAction("", "Home");
 
@@ -57,7 +59,9 @@ namespace Capstone_SWP490.Controllers
                 _postService.update(_post);
                 return RedirectToAction("", "Post");
             }
+#pragma warning disable CS0168 // The variable 'e' is declared but never used
             catch (Exception e)
+#pragma warning restore CS0168 // The variable 'e' is declared but never used
             {
                 return RedirectToAction("", "Home");
 
@@ -111,7 +115,9 @@ namespace Capstone_SWP490.Controllers
                 model.action = "Edit";
                 return View(model);
             }
+#pragma warning disable CS0168 // The variable 'e' is declared but never used
             catch (Exception e)
+#pragma warning restore CS0168 // The variable 'e' is declared but never used
             {
                 return RedirectToAction("", "Home");
             }

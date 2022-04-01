@@ -10,7 +10,9 @@ namespace Capstone_SWP490.MyRoleProvider
     public class SiteRole : RoleProvider
     {
         public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+#pragma warning disable CS0414 // The field 'SiteRole._cacheTimeoutInMinute' is assigned but its value is never used
         private int _cacheTimeoutInMinute = 20;
+#pragma warning restore CS0414 // The field 'SiteRole._cacheTimeoutInMinute' is assigned but its value is never used
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {

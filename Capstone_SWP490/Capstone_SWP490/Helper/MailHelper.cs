@@ -20,7 +20,9 @@ namespace Capstone_SWP490.Helper
                 string path = HttpContext.Current.Server.MapPath("~/App_Data/"+ fname);//Path of the xml script  
                 return File.ReadAllText(path); ;
             }
+#pragma warning disable CS0168 // The variable 'e' is declared but never used
             catch (Exception e)
+#pragma warning restore CS0168 // The variable 'e' is declared but never used
             {
                 return "";
             }

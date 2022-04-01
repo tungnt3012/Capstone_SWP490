@@ -91,7 +91,7 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                 }
                 organization_ViewModel itemModel;
                 List<organization_ViewModel> data = new List<organization_ViewModel>();
-                List<app_user> coachUser = _iapp_UserService.findCoach(model.status,model.keyword);
+                List<app_user> coachUser = _iapp_UserService.findCoach(model.status, model.keyword);
                 foreach (var item in coachUser)
                 {
                     itemModel = new organization_ViewModel();
@@ -136,18 +136,26 @@ namespace Capstone_SWP490.Controllers.Orgnazition
 
         public ActionResult RejectCoach(int coachId, string reason)
         {
-            app_user coachUser =  _iapp_UserService.getByUserId(coachId);
-            school school =  _ischoolService.findById(coachUser.user_id);
-            member coachMember = _imemberService.GetMemberByUserId(coachUser.user_id);
-            team coachTeam = _iteamService.findBySchoolId(school.school_id).FirstOrDefault();
-            team_member teamMember = _iteam_memberService.getCoachTeamMember(coachTeam.team_id).FirstOrDefault();
-            _iteam_memberService.delete(teamMember);
-            _imemberService.deleteAsync(coachMember);
-            _iteamService.delete(coachTeam);
-            _ischoolService.deleteAsync(school);
-            _iapp_UserService.delete(coachUser);
-            new MailHelper().sendMailDisableCoach(coachUser, "rejeted", reason);
-            return RedirectToAction(ACTION_CONST.Orgnazation.NEW_REGIST_COACH, ACTION_CONST.Orgnazation.CONTROLLER);
+            try
+            {
+                app_user coachUser = _iapp_UserService.getByUserId(coachId);
+                school school = _ischoolService.findById(coachUser.user_id);
+                member coachMember = _imemberService.GetMemberByUserId(coachUser.user_id);
+                team coachTeam = _iteamService.findBySchoolId(school.school_id).FirstOrDefault();
+                team_member teamMember = _iteam_memberService.getCoachTeamMember(coachTeam.team_id).FirstOrDefault();
+                _iteam_memberService.delete(teamMember);
+                _imemberService.deleteAsync(coachMember);
+                _iteamService.delete(coachTeam);
+                _ischoolService.deleteAsync(school);
+                _iapp_UserService.delete(coachUser);
+                new MailHelper().sendMailDisableCoach(coachUser, "rejeted", reason);
+                return RedirectToAction(ACTION_CONST.Orgnazation.NEW_REGIST_COACH, ACTION_CONST.Orgnazation.CONTROLLER);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+                return RedirectToAction("", ACTION_CONST.Home.CONTROLLER);
+            }
         }
         public ActionResult EnableCoach(int user_id)
         {
@@ -172,7 +180,7 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                 app_user updated = _iapp_UserService.getByUserId(user_id);
                 updated.active = false;
                 _iapp_UserService.update(updated);
-                new MailHelper().sendMailDisableCoach(updated,"deactived", reason);
+                new MailHelper().sendMailDisableCoach(updated, "deactived", reason);
             }
             catch (Exception e)
             {
