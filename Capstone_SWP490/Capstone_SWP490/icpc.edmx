@@ -76,6 +76,8 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.documentation' does not have a p
           <Property Name="fan_page" Type="varchar" MaxLength="50" />
           <Property Name="shirt_id" Type="smallint" />
           <Property Name="note" Type="nvarchar" MaxLength="150" />
+          <Property Name="member_join" Type="nvarchar(max)" />
+          <Property Name="sub_event" Type="nvarchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -434,6 +436,8 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="fan_page" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="shirt_id" Type="Int16" />
           <Property Name="note" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="member_join" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sub_event" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="member">
           <Key>
@@ -792,6 +796,8 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
                 <ScalarProperty Name="fan_page" ColumnName="fan_page" />
                 <ScalarProperty Name="shirt_id" ColumnName="shirt_id" />
                 <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="member_join" ColumnName="member_join" />
+                <ScalarProperty Name="sub_event" ColumnName="sub_event" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
