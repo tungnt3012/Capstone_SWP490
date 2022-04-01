@@ -586,7 +586,7 @@ input, select, textarea {
     line-height: 16px;
     color: #333333;
 }
-}
+
 
 .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
     color: #302217;
@@ -802,7 +802,7 @@ h2 {
     margin-bottom: 20px;
     color: #333333;
 }
-}
+
 
 /*footer*/
 #footer {
@@ -960,7 +960,7 @@ ul li a {
     height: auto;
     color: #333333;
 }
-}
+
 
 #delete-popup {
     width: auto;
@@ -974,9 +974,9 @@ ul li a {
 }
 
 #event-canner {
-    color: #333333;
+   color:#333333;
 }
-}
+
 
 #content-iframe {
     height: 100vh;
