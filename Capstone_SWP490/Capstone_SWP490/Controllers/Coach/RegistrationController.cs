@@ -76,6 +76,10 @@ namespace Capstone_SWP490.Controllers.Coach
         {
             return View();
         }
+        public ActionResult RegistrationStatistic()
+        {
+            return View();
+        }
 
         public ActionResult MemberDetail(int? id, int? teamId)
         {

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Registration | Guide";
+    ViewBag.Title = "Registration Guide Contest";
     var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
 
 }
@@ -12,137 +12,12 @@
         background: #30cf6b;
     }
 
-    body {
-        background-color: #ffffff;
+    #menu_Registration_sub1 {
+        color: #ffffff !important;
+        background: #7FFF00;
     }
 
-    .title {
-        width: 90vw;
-        height: fit-content;
-        color: white;
-        font-size: 2rem;
-        font-family: 'Playfair Display', serif;
-        font-weight: 800;
-    }
-
-    .input {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: start;
-        gap: 2rem;
-        padding: 1rem;
-        border: 1px solid #000000;
-        height: 4.2rem;
-        overflow: hidden;
-        transition: height 1s ease;
-        max-width: 50rem;
-        background: #ffffff;
-        margin-left: 20px;
-    }
-
-    #close {
-        margin-left: auto;
-        margin-top: -0.5rem;
-        margin-right: -0.7rem;
-        display: none;
-    }
-
-    .input .inputs1 {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    .inputs2 textarea {
-        display: none;
-        max-width: 50rem;
-        min-width: 40rem;
-    }
-
-    .input .heading {
-        width: 35em;
-        height: 2rem;
-        background-color: transparent;
-        border: none;
-        outline: none;
-        color: #000000;
-        font-family: 'Playfair Display', serif;
-    }
-
-    .input button {
-    }
-
-        .input button:hover {
-            background-color: white;
-            color: black;
-            font-weight: bold;
-        }
-
-
-    .subcon {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-        .subcon:nth-child(1) {
-            grid-column-start: 1;
-            grid-column-end: 2;
-        }
-
-        .subcon:nth-child(2) {
-            grid-column-start: 2;
-            grid-column-end: 3;
-        }
-
-        .subcon:nth-child(3) {
-            grid-column-start: 3;
-            grid-column-end: 4;
-        }
-
-        .subcon:nth-child(4) {
-            grid-column-start: 4;
-            grid-column-end: 5;
-        }
-
-        .subcon:nth-child(5) {
-            grid-column-start: 5;
-            grid-column-end: 6;
-        }
-
-    .item {
-        border: 1px solid white;
-        padding: 0.8rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-        .item #heading {
-            font-weight: bold;
-            font-size: 1.5em !important;
-        }
-
-        .item #delete_edit img {
-            height: 1.5rem;
-            margin-top: 1rem;
-            margin-right: 0.5rem;
-        }
-
-    #post-pins {
-        width: auto;
-        height: auto;
-        background-color: #007bff;
-        border: none;
-        color: #ffffff;
-        /* font-family: 'Playfair Display', serif; */
-        text-transform: uppercase;
-        margin-left: auto;
-        margin-top: 10px;
-    }
+   
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700;1,800&family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
 <script src="//cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
@@ -150,46 +25,44 @@
 <div class="container-fluid xyz">
     <div class="col-lg-12" id="content_area2_header">
         <div class="col-lg-12" id="content_area2_title">
-            <label for="exampleInputTitle">Registration Guide</label>
+            <label for="exampleInputTitle">Registration Guide Contest</label>
         </div>
     </div>
     <div class="main">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1" id="under">
-                <a id="btn-registration_title" style="color: red" href="/Home/Index" class="button">Back Home</a>
-
-                @if (Session["username"] != null)
-                {
-                    if (profile.user_role.Equals("ORGANIZER"))
+                    @if (Session["username"] != null)
                     {
-                        <div class="input">
-                            <img id="close" src="~/image/x-circle-fill.svg" />
-                            <div class="inputs1">
-                                <input class="heading" type="text" placeholder="More information...">
-                                <button class="save_btn btn-success" onclick="AjaxCreateContent()">Add</button>
-                                <button style="display: none" class="update_btn">Update</button>
+                        if (profile.user_role.Equals("ORGANIZER"))
+                        {
+                            <div class="input">
+                                <img id="close" src="~/image/x-circle-fill.svg" />
+                                <div class="inputs1">
+                                    <input class="heading" type="text" placeholder="More information...">
+                                    <button class="save_btn btn-success" onclick="AjaxCreateContent()">Add</button>
+                                    <button style="display: none" class="update_btn">Update</button>
+                                </div>
+                                <div class="inputs2">
+                                    <textarea id="editor" name="content" placeholder="Puke your Content in here! 🤮"></textarea>
+                                    @*<button type="button" class="btn btn-primary" id="post-pins">Post Pins</button>*@
+                                </div>
                             </div>
-                            <div class="inputs2">
-                                <textarea id="editor" name="content" placeholder="Puke your Content in here! 🤮"></textarea>
-                                @*<button type="button" class="btn btn-primary" id="post-pins">Post Pins</button>*@
+                        }
+                    }
+                    <div id="page-content">
+                    </div>
+                    @if (Session["username"] != null)
+                    {
+                        <div class="row" id="regis-btn">
+                            <div class="col-lg-6">
+                            </div>
+                            <div class="col-lg-6" id="btn-registrantionTitle">
+                                <button class="btn btn-primary" id="btn-registration-guide" onclick="location.href='@Url.Action("", "Registration")';return false;">Registration</button>
                             </div>
                         </div>
                     }
-                }
-                <div class="row" id="page-content">
                 </div>
-                @if (Session["username"] != null)
-                {
-                    <div class="row" id="regis-btn">
-                        <div class="col-lg-6">
-                        </div>
-                        <div class="col-lg-6" id="btn-registrantionTitle">
-                            <button class="btn btn-primary" id="btn-registration-guide" onclick="location.href='@Url.Action("", "Registration")';return false;">Registration</button>
-                        </div>
-                    </div>
-                }
             </div>
-        </div>
     </div>
 </div>
 
