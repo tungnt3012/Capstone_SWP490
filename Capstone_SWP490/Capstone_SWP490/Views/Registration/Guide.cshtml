@@ -30,12 +30,8 @@
     </div>
     <div class="main">
         <div class="row">
-            <div class="col-lg-10 col-lg-offset-1" id="under">
-                    @if (Session["username"] != null)
-                    {
-                        if (profile.user_role.Equals("ORGANIZER"))
-                        {
-                            <div class="input">
+            <div class="col-lg-10 col-lg-offset-1" id="under"><div class="col-lg-12">
+     @if (Session["username"] != null) { if (profile.user_role.Equals("ORGANIZER")) { <div class="input">
                                 <img id="close" src="~/image/x-circle-fill.svg" />
                                 <div class="inputs1">
                                     <input class="heading" type="text" placeholder="More information...">
@@ -61,7 +57,7 @@
                             </div>
                         </div>
                     }
-                </div>
+                </div></div>
             </div>
     </div>
 </div>

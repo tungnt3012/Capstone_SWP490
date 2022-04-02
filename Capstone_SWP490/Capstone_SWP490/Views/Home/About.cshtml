@@ -20,32 +20,35 @@
         </div>
     </div>
     <div class="main">
-        <div class="column">
+        <div class="row">
 
             <div class="col-lg-10 col-lg-offset-1" id="under">
-                @if (Session["username"] != null)
-                {
-                    if (profile.user_role.Equals("ORGANIZER"))
+                <div class="col-lg-12">
+                    @if (Session["username"] != null)
                     {
-                        <div class="input">
-                            <img id="close" src="~/image/x-circle-fill.svg" />
-                            <div class="inputs1">
-                                <input class="heading" type="text" placeholder="More information...">
-                                <button class="save_btn btn-success" onclick="AjaxCreateContent()">Add</button>
-                                <button style="display: none" class="update_btn">Update</button>
+                        if (profile.user_role.Equals("ORGANIZER"))
+                        {<div class="input">
+                                <img id="close" src="~/image/x-circle-fill.svg" />
+                                <div class="inputs1">
+                                    <input class="heading" type="text" placeholder="More information...">
+                                    <button class="save_btn btn-success" onclick="AjaxCreateContent()">Add</button>
+                                    <button style="display: none" class="update_btn">Update</button>
+                                </div>
+                                <div class="inputs2">
+                                    <textarea id="editor" name="content" placeholder="Puke your Content in here! 🤮"></textarea>
+                                    @*<button type="button" class="btn btn-primary" id="post-pins">Post Pins</button>*@
+                                </div>
                             </div>
-                            <div class="inputs2">
-                                <textarea id="editor" name="content" placeholder="Puke your Content in here! 🤮"></textarea>
-                                @*<button type="button" class="btn btn-primary" id="post-pins">Post Pins</button>*@
-                            </div>
-                        </div>
+                        }
                     }
-                }
+                </div>
+                   
+
                 <div class="column" id="page-content">
                 </div>
             </div>
-           
-        </div>
+
+            </div>
     </div>
 
 </div>

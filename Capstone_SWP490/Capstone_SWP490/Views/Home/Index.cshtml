@@ -12,6 +12,7 @@
     #footer {
         display: none;
     }
+
 </style>
 <div id="page-content-wrapper-home">
     <div class="container-fluid xyz">
@@ -19,50 +20,59 @@
             <div class="column">
                 <div class="col-lg-10 col-lg-offset-1">
                     <div class="col-lg-12">
-                        <img src="~/image/code_war_2019_2(2) 2.png" class="img-fluid" alt="Responsive image" style="width:100%">
-                        <div class="carousel-caption">
-                            <h3 id="text-content-home7">THE 2021 ICPC ASIA HANOI - VIET NAM</h3>
-                            <p id="text-content-home8">Regional Contest</p>
+                        <div class="form-group">
+                            <img src="~/image/code_war_2019_2(2) 2.png" class="img-fluid" alt="Responsive image" style="width:100%">
+                            <div class="carousel-caption">
+                                <h3 id="text-content-home7">THE 2021 ICPC ASIA HANOI - VIET NAM</h3>
+                                <p id="text-content-home8">Regional Contest</p>
+                            </div>
                         </div>
-                        </div>
+                    </div>
+                  
+
                         <div class="col-lg-12">
-                            <div class="col-lg-6">
-                                <img src="~/image/Logo_FPT.png" class="img-fluid" alt="Responsive image" style="width:100%">
-                            </div>
-                            <div class="col-lg-6">
-                                <p class="text-center" id="text-content-home1">
-                                    <span id="">
-                                        <strong>Hosted by</strong>
-                                    </span>
-                                </p>
-                                <p class="text-center" id="text-content-home2">
-                                    <span>
-                                        <strong>FPT UNIVERSITY</strong>
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="col-lg-3">
-                                <img src="~/image/FU 1.jpg" class="img-thumbnail" alt="Responsive image">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="~/image/FU 2.jpg" class="img-thumbnail" alt="Responsive image">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="~/image/FU 3.jpg" class="img-thumbnail" alt="Responsive image">
-                            </div>
-                            <div class="col-lg-3">
-                                <img src="~/image/FU 5.jpg" class="img-thumbnail" alt="Responsive image">
+                            <div class="form-group">
+                                <div class="col-lg-3">
+                                    <img src="~/image/FU 1.jpg" class="img-thumbnail" alt="Responsive image">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="~/image/FU 2.jpg" class="img-thumbnail" alt="Responsive image">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="~/image/FU 3.jpg" class="img-thumbnail" alt="Responsive image">
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="~/image/FU 5.jpg" class="img-thumbnail" alt="Responsive image">
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <p class="text-center" id="text-content-home3">Pacific/Peninsula or Asia; About Asia administrative sub-regions partition, refer to</p>
-                            <p class="text-center" id="text-content-home4">  http://blog.sina.com.cn/cjhwang</p>
-                            <p class="text-center"><span id="text-content-home5">The ICPC International:</span><span id="text-content-home6"> https://icpc.global</span></p>
+                            <div class="form-group">
+                                <p class="text-center" id="text-content-home3">Pacific/Peninsula or Asia; About Asia administrative sub-regions partition, refer to</p>
+                                <p class="text-center" id="text-content-home4">  http://blog.sina.com.cn/cjhwang</p>
+                                <p class="text-center"><span id="text-content-home5">The ICPC International:</span><span id="text-content-home6"> https://icpc.global</span></p>
+                            </div>
                         </div>
                     </div>
                 </div>
         </div>
     </div>
 </div>
+<script>
+    $('.carousel[data-type="multi"] .item').each(function () {
+        var next = $(this).next();
+        if (!next.length) {
+            next = $(this).siblings(':first');
+        }
+        next.children(':first-child').clone().appendTo($(this));
+
+        for (var i = 0; i < 2; i++) {
+            next = next.next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+
+            next.children(':first-child').clone().appendTo($(this));
+        }
+    });
+    </script>
