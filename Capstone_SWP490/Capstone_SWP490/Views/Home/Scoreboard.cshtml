@@ -16,27 +16,53 @@
             <label for="exampleInputTitle">Scoreboard</label>
         </div>
     </div>
-    <div class="main2">
+    <div class="main">
         <div class="column">
             <div class="col-lg-10 col-lg-offset-1" id="under">
+                <section>
+                    <div class="form-group" style="padding-left:15px">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li role="presentation" class="nav-item active">
+                                <a href="#step1" class="nav-link front-size-title active" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">Southern</a>
+                            </li>
 
+                            <li role="presentation" class="nav-item">
+                                <a href="#step2" class="nav-link front-size-title" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">Central</a>
+                            </li>
+                            <li role="presentation" class="nav-item">
+                                <a href="#step3" class="nav-link front-size-title" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">Northern</a>
+                            </li>
 
-
-                <div class="col-lg-1">
-                    <div id="toc" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="https://icpcvn.github.io/2021/national/scoreboard.html">National</a>
-                        <a class="dropdown-item" href="https://icpcvn.github.io/2021/southern/scoreboard.html">Southern</a>
-                        <a class="dropdown-item" href="https://icpcvn.github.io/2021/central/scoreboard.html">Central</a>
-                        <a class="dropdown-item" href="https://icpcvn.github.io/2021/northern/scoreboard.html">Northern</a>
+                        </ul>
                     </div>
-                </div>
-
-                <div class="col-lg-11">
-                    <iframe class="col-lg-12" id="content-iframe">
-                    </iframe>
-                    </div>
-                </div>
+                    <form role="form">
+                        <div class="tab-content">
+                            <div class="tab-pane active" role="tabpanel" id="step1">
+                                <div class="col-lg-12">
+                                    <iframe class="col-lg-12" id="content-iframe" src="https://icpcvn.github.io/2021/southern/scoreboard.html">
+                                    </iframe>
+                                </div>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="step2">
+                                <div class="col-lg-12">
+                                    <iframe class="col-lg-12" id="content-iframe" src="https://icpcvn.github.io/2021/central/scoreboard.html">
+                                    </iframe>
+                                </div>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="step3">
+                                <div class="col-lg-12">
+                                    <iframe class="col-lg-12" id="content-iframe" src="https://icpcvn.github.io/2021/northern/scoreboard.html">
+                                    </iframe>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </section>
             </div>
+           
+
+        </div>
     </div>
 </div>
 <script>

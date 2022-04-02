@@ -158,6 +158,14 @@
         margin-top: 10px;
         float: right;
     }
+
+    #btn-cancel-event {
+        margin-top: 10px;
+        float: right;
+        margin-right:10px;
+        color:#333333;
+
+    }
     .pull-right {
         float: right !important;
         margin-right: 0px !important;
@@ -798,7 +806,12 @@ h2 {
     color: #333333;
 }
 
-
+#registration_importdata-Error {
+    width: auto!important;
+    height: 45px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
 /*footer*/
 #footer {
     left: 0;
@@ -976,6 +989,7 @@ ul li a {
 #content-iframe {
     height: 100vh;
     width: 100%;
+    border:none;
 }
 
 #text-content-home1 {

@@ -8,7 +8,7 @@
 <div class="container-fluid xyz">
     <div class="col-lg-12" id="content_area2_header">
         <div class="col-lg-12" id="content_area2_title">
-            <label for="exampleInputTitle">Event Detail</label>
+            <label for="exampleInputTitle">Detail Sub Event</label>
         </div>
     </div>
     <div class="main">
@@ -16,85 +16,110 @@
             <div class="col-lg-10 col-lg-offset-1" id="under">
                 @if (events != null)
                 {
+                    <section>
+                        <div class="form-group" style="padding-left:15px">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li role="presentation" class="nav-item active">
+                                    <a href="#step1" class="nav-link front-size-title active" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">About the Event</a>
+                                </li>
+
+                                <li role="presentation" class="nav-item">
+                                    <a href="#step2" class="nav-link front-size-title" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">Description</a>
+                                </li>
+                                <li role="presentation" class="nav-item">
+                                    <a href="#step3" class="nav-link front-size-title" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">Contact</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <form role="form">
+                            <div class="tab-content">
+
+                                <div class="tab-pane active" role="tabpanel" id="step1">
+                                    <div class="col-lg-12">
+                                        <label class="border border-danger" for="Event_Schedule">
+                                            Title:
+                                        </label>
+                                        <label class="border border-danger" for="Event_Schedule" style="font-weight: normal">
+                                            @events.title
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="border border-danger" for="Event_Schedule">
+                                            Time start:
+                                        </label>
+                                        <label class="border border-danger" for="Event_Schedule" style="font-weight: normal">
+                                            @events.start_date_str
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="border border-danger" for="Event_Schedule">
+                                            Time end:
+                                        </label>
+                                        <label class="border border-danger" for="Event_Schedule" style="font-weight: normal">
+                                            @events.end_date_str
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" role="tabpanel" id="step2">
+                                    <div class="col-lg-12">
+                                        <label class="border border-danger" for="Event_Schedule">
+                                            Desctiption:
+                                        </label>
+                                        <label class="border border-danger" for="Event_Schedule" style="font-weight: normal">
+                                            @events.desctiption
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="border border-danger" for="Event_Schedule">
+                                            Venue:
+                                        </label>
+                                        <label class="border border-danger" for="Event_Schedule" style="font-weight: normal">
+                                            @events.venue
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" role="tabpanel" id="step3">
+                                    <div class="col-lg-12">
+                                        <label class="border border-danger" for="Event_Schedule">
+                                            Contactor phone:
+                                        </label>
+                                        <label class="border border-danger" for="Event_Schedule" style="font-weight: normal">
+                                            @events.contactor_phone
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="Event-Title" for="Event_Schedule">
+                                            Contactor email:
+                                        </label>
+                                        <label class="Event-Content" for="Event_Schedule" style="font-weight: normal">
+                                            @events.contactor_email
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="Event-Title" for="Event_Schedule">
+                                            Contactor Name:
+                                        </label>
+                                        <label class="Event-Content" for="Event_Schedule" style="font-weight: normal">
+                                            @events.contactor_name
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="Event-Title" for="Event_Schedule">
+                                            Fanpage:
+                                        </label>
+                                        <label class="Event-Content" for="Event_Schedule" style="font-weight: normal">
+                                            <a href="#">@events.fan_page</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </section>
                     <div class="col-lg-12">
-                        <label class="front-size-title" for="Event_Schedule">
-                            About the Sub Event
-                        </label>
-                    </div>
-                    <div class="col-lg-12">
-                        <label class="Event-Title" for="Event_Schedule">
-                            Title:
-                        </label>
-                        <label class="Event-Content" for="Event_Schedule">
-                            @events.title
-                        </label>
-                    </div>
-                    <div class="col-lg-12">
-                        <label class="Event-Title" for="Event_Schedule">
-                            Time start:
-                        </label>
-                        <label class="Event-Content" for="Event_Schedule">
-                            @events.start_date_str
-                        </label>
-                    </div>
-                    <div class="col-lg-12">
-                        <label class="Event-Title" for="Event_Schedule">
-                            Time end:
-                        </label>
-                        <label class="Event-Content" for="Event_Schedule">
-                            @events.end_date_str
-                        </label>
-                    </div>
-                    <div class="col-lg-12">
-                        <label class="Event-Title" for="Event_Schedule">
-                            Desctiption:
-                        </label>
-                        <label class="Event-Content" for="Event_Schedule">
-                            @events.desctiption
-                        </label>
-                    </div>
-                    <div class="col-lg-12">
-                        <label class="Event-Title" for="Event_Schedule">
-                            Venue:
-                        </label>
-                        <label class="Event-Content" for="Event_Schedule">
-                            @events.venue
-                        </label>
-                    </div>
-                    <div class="col-lg-12">
-                        <label class="Event-Title" for="Event_Schedule">
-                            Contactor phone:
-                        </label>
-                        <label class="Event-Content" for="Event_Schedule">
-                            @events.contactor_phone
-                        </label>
-                    </div>
-                    <div class="col-lg-12">
-                        <label class="Event-Title" for="Event_Schedule">
-                            Contactor email:
-                        </label>
-                        <label class="Event-Content" for="Event_Schedule">
-                            @events.contactor_email
-                        </label>
-                    </div>
-                    <div class="col-lg-12">
-                        <label class="Event-Title" for="Event_Schedule">
-                            Contactor Name:
-                        </label>
-                        <label class="Event-Content" for="Event_Schedule">
-                            @events.contactor_name
-                        </label>
-                    </div>
-                    <div class="col-lg-12">
-                        <label class="Event-Title" for="Event_Schedule">
-                            Fanpage:
-                        </label>
-                        <label class="Event-Content" for="Event_Schedule">
-                            <a href="#">@events.fan_page</a>
-                        </label>
-                    </div>
-                    <div class="col-lg-12">
-                        <button type="button" id="btn-add-event" onclick="history.back()" class="btn btn-primary">Back</button>
+                        <button type="button" id="btn-cancel-event" onclick="window.location.href='/Home/Event'" class="btn btn-secondary">Cancel</button>
                     </div>
                 }
             </div>
