@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.mailModel;
+using Capstone_SWP490.Models.events_ViewModel;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Capstone_SWP490.Helper
         {
             try
             {
-                string path = HttpContext.Current.Server.MapPath("~/App_Data/"+ fname);//Path of the xml script  
+                string path = HttpContext.Current.Server.MapPath("~/App_Data/" + fname);//Path of the xml script  
                 return File.ReadAllText(path); ;
             }
 #pragma warning disable CS0168 // The variable 'e' is declared but never used
@@ -32,16 +33,16 @@ namespace Capstone_SWP490.Helper
         {
             try
             {
-                    var message = new MailMessage();
-                    message.To.Add(new MailAddress(emailModel.toEmail));
-                    message.Subject = emailModel.title;
-                    message.Body = emailModel.body;
-                    message.IsBodyHtml = true;
-                    using (var smtp = new SmtpClient())
-                    {
-                        smtp.Send(message);
-                        return true;
-                    }
+                var message = new MailMessage();
+                message.To.Add(new MailAddress(emailModel.toEmail));
+                message.Subject = emailModel.title;
+                message.Body = emailModel.body;
+                message.IsBodyHtml = true;
+                using (var smtp = new SmtpClient())
+                {
+                    smtp.Send(message);
+                    return true;
+                }
             }
             catch (Exception e)
             {
@@ -84,16 +85,41 @@ namespace Capstone_SWP490.Helper
                 Log.Error(e.Message);
             }
             string changePswUrl = hostName + "/Login";
-            emailModel.body = string.Format(mailContent, user.full_name,user.psw, changePswUrl, changePswUrl);
+            emailModel.body = string.Format(mailContent, user.full_name, user.psw, changePswUrl, changePswUrl);
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
             sendMailAsync(emailModel);
         }
-        public void sendMailDisableCoach(app_user user,string action, string reason)
+        public void sendMailDisableCoach(app_user user, string action, string reason)
         {
             EmailModel emailModel = new EmailModel();
             string mailContent = readMailContent("DisableCoach.txt");
             emailModel.toEmail = user.email;
-            emailModel.body = string.Format(mailContent,action, user.full_name, reason);
+            emailModel.body = string.Format(mailContent, action, user.full_name, reason);
+            emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
+            sendMailAsync(emailModel);
+        }
+
+        public void sendMailEvent(member member, @event mainEvent)
+        {
+            EmailModel emailModel = new EmailModel();
+            string mailContent = readMailContent("NewEvent.txt");
+            string titleEvent = mainEvent.title;
+            string hostName = "";
+            try
+            {
+                hostName = WebConfigurationManager.AppSettings["HostName"];
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+            }
+
+            string urlEvent = hostName + "/Home/EventDetail?id=" + mainEvent.event_id;
+            string start_date = mainEvent.start_date.ToString("dd-MM-yyyy HH:mm");
+            string end_date = mainEvent.end_date.ToString("dd-MM-yyyy HH:mm");
+            string fullname = member.first_name + " " + member.middle_name + " " + member.last_name;
+            emailModel.toEmail = member.email;
+            emailModel.body = string.Format(mailContent, fullname, titleEvent, start_date, end_date, urlEvent);
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
             sendMailAsync(emailModel);
         }

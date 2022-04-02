@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.Models;
+﻿using Capstone_SWP490.Helper;
+using Capstone_SWP490.Models;
 using Capstone_SWP490.Models.events_ViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
@@ -14,6 +15,8 @@ namespace Capstone_SWP490.Services
     public class eventService : IeventService
     {
         private readonly IeventRepository _ieventRepository = new eventRepository();
+        private readonly ImemberRepository _imemberRepository = new memberRepository();
+
         public IEnumerable<eventsViewModel> GetAllEventsAvailale()
         {
             var events = _ieventRepository.FindBy(x => x.event_type == 1).ToList();
@@ -220,6 +223,8 @@ namespace Capstone_SWP490.Services
         public async Task<eventsViewModel> CreateEvent(eventsViewModel eventsIn)
         {
             //var e = _ieventRepository.FindBy(x => x.event_id == eventsIn.event_id).FirstOrDefault();
+            var member = _imemberRepository.FindBy(x => x.event_notify == true && x.enabled == true).ToList();
+
             if (!string.IsNullOrWhiteSpace(eventsIn.title)
                 && !string.IsNullOrWhiteSpace(eventsIn.desctiption)
                 && !string.IsNullOrWhiteSpace(eventsIn.venue)
@@ -242,6 +247,14 @@ namespace Capstone_SWP490.Services
                 var newEvent = await _ieventRepository.Create(e);
                 if (newEvent != null)
                 {
+                    if (member != null && member.Count > 0)
+                    {
+                        foreach (var x in member)
+                        {
+                            new MailHelper().sendMailEvent(x, newEvent);
+                        }
+                    }
+
                     return new eventsViewModel
                     {
                         event_id = newEvent.event_id,
