@@ -79,20 +79,6 @@ namespace Capstone_SWP490.Controllers
             ViewData["error"] = "*Add Event Failed !!!";
             return View(events);
         }
-        public ActionResult SubEventUpload()
-        {
-            ViewBag.Message = "Your Sub-Event Upload page.";
-            return View();
-        }
-
-        [HttpPost]
-#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-        public async Task<ActionResult> SubEventUpload(eventsViewModel events)
-#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-        {
-            ViewBag.Message = "Your Sub-Event Upload page.";
-            return View();
-        }
         public async Task<ActionResult> EventDelete(int id)
         {
             var rsCreate = await _ieventService.DeleteEvent(id);
@@ -209,8 +195,7 @@ namespace Capstone_SWP490.Controllers
                 {
                     ViewData["Events"] = _ieventService.GetEventsById(id);
                     ViewData["SubEvents"] = _ieventService.GetSubEventsByEventId(id);
-                    var member = _imemberService.GetMemberByUserId(u.user_id);
-                    ViewData["Members"] = member;
+                    ViewData["Members"] = _imemberService.GetMemberByUserId(u.user_id);
                     return View();
                 }
             }
@@ -225,7 +210,27 @@ namespace Capstone_SWP490.Controllers
             ViewData["Events"] = _ieventService.GetEventsById(id);
             return View();
         }
+        public ActionResult SubEventUpload(int id)
+        {
+            ViewBag.Message = "Your Sub-Event Upload page.";
+            ViewData["MainEvent"] = _ieventService.GetEventsById(id);
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<ActionResult> SubEventUpload(eventsViewModel events)
+        {
+            var rsCreate = await _ieventService.CreateSubEvent(events);
+            if (rsCreate != null)
+            {
+                ViewData["success"] = "*Add Event Successfully !!!";
+                ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event);
+                return View(rsCreate);
+            }
+            ViewData["error"] = "*Add Event Failed !!!";
+            ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event);
+            return View(events);
+        }
         [HttpPost]
         public async Task<ActionResult> JoinEvent(int userId)
         {

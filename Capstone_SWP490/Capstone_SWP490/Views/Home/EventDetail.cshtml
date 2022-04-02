@@ -10,6 +10,17 @@
         color: #ffffff !important;
         background: #30cf6b;
     }
+    .venue-table {
+        width: 135px;
+    }
+
+    .date-table {
+        width: 135px;
+    }
+
+    .action-table {
+        width: 70px;
+    }
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -33,7 +44,7 @@
                                 </li>
 
                                 <li role="presentation" class="nav-item">
-                                    <a href="#step2" class="nav-link front-size-title" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">Desctiption</a>
+                                    <a href="#step2" class="nav-link front-size-title" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">Description</a>
                                 </li>
                                 <li role="presentation" class="nav-item">
                                     <a href="#step3" class="nav-link front-size-title" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">Contact</a>
@@ -127,9 +138,15 @@
                             </div>
                         </form>
                     </section>
-                    <div class="col-lg-12">
-                        <button type="button" id="btn-add-event" onclick="window.location.href='/Home/SubEventUpload'" class="btn btn-success">Add</button>
-                    </div>
+                    if (Session["username"] != null)
+                    {
+                        if (profile.user_role.Equals("ORGANIZER"))
+                        {
+                            <div class="col-lg-12">
+                                <button type="button" id="btn-add-event" onclick="window.location.href = '/Home/SubEventUpload?id=@events.event_id'" class="btn btn-success">Add Sub Event</button>
+                            </div>
+                        }
+                    }
                     <div class="col-lg-12" id="under">
                         <table class="table table-striped table-bordered table-sm">
                             <thead>
@@ -150,7 +167,7 @@
                                 </tr>
                             </thead>
                             <tbody id="table-events">
-                                @if (subEvents != null && subEvents.Count > 1)
+                                @if (subEvents != null && subEvents.Count > 0)
                                 {
                                     foreach (var x in subEvents)
                                     {
@@ -163,18 +180,18 @@
                                             {
                                                 if (profile.user_role.Equals("ORGANIZER"))
                                                 {
-                                                    <td><a href="/Home/SubEventDetail?id=@x.event_id">Edit</a></td>
-                                                    <td><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>
-                                                    <td><a href="/Home/SubEventDetail?id=@x.event_id">Delete</a></td>
+                                                    <td class="action-table"><a href="/Home/EventEdit?id=@x.event_id">Edit</a></td>
+                                                    <td class="action-table"><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>
+                                                    <td class="action-table"><a href="/Home/EventDelete?id=@x.event_id">Delete</a></td>
                                                 }
                                                 else
                                                 {
-                                                    <td><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>
+                                                    <td class="action-table"><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>
                                                 }
                                             }
                                             else
                                             {
-                                                <td><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>
+                                                <td class="action-table"><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>
                                             }
                                         </tr>
                                     }
@@ -186,9 +203,12 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="col-lg-12">
+                        <button type="button" id="btn-add-event" onclick="window.location.href='/Home/Event'" class="btn btn-primary">Back</button>
+                    </div>
                 }
             </div>
-                </div>
+        </div>
     </div>
 </div>
 

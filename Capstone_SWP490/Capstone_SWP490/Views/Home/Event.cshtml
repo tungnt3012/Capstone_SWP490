@@ -21,6 +21,10 @@
     .date-table {
         width: 120px;
     }
+
+    .action-table {
+        width: 70px;
+    }
 </style>
 
 
@@ -62,7 +66,7 @@
                             if (profile.user_role.Equals("ORGANIZER"))
                             {
                                 <div class="col-lg-3">
-                                    <button type="button" id="btn-add-event" onclick="window.location.href='/Home/EventUpload'" class="btn btn-success">Add</button>
+                                    <button type="button" id="btn-add-event" onclick="window.location.href='/Home/EventUpload'" class="btn btn-success">Add Event</button>
                                 </div>
                             }
                         }
@@ -102,18 +106,18 @@
                                             {
                                                 if (profile.user_role.Equals("ORGANIZER"))
                                                 {
-                                                    <td><a href="/Home/EventEdit?id=@x.event_id">Edit</a></td>
-                                                    <td><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
-                                                    <td><a href="/Home/EventDelete?id=@x.event_id">Delete</a></td>
+                                                    <td class="action-table"><a href="/Home/EventEdit?id=@x.event_id">Edit</a></td>
+                                                    <td class="action-table"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
+                                                    <td class="action-table"><a href="/Home/EventDelete?id=@x.event_id">Delete</a></td>
                                                 }
                                                 else
                                                 {
-                                                    <td><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
+                                                    <td class="action-table"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
                                                 }
                                             }
                                             else
                                             {
-                                                <td><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
+                                                <td class="action-table"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
                                             }
                                         </tr>
                                     }
@@ -201,29 +205,29 @@ else
                     document.getElementById("table-events").innerHTML = "";
                     if (vas != "" && role == 'ORGANIZER') {
                         for (let i = 0; i < results.Data.length; i++) {
-                            let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).split("/").join("-");
-                            let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).split("/").join("-");
+                            let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
+                            let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
                             document.getElementById("table-events").innerHTML += `
                                         <tr>
-                                            <td class="title-table">`+ results.Data[i].title+`</td>
                                             <td class="date-table">`+ _startDate+`</td>
                                             <td class="date-table">`+ _endDate+`</td>
-                                            <td class="venue-table">`+ results.Data[i].venue+`</td>
-                                            <td><a href="/Home/EventEdit?id=`+ results.Data[i].event_id +`">Edit</a></td>
-                                            <td><a href="/Home/EventDetail?id=`+ results.Data[i].event_id+`">Detail</a></td>
-                                            <td><a href="/Home/EventDelete?id=`+ results.Data[i].event_id +`">Delete</a></td>
+                                            <td class="venue-table">`+ results.Data[i].venue +`</td>
+                                            <td class="title-table">`+ results.Data[i].title +`</td>
+                                            <td class="action-table"><a href="/Home/EventEdit?id=`+ results.Data[i].event_id +`">Edit</a></td>
+                                            <td class="action-table"><a href="/Home/EventDetail?id=`+ results.Data[i].event_id+`">Detail</a></td>
+                                            <td class="action-table"><a href="/Home/EventDelete?id=`+ results.Data[i].event_id +`">Delete</a></td>
                                         </tr>`;
                         }
                     } else {
                         for (let i = 0; i < results.Data.length; i++) {
-                            let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).split("/").join("-");
-                            let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).split("/").join("-");
+                            let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
+                            let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
                             document.getElementById("table-events").innerHTML += `<tr>
-                                            <td class="title-table">`+ results.Data[i].title + `</td>
                                             <td class="date-table">`+ _startDate + `</td>
                                             <td class="date-table">`+ _endDate + `</td>
                                             <td class="venue-table">`+ results.Data[i].venue + `</td>
-                                            <td><a href="/Home/EventDetail?id=`+ results.Data[i].event_id + `">Detail</a></td>
+                                            <td class="title-table">`+ results.Data[i].title + `</td>
+                                            <td class="action-table"><a href="/Home/EventDetail?id=`+ results.Data[i].event_id + `">Detail</a></td>
                                         </tr>`;
                         }
                     }

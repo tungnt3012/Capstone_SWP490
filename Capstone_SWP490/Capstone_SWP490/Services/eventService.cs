@@ -67,19 +67,19 @@ namespace Capstone_SWP490.Services
             var events = new List<@event>();
             if (fromDateIn == temp && toDateIn == temp)
             {
-                events = _ieventRepository.FindBy(x => x.event_type != 0).ToList();
+                events = _ieventRepository.FindBy(x => x.event_type == 1).ToList();
             }
             if (fromDateIn == temp)
             {
-                events = _ieventRepository.FindBy(x => x.end_date <= toDateIn && x.event_type != 0).ToList();
+                events = _ieventRepository.FindBy(x => x.end_date <= toDateIn && x.event_type == 1).ToList();
             }
             if (toDateIn == temp)
             {
-                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.event_type != 0).ToList();
+                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.event_type == 1).ToList();
             }
             if (fromDateIn != temp && toDateIn != temp)
             {
-                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.end_date <= toDateIn && x.event_type != 0).ToList();
+                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.end_date <= toDateIn && x.event_type == 1).ToList();
             }
             //var events = _ieventRepository.FindBy(x => x.start_date > fromDateIn && x.end_date < toDateIn).ToList();
             var lstEventsViewModels = new List<eventsViewModel>();
@@ -262,6 +262,69 @@ namespace Capstone_SWP490.Services
             return null;
         }
 
+        public async Task<eventsViewModel> CreateSubEvent(eventsViewModel eventsIn)
+        {
+            //var e = _ieventRepository.FindBy(x => x.event_id == eventsIn.event_id).FirstOrDefault();
+            if (!string.IsNullOrWhiteSpace(eventsIn.title)
+                && !string.IsNullOrWhiteSpace(eventsIn.desctiption)
+                && !string.IsNullOrWhiteSpace(eventsIn.venue)
+                && !string.IsNullOrWhiteSpace(eventsIn.fan_page)
+                && Convert.ToDateTime("01/01/0001") != eventsIn.start_date
+                && Convert.ToDateTime("01/01/0001") != eventsIn.end_date)
+            {
+                var mainEvent = _ieventRepository.FindBy(x => x.event_id == eventsIn.main_event).FirstOrDefault();
+                if (mainEvent != null)
+                {
+                    var e = new @event
+                    {
+                        title = eventsIn.title,
+                        desctiption = eventsIn.desctiption,
+                        start_date = eventsIn.start_date + eventsIn.start_time,
+                        end_date = eventsIn.end_date + eventsIn.end_time,
+                        venue = eventsIn.venue,
+                        fan_page = eventsIn.fan_page,
+                        note = eventsIn.note ?? "",
+                        event_type = 2,
+                    };
+
+                    var newEvent = await _ieventRepository.Create(e);
+                    if (newEvent != null)
+                    {
+                        if (String.IsNullOrWhiteSpace(mainEvent.sub_event))
+                        {
+                            mainEvent.sub_event = newEvent.event_id + ",";
+                        }
+                        else
+                        {
+                            mainEvent.sub_event += newEvent.event_id + ",";
+                        }
+
+                        if (await _ieventRepository.Update(mainEvent, mainEvent.event_id) != -1)
+                        {
+                            return new eventsViewModel
+                            {
+                                event_id = newEvent.event_id,
+                                contactor_email = newEvent.contactor_phone,
+                                contactor_name = newEvent.contactor_name,
+                                contactor_phone = newEvent.contactor_phone,
+                                desctiption = newEvent.desctiption,
+                                end_date = newEvent.end_date,
+                                event_type = newEvent.event_type,
+                                fan_page = newEvent.fan_page,
+                                note = newEvent.note,
+                                start_date = newEvent.start_date,
+                                title = newEvent.title,
+                                venue = newEvent.venue,
+                                main_event = mainEvent.event_id
+                            };
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+
         public async Task<bool> DeleteEvent(int id)
         {
             var e = _ieventRepository.FindBy(x => x.event_id == id).FirstOrDefault();
@@ -316,24 +379,27 @@ namespace Capstone_SWP490.Services
                     string[] subEventId = mainEvent.sub_event.Split(',');
                     foreach (var item in subEventId)
                     {
-                        int subId = Convert.ToInt32(item.ToString());
-                        var sub = _ieventRepository.FindBy(x => x.event_id == subId && x.event_type == 2).FirstOrDefault();
-                        if (sub != null)
+                        if (!String.IsNullOrWhiteSpace(item))
                         {
-                            var subViewModel = new eventsViewModel
+                            int subId = Convert.ToInt32(item.ToString());
+                            var sub = _ieventRepository.FindBy(x => x.event_id == subId && x.event_type == 2).FirstOrDefault();
+                            if (sub != null)
                             {
-                                event_id = sub.event_id,
-                                title = sub.title,
-                                event_type = sub.event_type,
-                                desctiption = sub.desctiption,
-                                start_date = sub.start_date,
-                                end_date = sub.end_date,
-                                start_date_str = sub.start_date.ToString("dd-MM-yyyy, HH:mm"),
-                                end_date_str = sub.end_date.ToString("dd-MM-yyyy, HH:mm"),
-                                venue = sub.venue,
-                                note = sub.note
-                            };
-                            lstSubEvent.Add(subViewModel);
+                                var subViewModel = new eventsViewModel
+                                {
+                                    event_id = sub.event_id,
+                                    title = sub.title,
+                                    event_type = sub.event_type,
+                                    desctiption = sub.desctiption,
+                                    start_date = sub.start_date,
+                                    end_date = sub.end_date,
+                                    start_date_str = sub.start_date.ToString("dd-MM-yyyy, HH:mm"),
+                                    end_date_str = sub.end_date.ToString("dd-MM-yyyy, HH:mm"),
+                                    venue = sub.venue,
+                                    note = sub.note
+                                };
+                                lstSubEvent.Add(subViewModel);
+                            }
                         }
                     }
                 }
