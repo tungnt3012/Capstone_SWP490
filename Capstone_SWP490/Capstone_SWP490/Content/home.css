@@ -457,13 +457,15 @@
 
 .content-area1-image {
     float: right;
-    padding: 5px 0px 0px 0px;
+    margin-top:5px;
+    margin-left:5px;
 }
 
 
 .content-area1-image2 {
     float: right;
-    padding: 5px 10px 0px 0px;
+    margin-top: 5px;
+    margin-left: 5px;
 }
 
 .btn-outline-login {
@@ -897,8 +899,8 @@ ul li a {
 }
 /*header*/
 #login-user {
-    height: 50px !important;
-    width: 50px !important;
+    height: 45px !important;
+    width: 45px !important;
     margin-top: 0px !important;
     border-radius: 100%;
 }
