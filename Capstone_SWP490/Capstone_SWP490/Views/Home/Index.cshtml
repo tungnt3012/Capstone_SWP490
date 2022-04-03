@@ -2,7 +2,9 @@
     //Layout = "~/Views/Shared/_Layout.cstml";
     ViewBag.Title = "Home Page";
 }
-
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.carousel.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.1/assets/owl.carousel.css'>
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.8/css/all.css'>
 <style>
     #menu-home {
         color: #ffffff !important;
@@ -10,14 +12,119 @@
     }
 
     #footer {
-        display: none;
+        display: block;
+    }
+*{
+	box-sizing: border-box;
+}
+html,body {
+	width: 100%;
+	height: 100%;
+}
+    .vendor-info {
+        height: 250px;
+    }
+    .neon {
+        position: absolute;
+        padding: 20px 15px;
+        top: -10%;
+        left: 0;
+        color: #fff;
+        text-shadow: 0 0 20px #DC5F00;
     }
 
+.neon:after{
+  content:attr(data-text);
+  position:absolute;
+  padding: 20px 15px;
+  top: 0;
+  left: 0;
+  z-index:-1;
+  color: #DC5F00;
+  filter:blur(15px);
+}
+
+.neon:before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:70%;
+   background: #ff8c34;
+  z-index:-2;
+  opacity:.5;
+  filter:blur(40px);
+
+}
+.item{
+  background: #E8E8E8;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.vendor-info, .caption{
+  padding: 5px;
+}
+
+.vendor-info img{
+  border-bottom: thin solid #353535;
+  -webkit-box-shadow: inset 0px -8px 20px 7px rgba(0,0,0,0.42);
+-moz-box-shadow: inset 0px -8px 20px 7px rgba(0,0,0,0.42);
+box-shadow: inset 0px -8px 20px 7px rgba(0,0,0,0.42);
+}
+    .owl-carousel .owl-item img{
+        width:100%;
+        height:100%;
+    }
+    /* owl nav */
+    .owl-nav span {
+        color: #fff;
+    }
+
+.owl-nav span:hover{
+  color: #424242;
+}
+
+.owl-prev, .owl-next{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.owl-prev {
+  left: -3rem
+}
+
+.owl-next {
+  right: -3rem;
+}
+
+.owl-theme .owl-controls .owl-page {
+    display: inline-block;
+}
+.owl-theme .owl-controls .owl-page span {
+    background: none repeat scroll 0 0 #fff;
+    border-radius: 20px;
+    display: block;
+    height: 12px;
+    margin: 5px 7px;
+    opacity: 0.5;
+    width: 12px;
+}
+    .caption p{
+     
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        width: 100%;
+        height: 65px;
+    }
 </style>
 <div id="page-content-wrapper-home">
     <div class="container-fluid xyz">
         <div class="main">
-            <div class="column">
+            <div class="row">
                 <div class="col-lg-10 col-lg-offset-1">
                     <div class="col-lg-12">
                         <div class="form-group">
@@ -28,51 +135,150 @@
                             </div>
                         </div>
                     </div>
-                  
 
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <div class="col-lg-3">
-                                    <img src="~/image/FU 1.jpg" class="img-thumbnail" alt="Responsive image">
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="container col-lg-12">
+                                <div class="row align-items-center">
+                                    <div class="col-md-12 col-carousel">
+                                        <div class="mt-4 mb-5">
+                                            <h2 class="front-size-title" data-text="A &#45; B">Event Schedule</h2>
+                                        </div>
+                                        <div class="owl-carousel carousel-main">
+                                            <div class="item single-vendor">
+                                                <div class="vendor-info">
+                                                    <img src="https://www.tvu.edu.vn/wp-content/uploads/2020/12/ICPC.jpg">
+                                                </div>
+                                                <div class="caption">
+                                                    <p>
+                                                        Sinh viên ĐHTV tham gia Olympic Tin học sinh viên và ICPC Asia Cần Thơ năm 2020 - Trường Đại học Trà Vinhdddddddddddddddddddddddddddddddddddd
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="item single-vendor ">
+                                                <div class="vendor-info">
+                                                    <img src="https://filesdata.cadn.com.vn/filedatacadn/media//data_news/Image/2019/th12/ng5/h14c.jpg">
+                                                </div>
+                                                <div class="caption">
+                                                    <p>
+                                                        700 sinh viên tham gia thi Olympic Tin học & lập trình ICPC Châu Á
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="item single-vendor">
+                                                <div class="vendor-info">
+                                                    <img src="https://www.ctu.edu.vn/images/upload/news/2020/bmolpicpc201.jpg">
+                                                </div>
+                                                <div class="caption">
+                                                    <p>Lễ Khai mạc</p>
+                                                </div>
+                                            </div>
+                                            <div class="item single-vendor ">
+                                                <div class="vendor-info">
+                                                    <img src="https://photo-cms-plo.zadn.vn/w559/Uploaded/2022/tmuihk/2017_12_09/cuoc-thi-acm-icpc-2_hzlu.jpg">
+                                                </div>
+                                                <div class="caption">
+                                                    <p>
+
+                                                        Sinh viên Việt Nam lại Vô địch ACM/ICPC trên sân nhà | Nhịp công nghệ | PLO
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="item single-vendor">
+                                                <div class="vendor-info">
+                                                    <img src="https://www.its.ac.id/news/wp-content/uploads/sites/2/2019/10/15701101419391.jpg">
+                                                </div>
+                                                <div class="caption">
+                                                    <p>
+
+                                                        Mahasiswa ITS Raih Juara di ICPC 2019 - ITS News
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="item single-vendor ">
+                                                <div class="vendor-info">
+                                                    <img src="https://galaxymedia.vn/Uploads/images/1-Kinh-nghiem-to-chua-su-kien.jpg">
+                                                </div>
+                                                <div class="caption">
+                                                    <p>Tiệc Ngoài trời</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <img src="~/image/FU 2.jpg" class="img-thumbnail" alt="Responsive image">
+                            </div>
+                            <div class="col-lg-12" id="content-item">
+                                <div class="front-size-title" id="page-title" content-id="119" page-id="RULE" content-position="1">
+                                    Additional Contest Rules
                                 </div>
-                                <div class="col-lg-3">
-                                    <img src="~/image/FU 3.jpg" class="img-thumbnail" alt="Responsive image">
+                                <div class="border border-danger" id="page-content0">
+                                    <ul>
+                                        <li>
+                                            <p>It should be noted that the rules mentioned here are only subsidiary to the rules given at the ACM ICPC homepage.</p>
+                                        </li>
+                                        <li>
+                                            <p>Each school may register multiple teams for the preliminary contest. Each team's coach must fully register teams in the ICPC Registration System no later than November 19, 2017. A team is not eligible to compete in the regional contest until the regional contest director has accepted the team in the web registration system. Teams failing to comply with any of these requirements will be ruled ineligible to compete. Only registered reserves may be substituted for contestants . Such substitutions must be entered in the ICPC Registration System before the deadline. ACM guidelines suggest a contest roster which represents as many different schools as possible. This potentially increase the number of teams advancing from the region to the world finals. However, only one team per university can advance to the world finals. Keeping all this in mind, the regional contest director will accept a subset of size 1, 2 or more of the qualified teams from any one university for the regional final. This will be done no later than seven (7) days before the contest in November. Acceptance of teams is contingent on the availability of sufficient resources at the site.</p>
+                                        </li>
+                                        <li>
+                                            <p>No hardware substitutions will be allowed (that is, teams may not bring their own equipment onto the contest floor). &nbsp;This includes that teams may not substitute keyboards or other peripherals; all teams will use identical equipment, as described above, during the contest.</p>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="col-lg-3">
-                                    <img src="~/image/FU 5.jpg" class="img-thumbnail" alt="Responsive image">
+                                <div class="col-lg-12" id="delete_edit">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <p class="text-center" id="text-content-home3">Pacific/Peninsula or Asia; About Asia administrative sub-regions partition, refer to</p>
+                                    <p class="text-center" id="text-content-home4">  http://blog.sina.com.cn/cjhwang</p>
+                                    <p class="text-center"><span id="text-content-home5">The ICPC International:</span><span id="text-content-home6"> https://icpc.global</span></p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <p class="text-center" id="text-content-home3">Pacific/Peninsula or Asia; About Asia administrative sub-regions partition, refer to</p>
-                                <p class="text-center" id="text-content-home4">  http://blog.sina.com.cn/cjhwang</p>
-                                <p class="text-center"><span id="text-content-home5">The ICPC International:</span><span id="text-content-home6"> https://icpc.global</span></p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+            </div>
         </div>
     </div>
 </div>
+    </div>
+<script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.1/owl.carousel.min.js'></script>
 <script>
-    $('.carousel[data-type="multi"] .item').each(function () {
-        var next = $(this).next();
-        if (!next.length) {
-            next = $(this).siblings(':first');
-        }
-        next.children(':first-child').clone().appendTo($(this));
+    // JavaScript Document
+    $('.owl-carousel').owlCarousel({
 
-        for (var i = 0; i < 2; i++) {
-            next = next.next();
-            if (!next.length) {
-                next = $(this).siblings(':first');
+        //autoplay Controls
+        autoplay: true,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true,
+
+
+        //loop
+        loop: true,
+
+        //spacing
+        margin: 10,
+
+
+        //navigation
+        nav: true,
+        dots: true,
+        navText: ['<span class="fas fa-chevron-left fa-2x"></span>', '<span class="fas fa-chevron-right fa-2x"></span>'],
+        //responsiveness
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 5
             }
-
-            next.children(':first-child').clone().appendTo($(this));
         }
     });
-    </script>
+</script>

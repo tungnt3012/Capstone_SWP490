@@ -1333,3 +1333,6 @@ padding:0px !important;
     padding-left: 50px;
     font-size: 0.85em;
 }
+a{
+    cursor: pointer;
+}
