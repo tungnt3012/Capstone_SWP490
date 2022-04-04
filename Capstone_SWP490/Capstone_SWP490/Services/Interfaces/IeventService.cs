@@ -24,6 +24,7 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<bool> DeleteEvent(int id);
         Task<AjaxResponseViewModel<bool>> JoinSubEvent(int eventId, int userId);
         bool IsUserJoinEvent(int eventId, int userId);
+        int CountMemberJoinEvent(int eventId);
 
     }
 }

@@ -28,5 +28,6 @@ namespace Capstone_SWP490.Models.events_ViewModel
         public string note { get; set; }
         public Nullable<int> status { get; set; }
         public bool is_user_joined { get; set; }
+        public int total_joined { get; set; }
     }
 }

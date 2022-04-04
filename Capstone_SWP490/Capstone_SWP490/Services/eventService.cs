@@ -337,7 +337,8 @@ namespace Capstone_SWP490.Services
                                 title = newEvent.title,
                                 venue = newEvent.venue,
                                 main_event = mainEvent.event_id,
-                                status = newEvent.status
+                                status = newEvent.status,
+                                total_joined = CountMemberJoinEvent(newEvent.event_id)
                             };
                         }
                     }
@@ -384,6 +385,7 @@ namespace Capstone_SWP490.Services
                         end_date_str = x.end_date.ToString("dd-MM-yyyy"),
                         title = x.title,
                         venue = x.venue,
+                        total_joined = CountMemberJoinEvent(x.event_id)
                     };
                     lstEventsViewModels.Add(e);
                 }
@@ -421,7 +423,8 @@ namespace Capstone_SWP490.Services
                                     end_date_str = sub.end_date.ToString("dd-MM-yyyy, HH:mm"),
                                     venue = sub.venue,
                                     note = sub.note,
-                                    status = sub.status
+                                    status = sub.status,
+                                    total_joined = CountMemberJoinEvent(sub.event_id)
                                 };
                                 lstSubEvent.Add(subViewModel);
                             }
@@ -485,7 +488,7 @@ namespace Capstone_SWP490.Services
             var mainEvent = _ieventRepository.FindBy(x => x.event_id == eventId).FirstOrDefault();
             var user = _iapp_userRepository.FindBy(x => x.user_id == userId).FirstOrDefault();
 
-            if (mainEvent != null && user!=null)
+            if (mainEvent != null && user != null)
             {
                 var lstSubEvent = new List<eventsViewModel>();
                 if (mainEvent.sub_event != null || !String.IsNullOrWhiteSpace(mainEvent.sub_event))
@@ -512,7 +515,8 @@ namespace Capstone_SWP490.Services
                                     venue = sub.venue,
                                     note = sub.note,
                                     status = sub.status,
-                                    is_user_joined = IsUserJoinEvent(sub.event_id, user.user_id)
+                                    is_user_joined = IsUserJoinEvent(sub.event_id, user.user_id),
+                                    total_joined = CountMemberJoinEvent(sub.event_id)
                                 };
                                 lstSubEvent.Add(subViewModel);
                             }
@@ -522,6 +526,16 @@ namespace Capstone_SWP490.Services
                 return lstSubEvent;
             }
             return null;
+        }
+
+        public int CountMemberJoinEvent(int eventId)
+        {
+            var subEvent = _ieventRepository.FindBy(x => x.event_id == eventId && x.status == 1).FirstOrDefault();
+            if (!String.IsNullOrWhiteSpace(subEvent.member_join))
+            {
+                return subEvent.member_join.Split(',').Length - 1;
+            }
+            return 0;
         }
     }
 }
