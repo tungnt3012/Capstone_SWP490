@@ -168,7 +168,7 @@ namespace Capstone_SWP490.Services
 
         public async Task<int> update(app_user user)
         {
-            user.update_date = DateTime.Now+"";
+            user.update_date = DateTime.Now + "";
             return await _iapp_UserRepository.Update(user, user.user_id);
         }
 
@@ -216,9 +216,9 @@ namespace Capstone_SWP490.Services
 
                 var tmp = (from u in lstTemp
                            orderby u.update_date descending
-                           select u).ToList(); 
-                                
-                foreach(var s in tmp)
+                           select u).ToList();
+
+                foreach (var s in tmp)
                 {
                     var newUTemp = new app_user
                     {
@@ -240,9 +240,9 @@ namespace Capstone_SWP490.Services
             //return result.OrderBy(x => x.update_date).ToList();
         }
 
-        public PagingOutput<List<app_userViewModel>> GetListUsersManager(int pageIndex, int pageSize)
+        public PagingOutput<List<app_userViewModel>> GetListUsersManager(int userCrr)
         {
-            var allUser = _iapp_UserRepository.GetAll().ToList();
+            var allUser = _iapp_UserRepository.FindBy(x => x.user_id != userCrr).ToList();
             if (allUser != null)
             {
                 var users = allUser.Select(x => new app_userViewModel()
@@ -258,18 +258,18 @@ namespace Capstone_SWP490.Services
                     user_role = x.user_role,
                     verified = x.verified
                 }).ToList();
-                int totalPage = allUser.Count / pageSize;
-                if (allUser.Count % pageSize > 0)
-                {
-                    totalPage = (allUser.Count / pageSize) + 1;
-                }
+                //int totalPage = allUser.Count / pageSize;
+                //if (allUser.Count % pageSize > 0)
+                //{
+                //    totalPage = (allUser.Count / pageSize) + 1;
+                //}
                 var paging = new PagingOutput<List<app_userViewModel>>
                 {
                     Data = users,
-                    Index = pageIndex,
-                    PageSize = pageSize,
+                    //Index = pageIndex,
+                    //PageSize = pageSize,
                     TotalItem = allUser.Count,
-                    TotalPage = totalPage
+                    //TotalPage = totalPage
                 };
                 return paging;
             }

@@ -17,9 +17,13 @@ namespace Capstone_SWP490.Services.Interfaces
         IEnumerable<eventsViewModel> GetAllActivitiesAvailale();
         eventsViewModel GetEventsById(int id);
         List<eventsViewModel> GetSubEventsByEventId(int id);
+        List<eventsViewModel> GetSubEventsByEventIdAndUser(int id, int userId);
         Task<eventsViewModel> UpdateEvent(eventsViewModel eventsIn);
         Task<eventsViewModel> CreateEvent(eventsViewModel eventsIn);
         Task<eventsViewModel> CreateSubEvent(eventsViewModel eventsIn);
         Task<bool> DeleteEvent(int id);
+        Task<AjaxResponseViewModel<bool>> JoinSubEvent(int eventId, int userId);
+        bool IsUserJoinEvent(int eventId, int userId);
+
     }
 }

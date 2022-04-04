@@ -83,6 +83,16 @@
                             @Html.TextBoxFor(m => m.main_event, new { @class = "form-control", id = "MainEvent", name = "MainEvent", @Value = mainEvent.event_id, style = "display: none;" })
                         </div>
                         <div class="form-group">
+                            <label for="type-event">Allow Member Join this event:</label>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    @Html.DropDownListFor(m => m.event_type, new List<SelectListItem>
+                                      { new SelectListItem{Text="Default", Value="0"},
+                                        new SelectListItem{Text="Allow Join", Value="1"}})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="pull-right">
                                 <button type="submit" class="btn btn-primary" id="event-upload">Add</button>
                                 <button type="button" class="btn btn-secondary" onclick="location.href='/Home/EventDetail?id=@mainEvent.event_id'; return false;" id="event-canner">Cancel</button>

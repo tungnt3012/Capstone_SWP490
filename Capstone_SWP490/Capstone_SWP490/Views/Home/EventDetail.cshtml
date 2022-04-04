@@ -10,6 +10,7 @@
         color: #ffffff !important;
         background: #30cf6b;
     }
+
     .venue-table {
         width: 135px;
     }
@@ -20,6 +21,10 @@
 
     .action-table {
         width: 70px;
+    }
+
+    .join-event {
+        width: 100px;
     }
 </style>
 
@@ -69,7 +74,7 @@
                                             Time start:
                                         </label>
                                         <label class="border border-danger" for="Event_Schedule" style="font-weight: normal">
-                                            @events.start_date_str
+                                            @events.start_date_str.Split(',')[0]
                                         </label>
                                     </div>
                                     <div class="col-lg-12">
@@ -77,7 +82,7 @@
                                             Time end:
                                         </label>
                                         <label class="border border-danger" for="Event_Schedule" style="font-weight: normal">
-                                            @events.end_date_str
+                                            @events.end_date_str.Split(',')[0]
                                         </label>
                                     </div>
                                 </div>
@@ -184,9 +189,34 @@
                                                     <td class="action-table"><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>
                                                     <td class="action-table"><a href="/Home/EventDelete?id=@x.event_id">Delete</a></td>
                                                 }
-                                                else
+                                                else if (profile.user_role.Equals("MEMBER"))
                                                 {
-                                                    <td class="action-table"><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>
+                                                    @*
+                                                        Event cho phep Join hay khong
+                                                    *@
+                                                    if (x.status == 1)
+                                                    {
+                                                        if (x.is_user_joined)
+                                                        {
+                                                            <td class="join-event">
+                                                                <button class="btn-sm btn-secondary" disabled>
+                                                                    Joined
+                                                                </button>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td class="join-event">
+                                                                <button class="btn-sm btn-success" sub-event-id="@x.event_id" onclick="JoinSubEvent(this)">
+                                                                    Join Now
+                                                                </button>
+                                                            </td>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="join-event"></td>
+                                                    }
                                                 }
                                             }
                                             else
@@ -204,14 +234,25 @@
                         </table>
                     </div>
                     <div class="col-lg-12">
-                        <button type="button" id="btn-add-event"  onclick="#" class="btn btn-primary">Join Event</button>
-                        <button type="button" id="btn-cancel-event" onclick="window.location.href='/Home/Event'" class="btn btn-secondary">Cancel</button>
+                        <button type="button" id="btn-cancel-event" onclick="history.back()" class="btn btn-secondary">Back</button>
                     </div>
-                        }
-                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
+
+<input type="hidden" id="userss" value="@Session["username"]">
+@if (Session["username"] != null)
+{
+    <input type="hidden" id="user_role" value="@profile.user_role">
+    <input type="hidden" id="user_id" value="@profile.user_id">
+}
+else
+{
+    <input type="hidden" id="user_role" value="0">
+    <input type="hidden" id="user_id" value="0">
+}
 
 <script>
 
@@ -221,6 +262,29 @@
             type: 'POST',
             url: '@Url.Action("JoinEvent", "Home")',
             data: JSON.stringify({ 'userId': x }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (rs) {
+                if (rs != null) {
+                    var s = rs;
+                    if (rs.Status == 1) {
+                        alert("Join Event Successfully!!!");
+                        location.reload();
+                    } else {
+                        alert("Fail");
+                    }
+                }
+            }
+        });
+    }
+
+    function JoinSubEvent(e) {
+        var _subEventId = $(e).attr("sub-event-id");
+        var _userId = $("#user_id").val();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("JoinSubEvent", "Home")',
+            data: JSON.stringify({ 'subEvent': _subEventId, 'userCrr': _userId }),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (rs) {

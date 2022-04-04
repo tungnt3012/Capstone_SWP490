@@ -16,6 +16,7 @@ namespace Capstone_SWP490.Services
     {
         private readonly IeventRepository _ieventRepository = new eventRepository();
         private readonly ImemberRepository _imemberRepository = new memberRepository();
+        private readonly Iapp_userRepository _iapp_userRepository = new app_userRepository();
 
         public IEnumerable<eventsViewModel> GetAllEventsAvailale()
         {
@@ -175,6 +176,7 @@ namespace Capstone_SWP490.Services
                 return new eventsViewModel
                 {
                     event_id = events.event_id,
+                    event_type = events.event_type,
                     desctiption = events.desctiption,
                     end_date = events.end_date,
                     fan_page = events.fan_page,
@@ -183,6 +185,7 @@ namespace Capstone_SWP490.Services
                     start_date = events.start_date,
                     title = events.title,
                     venue = events.venue,
+                    status = events.status,
                     start_date_str = events.start_date.ToString("dd-MM-yyyy, HH:mm"),
                     end_date_str = events.end_date.ToString("dd-MM-yyyy, HH:mm"),
                 };
@@ -202,6 +205,7 @@ namespace Capstone_SWP490.Services
                 e.venue = eventsIn.venue;
                 e.fan_page = eventsIn.fan_page;
                 e.note = eventsIn.note;
+                e.status = eventsIn.status;
                 if (await _ieventRepository.Update(e, e.event_id) != -1)
                 {
                     return new eventsViewModel
@@ -214,6 +218,7 @@ namespace Capstone_SWP490.Services
                         start_date = e.start_date,
                         title = e.title,
                         venue = e.venue,
+                        status = e.status
                     };
                 }
             };
@@ -242,6 +247,7 @@ namespace Capstone_SWP490.Services
                     fan_page = eventsIn.fan_page,
                     note = eventsIn.note ?? "",
                     event_type = 1,
+                    status = 0
                 };
 
                 var newEvent = await _ieventRepository.Create(e);
@@ -269,6 +275,7 @@ namespace Capstone_SWP490.Services
                         start_date = newEvent.start_date,
                         title = newEvent.title,
                         venue = newEvent.venue,
+                        status = newEvent.status
                     };
                 }
             }
@@ -298,6 +305,7 @@ namespace Capstone_SWP490.Services
                         fan_page = eventsIn.fan_page,
                         note = eventsIn.note ?? "",
                         event_type = 2,
+                        status = eventsIn.status
                     };
 
                     var newEvent = await _ieventRepository.Create(e);
@@ -328,7 +336,8 @@ namespace Capstone_SWP490.Services
                                 start_date = newEvent.start_date,
                                 title = newEvent.title,
                                 venue = newEvent.venue,
-                                main_event = mainEvent.event_id
+                                main_event = mainEvent.event_id,
+                                status = newEvent.status
                             };
                         }
                     }
@@ -351,6 +360,8 @@ namespace Capstone_SWP490.Services
             }
             return false;
         }
+
+
 
         public IEnumerable<eventsViewModel> GetAllActivitiesAvailale()
         {
@@ -409,7 +420,8 @@ namespace Capstone_SWP490.Services
                                     start_date_str = sub.start_date.ToString("dd-MM-yyyy, HH:mm"),
                                     end_date_str = sub.end_date.ToString("dd-MM-yyyy, HH:mm"),
                                     venue = sub.venue,
-                                    note = sub.note
+                                    note = sub.note,
+                                    status = sub.status
                                 };
                                 lstSubEvent.Add(subViewModel);
                             }
@@ -420,9 +432,96 @@ namespace Capstone_SWP490.Services
             }
             return null;
         }
+        public async Task<AjaxResponseViewModel<bool>> JoinSubEvent(int eventId, int userId)
+        {
+            var output = new AjaxResponseViewModel<bool>
+            {
+                Status = 0,
+                Data = false
+            };
+            var e = _ieventRepository.FindBy(x => x.event_id == eventId).FirstOrDefault();
+            var user = _iapp_userRepository.FindBy(x => x.user_id == userId).FirstOrDefault();
+            if (e != null && user != null)
+            {
+                if (String.IsNullOrWhiteSpace(e.member_join))
+                {
+                    e.member_join = user.user_id + ",";
+                }
+                else
+                {
+                    e.member_join += user.user_id + ",";
+                }
 
+                if (await _ieventRepository.Update(e, e.event_id) != -1)
+                {
+                    output.Data = true;
+                    output.Status = 1;
+                    return output;
+                }
+            }
+            output.Data = false;
+            return output;
+        }
 
+        public bool IsUserJoinEvent(int eventId, int userId)
+        {
+            var e = _ieventRepository.FindBy(x => x.event_id == eventId).FirstOrDefault();
+            var user = _iapp_userRepository.FindBy(x => x.user_id == userId).FirstOrDefault();
+            if (e != null && user != null)
+            {
+                if (!String.IsNullOrWhiteSpace(e.member_join))
+                {
+                    if (e.member_join.Contains(user.user_id.ToString()))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
+        public List<eventsViewModel> GetSubEventsByEventIdAndUser(int eventId, int userId)
+        {
+            var mainEvent = _ieventRepository.FindBy(x => x.event_id == eventId).FirstOrDefault();
+            var user = _iapp_userRepository.FindBy(x => x.user_id == userId).FirstOrDefault();
 
+            if (mainEvent != null && user!=null)
+            {
+                var lstSubEvent = new List<eventsViewModel>();
+                if (mainEvent.sub_event != null || !String.IsNullOrWhiteSpace(mainEvent.sub_event))
+                {
+                    string[] subEventId = mainEvent.sub_event.Split(',');
+                    foreach (var item in subEventId)
+                    {
+                        if (!String.IsNullOrWhiteSpace(item))
+                        {
+                            int subId = Convert.ToInt32(item.ToString());
+                            var sub = _ieventRepository.FindBy(x => x.event_id == subId && x.event_type == 2).FirstOrDefault();
+                            if (sub != null)
+                            {
+                                var subViewModel = new eventsViewModel
+                                {
+                                    event_id = sub.event_id,
+                                    title = sub.title,
+                                    event_type = sub.event_type,
+                                    desctiption = sub.desctiption,
+                                    start_date = sub.start_date,
+                                    end_date = sub.end_date,
+                                    start_date_str = sub.start_date.ToString("dd-MM-yyyy, HH:mm"),
+                                    end_date_str = sub.end_date.ToString("dd-MM-yyyy, HH:mm"),
+                                    venue = sub.venue,
+                                    note = sub.note,
+                                    status = sub.status,
+                                    is_user_joined = IsUserJoinEvent(sub.event_id, user.user_id)
+                                };
+                                lstSubEvent.Add(subViewModel);
+                            }
+                        }
+                    }
+                }
+                return lstSubEvent;
+            }
+            return null;
+        }
     }
 }
