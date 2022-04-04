@@ -38,6 +38,15 @@ namespace Capstone_SWP490.Controllers
         {
             return View();
         }
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
 
         //public ActionResult ViewHome()
         //{

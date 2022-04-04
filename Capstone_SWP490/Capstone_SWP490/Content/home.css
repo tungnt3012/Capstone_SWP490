@@ -589,7 +589,7 @@ input, select, textarea {
     padding: 6px 12px;
     font-size: 14px !important;
     line-height: 1.42857143 !important;
-    color: #302217;
+    color: #333333;
     background-color: #ffffff !important;
     background-image: none !important;
     border: 1px solid #ccc;
@@ -615,7 +615,7 @@ input, select, textarea {
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
-    color: #302217;
+    color: #333333;
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;
@@ -629,7 +629,7 @@ input, select, textarea {
     font-weight: bold;
     font-size: 24px;
     line-height: 29px;
-    color: #302217;
+    color: #333333;
 }
 
 #homeUserLoginSub {
@@ -641,7 +641,7 @@ input, select, textarea {
 
 
 .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
-    color: #302217;
+    color: #333333;
     background-color: #286090;
     background-image: none;
     border-color: #204d74;
@@ -654,7 +654,7 @@ input, select, textarea {
     /* identical to box height */
 
 
-    color: #302217;
+    color: #333333;
 }
 
 #homeUserChangPasswordSub {
@@ -664,7 +664,7 @@ input, select, textarea {
     /* identical to box height */
 
 
-    color: #302217;
+    color: #333333;
 }
 
 .div-center-chang {
