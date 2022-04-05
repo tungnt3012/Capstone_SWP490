@@ -22,7 +22,7 @@ namespace Capstone_SWP490
         public string short_description { get; set; }
         public string content { get; set; }
         public string html_content { get; set; }
-        public string featured { get; set; }
+        public Nullable<bool> featured { get; set; }
         public Nullable<bool> enabled { get; set; }
         public string schedule_date { get; set; }
         public string post_to { get; set; }

@@ -43,7 +43,7 @@ namespace Capstone_SWP490.Controllers.Admin
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
                 if (u.user_role.Equals("ADMIN"))
                 {
-                    var data = _iapp_UserService.GetListUsersManager(0, 1000);
+                    var data = _iapp_UserService.GetListUsersManager(u.user_id);
                     ViewData["Users"] = data;
                     return View();
                 }
@@ -68,7 +68,8 @@ namespace Capstone_SWP490.Controllers.Admin
 
         public ActionResult NextPage(int pageIndex)
         {
-            var lstPosts = _iapp_UserService.GetListUsersManager(pageIndex, 10);
+            var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+            var lstPosts = _iapp_UserService.GetListUsersManager(u.user_id);
             ViewData["Users"] = lstPosts;
             return View("ManagermentAccount");
         }

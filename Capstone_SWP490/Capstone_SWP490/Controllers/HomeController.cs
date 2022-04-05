@@ -50,7 +50,7 @@ namespace Capstone_SWP490.Controllers
             var events = _ieventService.GetEventsById(id);
             return View(events);
         }
-        [HttpPost]                                                                           
+        [HttpPost]
         public async Task<ActionResult> EventEdit(eventsViewModel events)
         {
             var rsUpdate = await _ieventService.UpdateEvent(events);
@@ -195,7 +195,7 @@ namespace Capstone_SWP490.Controllers
                 if (u != null)
                 {
                     ViewData["Events"] = _ieventService.GetEventsById(id);
-                    ViewData["SubEvents"] = _ieventService.GetSubEventsByEventId(id);
+                    ViewData["SubEvents"] = _ieventService.GetSubEventsByEventIdAndUser(id, u.user_id);
                     ViewData["Members"] = _imemberService.GetMemberByUserId(u.user_id);
                     return View();
                 }
@@ -232,6 +232,16 @@ namespace Capstone_SWP490.Controllers
             ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event);
             return View(events);
         }
+
+
+        [HttpPost]
+        public async Task<ActionResult> JoinSubEvent(int subEvent, int userCrr)
+        {
+            AjaxResponseViewModel<bool> ajaxResponse = await _ieventService.JoinSubEvent(subEvent, userCrr);
+            return Json(ajaxResponse);
+        }
+
+
         [HttpPost]
         public async Task<ActionResult> JoinEvent(int userId)
         {
@@ -424,7 +434,7 @@ namespace Capstone_SWP490.Controllers
             ViewData["error"] = "*Delete Contest Failed !!!";
             return View("Contest");
         }
-        
+
         public ActionResult FilterContest(string keyFilter)
         {
             return Json(_icontestService.FilterContest(keyFilter), JsonRequestBehavior.AllowGet);

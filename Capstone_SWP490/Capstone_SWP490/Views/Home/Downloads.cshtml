@@ -21,28 +21,32 @@
         </div>
     </div>
     <div class="main">
-        <div class="column">
+        <div class="row">
            
             <div class="col-lg-10 col-lg-offset-1" id="under">
-                @if (Session["username"] != null)
-                {
-                    if (profile.user_role.Equals("ORGANIZER"))
+                <div class="col-lg-12">
+                    @if (Session["username"] != null)
                     {
-                        <div class="input">
-                            <img id="close" src="~/image/x-circle-fill.svg" />
-                            <div class="inputs1">
-                                <input class="heading" type="text" placeholder="More information...">
-                                <button class="save_btn btn-success" onclick="AjaxCreateContent()">Add</button>
-                                <button style="display: none" class="update_btn">Update</button>
+                        if (profile.user_role.Equals("ORGANIZER"))
+                        {<div class="input">
+                                <img id="close" src="~/image/x-circle-fill.svg" />
+                                <div class="inputs1">
+                                    <input class="heading" type="text" placeholder="More information...">
+                                    <button class="save_btn btn-success" onclick="AjaxCreateContent()">Add</button>
+                                    <button style="display: none" class="update_btn">Update</button>
+                                </div>
+                                <div class="inputs2">
+                                    <textarea id="editor" name="content" placeholder="Puke your Content in here! 🤮"></textarea>
+                                    @*<button type="button" class="btn btn-primary" id="post-pins">Post Pins</button>*@
+                                </div>
                             </div>
-                            <div class="inputs2">
-                                <textarea id="editor" name="content" placeholder="Puke your Content in here! 🤮"></textarea>
-                                @*<button type="button" class="btn btn-primary" id="post-pins">Post Pins</button>*@
-                            </div>
-                        </div>
+                        }
                     }
-                }
-                <div class="row" id="page-content">
+                </div>
+                   
+
+
+                <div id="page-content">
                 </div>
                 @*<div class="column">
                 <div class="col-lg-12">
@@ -77,8 +81,8 @@
                 </div>
             </div>*@
             </div>
-           
-        </div>
+
+            </div>
     </div>
 </div>
 
@@ -111,7 +115,7 @@ else
                              for (let i = 0; i < results.length; i++) {
                                  console.log("" + results[i].content);
                                  document.getElementById("page-content").innerHTML +=
-                                     `<div class="col-lg" id="content-item">
+                                     `<div class="col-lg-12" id="content-item">
                                             <label class="front-size-title" id="page-title" content-id="`+ results[i].content_id + `" page-id="` + results[i].page_id + `" content-position="` + results[i].position + `">
                                                 `+ results[i].title + `
                                             </label>
@@ -130,7 +134,7 @@ else
                         for (let i = 0; i < results.length; i++) {
                             console.log("" + results[i].content);
                             document.getElementById("page-content").innerHTML +=
-                                `<div class="col-lg" id="content-item">
+                                `<div class="col-lg-12" id="content-item">
                                             <label class="front-size-title" id="page-title" content-id="`+ results[i].content_id + `" page-id="` + results[i].page_id + `" content-position="` + results[i].position + `">
                                                 `+ results[i].title + `
                                             </label>

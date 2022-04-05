@@ -13,7 +13,7 @@ $("#menu-toggle-2").click(function (e) {
 function initMenu() {
     $('#menu ul').hide();
     $('#menu ul').children('.current').parent().show();
-    //$('#menu ul:first').show();
+    $('#menu ul:first').show();
     $('#menu li a').click(
         function () {
             var checkElement = $(this).next();

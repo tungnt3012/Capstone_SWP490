@@ -78,6 +78,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.documentation' does not have a p
           <Property Name="note" Type="nvarchar" MaxLength="150" />
           <Property Name="member_join" Type="nvarchar(max)" />
           <Property Name="sub_event" Type="nvarchar(max)" />
+          <Property Name="status" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -180,11 +181,11 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="post_by" Type="int" Nullable="false" />
           <Property Name="insert_date" Type="nvarchar" MaxLength="30" />
           <Property Name="update_date" Type="nvarchar" MaxLength="30" />
-          <Property Name="title" Type="nvarchar" MaxLength="100" />
-          <Property Name="short_description" Type="nvarchar" MaxLength="100" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="short_description" Type="nvarchar" MaxLength="200" />
           <Property Name="content" Type="nvarchar" MaxLength="1000" />
-          <Property Name="html_content" Type="nvarchar" MaxLength="1300" />
-          <Property Name="featured" Type="varchar" MaxLength="100" />
+          <Property Name="html_content" Type="text" />
+          <Property Name="featured" Type="bit" />
           <Property Name="enabled" Type="bit" />
           <Property Name="schedule_date" Type="nvarchar" MaxLength="50" />
           <Property Name="post_to" Type="varchar" MaxLength="100" />
@@ -438,6 +439,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="note" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="member_join" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="sub_event" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" />
         </EntityType>
         <EntityType Name="member">
           <Key>
@@ -534,11 +536,11 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="post_by" Type="Int32" Nullable="false" />
           <Property Name="insert_date" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="update_date" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="short_description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="short_description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="content" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="html_content" Type="String" MaxLength="1300" FixedLength="false" Unicode="true" />
-          <Property Name="featured" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="html_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="featured" Type="Boolean" />
           <Property Name="enabled" Type="Boolean" />
           <Property Name="schedule_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="post_to" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -798,6 +800,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
                 <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="member_join" ColumnName="member_join" />
                 <ScalarProperty Name="sub_event" ColumnName="sub_event" />
+                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

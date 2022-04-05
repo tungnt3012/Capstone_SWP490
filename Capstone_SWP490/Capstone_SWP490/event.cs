@@ -29,5 +29,6 @@ namespace Capstone_SWP490
         public string note { get; set; }
         public string member_join { get; set; }
         public string sub_event { get; set; }
+        public Nullable<int> status { get; set; }
     }
 }

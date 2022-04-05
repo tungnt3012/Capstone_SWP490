@@ -91,7 +91,9 @@ namespace Capstone_SWP490.Services
         }
         public List<page_contentViewModel> GetMenuContentByRole(string user_role)
         {
-            var rs = (from data in _ipage_contentRepository.FindBy(x => x.user_role.Equals(user_role) && x.page_id.Equals("MENU")).ToList()
+            var rs = (from data in _ipage_contentRepository.FindBy(x => x.user_role.Equals(user_role) 
+                      && x.page_id.Equals("MENU")
+                      && !x.user_role.Equals("ADMIN")).ToList()
                       orderby data.position ascending
                       select data).ToList();
             if (rs != null)
