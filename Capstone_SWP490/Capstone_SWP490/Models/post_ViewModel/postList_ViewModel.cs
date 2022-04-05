@@ -22,6 +22,10 @@ namespace Capstone_SWP490.Models.post_ViewModel
             int hours = (totalSecond - (day * 3600 * 24)) / 3600;
             int minues = (totalSecond - day * 3600 * 24 - hours * 3600)/60;
             int second = (totalSecond - day * 3600 * 24 - hours * 3600 - minues * 60);
+            if(second <=0)
+            {
+                return "posting...";
+            }
             return day + "d" + hours + "h" + minues + "m" +second+"s";
         }
     }

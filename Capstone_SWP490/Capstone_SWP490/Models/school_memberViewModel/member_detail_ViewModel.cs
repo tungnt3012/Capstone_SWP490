@@ -27,5 +27,23 @@ namespace Capstone_SWP490.Models.school_memberViewModel
 
         public Dictionary<string, string> errors { get; set; }
         public List<member_contest_ViewModel> contest_Members { get; set; }
+
+        public member_detail_ViewModel buildFromTeamMember(team_member teamMember)
+        {
+            team_id = (int)teamMember.team_id;
+            member_id = (int)teamMember.member_id;
+            first_name = teamMember.member.first_name;
+            middle_name = teamMember.member.middle_name;
+            last_name = teamMember.member.last_name;
+            dob = teamMember.member.dob;
+            email = teamMember.member.email;
+            phone_number = teamMember.member.phone_number;
+            icpc_id = teamMember.member.icpc_id;
+            year = teamMember.member.year;
+            gender = teamMember.member.gender;
+            award = teamMember.member.award;
+            is_leader = teamMember.member.member_role == 3;
+            return this;
+        }
     }
 }

@@ -95,20 +95,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 team_member teamMember = registrationHelper.getTeamMember((int)id, data.school.teams.Where(x => x.team_id == (int)teamId).FirstOrDefault());
                 if (teamMember != null)
                 {
-                    member_detail_ViewModel model = new member_detail_ViewModel();
-                    model.team_id = (int)teamMember.team_id;
-                    model.member_id = (int)teamMember.member_id;
-                    model.first_name = teamMember.member.first_name;
-                    model.middle_name = teamMember.member.middle_name;
-                    model.last_name = teamMember.member.last_name;
-                    model.dob = teamMember.member.dob;
-                    model.email = teamMember.member.email;
-                    model.phone_number = teamMember.member.phone_number;
-                    model.icpc_id = teamMember.member.icpc_id;
-                    model.year = teamMember.member.year;
-                    model.gender = teamMember.member.gender;
-                    model.award = teamMember.member.award;
-                    model.is_leader = teamMember.member.member_role == 3;
+                    member_detail_ViewModel model = new member_detail_ViewModel().buildFromTeamMember(teamMember);
                     List<contest_member> contestMember = teamMember.member.contest_member.ToList();
                     List<member_contest_ViewModel> listContestModel = registrationHelper.createContestViewMode(contestMember);
                     model.contest_Members = listContestModel;
@@ -138,7 +125,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 foreach (var member in item.team_member)
                 {
                     _imemberService.update(member.member, member.member.member_id);
-                   
+
                 }
             }
             return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
@@ -657,7 +644,7 @@ namespace Capstone_SWP490.Controllers.Coach
             {
                 data.source = "VIEW";
                 int schoolId = Int32.Parse(school_id);
-                school =  _ischoolService.findActiveById(schoolId);
+                school = _ischoolService.findActiveById(schoolId);
                 teams = school.teams.ToList();
                 app_userViewModel logined = (app_userViewModel)Session["profile"];
                 member storedCoach = _imemberService.GetMemberByUserId(logined.user_id);
@@ -721,7 +708,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 _path = _path.Replace(".xlsx", ".txt");
                 file.SaveAs(_path);
                 school_memberViewModel data = await importAsync(_path);
-                if(data.school.teams.Count == 0)
+                if (data.school.teams.Count == 0)
                 {
                     insert_member_result_ViewModel error = new insert_member_result_ViewModel();
                     error.objectName = "School";
@@ -785,7 +772,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 inUsing.active = false;
                 await _ischoolService.update(inUsing);
             }
-            school activeSchool =  _ischoolService.findActiveById(id);
+            school activeSchool = _ischoolService.findActiveById(id);
             if (activeSchool != null)
             {
                 activeSchool.active = true;
@@ -872,7 +859,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         //read school information error then stop
                         error = new insert_member_result_ViewModel();
                         error.objectName = "School";
-                        error.parentObject = "ROOT";
+                        error.parentObject = APP_CONST.ROOT;
                         error.occur_position = "SCHOOL";
                         error.msg = msg;
                         result.error.Add(error);
@@ -895,7 +882,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     {
                         error = new insert_member_result_ViewModel();
                         error.objectName = "School";
-                        error.parentObject = "ROOT";
+                        error.parentObject = APP_CONST.TEAM;
                         error.occur_position = "TEAM";
                         error.msg = readTeamErrMsg;
                         result.error.Add(error);

@@ -67,7 +67,7 @@ namespace Capstone_SWP490.Constant.Const
         }
         public static string ROOT = "ROOT";
         public static string MEMBER = "MEMBER";
-        public static string SCHOOL = "SCHOOL";
+        public static string SCHOOL = "Uni_Ins";
         public static string TEAM = "TEAM";
     }
 }
