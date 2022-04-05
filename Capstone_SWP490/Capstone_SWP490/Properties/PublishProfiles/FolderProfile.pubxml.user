@@ -4,18 +4,21 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_PublishTargetUrl>bin\app.publish\</_PublishTargetUrl>
-    <History>True|2022-03-28T18:33:12.5227775Z;True|2022-03-29T01:31:49.4249089+07:00;True|2022-03-21T23:12:25.6862641+07:00;True|2022-03-20T05:12:22.9258429+07:00;False|2022-03-20T05:12:10.6494099+07:00;False|2022-03-20T05:11:58.9585747+07:00;False|2022-03-20T05:10:54.7635931+07:00;False|2022-03-20T05:10:49.7567398+07:00;True|2022-03-20T03:48:37.0467847+07:00;True|2022-02-21T18:59:38.3973945+07:00;True|2022-02-21T18:22:58.8061445+07:00;True|2022-02-21T18:22:25.4305367+07:00;False|2022-02-21T18:20:54.3195131+07:00;True|2022-02-20T12:18:22.4880668+07:00;True|2022-02-20T11:39:07.3679801+07:00;True|2022-02-20T11:33:12.8475017+07:00;False|2022-02-20T11:30:11.6443330+07:00;False|2022-02-20T11:29:05.8150997+07:00;False|2022-02-20T11:19:55.7281331+07:00;False|2022-02-20T11:19:01.2571160+07:00;False|2022-02-20T11:18:15.5610885+07:00;False|2022-02-20T11:17:20.2132155+07:00;False|2022-02-20T11:16:24.2701651+07:00;False|2022-02-20T11:15:56.4580254+07:00;True|2022-02-20T04:39:59.1776953+07:00;True|2022-02-18T05:33:42.0412829+07:00;True|2022-02-16T03:11:39.6313972+07:00;True|2022-02-14T01:58:00.7380612+07:00;True|2022-02-12T05:39:29.7279856+07:00;True|2022-02-12T04:03:04.0408592+07:00;True|2022-02-12T00:27:33.4977344+07:00;True|2022-02-11T03:02:24.8912843+07:00;True|2022-02-10T04:43:25.2449055+07:00;True|2022-01-30T03:30:25.0333191+07:00;True|2022-01-29T06:33:21.4224879+07:00;True|2022-01-28T21:09:14.9658791+07:00;True|2022-01-28T03:35:08.8750919+07:00;True|2022-01-28T03:15:58.2348426+07:00;</History>
+    <_PublishTargetUrl>C:\Users\Admin\Desktop\Personal\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\bin\app.publish\</_PublishTargetUrl>
+    <History>True|2022-04-01T22:19:31.8928614Z;True|2022-03-29T01:33:12.5227775+07:00;True|2022-03-29T01:31:49.4249089+07:00;True|2022-03-21T23:12:25.6862641+07:00;True|2022-03-20T05:12:22.9258429+07:00;False|2022-03-20T05:12:10.6494099+07:00;False|2022-03-20T05:11:58.9585747+07:00;False|2022-03-20T05:10:54.7635931+07:00;False|2022-03-20T05:10:49.7567398+07:00;True|2022-03-20T03:48:37.0467847+07:00;True|2022-02-21T18:59:38.3973945+07:00;True|2022-02-21T18:22:58.8061445+07:00;True|2022-02-21T18:22:25.4305367+07:00;False|2022-02-21T18:20:54.3195131+07:00;True|2022-02-20T12:18:22.4880668+07:00;True|2022-02-20T11:39:07.3679801+07:00;True|2022-02-20T11:33:12.8475017+07:00;False|2022-02-20T11:30:11.6443330+07:00;False|2022-02-20T11:29:05.8150997+07:00;False|2022-02-20T11:19:55.7281331+07:00;False|2022-02-20T11:19:01.2571160+07:00;False|2022-02-20T11:18:15.5610885+07:00;False|2022-02-20T11:17:20.2132155+07:00;False|2022-02-20T11:16:24.2701651+07:00;False|2022-02-20T11:15:56.4580254+07:00;True|2022-02-20T04:39:59.1776953+07:00;True|2022-02-18T05:33:42.0412829+07:00;True|2022-02-16T03:11:39.6313972+07:00;True|2022-02-14T01:58:00.7380612+07:00;True|2022-02-12T05:39:29.7279856+07:00;True|2022-02-12T04:03:04.0408592+07:00;True|2022-02-12T00:27:33.4977344+07:00;True|2022-02-11T03:02:24.8912843+07:00;True|2022-02-10T04:43:25.2449055+07:00;True|2022-01-30T03:30:25.0333191+07:00;True|2022-01-29T06:33:21.4224879+07:00;True|2022-01-28T21:09:14.9658791+07:00;True|2022-01-28T03:35:08.8750919+07:00;True|2022-01-28T03:15:58.2348426+07:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Data/ConfirmAccount.txt">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/02/2022 04:54:00</publishTime>
     </File>
     <File Include="App_Data/CreateAccount.txt">
       <publishTime>01/30/2022 03:06:27</publishTime>
     </File>
+    <File Include="App_Data/DisableCoach.txt">
+      <publishTime>04/02/2022 05:02:36</publishTime>
+    </File>
     <File Include="App_Data/log/logFile.txt">
-      <publishTime>03/29/2022 01:29:40</publishTime>
+      <publishTime>04/02/2022 04:06:35</publishTime>
     </File>
     <File Include="App_Data/registration_form.xlsx">
       <publishTime>02/20/2022 04:47:41</publishTime>
@@ -27,13 +30,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/25/2022 20:53:56</publishTime>
     </File>
     <File Include="bin/Capstone_SWP490.dll">
-      <publishTime>03/29/2022 01:31:42</publishTime>
+      <publishTime>04/02/2022 05:19:28</publishTime>
     </File>
     <File Include="bin/Capstone_SWP490.dll.config">
       <publishTime>03/20/2022 05:10:35</publishTime>
     </File>
     <File Include="bin/Capstone_SWP490.pdb">
-      <publishTime>03/29/2022 01:31:42</publishTime>
+      <publishTime>04/02/2022 05:19:28</publishTime>
     </File>
     <File Include="bin/Common.Logging.dll">
       <publishTime>03/20/2022 03:29:31</publishTime>
@@ -207,7 +210,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/25/2022 20:53:52</publishTime>
     </File>
     <File Include="Content/home.css">
-      <publishTime>03/21/2022 23:11:54</publishTime>
+      <publishTime>04/02/2022 05:18:33</publishTime>
     </File>
     <File Include="Content/Site.css">
       <publishTime>01/25/2022 20:53:52</publishTime>
@@ -234,9 +237,21 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/25/2022 20:53:46</publishTime>
     </File>
     <File Include="icpc.edmx.diagram">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="image/code_war_2019_2%282%29 2.png">
+      <publishTime>03/21/2022 23:11:54</publishTime>
+    </File>
+    <File Include="image/FU 1.jpg">
+      <publishTime>03/21/2022 23:11:54</publishTime>
+    </File>
+    <File Include="image/FU 2.jpg">
+      <publishTime>03/21/2022 23:11:54</publishTime>
+    </File>
+    <File Include="image/FU 3.jpg">
+      <publishTime>03/21/2022 23:11:54</publishTime>
+    </File>
+    <File Include="image/FU 5.jpg">
       <publishTime>03/21/2022 23:11:54</publishTime>
     </File>
     <File Include="image/image 24.png">
@@ -251,6 +266,12 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="image/image 28.png">
       <publishTime>01/25/2022 20:53:54</publishTime>
     </File>
+    <File Include="image/image 29.png">
+      <publishTime>02/08/2022 21:58:45</publishTime>
+    </File>
+    <File Include="image/image 30.png">
+      <publishTime>02/08/2022 21:58:45</publishTime>
+    </File>
     <File Include="image/image 35.png">
       <publishTime>01/25/2022 20:53:54</publishTime>
     </File>
@@ -263,8 +284,23 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="image/logofpt.png">
       <publishTime>01/25/2022 20:53:54</publishTime>
     </File>
+    <File Include="image/Logo_FPT.png">
+      <publishTime>03/29/2022 00:31:00</publishTime>
+    </File>
+    <File Include="image/Logo_Đại_học_FPT.png">
+      <publishTime>03/21/2022 23:11:54</publishTime>
+    </File>
     <File Include="image/OLP_30_nam-removebg 1.png">
       <publishTime>01/25/2022 20:53:54</publishTime>
+    </File>
+    <File Include="image/pencil-fill.svg">
+      <publishTime>02/17/2022 18:04:41</publishTime>
+    </File>
+    <File Include="image/trash-fill.svg">
+      <publishTime>02/17/2022 18:04:41</publishTime>
+    </File>
+    <File Include="image/x-circle-fill.svg">
+      <publishTime>02/17/2022 18:04:41</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>01/25/2022 20:53:54</publishTime>
@@ -309,13 +345,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/25/2022 20:53:54</publishTime>
     </File>
     <File Include="Views/Admin/Index.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/Accommodations.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/AdminScheduleOfActivities.cshtml">
       <publishTime>02/08/2022 22:03:58</publishTime>
@@ -326,14 +362,29 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Home/Contact.cshtml">
       <publishTime>01/25/2022 20:53:56</publishTime>
     </File>
+    <File Include="Views/Home/Contest.cshtml">
+      <publishTime>04/02/2022 05:18:33</publishTime>
+    </File>
+    <File Include="Views/Home/ContestEdit.cshtml">
+      <publishTime>04/01/2022 23:37:15</publishTime>
+    </File>
+    <File Include="Views/Home/ContestUpload.cshtml">
+      <publishTime>04/01/2022 23:37:15</publishTime>
+    </File>
     <File Include="Views/Home/Downloads.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/Event.cshtml">
-      <publishTime>03/29/2022 00:31:00</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/EventDetail.cshtml">
-      <publishTime>03/29/2022 00:31:00</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
+    </File>
+    <File Include="Views/Home/EventEdit.cshtml">
+      <publishTime>04/01/2022 23:37:15</publishTime>
+    </File>
+    <File Include="Views/Home/EventUpload.cshtml">
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/HomeLogin.cshtml">
       <publishTime>02/17/2022 18:04:41</publishTime>
@@ -342,31 +393,40 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/25/2022 21:26:12</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>03/29/2022 00:31:00</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/LocalInformation.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/RegisShirtSizing.cshtml">
-      <publishTime>02/20/2022 04:47:41</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/RegistrationFrom.cshtml">
       <publishTime>03/20/2022 03:29:31</publishTime>
     </File>
     <File Include="Views/Home/RegistrationImport.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/RegistrationTitle.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/Rules.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/ScheduleOfActivities.cshtml">
-      <publishTime>03/29/2022 00:31:00</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
+    </File>
+    <File Include="Views/Home/Scoreboard.cshtml">
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Home/ShirtSizing.cshtml">
-      <publishTime>02/20/2022 04:47:41</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
+    </File>
+    <File Include="Views/Home/SubEventDetail.cshtml">
+      <publishTime>04/01/2022 23:37:15</publishTime>
+    </File>
+    <File Include="Views/Home/SubEventUpload.cshtml">
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Login/ChangePassword.cshtml">
       <publishTime>03/20/2022 03:29:31</publishTime>
@@ -378,61 +438,67 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/20/2022 03:29:31</publishTime>
     </File>
     <File Include="Views/Login/RegisShirtSizing.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Orgnazation/CoachAccount.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/02/2022 05:09:14</publishTime>
     </File>
     <File Include="Views/Orgnazation/Index.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/02/2022 03:06:24</publishTime>
+    </File>
+    <File Include="Views/Orgnazation/NewRegistCoach.cshtml">
+      <publishTime>04/02/2022 04:41:58</publishTime>
     </File>
     <File Include="Views/Post/Edit.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Post/Index.cshtml">
-      <publishTime>03/29/2022 00:31:00</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Registration/Guide.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/02/2022 05:18:33</publishTime>
     </File>
     <File Include="Views/Registration/Index.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Registration/MemberDetail.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Registration/RegistrationCoach.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Registration/Result.cshtml">
-      <publishTime>03/29/2022 01:27:16</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Registration/TeamDetail.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>01/25/2022 20:53:56</publishTime>
+    </File>
+    <File Include="Views/Shared/_AdminMenu.cshtml">
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Shared/_ErrorModelView.cshtml">
       <publishTime>03/20/2022 03:29:31</publishTime>
     </File>
     <File Include="Views/Shared/_GuestMenu.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Shared/_HeaderLayout.cshtml">
-      <publishTime>02/20/2022 04:47:41</publishTime>
+      <publishTime>04/01/2022 23:37:15</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
       <publishTime>03/29/2022 01:15:19</publishTime>
     </File>
     <File Include="Views/Shared/_OrganizationMenu.cshtml">
-      <publishTime>03/20/2022 03:29:31</publishTime>
+      <publishTime>04/02/2022 05:18:33</publishTime>
     </File>
     <File Include="Views/Shared/_SigninLayout.cshtml">
       <publishTime>02/15/2022 22:00:19</publishTime>
     </File>
     <File Include="Views/SignUp/Index.cshtml">
-      <publishTime>03/29/2022 01:23:27</publishTime>
+      <publishTime>04/02/2022 02:01:14</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>01/25/2022 20:53:56</publishTime>
@@ -441,7 +507,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/25/2022 20:53:56</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/29/2022 01:31:45</publishTime>
+      <publishTime>04/02/2022 05:19:29</publishTime>
     </File>
   </ItemGroup>
 </Project>

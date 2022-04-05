@@ -88,6 +88,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fullname cannot be empty.
+        /// </summary>
+        internal static string MSG04 {
+            get {
+                return ResourceManager.GetString("MSG04", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to oops, something went wrong, please try again or contact to System admin.
         /// </summary>
         internal static string SYSTEM_ERROR {

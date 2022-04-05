@@ -90,6 +90,10 @@ namespace Capstone_SWP490.Helper
                 {
                     return Message.MSG02;
                 }
+                if (StringUtils.isNullOrEmpty(data.full_name))
+                {
+                    return Message.MSG04;
+                }
                 return "";
             }
             catch
