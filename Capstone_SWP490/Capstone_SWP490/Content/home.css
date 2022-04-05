@@ -1,5 +1,11 @@
-﻿
-
+﻿body {
+    -moz-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
 .nav-pills > li > a {
     border-radius: 0;
 }
@@ -130,6 +136,7 @@
     margin: 0;
     height: 55px;
     z-index: 1001;
+    border-radius:0px;
 }
 
 .toggleWrap {
@@ -1144,9 +1151,6 @@ margin-bottom:50px;
     float: left;
 }
 
-.active > div {
-    display: none;
-}
 
     .active > div:first-child {
         display: block;
@@ -1319,22 +1323,13 @@ padding:0px !important;
     padding-left:0px;
 }
 
-#menu_Registration_sub1 {
-    padding-left: 50px;
-    font-size: 0.85em;
-}
-#menu_Registration_sub2 {
-    padding-left: 50px;
-    font-size: 0.85em;
-}
-#menu_Contest_sub1 {
-    padding-left: 50px;
-    font-size: 0.85em;
-}
-#menu_Contest_sub2 {
-    padding-left: 50px;
-    font-size: 0.85em;
-}
 a{
     cursor: pointer;
+}
+.content-area1-title-login {
+    top: 15px;
+    font-size: 20px;
+    line-height: 29px;
+    color: #FFFFFF;
+    position: absolute;
 }

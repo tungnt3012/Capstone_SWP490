@@ -24,7 +24,12 @@ namespace Capstone_SWP490.Controllers.Orgnazition
         private readonly interfaces.Iteam_memberService _iteam_memberService = new services.teamMemberService();
         private static readonly ILog Log = LogManager.GetLogger(typeof(OrgnazationController));
         // GET: Orgnazation
+        public ActionResult Overview()
+        {
+            ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
         public ActionResult NewRegistCoach(organization_ListViewModel model, int? pageIndex)
         {
             try
