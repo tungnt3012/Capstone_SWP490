@@ -26,21 +26,21 @@
             <div class="col-lg-10 col-lg-offset-1" id="under">
                 <br />
                 @*<a href="@Url.Action("Create", "Post")" style="text-decoration:underline">ADD NEW</a>*@
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label>Status:</label>
-                        <select class="form-control" id="selectStatus">
-                            <option value="all" @(Model.status != null && Model.status != "postsed" && Model.status != "scheduling" ? "selected" : "")>All</option>
-                            <option value="postsed" @(Model.status != null && Model.status == "postsed" ? "selected" : "")>Posted</option>
-                            <option value="scheduling" @(Model.status != null && Model.status == "scheduling" ? "selected" : "")>Scheduling</option>
-                        </select>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Status:</label>
+                            <select class="form-control" id="selectStatus">
+                                <option value="all" @(Model.status != null && Model.status != "postsed" && Model.status != "scheduling" ? "selected" : "")>All</option>
+                                <option value="postsed" @(Model.status != null && Model.status == "postsed" ? "selected" : "")>Posted</option>
+                                <option value="scheduling" @(Model.status != null && Model.status == "scheduling" ? "selected" : "")>Scheduling</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="form-group pull-right">
-                        <button type="button" onclick="window.location.href='/Post/Create'" class="btn btn-success add-post">Add New</button>
-                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group pull-right">
+                            <button type="button" onclick="window.location.href='/Post/Create'" class="btn btn-success add-post">Add New</button>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -52,7 +52,7 @@
                                     <th scope="col" width="20%">Title</th>
                                     <th scope="col" width="30%">Short Description</th>
                                     <th scope="col" width="7%">Create Date</th>
-                                    <th scope="col" width="7%">Update Date</th>
+                                    <th scope="col" width="7%">Post Date</th>
                                     <th scope="col" width="5%">Schedule/Time Remaining</th>
                                     <th scope="col" width="5%">Posted</th>
                                     <th scope="col" width="15%"></th>
@@ -66,18 +66,22 @@
                                         <td>@(item.title)</td>
                                         <td>@(item.short_description)</td>
                                         <td>@(item.insert_date)</td>
-                                        <td>@(item.update_date)</td>
+                                        <td>@(item.enabled == true ? item.update_date : "N/A")</td>
                                         <td>
                                             @(Model.calDate(item.schedule_date) == "" ?  "N/A" : Model.calDate(item.schedule_date))
                                         </td>
                                         <td>@(item.enabled)</td>
                                         <td>
-                                            <a href="@Url.Action("Enable", "Post")?id=@item.post_id">@(item.enabled == false ? "Post" :"Repost")</a> |
+
                                             @if (item.enabled == true)
                                             {
                                                 <a href="@Url.Action("Disable", "Post")?id=@item.post_id">Disable</a>
-                                                @("|")
                                             }
+                                            else
+                                            {
+                                                <a href="@Url.Action("Enable")?id=@item.post_id">RePost</a>
+                                            }
+                                            @("|")
                                             <a href="@Url.Action("Edit", "Post")?id=@item.post_id" style="color: red">Edit</a>
                                         </td>
                                     </tr>

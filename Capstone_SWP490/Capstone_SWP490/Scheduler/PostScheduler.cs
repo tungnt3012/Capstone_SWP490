@@ -20,12 +20,7 @@ namespace Capstone_SWP490.Scheduler
 
             scheduler.Start();
 
-
-
             IJobDetail job = JobBuilder.Create<PostJob>().Build();
-
-
-
             ITrigger trigger = TriggerBuilder.Create()
 
                 .WithDailyTimeIntervalSchedule

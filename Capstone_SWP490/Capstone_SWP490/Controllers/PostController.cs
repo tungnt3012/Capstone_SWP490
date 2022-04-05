@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using log4net;
 
 namespace Capstone_SWP490.Controllers
 {
     public class PostController : Controller
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(PostController));
         private readonly IpostService _postService = new postService();
 
 
@@ -37,13 +39,13 @@ namespace Capstone_SWP490.Controllers
                 post _post = _postService.getById(id);
                 _post.enabled = true;
                 _post.schedule_date = null;
+                _post.update_date = DateTime.Now + "";
                 _postService.update(_post);
                 return RedirectToAction("", "Post");
             }
-#pragma warning disable CS0168 // The variable 'e' is declared but never used
             catch (Exception e)
-#pragma warning restore CS0168 // The variable 'e' is declared but never used
             {
+                Log.Error(e.Message);
                 return RedirectToAction("", "Home");
 
             }
@@ -56,13 +58,13 @@ namespace Capstone_SWP490.Controllers
                 post _post = _postService.getById(id);
                 _post.enabled = false;
                 _post.schedule_date = null;
+                _post.update_date = DateTime.Now + "";
                 _postService.update(_post);
                 return RedirectToAction("", "Post");
             }
-#pragma warning disable CS0168 // The variable 'e' is declared but never used
             catch (Exception e)
-#pragma warning restore CS0168 // The variable 'e' is declared but never used
             {
+                Log.Error(e.Message);
                 return RedirectToAction("", "Home");
 
             }
@@ -115,10 +117,9 @@ namespace Capstone_SWP490.Controllers
                 model.action = "Edit";
                 return View(model);
             }
-#pragma warning disable CS0168 // The variable 'e' is declared but never used
             catch (Exception e)
-#pragma warning restore CS0168 // The variable 'e' is declared but never used
             {
+                Log.Error(e.Message);
                 return RedirectToAction("", "Home");
             }
         }
@@ -128,33 +129,42 @@ namespace Capstone_SWP490.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(post_ViewModel model, string postToFanPage)
         {
-            app_userViewModel logined = (app_userViewModel)Session["profile"];
-            if (postToFanPage != null && postToFanPage.Equals("on"))
+            try
             {
-                model.post.post_to += ",FANPAGE";
-                DateTime now = DateTime.Now;
-                if (model.post.schedule_date == null || DateTime.Parse(model.post.schedule_date) <= now)
+                app_userViewModel logined = (app_userViewModel)Session["profile"];
+                if (postToFanPage != null && postToFanPage.Equals("on"))
                 {
-                    @ViewData["EDIT_ERROR"] = "In Case Of Schedule Post, Schedule Date Cannot be empty or earlier than Now";
+                    model.post.post_to += ",FANPAGE";
+                    DateTime now = DateTime.Now;
+                    if (model.post.schedule_date == null || DateTime.Parse(model.post.schedule_date) <= now)
+                    {
+                        @ViewData["EDIT_ERROR"] = "In Case Of Schedule Post, Schedule Date Cannot be empty or earlier than Now";
+                        return View(model);
+                    }
+                    model.post.enabled = false;
+                }
+                if (model.post.title == null || model.post.title.Equals(""))
+                {
+                    @ViewData["EDIT_ERROR"] = "Title cannot be empty";
                     return View(model);
                 }
-                model.post.enabled = false;
-            }
-            if (model.post.title == null || model.post.title.Equals(""))
+                if (model.post.html_content == null || model.post.title.Equals(""))
+                {
+                    @ViewData["EDIT_ERROR"] = "Content cannot be empty";
+                    return View(model);
+                }
+                model.post.insert_date = DateTime.Now + "";
+                model.post.update_date = DateTime.Now + "";
+                model.post.post_by = logined.user_id;
+                model.post.enabled = true;
+                model.post.update_date = DateTime.Now + "";
+                _postService.update(model.post);
+                return RedirectToAction("", "Post");
+            }catch(Exception e)
             {
-                @ViewData["EDIT_ERROR"] = "Title cannot be empty";
-                return View(model);
+                Log.Error(e.Message);
             }
-            if (model.post.html_content == null || model.post.title.Equals(""))
-            {
-                @ViewData["EDIT_ERROR"] = "Content cannot be empty";
-                return View(model);
-            }
-            model.post.insert_date = DateTime.Now + "";
-            model.post.update_date = DateTime.Now + "";
-            model.post.post_by = logined.user_id;
-            _postService.update(model.post);
-            return RedirectToAction("", "Post");
+            return RedirectToAction("", "Home");
         }
 
     }

@@ -21,8 +21,6 @@ namespace Capstone_SWP490.Helper
         private static readonly ILog Log = LogManager.GetLogger(typeof(RegistrationHelper));
         private readonly interfaces.IcontestService _icontestService = new services.contestService();
         private readonly interfaces.Iapp_userService _iapp_UserService = new services.app_userService();
-        private readonly interfaces.ImemberService _imemberService = new services.memberService();
-        private readonly CommonHelper commonHelper = new CommonHelper();
         public team_member getTeamByTeamName(List<team_member> teams, string teamName)
         {
             if (teams == null)
@@ -62,7 +60,7 @@ namespace Capstone_SWP490.Helper
             }
             return member;
         }
-      public List<member_contest_ViewModel> createContestViewMode(List<contest_member> contestMember)
+        public List<member_contest_ViewModel> createContestViewMode(List<contest_member> contestMember)
         {
             List<member_contest_ViewModel> listContestModel = new List<member_contest_ViewModel>();
             member_contest_ViewModel contestModel;
@@ -434,6 +432,7 @@ namespace Capstone_SWP490.Helper
                 error.objectName = "SCHOOL";
                 error.occur_position = "ROW = 6 OR 7";
                 error.msg = msgCoach;
+                error.parentObject = "Uni_Ins";
                 result.error.Add(error);
             }
             string coach_phone = schoolSheet.Cells[row++, col].Value + "";
@@ -717,7 +716,7 @@ namespace Capstone_SWP490.Helper
                     teamList.Where(x => x.team_id == t.team_id).FirstOrDefault().team_member.Remove(leaderMemberRemove);
                     error = new insert_member_result_ViewModel();
                     error.objectName = "MEMBER_NORMAL";
-                    error.parentObject = "N/A";
+                    error.parentObject = APP_CONST.TEAM + " - " + APP_CONST.MEMBER;
                     error.occur_position = "MEMBER";
                     error.msg = "The team " + currentRemoveLeader.team_name + " leader defined at sheet team was removed because not define detail information in sheet member";
                     result.error.Add(error);
@@ -730,7 +729,7 @@ namespace Capstone_SWP490.Helper
                         removedTeam.Add(currentRemoveLeader);
                         error = new insert_member_result_ViewModel();
                         error.objectName = "MEMBER_NORMAL";
-                        error.parentObject = "N/A";
+                        error.parentObject = APP_CONST.TEAM + " - " + APP_CONST.MEMBER;
                         error.occur_position = "N/A";
                         error.msg = "The team " + currentRemoveLeader.team_name + " have no member";
                         result.error.Add(error);
@@ -819,5 +818,4 @@ namespace Capstone_SWP490.Helper
             return passToData;
         }
     }
-
 }
