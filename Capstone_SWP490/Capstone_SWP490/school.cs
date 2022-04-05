@@ -25,7 +25,7 @@ namespace Capstone_SWP490
         public string institution_name { get; set; }
         public string address { get; set; }
         public string insert_date { get; set; }
-        public Nullable<bool> active { get; set; }
+        public Nullable<int> active { get; set; }
         public string update_date { get; set; }
         public Nullable<int> coach_id { get; set; }
         public Nullable<bool> enabled { get; set; }
