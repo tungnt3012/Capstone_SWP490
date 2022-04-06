@@ -63,36 +63,243 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to SYSTEM ERROR, please try again !.
         /// </summary>
-        internal static string MSG01 {
+        internal static string MSG001 {
             get {
-                return ResourceManager.GetString("MSG01", resourceCulture);
+                return ResourceManager.GetString("MSG001", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Email is used, please try again!.
         /// </summary>
-        internal static string MSG02 {
+        internal static string MSG002 {
             get {
-                return ResourceManager.GetString("MSG02", resourceCulture);
+                return ResourceManager.GetString("MSG002", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to In valid email!.
         /// </summary>
-        internal static string MSG03 {
+        internal static string MSG003 {
             get {
-                return ResourceManager.GetString("MSG03", resourceCulture);
+                return ResourceManager.GetString("MSG003", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Fullname cannot be empty.
         /// </summary>
-        internal static string MSG04 {
+        internal static string MSG004 {
             get {
-                return ResourceManager.GetString("MSG04", resourceCulture);
+                return ResourceManager.GetString("MSG004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error read sheet #SHEET_NAME#.
+        /// </summary>
+        internal static string MSG005 {
+            get {
+                return ResourceManager.GetString("MSG005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to School name is empty, we uses data when you regist coach account !.
+        /// </summary>
+        internal static string MSG006 {
+            get {
+                return ResourceManager.GetString("MSG006", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Institution name is empty, we uses data when you regist coach account !.
+        /// </summary>
+        internal static string MSG007 {
+            get {
+                return ResourceManager.GetString("MSG007", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rector name is empty, we uses data when you regist coach account!.
+        /// </summary>
+        internal static string MSG008 {
+            get {
+                return ResourceManager.GetString("MSG008", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to School phone is empty, we uses data when you regist coach account!.
+        /// </summary>
+        internal static string MSG009 {
+            get {
+                return ResourceManager.GetString("MSG009", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to School address is empty, we uses data when you regist coach account!.
+        /// </summary>
+        internal static string MSG010 {
+            get {
+                return ResourceManager.GetString("MSG010", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coach name is empty, we uses information of logined user.
+        /// </summary>
+        internal static string MSG011 {
+            get {
+                return ResourceManager.GetString("MSG011", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coach email is empty or not match with logined, we uses information of logined user.
+        /// </summary>
+        internal static string MSG012 {
+            get {
+                return ResourceManager.GetString("MSG012", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select excel file end with .xlsx!.
+        /// </summary>
+        internal static string MSG013 {
+            get {
+                return ResourceManager.GetString("MSG013", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot read Vice Coach because Vice Coach email is empty.
+        /// </summary>
+        internal static string MSG014 {
+            get {
+                return ResourceManager.GetString("MSG014", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sheet {0} not found !.
+        /// </summary>
+        internal static string MSG015 {
+            get {
+                return ResourceManager.GetString("MSG015", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the Contest {0} is not existed or Individual Contest.
+        /// </summary>
+        internal static string MSG016 {
+            get {
+                return ResourceManager.GetString("MSG016", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team Name cannot be blank or less than or equal 2 character.
+        /// </summary>
+        internal static string MSG017 {
+            get {
+                return ResourceManager.GetString("MSG017", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team &quot;#TEAM_NAME#&quot; is existed in before or used by others.
+        /// </summary>
+        internal static string MSG018 {
+            get {
+                return ResourceManager.GetString("MSG018", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team leader Name and email  cannot be blank.
+        /// </summary>
+        internal static string MSG019 {
+            get {
+                return ResourceManager.GetString("MSG019", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member below ROW = {0} is not accepted. Because the contest {1} is just accept {2} contestant..
+        /// </summary>
+        internal static string MSG020 {
+            get {
+                return ResourceManager.GetString("MSG020", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to School with name = {0} and Institution Name = {1} is registered before !.
+        /// </summary>
+        internal static string MSG021 {
+            get {
+                return ResourceManager.GetString("MSG021", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No team recognized, please insert data carefully !.
+        /// </summary>
+        internal static string MSG022 {
+            get {
+                return ResourceManager.GetString("MSG022", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - the Team &apos;{0}&apos; not defined in sheet TEAM yet, please check at sheet &apos;TEAM&apos;.
+        /// </summary>
+        internal static string MSG023 {
+            get {
+                return ResourceManager.GetString("MSG023", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email used by other member.
+        /// </summary>
+        internal static string MSG024 {
+            get {
+                return ResourceManager.GetString("MSG024", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Member name cannot be blank\n.
+        /// </summary>
+        internal static string MSG025 {
+            get {
+                return ResourceManager.GetString("MSG025", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Member email is blank or invalid.
+        /// </summary>
+        internal static string MSG026 {
+            get {
+                return ResourceManager.GetString("MSG026", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Member age must greater than or equal 15\n.
+        /// </summary>
+        internal static string MSG027 {
+            get {
+                return ResourceManager.GetString("MSG027", resourceCulture);
             }
         }
         
@@ -102,6 +309,15 @@ namespace Resources {
         internal static string SYSTEM_ERROR {
             get {
                 return ResourceManager.GetString("SYSTEM_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unkow error.
+        /// </summary>
+        internal static string UNKOWN_ERROR {
+            get {
+                return ResourceManager.GetString("UNKOWN_ERROR", resourceCulture);
             }
         }
     }

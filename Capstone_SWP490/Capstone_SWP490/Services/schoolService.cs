@@ -47,16 +47,16 @@ namespace Capstone_SWP490.Services
 
         public school findActiveById(int id)
         {
-            return  _ischoolRepository.FindBy(x => x.school_id == id && x.enabled == true).FirstOrDefault();
+            return _ischoolRepository.FindBy(x => x.school_id == id && x.enabled == true).FirstOrDefault();
         }
         public school findInUsing(int coachId)
         {
-            return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active == true).FirstOrDefault();
+            return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active == 3).FirstOrDefault();
         }
         public async Task<school> insert(school school)
         {
             school existActive = _ischoolRepository.checkActive(school);
-            school.active = (existActive == null);
+            school.active = (existActive == null) ? 2 : 1;
             try
             {
                 return await _ischoolRepository.Create(school);
@@ -84,6 +84,17 @@ namespace Capstone_SWP490.Services
         public school findById(int schoolId)
         {
             return _ischoolRepository.FindBy(x => x.coach_id == schoolId).FirstOrDefault();
+        }
+
+        public bool isExisted(string schoolName, string institutioName, int coachUserId)
+        {
+            return _ischoolRepository.FindBy(x => x.coach_id != coachUserId && x.active == 3
+            && x.school_name.Equals(schoolName)
+            && x.institution_name.Equals(institutioName)).FirstOrDefault() != null;
+        }
+        public school getFirstRegistSchool(int coachUserId)
+        {
+            return _ischoolRepository.FindBy(x => x.coach_id == coachUserId && x.active == 0).FirstOrDefault();
         }
     }
 }

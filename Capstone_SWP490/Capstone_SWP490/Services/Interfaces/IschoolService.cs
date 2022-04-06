@@ -19,5 +19,7 @@ namespace Capstone_SWP490.Services.Interfaces
         school findInUsing(int coachId);
         Task<int> update(school school);
         school findById(int schoolId);
+        bool isExisted(string schoolName, string institutioName, int coachUserId);
+        school getFirstRegistSchool(int coachUserId);
     }
 }
