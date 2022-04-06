@@ -57,7 +57,7 @@
                         </div>
                     </div>
 
-                    <div class="panel-body table-responsive">
+                    <div class="form-group">
                         @*<div class="form-group">
                     <div class="row">
                         <div class="col-lg-3">
@@ -143,13 +143,6 @@ else
 
 
 <script>
-    $(document).ready(function () {
-        $('#dtBasicExample').DataTable({
-            "pagingType": "simple"
-        });
-        $('.dataTables_length').addClass('bs-select');
-    });
-
     function SearchFilter(e) {
         var vas = $("#userss").val();
         var role = $("#user_role").val();
@@ -196,5 +189,8 @@ else
             }
         });
     }
-
+    $(document).ready(function () {
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
 </script>
