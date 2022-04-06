@@ -18,5 +18,8 @@ namespace Capstone_SWP490.Models.coachViewModel
 
         public string school_address { get; set; }
         public string type { get; set; }
+
+        public string website { get; set; }
+        public string rector_name { get; set; }
     }
 }

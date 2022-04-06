@@ -9,6 +9,6 @@ namespace Capstone_SWP490.Models.registrationViewModel
     public class IndexViewModel
     {
         public List<school> school { get; set; }
-        public List<insert_member_result_ViewModel> insert_result { get; set; } = null;
+        public List<import_error_ViewModel> insert_result { get; set; } = null;
     }
 }

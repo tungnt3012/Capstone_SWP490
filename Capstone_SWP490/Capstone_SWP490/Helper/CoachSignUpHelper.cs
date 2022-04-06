@@ -38,7 +38,7 @@ namespace Capstone_SWP490.Helper
             school.address = StringUtils.isNullOrEmpty(data.school_address) ? "" : data.school_address;
             school.insert_date = DateTime.Now + "";
             school.update_date = DateTime.Now + "";
-            school.active = false;
+            school.active = 0;
             school.enabled = false;
             school.phone_number = StringUtils.isNullOrEmpty(data.school_phone) ? "" : data.school_phone;
             school.coach_id = coachUserId;
@@ -84,15 +84,15 @@ namespace Capstone_SWP490.Helper
             {
                 if (!registrationHelper.IsValidEmail(data.email))
                 {
-                    return Message.MSG03;
+                    return Message.MSG003;
                 }
                 if (_iapp_UserService.GetUserByUsername(data.email) != null)
                 {
-                    return Message.MSG02;
+                    return Message.MSG002;
                 }
                 if (StringUtils.isNullOrEmpty(data.full_name))
                 {
-                    return Message.MSG04;
+                    return Message.MSG004;
                 }
                 return "";
             }

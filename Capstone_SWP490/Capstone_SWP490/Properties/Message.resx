@@ -117,19 +117,91 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MSG01" xml:space="preserve">
+  <data name="MSG001" xml:space="preserve">
     <value>SYSTEM ERROR, please try again !</value>
   </data>
-  <data name="MSG02" xml:space="preserve">
+  <data name="MSG002" xml:space="preserve">
     <value>Email is used, please try again!</value>
   </data>
-  <data name="MSG03" xml:space="preserve">
+  <data name="MSG003" xml:space="preserve">
     <value>In valid email!</value>
   </data>
-  <data name="MSG04" xml:space="preserve">
+  <data name="MSG004" xml:space="preserve">
     <value>Fullname cannot be empty</value>
+  </data>
+  <data name="MSG005" xml:space="preserve">
+    <value>Error read sheet #SHEET_NAME#</value>
+  </data>
+  <data name="MSG006" xml:space="preserve">
+    <value>School name is empty, we uses data when you regist coach account !</value>
+  </data>
+  <data name="MSG007" xml:space="preserve">
+    <value>Institution name is empty, we uses data when you regist coach account !</value>
+  </data>
+  <data name="MSG008" xml:space="preserve">
+    <value>Rector name is empty, we uses data when you regist coach account!</value>
+  </data>
+  <data name="MSG009" xml:space="preserve">
+    <value>School phone is empty, we uses data when you regist coach account!</value>
+  </data>
+  <data name="MSG010" xml:space="preserve">
+    <value>School address is empty, we uses data when you regist coach account!</value>
+  </data>
+  <data name="MSG011" xml:space="preserve">
+    <value>Coach name is empty, we uses information of logined user</value>
+  </data>
+  <data name="MSG012" xml:space="preserve">
+    <value>Coach email is empty or not match with logined, we uses information of logined user</value>
+  </data>
+  <data name="MSG013" xml:space="preserve">
+    <value>Please select excel file end with .xlsx!</value>
+  </data>
+  <data name="MSG014" xml:space="preserve">
+    <value>Cannot read Vice Coach because Vice Coach email is empty</value>
+  </data>
+  <data name="MSG015" xml:space="preserve">
+    <value>Sheet {0} not found !</value>
+  </data>
+  <data name="MSG016" xml:space="preserve">
+    <value>the Contest {0} is not existed or Individual Contest</value>
+  </data>
+  <data name="MSG017" xml:space="preserve">
+    <value>Team Name cannot be blank or less than or equal 2 character</value>
+  </data>
+  <data name="MSG018" xml:space="preserve">
+    <value>Team "#TEAM_NAME#" is existed in before or used by others</value>
+  </data>
+  <data name="MSG019" xml:space="preserve">
+    <value>Team leader Name and email  cannot be blank</value>
+  </data>
+  <data name="MSG020" xml:space="preserve">
+    <value>Member below ROW = {0} is not accepted. Because the contest {1} is just accept {2} contestant.</value>
+  </data>
+  <data name="MSG021" xml:space="preserve">
+    <value>School with name = {0} and Institution Name = {1} is registered before !</value>
+  </data>
+  <data name="MSG022" xml:space="preserve">
+    <value>No team recognized, please insert data carefully !</value>
+  </data>
+  <data name="MSG023" xml:space="preserve">
+    <value>- the Team '{0}' not defined in sheet TEAM yet, please check at sheet 'TEAM'</value>
+  </data>
+  <data name="MSG024" xml:space="preserve">
+    <value>Email used by other member</value>
+  </data>
+  <data name="MSG025" xml:space="preserve">
+    <value>- Member name cannot be blank\n</value>
+  </data>
+  <data name="MSG026" xml:space="preserve">
+    <value>- Member email is blank or invalid</value>
+  </data>
+  <data name="MSG027" xml:space="preserve">
+    <value>- Member age must greater than or equal 15\n</value>
   </data>
   <data name="SYSTEM_ERROR" xml:space="preserve">
     <value>oops, something went wrong, please try again or contact to System admin</value>
+  </data>
+  <data name="UNKOWN_ERROR" xml:space="preserve">
+    <value>Unkow error</value>
   </data>
 </root>

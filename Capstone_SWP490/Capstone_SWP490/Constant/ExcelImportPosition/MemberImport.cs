@@ -7,7 +7,7 @@ namespace Capstone_SWP490.Common.ExcelImportPosition
 {
     public class MemberImport : IExcelPosition
     {
-        public string sheetName { get; } = "TEAM MEMBER";
+        public static string sheetName { get; } = "Team Member";
         public int startAtCol { get; } = 3;
         public int startAtRow { get; } = 3;
         public int[,] GetPosition()

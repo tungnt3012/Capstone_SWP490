@@ -26,7 +26,7 @@ namespace Capstone_SWP490.Services
             {
                 throw new Exception("Contest code and name cannot null");
             }
-            return _icontestRepository.FindBy(x => x.code.Equals(code) || x.contest_name.Equals(name)).FirstOrDefault();
+            return _icontestRepository.FindBy(x => x.max_contestant == -1 && (x.code.Equals(code) || x.contest_name.Equals(name))).FirstOrDefault();
         }
 
         public contest getById(int? id)

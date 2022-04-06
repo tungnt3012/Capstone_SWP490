@@ -59,5 +59,10 @@ namespace Capstone_SWP490.Services
         {
             return _iteamRepository.Update(team, team.team_id);
         }
+
+        public IEnumerable<team> findRegistedTeam()
+        {
+            return _iteamRepository.FindBy(x => x.school.active == 4 && x.school.enabled == true).ToList();
+        }
     }
 }

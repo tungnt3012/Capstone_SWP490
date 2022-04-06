@@ -5,28 +5,35 @@ using System.Linq;
 
 namespace Capstone_SWP490.Models.school_memberViewModel
 {
-    public class school_memberViewModel
+    public class import_resultViewModel
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(school_memberViewModel));
-        public school_memberViewModel()
+        private static readonly ILog Log = LogManager.GetLogger(typeof(import_resultViewModel));
+        public import_resultViewModel()
         {
-            this.error = new List<insert_member_result_ViewModel>();
+            this.error = new List<import_error_ViewModel>();
         }
-        public List<insert_member_result_ViewModel> error { get; set; }
+        public List<import_error_ViewModel> error { get; set; }
         public school school { get; set; }
         public member coach { get; set; }
         public member vice_coach { get; set; }
         public team displayTeam { get; set; }
         public contest displayContest { get; set; }
         public string source { get; set; } = "IMPORT";
+        private void sortError()
+        {
+            if(error !=null)
+            error = error.OrderBy(o => o.type).ToList();
+
+        }
         public void setDisplayTeam(int teamId)
         {
+            sortError();
             if (school.teams.Count == 0)
             {
                 displayTeam = new team();
                 return;
             }
-            
+
             try
             {
                 if (teamId == 0)
@@ -48,11 +55,11 @@ namespace Capstone_SWP490.Models.school_memberViewModel
                 if (team_member != null && team_member.Count > 0)
                 {
                     member leader = team_member.FirstOrDefault().member;
-                    if(leader.contest_member != null && leader.contest_member.Count > 0)
-                    displayContest = leader.contest_member.FirstOrDefault().contest;
+                    if (leader.contest_member != null && leader.contest_member.Count > 0)
+                        displayContest = leader.contest_member.FirstOrDefault().contest;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log.Error(e.Message);
             }

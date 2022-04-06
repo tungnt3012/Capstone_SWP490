@@ -36,7 +36,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="firstName">Full name<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(x => x.full_name, new { @class = "form-control", id = "Fullname", placeholder = "Enter Full name" })
+                                @Html.TextBoxFor(x => x.full_name, new { @class = "form-control", id = "Fullname", placeholder = "Enter Full name", required = "required" })
                             </div>
                         </div>
 
@@ -45,12 +45,12 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="email">Email<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(x => x.email, new { @class = "form-control", id = "exampleInputEmail1", placeholder = "Enter Email" })
+                                @Html.TextBoxFor(x => x.email, new { @class = "form-control", type = "email" ,id = "exampleInputEmail1", placeholder = "Enter Email", required = "required" })
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="phone">Phone number</label>
+                                <label for="phone">Phone number<span id="not-empty">*</span></label>
                                 @Html.TextBoxFor(x => x.phone_numer, new { @class = "form-control", id = "exampleInputPhone", placeholder = "Enter Phone Number" })
                             </div>
                         </div>
@@ -58,30 +58,46 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="email">School name</label>
-                                @Html.TextBoxFor(x => x.school_name, new { @class = "form-control", id = "exampleInputSchoolname", placeholder = "Enter School Name" })
+                                <label for="email">School name<span id="not-empty">*</span></label>
+                                @Html.TextBoxFor(x => x.school_name, new { @class = "form-control", id = "exampleInputSchoolname", placeholder = "Enter School Name" , required = "required" })
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="phone">Institution name</label>
-                                @Html.TextBoxFor(x => x.institution_name, new { @class = "form-control", id = "exampleInputShortname", placeholder = "Enter Institution Name " })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="email">School Phone</label>
-                                @Html.TextBoxFor(x => x.school_phone, new { @class = "form-control", id = "exampleInputAddress", placeholder = "Enter School Phone Number " })
+                                <label for="phone">Institution name<span id="not-empty">*</span></label>
+                                @Html.TextBoxFor(x => x.institution_name, new { @class = "form-control", id = "exampleInputShortname", placeholder = "Enter Institution Name ", required = "required" })
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <label for="email">School address</label>
+                                <label for="email">Rector Name<span id="not-empty">*</span></label>
+                                @Html.TextBoxFor(x => x.rector_name, new { @class = "form-control", id = "exampleInputAddress", placeholder = "Enter School Address ", required = "required"})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="email">School Phone<span id="not-empty">*</span></label>
+                                @Html.TextBoxFor(x => x.school_phone, new { @class = "form-control", id = "exampleInputAddress", placeholder = "Enter School Phone Number ", required = "required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="email">School address<span id="not-empty">*</span></label>
                                 @Html.TextBoxFor(x => x.school_address, new { @class = "form-control", id = "exampleInputAddress", placeholder = "Enter School Address " })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="email">Website</label>
+                                @Html.TextBoxFor(x => x.website, new { @class = "form-control", id = "exampleInputAddress", placeholder = "Enter School Address " })
                             </div>
                         </div>
                     </div>
