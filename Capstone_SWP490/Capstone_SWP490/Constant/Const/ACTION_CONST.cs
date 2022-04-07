@@ -28,5 +28,11 @@ namespace Capstone_SWP490.Constant.Const
             public static string CONTROLLER = "Home";
             public static string INDEX = "";
         }
+        public class Statistic
+        {
+            public static string CONTROLLER = "Statistic";
+            public static string CONFRIM_SCHOOL = "ConfirmSchool";
+            public static string INDEX = "";
+        }
     }
 }

@@ -67,7 +67,7 @@
                                         <td style="padding-top: 15px;">@item.insert_date</td>
                                         <td style="padding-top: 15px;">@item.update_date</td>
                                         <td style="padding-top: 15px;">@(item.active ==  2 ? "Waiting for confirmation" : item.active == 3 ? "In Use" : "N/A")</td>
-                                        @if (item.active != null && item.active != 3)
+                                        @if (item.active != null && item.active == 1)
                                         {
                                             <td><button type="button" class="btn btn-success" id="btn-enable" onclick="acceptSchool(@item.school_id)">Use </button></td>
                                         }

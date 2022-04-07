@@ -282,6 +282,10 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="coach_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="Count_Contestant" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_gocyberx" />
+        <Function Name="Count_Member_In_School" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_gocyberx">
+          <Parameter Name="schoolId" Type="int" Mode="In" />
+        </Function>
         <Function Name="Disable_App_User_Data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_icpc">
           <Parameter Name="school_id" Type="int" Mode="In" />
         </Function>
@@ -704,6 +708,10 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="coach_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="Count_Contestant" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="Count_Member_In_School" ReturnType="Collection(Int32)">
+            <Parameter Name="schoolId" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="Disable_App_User_Data">
             <Parameter Name="school_id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -932,6 +940,8 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="spSomeRoutine" FunctionName="gocyberx_icpcModel.Store.spSomeRoutine" />
           <FunctionImportMapping FunctionImportName="Check_Email_In_Use" FunctionName="gocyberx_icpcModel.Store.Check_Email_In_Use" />
+          <FunctionImportMapping FunctionImportName="Count_Contestant" FunctionName="gocyberx_icpcModel.Store.Count_Contestant" />
+          <FunctionImportMapping FunctionImportName="Count_Member_In_School" FunctionName="gocyberx_icpcModel.Store.Count_Member_In_School" />
           <FunctionImportMapping FunctionImportName="Disable_App_User_Data" FunctionName="gocyberx_icpcModel.Store.Disable_App_User_Data" />
           <FunctionImportMapping FunctionImportName="Disable_App_User_School" FunctionName="gocyberx_icpcModel.Store.Disable_App_User_School" />
           <FunctionImportMapping FunctionImportName="Disable_Member_Data" FunctionName="gocyberx_icpcModel.Store.Disable_Member_Data" />

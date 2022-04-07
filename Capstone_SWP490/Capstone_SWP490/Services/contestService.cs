@@ -36,7 +36,7 @@ namespace Capstone_SWP490.Services
 
         public List<contest> getIndividualContest()
         {
-            return _icontestRepository.FindBy(x => x.max_contestant == 0).ToList();
+            return _icontestRepository.FindBy(x => x.max_contestant == -1).ToList();
         }
 
         public List<contestViewModel> GetContests()

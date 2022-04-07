@@ -63,6 +63,20 @@ namespace Capstone_SWP490
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Check_Email_In_Use", emailParameter, coach_idParameter);
         }
     
+        public virtual ObjectResult<Nullable<int>> Count_Contestant()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Count_Contestant");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Count_Member_In_School(Nullable<int> schoolId)
+        {
+            var schoolIdParameter = schoolId.HasValue ?
+                new ObjectParameter("schoolId", schoolId) :
+                new ObjectParameter("schoolId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Count_Member_In_School", schoolIdParameter);
+        }
+    
         public virtual int Disable_App_User_Data(Nullable<int> school_id)
         {
             var school_idParameter = school_id.HasValue ?

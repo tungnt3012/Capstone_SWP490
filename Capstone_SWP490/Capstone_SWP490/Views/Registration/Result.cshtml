@@ -125,7 +125,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Registration Error</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Registration Messages</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -142,6 +142,7 @@
                         {<table class="table table-striped">
                                 <thead>
                                     <tr>
+                                        <th scope="col">Type</th>
                                         <th scope="col">Sheet</th>
                                         <th scope="col">Message</th>
                                         <th scope="col">Position</th>
@@ -150,11 +151,12 @@
                                 <tbody>
                                     @foreach (var error in Model.error)
                                     {
-                                        <tr>
-                                            <th scope="row">@error.parentObject</th>
-                                            <td>@Html.Raw(System.Web.HttpUtility.HtmlEncode(@error.msg).Replace("\n", "<br/>"))</td>
-                                            <td>@error.occur_position</td>
-                                        </tr>
+                                    <tr>
+                                        <td style="color : @(error.type == 1 ? "red" : "#ffcc00")">@(error.type == 1 ? "Error" :"Warning")</td>
+                                        <th scope="row">@error.parentObject</th>
+                                        <td>@Html.Raw(System.Web.HttpUtility.HtmlEncode(@error.msg).Replace("\n", "<br/>"))</td>
+                                        <td>@error.occur_position</td>
+                                    </tr>
                                     }
                                 </tbody>
                             </table>

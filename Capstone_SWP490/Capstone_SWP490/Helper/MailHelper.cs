@@ -25,6 +25,7 @@ namespace Capstone_SWP490.Helper
             catch (Exception e)
 #pragma warning restore CS0168 // The variable 'e' is declared but never used
             {
+                Log.Error(e.Message);
                 return "";
             }
         }
@@ -94,7 +95,7 @@ namespace Capstone_SWP490.Helper
             EmailModel emailModel = new EmailModel();
             string mailContent = readMailContent("DisableCoach.txt");
             emailModel.toEmail = user.email;
-            emailModel.body = string.Format(mailContent, action, user.full_name, reason);
+            emailModel.body = string.Format(mailContent, user.full_name, action, reason);
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
             sendMailAsync(emailModel);
         }
@@ -120,6 +121,38 @@ namespace Capstone_SWP490.Helper
             string fullname = member.first_name + " " + member.middle_name + " " + member.last_name;
             emailModel.toEmail = member.email;
             emailModel.body = string.Format(mailContent, fullname, titleEvent, start_date, end_date, urlEvent);
+            emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
+            sendMailAsync(emailModel);
+        }
+
+        public void sendMailConfrimRegistration(app_user user, string action, string reason)
+        {
+            EmailModel emailModel = new EmailModel();
+            string mailContent = readMailContent("AcceptRegistration.txt");
+            emailModel.toEmail = user.email;
+            string hostName = "";
+            try
+            {
+                hostName = WebConfigurationManager.AppSettings["HostName"];
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+            }
+            if (!StringUtils.isNullOrEmpty(reason))
+            {
+                if (action.Equals("Accepted"))
+                {
+                    reason = "Note: " + reason;
+                }
+                else
+                {
+                    reason = "Reason: " + reason;
+                }
+                string reasonHtml = "<p>" + reason + "<p>";
+                reason = reasonHtml;
+            }
+            emailModel.body = string.Format(mailContent, user.full_name, action, reason, hostName, hostName);
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
             sendMailAsync(emailModel);
         }
