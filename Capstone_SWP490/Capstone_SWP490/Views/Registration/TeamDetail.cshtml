@@ -37,34 +37,34 @@
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <div class="col-lg-6">
+                            <div class="form-group">
                                 <label style="font-size: 15px">
                                     Team Name:
-                                </label><input type="text" name="teamName" value=" @(Model.displayTeam.team_name)" />
+                                </label><input style="height:25px;" type="text" name="teamName" value=" @(Model.displayTeam.team_name)" />
 
                                 <label style="font-size: 15px">Contest:</label><span style="color: #2fa9fb">
                                     @(Model.displayTeam.contest.contest_name +"("+ Model.displayTeam.contest.code+")")
                                 </span>
                             </div>
-                            <div class="col-lg-6">
-                            </div>
+                            
                         </div>
                     }
-                    <div class="col-lg-12" style="overflow:auto;">
+                <div class="col-lg-12" style="overflow:auto;">
+                    <div class="form-group">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="7%">First name</th>
+                                    <th scope="col" width="8%">First name</th>
                                     <th scope="col" width="8%">Middle name</th>
-                                    <th scope="col" width="7%">Last name</th>
+                                    <th scope="col" width="8%">Last name</th>
                                     <th scope="col" width="8%">DOB</th>
-                                    <th scope="col" width="10%">Email</th>
+                                    <th scope="col" width="12%">Email</th>
                                     <th scope="col" width="10%">Phone number</th>
                                     <th scope="col" width="6%">ICPC ID</th>
-                                    <th scope="col" width="6%">Gender</th>
-                                    <th scope="col" width="4%">Year</th>
-                                    <th scope="col" width="8%">Award</th>
-                                    <th scope="col" width="5%">Member role</th>
+                                    <th scope="col" width="7%">Gender</th>
+                                    <th scope="col" width="7%">Year</th>
+                                    <th scope="col" width="7%">Award</th>
+                                    <th scope="col" width="10%">Member role</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -95,6 +95,7 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

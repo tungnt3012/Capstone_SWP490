@@ -1,6 +1,6 @@
 ﻿@model Capstone_SWP490.Models.events_ViewModel.eventsViewModel
 @{
-    ViewBag.Title = "Event Upload";
+    ViewBag.Title = "Event | Edit";
 }
 
 <style>
@@ -112,7 +112,7 @@
                                 @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "ContactorName" })
                             </div>*@
                         <div class="form-group">
-                            <label for="Fanpage">Fanpage<span id="not-empty">*</span></label>
+                            <label for="Fanpage">Fanpage</label>
                             @Html.TextBoxFor(m => m.fan_page, new { @class = "form-control", id = "EventFanpage", name = "EventFanpage", value = "", placeholder = "Fanpage" })
                         </div>
                         <div class="form-group">
@@ -125,7 +125,7 @@
                                 <div class="col-lg-3">
                                     @Html.DropDownListFor(m => m.status, new List<SelectListItem>
                                       { new SelectListItem{Text="Default", Value="0"},
-                                        new SelectListItem{Text="Allow Join", Value="1"}}, new { @class = "form-control", id = "StatusSelect", @Value=Model.status })
+                                        new SelectListItem{Text="Allow Join", Value="1"}}, new { @class = "form-control", id = "StatusSelect", @Value = Model.status })
                                 </div>
                             </div>
                         </div>
@@ -186,6 +186,37 @@
                 $('#event-upload').attr("disabled", false);
                 $('#text-error-date').html("");
             }
+        }
+    }
+</script>
+<script>
+    document.getElementById('EventTitle').onkeyup = function () {
+        var EventTitle = $("#EventTitle").val();
+        if (EventTitle.length >= 1) {
+            document.getElementById("EventTitle").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventTitle").style.borderColor = "red";
+        }
+    }
+
+    document.getElementById('EventDesctiption').onkeyup = function () {
+        var EventDesctiption = $("#EventDesctiption").val();
+        if (EventDesctiption.length >= 1) {
+            document.getElementById("EventDesctiption").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventDesctiption").style.borderColor = "red";
+        }
+    }
+
+    document.getElementById('EventLocation').onkeyup = function () {
+        var EventLocation = $("#EventLocation").val();
+        if (EventLocation.length >= 1) {
+            document.getElementById("EventLocation").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventLocation").style.borderColor = "red";
         }
     }
 </script>

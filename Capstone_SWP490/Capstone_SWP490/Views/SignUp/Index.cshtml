@@ -10,6 +10,30 @@
     #exampleInputEmail1 {
         border-color: red;
     }
+
+    #exampleInputPhone {
+        border-color: red;
+    }
+
+    #exampleInputSchoolname {
+        border-color: red;
+    }
+
+    #exampleInputInstitutionname {
+        border-color: red;
+    }
+
+    #exampleInputretorName {
+        border-color: red;
+    }
+
+    #exampleInputSchoolphone {
+        border-color: red;
+    }
+
+    #exampleInputAddress {
+        border-color: red;
+    }
 </style>
 <div class="container-fluid xyz">
     <div class="col-lg-12" id="content_area2_header">
@@ -45,7 +69,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="email">Email<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(x => x.email, new { @class = "form-control", type = "email" ,id = "exampleInputEmail1", placeholder = "Enter Email", required = "required" })
+                                @Html.TextBoxFor(x => x.email, new { @class = "form-control", type = "email", id = "exampleInputEmail1", placeholder = "Enter Email", required = "required" })
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -59,13 +83,13 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="email">School name<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(x => x.school_name, new { @class = "form-control", id = "exampleInputSchoolname", placeholder = "Enter School Name" , required = "required" })
+                                @Html.TextBoxFor(x => x.school_name, new { @class = "form-control", id = "exampleInputSchoolname", placeholder = "Enter School Name", required = "required" })
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="phone">Institution name<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(x => x.institution_name, new { @class = "form-control", id = "exampleInputShortname", placeholder = "Enter Institution Name ", required = "required" })
+                                @Html.TextBoxFor(x => x.institution_name, new { @class = "form-control", id = "exampleInputInstitutionname", placeholder = "Enter Institution Name ", required = "required" })
                             </div>
                         </div>
                     </div>
@@ -73,7 +97,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="email">Rector Name<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(x => x.rector_name, new { @class = "form-control", id = "exampleInputAddress", placeholder = "Enter School Address ", required = "required"})
+                                @Html.TextBoxFor(x => x.rector_name, new { @class = "form-control", id = "exampleInputretorName", placeholder = "Enter School Address ", required = "required" })
                             </div>
                         </div>
                     </div>
@@ -81,7 +105,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="email">School Phone<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(x => x.school_phone, new { @class = "form-control", id = "exampleInputAddress", placeholder = "Enter School Phone Number ", required = "required" })
+                                @Html.TextBoxFor(x => x.school_phone, new { @class = "form-control", id = "exampleInputSchoolphone", placeholder = "Enter School Phone Number ", required = "required" })
                             </div>
                         </div>
                     </div>
@@ -97,7 +121,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="email">Website</label>
-                                @Html.TextBoxFor(x => x.website, new { @class = "form-control", id = "exampleInputAddress", placeholder = "Enter School Address " })
+                                @Html.TextBoxFor(x => x.website, new { @class = "form-control", id = "exampleInputweb", placeholder = "Enter School Address " })
                             </div>
                         </div>
                     </div>
@@ -166,6 +190,51 @@
         }
         else {
             document.getElementById("exampleInputEmail1").style.borderColor = "red";
+        }
+    }
+    document.getElementById('exampleInputPhone').onkeyup = function () {
+        var exampleInputPhone = $("#exampleInputPhone").val();
+        if (exampleInputPhone.length >= 1) {
+            document.getElementById("exampleInputPhone").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("exampleInputPhone").style.borderColor = "red";
+        }
+    }
+    document.getElementById('exampleInputSchoolname').onkeyup = function () {
+        var exampleInputSchoolname = $("#exampleInputSchoolname").val();
+        if (exampleInputSchoolname.length >= 1) {
+            document.getElementById("exampleInputSchoolname").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("exampleInputSchoolname").style.borderColor = "red";
+        }
+    }
+    document.getElementById('exampleInputInstitutionname').onkeyup = function () {
+        var exampleInputInstitutionname = $("#exampleInputInstitutionname").val();
+        if (exampleInputInstitutionname.length >= 1) {
+            document.getElementById("exampleInputInstitutionname").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("exampleInputInstitutionname").style.borderColor = "red";
+        }
+    }
+    document.getElementById('exampleInputSchoolphone').onkeyup = function () {
+        var exampleInputSchoolphone = $("#exampleInputSchoolphone").val();
+        if (exampleInputSchoolphone.length >= 1) {
+            document.getElementById("exampleInputSchoolphone").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("exampleInputSchoolphone").style.borderColor = "red";
+        }
+    }
+    document.getElementById('exampleInputAddress').onkeyup = function () {
+        var exampleInputAddress = $("#exampleInputAddress").val();
+        if (exampleInputAddress.length >= 1) {
+            document.getElementById("exampleInputAddress").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("exampleInputAddress").style.borderColor = "red";
         }
     }
 </script>

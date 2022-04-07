@@ -5,6 +5,7 @@
         color: #ffffff !important;
         background: #30cf6b;
     }
+  
 </style>
 
 <div class="container-fluid xyz">
@@ -176,3 +177,32 @@
             }
     }
 </script>
+<script>
+    document.getElementById('firstName').onkeyup = function () {
+        var firstName = $("#firstName").val();
+        if (firstName.length >= 1) {
+            document.getElementById("firstName").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("firstName").style.borderColor = "red";
+        }
+    }
+    document.getElementById('middleName').onkeyup = function () {
+        var middleName = $("#middleName").val();
+        if (middleName.length >= 1) {
+            document.getElementById("middleName").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("middleName").style.borderColor = "red";
+        }
+    }
+    document.getElementById('lastName').onkeyup = function () {
+        var lastName = $("#lastName").val();
+        if (lastName.length >= 1) {
+            document.getElementById("lastName").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("lastName").style.borderColor = "red";
+        }
+    }
+    </script>

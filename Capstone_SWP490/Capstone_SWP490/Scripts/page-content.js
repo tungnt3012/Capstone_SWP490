@@ -29,7 +29,7 @@ function EditBtn(e) {
     document.querySelector('.save_btn').style.display = 'none';
     document.querySelector('.update_btn').style.display = 'initial';
     document.querySelector('.input').style.height = 'fit-content';
-    document.querySelector('.input').style.position = 'absolute';
+    document.querySelector('.input').style.position = 'fixed';
     document.querySelector('.input').style.zIndex = 5;
     document.querySelector('.container').style.opacity = 10 + '%';
     document.querySelector('.heading').placeholder = 'Heading';
