@@ -268,14 +268,15 @@ namespace Capstone_SWP490.Controllers.Coach
                 //insert vice coach part
                 if (data.vice_coach != null)
                 {
-                    member viceCoach = registrationHelper.cleanMember(data.vice_coach);
+                    member viceCoach =  registrationHelper.cleanMember(data.vice_coach);
                     viceCoach.enabled = isFirstInsert;
                     try
                     {
                         viceCoach = await _imemberService.insert(viceCoach);
+                        app_user viceCoachUser = await registrationHelper.createAppUserForMember(viceCoach, storedCoach.user_id);
                         //update vice coach account
-                        viceCoach.app_user.active = (viceCoach.app_user.active || isFirstInsert);
-                        await _iapp_UserService.update(viceCoach.app_user);
+                        viceCoachUser.active = (viceCoachUser.active || isFirstInsert);
+                        await _iapp_UserService.update(viceCoachUser);
 
                         team_member coachTeam = storedCoach.team_member.FirstOrDefault();
                         if (coachTeam != null)
@@ -358,7 +359,8 @@ namespace Capstone_SWP490.Controllers.Coach
                     {
                         contestMemberList = i.member.contest_member.ToList();
                         insertMember = registrationHelper.cleanMember(i.member);
-                        insertMember.user_id = i.member.app_user.user_id;
+                        app_user memberUser = await registrationHelper.createAppUserForMember(insertMember,storedCoach.user_id);
+                        insertMember.user_id = memberUser.user_id;
                         insertMember.enabled = i.member.enabled;
                         try
                         {
@@ -385,13 +387,12 @@ namespace Capstone_SWP490.Controllers.Coach
                         }
 
                         //update login user for member
-                        app_user insertUser = i.member.app_user;
-                        bool isSendMail = (insertUser.active || isFirstInsert);
-                        insertUser.active = (insertUser.active || isFirstInsert);
+                        bool isSendMail = (memberUser.active || isFirstInsert);
+                        memberUser.active = (memberUser.active || isFirstInsert);
                         string insertAppUserErrMsg = SYSTEM_ERROR;
                         try
                         {
-                            await _iapp_UserService.update(insertUser);
+                            await _iapp_UserService.update(memberUser);
                         }
 
                         catch (Exception e)
@@ -401,10 +402,10 @@ namespace Capstone_SWP490.Controllers.Coach
                                 UserException ue = (UserException)e;
                                 insertAppUserErrMsg = ue.message;
                             }
-                            insertUser = null;
+                            memberUser = null;
                             Log.Error(e.Message);
                         }
-                        if (insertUser == null)
+                        if (memberUser == null)
                         {
                             error = new import_error_ViewModel();
                             error.objectName = insertMember.first_name + " " + insertMember.middle_name + " " + insertMember.last_name;
@@ -438,12 +439,9 @@ namespace Capstone_SWP490.Controllers.Coach
                             error.msg = "Insert fail, Reason: " + insertAppUserErrMsg;
                             result.Add(error);
                             _ = _imemberService.deleteAsync(insertMember);
-                            _ = _iapp_UserService.delete(insertUser);
+                            _ = _iapp_UserService.delete(memberUser);
                             continue;
                         }
-
-                        insertMember.user_id = insertUser.user_id;
-                        await _imemberService.update(insertMember, insertMember.member_id);
 
                         //insert contest member part
                         contest_member insertContestMember;
@@ -479,7 +477,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         }
                         try
                         {
-                            new MailHelper().sendMailToInsertedUser(insertUser);
+                            new MailHelper().sendMailToInsertedUser(memberUser);
                         }
                         catch (Exception e)
                         {
@@ -776,12 +774,14 @@ namespace Capstone_SWP490.Controllers.Coach
         {
             app_userViewModel logined = (app_userViewModel)Session["profile"];
 
-            school inUsing = _ischoolService.findInUsing(logined.user_id);
+            school inUsing = _ischoolService.getInConfirmation(logined.user_id);
+            //update to just imported (status = N/A)
             if (inUsing != null)
             {
                 inUsing.active = 1;
                 await _ischoolService.update(inUsing);
             }
+            //update to waiting for confirmation (status = waiting for confirmation)
             school activeSchool = _ischoolService.findActiveById(id);
             if (activeSchool != null)
             {
@@ -798,11 +798,12 @@ namespace Capstone_SWP490.Controllers.Coach
             {
                 return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
             }
-            if (school.active == 3) { 
+            if (school.active != 3)
+            {
+                school.enabled = false;
             }
-            school.enabled = false;
-            //get app user belong to acitve school
-            school schoolT = _ischoolService.findInUsing(logined.user_id);
+            //get app user belong to acitive school
+            school schoolT = _ischoolService.getInConfirmation(logined.user_id);
             List<app_user> activeAppUserSchoolList = new List<app_user>();
             List<team> teamList = schoolT.teams.ToList();
             foreach (var item in teamList)

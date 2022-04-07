@@ -114,7 +114,7 @@
                         @Html.TextAreaFor(x => x.award, new { @class = "form-control", id = "award", type = "text", placeholder = "Awards", @readonly = true })
                     </div>
 
-                    if (Model.contest_Members != null && Model.contest_Members.Count >= 2)
+                    if (Model.contest_Members != null && Model.contest_Members.Count >= 1)
                     {
                         <div class="form-group">
                             <label for="exampleFormControlTextareaAward">Individual Contest:</label>

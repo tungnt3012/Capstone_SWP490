@@ -73,7 +73,7 @@ namespace Capstone_SWP490.Helper
                 contestModel = new member_contest_ViewModel();
                 contestModel.code = item.code;
                 contestModel.name = item.contest_name;
-                contest_member joined = contestMember.Where(x => x.contest.max_contestant == 0 && x.contest.code.Equals(item.code)).FirstOrDefault();
+                contest_member joined = contestMember.Where(x => x.contest.max_contestant == -1 && x.contest.code.Equals(item.code)).FirstOrDefault();
                 if (joined != null)
                 {
                     contestModel.selected = true;
@@ -82,11 +82,7 @@ namespace Capstone_SWP490.Helper
                 {
                     contestModel.selected = false;
                 }
-                //remove team contest (remove user from teeam contest at team detail only)
-                if (item.max_contestant == 0)
-                {
                     listContestModel.Add(contestModel);
-                }
             }
             return listContestModel;
         }
@@ -460,7 +456,7 @@ namespace Capstone_SWP490.Helper
                 error = new import_error_ViewModel();
                 error.objectName = "COACH";
                 error.occur_position = "ROW = 7 OR 8";
-                error.msg = msgValidateCoach;
+                error.msg = msgValidateCoach.StartsWith("\n") ? msgValidateCoach.Remove(0,1) : msgValidateCoach;
                 error.parentObject = SchoolImport.sheetName;
                 error.type = 2;
                 result.error.Add(error);

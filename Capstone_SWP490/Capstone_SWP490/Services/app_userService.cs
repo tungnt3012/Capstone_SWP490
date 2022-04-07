@@ -141,11 +141,11 @@ namespace Capstone_SWP490.Services
                     {
                         return false;
                     }
-                    school school = m.team_member.FirstOrDefault().team.school;
-                    if (school.coach_id != coachId)
-                    {
-                        return true;
-                    }
+                    //school school = m.team_member.FirstOrDefault().team.school;
+                    //if (school.coach_id != coachId)
+                    //{
+                    //    return true;
+                    //}
                 }
                 catch (Exception e)
                 {
