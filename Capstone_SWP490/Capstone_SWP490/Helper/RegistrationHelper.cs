@@ -181,6 +181,8 @@ namespace Capstone_SWP490.Helper
         public school cleanSchool(school school)
         {
             school.teams = null;
+            school.insert_date = DateTime.Now + "";
+            school.update_date = DateTime.Now + "";
             return school;
         }
 

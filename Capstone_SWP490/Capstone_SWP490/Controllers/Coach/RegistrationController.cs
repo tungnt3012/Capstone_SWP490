@@ -204,7 +204,6 @@ namespace Capstone_SWP490.Controllers.Coach
 
                 import_resultViewModel data = (import_resultViewModel)HttpContext.Session[SESSION_CONST.Registration.SCHOOL_SESSION];
                 Session.Remove(SESSION_CONST.Registration.SCHOOL_SESSION);
-                bool isFirstInsert = (_ischoolService.count(logined.user_id) == 0);
 
                 if (data == null)
                 {
@@ -216,10 +215,8 @@ namespace Capstone_SWP490.Controllers.Coach
                 //insert school part
                 inserted_school = registrationHelper.cleanSchool(data.school);
                 inserted_school.coach_id = logined.user_id;
-                inserted_school.insert_date = DateTime.Now + "";
-                inserted_school.update_date = DateTime.Now + "";
                 //set school is in use if first insert
-                inserted_school.active = isFirstInsert ? 2 : 1;
+                inserted_school.active = 1;
                 inserted_school.enabled = true;
                 try
                 {
@@ -258,7 +255,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 storedCoach.first_name = coach.first_name;
                 storedCoach.middle_name = coach.middle_name;
                 storedCoach.last_name = coach.last_name;
-                if (!coach.phone_number.Equals(""))
+                if (!StringUtils.isNullOrEmpty(coach.phone_number))
                 {
                     storedCoach.phone_number = coach.phone_number;
                 }
@@ -323,7 +320,6 @@ namespace Capstone_SWP490.Controllers.Coach
                     insertedTeam = new team();
                     insertedTeam.school_id = inserted_school.school_id;
                     insertedTeam.team_name = item.team_name;
-                    insertedTeam.school = inserted_school;
                     insertedTeam.type = APP_CONST.TEAM_ROLE.NORMAL_TEAM;
                     insertedTeam.team_member = null;
                     insertedTeam.contest_id = item.contest_id;

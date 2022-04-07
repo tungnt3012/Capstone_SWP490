@@ -18,7 +18,7 @@ namespace Capstone_SWP490.Services
 
         public int count(int coach_id)
         {
-            List<school> schools = _ischoolRepository.FindBy(x => x.coach_id == coach_id).ToList();
+            List<school> schools = _ischoolRepository.FindBy(x => x.coach_id == coach_id && x.enabled == true).ToList();
             if (schools != null)
             {
                 return schools.Count;
