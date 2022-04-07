@@ -25,7 +25,6 @@ namespace Capstone_SWP490.Services
             }
             catch (Exception e)
             {
-                Log.Error(e.Message);
                 if (e is MemberException)
                 {
                     throw e;
