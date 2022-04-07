@@ -266,13 +266,14 @@ namespace Capstone_SWP490.Controllers.Coach
                 if (data.vice_coach != null)
                 {
                     member viceCoach =  registrationHelper.cleanMember(data.vice_coach);
-                    viceCoach.enabled = isFirstInsert;
+                    app_user viceCoachUser = await registrationHelper.createAppUserForMember(viceCoach, storedCoach.user_id);
+                    viceCoach.enabled = true;
+                    viceCoach.user_id = viceCoachUser.user_id;
                     try
                     {
                         viceCoach = await _imemberService.insert(viceCoach);
-                        app_user viceCoachUser = await registrationHelper.createAppUserForMember(viceCoach, storedCoach.user_id);
                         //update vice coach account
-                        viceCoachUser.active = (viceCoachUser.active || isFirstInsert);
+                        viceCoachUser.active = (viceCoachUser.active || true);
                         await _iapp_UserService.update(viceCoachUser);
 
                         team_member coachTeam = storedCoach.team_member.FirstOrDefault();
@@ -383,8 +384,8 @@ namespace Capstone_SWP490.Controllers.Coach
                         }
 
                         //update login user for member
-                        bool isSendMail = (memberUser.active || isFirstInsert);
-                        memberUser.active = (memberUser.active || isFirstInsert);
+                        bool isSendMail = (memberUser.active || true);
+                        memberUser.active = (memberUser.active || true);
                         string insertAppUserErrMsg = SYSTEM_ERROR;
                         try
                         {
