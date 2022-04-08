@@ -35,6 +35,10 @@ namespace Capstone_SWP490.Controllers.Admin
         {
             return View();
         }
+        public ActionResult AddOrganizer()
+        {
+            return View();
+        }
 
         public ActionResult ManagermentAccount()
         {
