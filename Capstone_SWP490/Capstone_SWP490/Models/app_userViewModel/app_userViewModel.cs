@@ -20,5 +20,12 @@ namespace Capstone_SWP490.Models.app_userViewModel
         public bool send_me_event { get; set; }
         public DateTime insert_date { get; set; }
         public DateTime update_date { get; set; }
+        public int? confirm_password { get; set; }
+    }
+    public class reset_password
+    {
+        public string old_password { get; set; }
+        public string new_password { get; set; }
+        public string reNew_password { get; set; }
     }
 }

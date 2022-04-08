@@ -31,11 +31,4 @@ namespace Capstone_SWP490.Models.events_ViewModel
         public int total_joined { get; set; }
     }
 
-    public enum enumEventsStatusPriority
-    {
-        Default = 0,
-        SubEvent = 1,
-        Medium = 2,
-        High = 3
-    }
 }
