@@ -21,8 +21,7 @@
     </div>
     <div class="main">
         <div class="column">
-            
-            <div class="col-lg-10" id="under">
+            <div class="col-lg-10 col-lg-offset-1" id="under">
                 @using (Html.BeginForm("ContestUpload", "Home"))
                 {
                     <div class="column" style="padding-top:20px">
@@ -42,13 +41,14 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <label for="Location">Start date</label>
-                                    @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "ContestStartDate", name = "ContestStartDate", placeholder = "Start date" })
+                                    @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", @onchange = "checkDate()", id = "ContestStartDate", name = "ContestStartDate", placeholder = "Start date" })
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="Location">End date</label>
-                                    @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "ContesteEndDate", name = "ContestEndDate", placeholder = "End date" })
+                                    @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", @onchange = "checkDate()", id = "ContesteEndDate", name = "ContestEndDate", placeholder = "End date" })
                                 </div>
                             </div>
+                            <span style="color:red"><i id="text-error-date"></i></span>
                         </div>
                         <div class="form-group">
                             <label for="Title">Venue</label>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="form-group">
                             <div class="pull-right">
-                                <button type="submit" class="btn btn-primary" id="event-upload">Add</button>
+                                <button type="submit" class="btn btn-primary" id="contest-upload">Add</button>
                                 <button type="button" class="btn btn-secondary" onclick="window.location.href='/Home/Contest'" id="event-canner">Cancel</button>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                 }
 
             </div>
-           
+
         </div>
     </div>
 </div>
@@ -95,6 +95,14 @@
             $("#max-contestant").val('2');
             $("#error-contentant").html("*The Contestant must be bigger than 1");
             $("#max-contestant").attr("disabled", false)
+        }
+
+        var _startDate = $('#ContestStartDate').val();
+        var _endDate = $('#ContesteEndDate').val();
+        if (_startDate === '' || _endDate == '') {
+            $('#contest-upload').attr("disabled", true);
+        } else {
+            $('#contest-upload').attr("disabled", false);
         }
     });
 
@@ -116,5 +124,35 @@
         }
     });
 
-    
+    function checkDate() {
+        var _startDate = $('#ContestStartDate').val();
+        var _endDate = $('#ContesteEndDate').val();
+        if (_startDate > _endDate) {
+            $('#contest-upload').attr("disabled", true);
+            $('#text-error-date').html("The End Date must NOT occur before the Start Date!!!");
+        } else {
+            $('#contest-upload').attr("disabled", false);
+            $('#text-error-date').html("");
+        }
+        //checkTime();
+    }
+
+    //function checkTime() {
+    //    var _startDate = $('#EventStartDate').val();
+    //    var _endDate = $('#EventEndDate').val();
+
+    //    var _startTime = $('#EventStartTime').val();
+    //    var _endTime = $('#EventEndTime').val();
+    //    if (_startDate == _endDate) {
+    //        if (_startTime == _endTime || _startTime > _endTime) {
+    //            $('#event-upload').attr("disabled", true);
+    //            $('#text-error-date').html("The End Time must be after the Start Time!!!");
+    //        } else {
+    //            $('#event-upload').attr("disabled", false);
+    //            $('#text-error-date').html("");
+    //        }
+    //    }
+    //}
+
+
 </script>

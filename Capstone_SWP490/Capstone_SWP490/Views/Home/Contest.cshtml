@@ -94,8 +94,8 @@
                                     {
                                         <tr>
                                             <td>@x.contest_name</td>
-                                            <td>@x.start_date</td>
-                                            <td>@x.end_date</td>
+                                            <td>@x.start_date.ToString("dd-MM-yyyy")</td>
+                                            <td>@x.end_date.ToString("dd-MM-yyyy")</td>
                                             @if (@x.max_contestant == 1)
                                             {
                                                 <td style="text-align:center">Individual</td>

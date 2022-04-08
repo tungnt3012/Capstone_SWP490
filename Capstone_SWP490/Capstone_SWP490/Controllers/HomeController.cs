@@ -225,11 +225,11 @@ namespace Capstone_SWP490.Controllers
             if (rsCreate != null)
             {
                 ViewData["success"] = "*Add Event Successfully !!!";
-                ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event);
+                ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event_id);
                 return View(rsCreate);
             }
             ViewData["error"] = "*Add Event Failed !!!";
-            ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event);
+            ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event_id);
             return View(events);
         }
 

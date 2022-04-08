@@ -8,7 +8,7 @@ namespace Capstone_SWP490.Models.events_ViewModel
     public class eventsViewModel
     {
         public int event_id { get; set; }
-        public int main_event { get; set; }
+        public int main_event_id { get; set; }
         public short event_type { get; set; }
         public string title { get; set; }
         public string desctiption { get; set; }
@@ -29,5 +29,13 @@ namespace Capstone_SWP490.Models.events_ViewModel
         public Nullable<int> status { get; set; }
         public bool is_user_joined { get; set; }
         public int total_joined { get; set; }
+    }
+
+    public enum enumEventsStatusPriority
+    {
+        Default = 0,
+        SubEvent = 1,
+        Medium = 2,
+        High = 3
     }
 }

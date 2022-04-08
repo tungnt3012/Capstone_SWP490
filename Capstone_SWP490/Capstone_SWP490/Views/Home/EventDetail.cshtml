@@ -180,7 +180,24 @@
                                             <td class="date-table">@x.start_date_str</td>
                                             <td class="date-table">@x.end_date_str</td>
                                             <td class="venue-table">@x.venue</td>
-                                            <td class="title-table">@x.title</td>
+                                            @if (x.status == 1)
+                                            {
+                                                <td class="title-table" style="color: #9e0505 "><strong>@x.title</strong></td>
+                                            }
+                                            else if (x.status == 2)
+                                            {
+                                                <td class="title-table" style="color: blue "><strong>@x.title</strong></td>
+                                            }
+                                            else if (x.status == 3)
+                                            {
+                                                <td class="title-table" style="color: blue; background-color: #ffec19 "><strong>@x.title</strong></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="title-table">@x.title</td>
+                                            }
+
+
                                             @if (Session["username"] != null)
                                             {
                                                 if (profile.user_role.Equals("ORGANIZER"))

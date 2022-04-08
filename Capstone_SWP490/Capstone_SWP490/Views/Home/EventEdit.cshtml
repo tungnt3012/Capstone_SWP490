@@ -125,7 +125,9 @@
                                 <div class="col-lg-3">
                                     @Html.DropDownListFor(m => m.status, new List<SelectListItem>
                                       { new SelectListItem{Text="Default", Value="0"},
-                                        new SelectListItem{Text="Allow Join", Value="1"}}, new { @class = "form-control", id = "StatusSelect", @Value = Model.status })
+                                        new SelectListItem{Text="Allow Join", Value="1"},
+                                        new SelectListItem{Text="Medium", Value="2"},
+                                        new SelectListItem{Text="High", Value="3"}}, new { @class = "form-control", id = "StatusSelect", @Value = Model.status })
                                 </div>
                             </div>
                         </div>
@@ -135,16 +137,21 @@
                         <div class="form-group">
                             <div class="pull-right">
                                 <button type="submit" class="btn btn-primary" id="event-upload">Save</button>
-                                <button type="button" class="btn btn-secondary" onclick="location.href='/Home/Event'; return false;" id="event-canner">Cancel</button>
+                                @if (Model.event_type == 1)
+                                {
+                                    <button type="button" class="btn btn-secondary" onclick="location.href='/Home/Event'; return false;" id="event-canner">Cancel</button>
+                                }
+                                else if (Model.event_type == 2)
+                                {
+                                    <button type="button" class="btn btn-secondary" onclick="location.href = '/Home/EventDetail?id=@Model.main_event_id'; return false;" id="event-canner">Cancel</button>
+                                }
                             </div>
                         </div>
                     </div>
                 }
             </div>
         </div>
-
     </div>
-
 </div>
 
 <script>
