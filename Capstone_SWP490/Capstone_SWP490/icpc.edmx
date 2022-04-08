@@ -20,6 +20,7 @@
           <Property Name="active" Type="bit" Nullable="false" />
           <Property Name="insert_date" Type="nvarchar" MaxLength="100" />
           <Property Name="update_date" Type="nchar" MaxLength="100" />
+          <Property Name="confirm_password" Type="int" />
         </EntityType>
         <EntityType Name="contest">
           <Key>
@@ -394,6 +395,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="active" Type="Boolean" Nullable="false" />
           <Property Name="insert_date" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="update_date" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="confirm_password" Type="Int32" />
           <NavigationProperty Name="members" Relationship="Self.FK__member__user_id__276EDEB3" FromRole="app_user" ToRole="member" />
           <NavigationProperty Name="posts" Relationship="Self.FK__post__post_by__59063A47" FromRole="app_user" ToRole="post" />
         </EntityType>
@@ -704,7 +706,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             <Parameter Name="Code" Mode="In" Type="Int32" />
             <Parameter Name="StatusLog" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Check_Email_In_Use">
+          <FunctionImport Name="Check_Email_In_Use" ReturnType="Collection(Int32)">
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="coach_id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -761,6 +763,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
                 <ScalarProperty Name="active" ColumnName="active" />
                 <ScalarProperty Name="insert_date" ColumnName="insert_date" />
                 <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="confirm_password" ColumnName="confirm_password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
