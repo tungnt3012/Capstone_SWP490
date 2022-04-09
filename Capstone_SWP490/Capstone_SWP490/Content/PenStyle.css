@@ -275,11 +275,12 @@ html, body {
 
         .blog-card .meta {
             flex-basis: 40%;
-            height: auto;
+            height: 300px;
         }
 
         .blog-card .description {
             flex-basis: 60%;
+            height: 300px;
         }
 
             .blog-card .description:before {
