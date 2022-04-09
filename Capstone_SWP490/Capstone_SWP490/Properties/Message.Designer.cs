@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In valid email!.
+        ///   Looks up a localized string similar to invalid email!.
         /// </summary>
         internal static string MSG003 {
             get {
@@ -106,7 +106,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to School name is empty, we uses data when you regist coach account !.
+        ///   Looks up a localized string similar to School name is empty, we uses data when you register a coach account !.
         /// </summary>
         internal static string MSG006 {
             get {
@@ -115,7 +115,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Institution name is empty, we uses data when you regist coach account !.
+        ///   Looks up a localized string similar to Institution name is empty, we uses data when you register a coach account !.
         /// </summary>
         internal static string MSG007 {
             get {
@@ -124,7 +124,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rector name is empty, we uses data when you regist coach account!.
+        ///   Looks up a localized string similar to Rector name is empty, we uses data when you register a coach account!.
         /// </summary>
         internal static string MSG008 {
             get {
@@ -133,7 +133,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to School phone is empty, we uses data when you regist coach account!.
+        ///   Looks up a localized string similar to School phone is empty, we uses data when you register a coach account!.
         /// </summary>
         internal static string MSG009 {
             get {
@@ -142,7 +142,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to School address is empty, we uses data when you regist coach account!.
+        ///   Looks up a localized string similar to School address is empty, we uses data when you register a coach account!.
         /// </summary>
         internal static string MSG010 {
             get {
@@ -151,7 +151,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coach name is empty, we uses information of logined user.
+        ///   Looks up a localized string similar to Coach name is empty, we uses information of logged in user.
         /// </summary>
         internal static string MSG011 {
             get {
@@ -160,7 +160,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coach email is empty or not match with logined, we uses information of logined user.
+        ///   Looks up a localized string similar to Coach email is empty or not match with logged in, we uses information of logged in user.
         /// </summary>
         internal static string MSG012 {
             get {
@@ -169,7 +169,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select excel file end with .xlsx!.
+        ///   Looks up a localized string similar to Please select the excel file end with .xlsx!.
         /// </summary>
         internal static string MSG013 {
             get {
@@ -268,7 +268,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email used by other member.
+        ///   Looks up a localized string similar to Email is used by other member.
         /// </summary>
         internal static string MSG024 {
             get {
@@ -277,7 +277,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Member name cannot be blank\n.
+        ///   Looks up a localized string similar to - Member name cannot be blank.
         /// </summary>
         internal static string MSG025 {
             get {
@@ -295,7 +295,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Member age must greater than or equal 15\n.
+        ///   Looks up a localized string similar to - Member age must greater than or equal 15.
         /// </summary>
         internal static string MSG027 {
             get {
@@ -313,11 +313,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unkow error.
+        ///   Looks up a localized string similar to Unknown error.
         /// </summary>
-        internal static string UNKOWN_ERROR {
+        internal static string UNKNOWN_ERROR {
             get {
-                return ResourceManager.GetString("UNKOWN_ERROR", resourceCulture);
+                return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
             }
         }
     }

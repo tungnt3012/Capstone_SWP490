@@ -124,7 +124,7 @@
     <value>Email is used, please try again!</value>
   </data>
   <data name="MSG003" xml:space="preserve">
-    <value>In valid email!</value>
+    <value>Invalid email!</value>
   </data>
   <data name="MSG004" xml:space="preserve">
     <value>Fullname cannot be empty</value>
@@ -133,28 +133,28 @@
     <value>Error read sheet #SHEET_NAME#</value>
   </data>
   <data name="MSG006" xml:space="preserve">
-    <value>School name is empty, we uses data when you regist coach account !</value>
+    <value>School name is empty, we uses data when you register a coach account !</value>
   </data>
   <data name="MSG007" xml:space="preserve">
-    <value>Institution name is empty, we uses data when you regist coach account !</value>
+    <value>Institution name is empty, we uses data when you register a coach account !</value>
   </data>
   <data name="MSG008" xml:space="preserve">
-    <value>Rector name is empty, we uses data when you regist coach account!</value>
+    <value>Rector name is empty, we uses data when you register a coach account!</value>
   </data>
   <data name="MSG009" xml:space="preserve">
-    <value>School phone is empty, we uses data when you regist coach account!</value>
+    <value>School phone is empty, we uses data when you register a coach account!</value>
   </data>
   <data name="MSG010" xml:space="preserve">
-    <value>School address is empty, we uses data when you regist coach account!</value>
+    <value>School address is empty, we uses data when you register a coach account!</value>
   </data>
   <data name="MSG011" xml:space="preserve">
-    <value>Coach name is empty, we uses information of logined user</value>
+    <value>Coach name is empty, we uses information of logged in user</value>
   </data>
   <data name="MSG012" xml:space="preserve">
-    <value>Coach email is empty or not match with logined, we uses information of logined user</value>
+    <value>Coach email is empty or not match with logged in, we uses information of logged inuser</value>
   </data>
   <data name="MSG013" xml:space="preserve">
-    <value>Please select excel file end with .xlsx!</value>
+    <value>Please select the excel file end with .xlsx!</value>
   </data>
   <data name="MSG014" xml:space="preserve">
     <value>Cannot read Vice Coach because Vice Coach email is empty</value>
@@ -175,7 +175,7 @@
     <value>Team leader Name and email  cannot be blank</value>
   </data>
   <data name="MSG020" xml:space="preserve">
-    <value>Member below ROW = {0} is not accepted. Because the contest {1} is just accept {2} contestant.</value>
+    <value>Member belows ROW = {0} is not accepted. Because the contest {1} is just accept {2} contestant.</value>
   </data>
   <data name="MSG021" xml:space="preserve">
     <value>School with name = {0} and Institution Name = {1} is registered before !</value>
@@ -187,7 +187,7 @@
     <value>- the Team '{0}' not defined in sheet TEAM yet, please check at sheet 'TEAM'</value>
   </data>
   <data name="MSG024" xml:space="preserve">
-    <value>Email used by other member</value>
+    <value>Email is used by other member</value>
   </data>
   <data name="MSG025" xml:space="preserve">
     <value>- Member name cannot be blank\n</value>
@@ -201,7 +201,7 @@
   <data name="SYSTEM_ERROR" xml:space="preserve">
     <value>oops, something went wrong, please try again or contact to System admin</value>
   </data>
-  <data name="UNKOWN_ERROR" xml:space="preserve">
-    <value>Unkow error</value>
+  <data name="UNKNOWN_ERROR" xml:space="preserve">
+    <value>Unknown error</value>
   </data>
 </root>
