@@ -15,10 +15,10 @@
                     @using (Html.BeginForm("Login", "Login"))
                     {
                         <div class="form-group">
-                            @Html.TextBoxFor(x => x.user_name, new { @class = "form-control", id = "exampleInputLoginUser", placeholder = "Username" })
+                            @Html.TextBoxFor(x => x.user_name, new { @class = "form-control", id = "exampleInputLoginUser", placeholder = "Username", required = "required" })
                         </div>
                         <div class="form-group">
-                            @Html.PasswordFor(x => x.psw, new { @class = "form-control", id = "exampleInputLoginPassword", placeholder = "Password" })
+                            @Html.PasswordFor(x => x.psw, new { @class = "form-control", id = "exampleInputLoginPassword", placeholder = "Password", required = "required" })
                         </div>
                         <div class="form-group">
                             <p style="color:red">
