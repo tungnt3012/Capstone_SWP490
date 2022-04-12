@@ -50,7 +50,7 @@ namespace Capstone_SWP490
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spSomeRoutine", codeParameter, statusLog);
         }
     
-        public virtual int Check_Email_In_Use(string email, Nullable<int> coach_id)
+        public virtual ObjectResult<Nullable<int>> Check_Email_In_Use(string email, Nullable<int> coach_id)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
@@ -60,7 +60,7 @@ namespace Capstone_SWP490
                 new ObjectParameter("coach_id", coach_id) :
                 new ObjectParameter("coach_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Check_Email_In_Use", emailParameter, coach_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Check_Email_In_Use", emailParameter, coach_idParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> Count_Contestant()
