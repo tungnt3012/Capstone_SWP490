@@ -80,7 +80,19 @@ namespace Capstone_SWP490.Controllers.Admin
 
         public ActionResult ManagermentRole()
         {
-            return View();
+            if (HttpContext.Session["username"] != null)
+            {
+                var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                if (u.user_role.Equals("ADMIN"))
+                {
+                    
+                    return View();
+                }
+                //ViewData["LoginError"] = "You NOT permission in this Function";
+                //return RedirectToAction("Login", "Login");
+            }
+            ViewData["LoginError"] = "You NOT permission in this Function";
+            return RedirectToAction("Login", "Login");
         }
 
         public ActionResult GetMenuContentByRole(string roleName)
