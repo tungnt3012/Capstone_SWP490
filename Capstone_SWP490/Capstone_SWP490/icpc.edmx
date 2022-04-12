@@ -190,7 +190,6 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="enabled" Type="bit" />
           <Property Name="schedule_date" Type="nvarchar" MaxLength="50" />
           <Property Name="post_to" Type="varchar" MaxLength="100" />
-          <Property Name="title_image" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK__contest_m__conte__31EC6D26">
           <End Role="contest" Type="Self.contest" Multiplicity="1" />
@@ -551,7 +550,6 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="enabled" Type="Boolean" />
           <Property Name="schedule_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="post_to" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="title_image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="app_user" Relationship="Self.FK__post__post_by__59063A47" FromRole="post" ToRole="app_user" />
         </EntityType>
         <EntityType Name="documentation">
@@ -917,7 +915,6 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
                 <ScalarProperty Name="enabled" ColumnName="enabled" />
                 <ScalarProperty Name="schedule_date" ColumnName="schedule_date" />
                 <ScalarProperty Name="post_to" ColumnName="post_to" />
-                <ScalarProperty Name="title_image" ColumnName="title_image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
