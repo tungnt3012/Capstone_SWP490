@@ -37,6 +37,31 @@ namespace Capstone_SWP490.Controllers
 
             return View();
         }
+        public ActionResult ListHomePageContent()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        public ActionResult HomePageContent()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        public ActionResult ScoreboardUpload()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        public ActionResult ScoreboardManagement()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
         public ActionResult ContestStatistic()
         {
             ViewBag.Message = "Your contact page.";
@@ -225,11 +250,11 @@ namespace Capstone_SWP490.Controllers
             if (rsCreate != null)
             {
                 ViewData["success"] = "*Add Event Successfully !!!";
-                ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event);
+                ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event_id);
                 return View(rsCreate);
             }
             ViewData["error"] = "*Add Event Failed !!!";
-            ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event);
+            ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event_id);
             return View(events);
         }
 

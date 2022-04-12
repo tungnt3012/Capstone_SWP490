@@ -124,6 +124,7 @@ namespace Capstone_SWP490.Helper
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
             sendMailAsync(emailModel);
         }
+       
 
         public void sendMailConfrimRegistration(app_user user, string action, string reason)
         {
@@ -153,6 +154,28 @@ namespace Capstone_SWP490.Helper
                 reason = reasonHtml;
             }
             emailModel.body = string.Format(mailContent, user.full_name, action, reason, hostName, hostName);
+            emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
+            sendMailAsync(emailModel);
+        }
+
+        public void sendMailForgotPassword(app_user user)
+        {
+            EmailModel emailModel = new EmailModel();
+            string mailContent = readMailContent("ForgotPassword.txt");
+            string password = user.psw;
+            string hostName = "";
+            try
+            {
+                hostName = WebConfigurationManager.AppSettings["HostName"];
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+            }
+            string fullname = user.full_name;
+            string url = hostName + "/Login/Login";
+            emailModel.toEmail = user.email;
+            emailModel.body = string.Format(mailContent, fullname, password, url);
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
             sendMailAsync(emailModel);
         }

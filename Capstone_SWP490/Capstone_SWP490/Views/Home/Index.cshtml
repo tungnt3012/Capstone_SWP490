@@ -4,7 +4,8 @@
 }
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.carousel.min.css'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.1/assets/owl.carousel.css'>
-
+<link rel="stylesheet" href="~/Content/PenStyle.css" asp-append-version="true" />
+<link rel='stylesheet' href='https://codepen.io/Michael-luke/pen/PzGywb.css'>
 <style>
     #menu-home {
         color: #ffffff !important;
@@ -14,89 +15,54 @@
     #footer {
         display: block;
     }
-*{
-	box-sizing: border-box;
-}
-html,body {
-	width: 100%;
-	height: 100%;
-}
-    .vendor-info {
-        height: 250px;
-    }
-    .neon {
-        position: absolute;
-        padding: 20px 15px;
-        top: -10%;
-        left: 0;
-        color: #fff;
-        text-shadow: 0 0 20px #DC5F00;
-    }
 
-
-.item{
-  background: #E8E8E8;
-  margin-top: 10px;
-  text-align: center;
-}
-
-.vendor-info, .caption{
-  padding: 5px;
-}
-
-.vendor-info img{
-  border-bottom: thin solid #353535;
-  -webkit-box-shadow: inset 0px -8px 20px 7px rgba(0,0,0,0.42);
--moz-box-shadow: inset 0px -8px 20px 7px rgba(0,0,0,0.42);
-box-shadow: inset 0px -8px 20px 7px rgba(0,0,0,0.42);
-}
-    .owl-carousel .owl-item img{
-        width:100%;
-        height:100%;
-    }
-    /* owl nav */
-    .owl-nav span {
-        color: #fff;
-    }
-
-.owl-nav span:hover{
-  color: #424242;
-}
-
-.owl-prev, .owl-next{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.owl-prev {
-  left: -3rem
-}
-
-.owl-next {
-  right: -3rem;
-}
-
-.owl-theme .owl-controls .owl-page {
-    display: inline-block;
-}
-.owl-theme .owl-controls .owl-page span {
-    background: none repeat scroll 0 0 #fff;
-    border-radius: 20px;
-    display: block;
-    height: 12px;
-    margin: 5px 7px;
-    opacity: 0.5;
-    width: 12px;
-}
-    .caption p{
-     
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: normal;
+    .events-list {
         width: 100%;
-        height: 65px;
+        font-size: 0.9em;
     }
+
+        .events-list tr td {
+            padding: 5px 20px 5px 0;
+        }
+
+            .events-list tr td:last-child {
+                padding: 5px 0;
+                text-align: right;
+            }
+
+        .events-list tr:hover .event-date {
+            border-left: 5px solid #4f8db3;
+        }
+
+        .events-list .event-date {
+            margin: 3px 0;
+            padding: 2px 10px;
+            border-left: 5px solid #CFCFCF;
+            -webkit-transition: all .25s linear;
+            -moz-transition: all .25s linear;
+            -o-transition: all .25s linear;
+            -ms-transition: all .25s linear;
+            transition: all .25s linear;
+        }
+
+            .events-list .event-date .event-day {
+                color: #004A5B;
+                font-size: 1.2em;
+                font-weight: 600;
+                text-align: left;
+            }
+
+            .event-month {
+                color: #333333;
+                font-size: 1em;
+                font-weight: 600;
+                text-align: left;
+            }
+
+            .events-list .event-date .event-venue,
+            .events-list .event-date .event-price {
+                white-space: nowrap;
+            }
 </style>
 <div id="page-content-wrapper-home">
     <div class="container-fluid xyz">
@@ -112,115 +78,353 @@ box-shadow: inset 0px -8px 20px 7px rgba(0,0,0,0.42);
                             </div>
                         </div>
                     </div>
-                      
-                            <div class="container col-lg-12">
-                                <div class="row align-items-center">
-                                    <div class="col-md-12 col-carousel">
-                                        <div class="mt-4 mb-5">
-                                            <h2 class="front-size-title" data-text="A &#45; B">Event Schedule</h2>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-group">
-                                                <button type="button" class="btn btn-primary" id="more-event" data-toggle="modal" data-target="#exampleModalLong" onclick="location.href='@Url.Action("Event","Home")'">More event...</button>
+
+                    <div class="container col-lg-12">
+                        <div class="row align-items-center">
+                            <div class="col-md-12 col-carousel">
+                                <div class="mt-4 mb-5">
+                                    <h2 class="front-size-title" data-text="A &#45; B">Maybe you do not know</h2>
+                                </div>
+                                <div class="form-group">
+                                    <div class="owl-carousel carousel-main">
+                                        <div class="item single-vendor" onclick="location.href='@Url.Action("Event","Home")'">
+                                            <div class="vendor-info">
+                                                <img src="~/image/event-icon-marketing-company-between-company-and-customers-2C65EKX.jpg">
                                             </div>
-                                            <div class="owl-carousel carousel-main">
-                                                <div class="item single-vendor">
-                                                    <div class="vendor-info">
-                                                        <img src="https://www.tvu.edu.vn/wp-content/uploads/2020/12/ICPC.jpg">
-                                                    </div>
-                                                    <div class="caption">
-                                                        <p>
-                                                            Sinh viên ĐHTV tham gia Olympic Tin học sinh viên và ICPC Asia Cần Thơ năm 2020 - Trường Đại học Trà Vinhdddddddddddddddddddddddddddddddddddd
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="item single-vendor ">
-                                                    <div class="vendor-info">
-                                                        <img src="https://filesdata.cadn.com.vn/filedatacadn/media//data_news/Image/2019/th12/ng5/h14c.jpg">
-                                                    </div>
-                                                    <div class="caption">
-                                                        <p>
-                                                            700 sinh viên tham gia thi Olympic Tin học & lập trình ICPC Châu Á
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="item single-vendor">
-                                                    <div class="vendor-info">
-                                                        <img src="https://www.ctu.edu.vn/images/upload/news/2020/bmolpicpc201.jpg">
-                                                    </div>
-                                                    <div class="caption">
-                                                        <p>Lễ Khai mạc</p>
-                                                    </div>
-                                                </div>
-                                                <div class="item single-vendor ">
-                                                    <div class="vendor-info">
-                                                        <img src="https://photo-cms-plo.zadn.vn/w559/Uploaded/2022/tmuihk/2017_12_09/cuoc-thi-acm-icpc-2_hzlu.jpg">
-                                                    </div>
-                                                    <div class="caption">
-                                                        <p>
-
-                                                            Sinh viên Việt Nam lại Vô địch ACM/ICPC trên sân nhà | Nhịp công nghệ | PLO
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="item single-vendor">
-                                                    <div class="vendor-info">
-                                                        <img src="https://www.its.ac.id/news/wp-content/uploads/sites/2/2019/10/15701101419391.jpg">
-                                                    </div>
-                                                    <div class="caption">
-                                                        <p>
-
-                                                            Mahasiswa ITS Raih Juara di ICPC 2019 - ITS News
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="item single-vendor ">
-                                                    <div class="vendor-info">
-                                                        <img src="https://galaxymedia.vn/Uploads/images/1-Kinh-nghiem-to-chua-su-kien.jpg">
-                                                    </div>
-                                                    <div class="caption">
-                                                        <p>Tiệc Ngoài trời</p>
-                                                    </div>
-                                                </div>
+                                            <div class="caption">
+                                                <p class="">
+                                                    <strong>Event is the place where event activities take place. You can sign up for those great events here.</strong>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="item single-vendor" onclick="location.href='@Url.Action("Scoreboard","Home")'">
+                                            <div class="vendor-info">
+                                                <img src="~/image/leaderboard-style-winner-podium-icon-design-vector.jpg">
+                                            </div>
+                                            <div class="caption">
+                                                <p>
+                                                    <strong> Scoreboard where you can see your favorite team's achievements.</strong>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="item single-vendor" onclick="location.href='@Url.Action("Contest","Home")'">
+                                            <div class="vendor-info">
+                                                <img src="~/image/2037394.png">
+                                            </div>
+                                            <div class="caption">
+                                                <p>
+                                                    <strong>A place to look up exam questions.</strong>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="item single-vendor " onclick="location.href='@Url.Action("Rules","Home")'">
+                                            <div class="vendor-info">
+                                                <img src="~/image/2534888.png">
+                                            </div>
+                                            <div class="caption">
+                                                <p>
+                                                    <strong> Please read the rules carefully before taking the exam.</strong>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="item single-vendor" onclick="location.href='@Url.Action("Accommodations","Home")'">
+                                            <div class="vendor-info">
+                                                <img src="~/image/3701836.png">
+                                            </div>
+                                            <div class="caption">
+                                                <p>
+                                                    <strong> Resting places arranged by the competition.</strong>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="item single-vendor " onclick="location.href='@Url.Action("Downloads","Home")'">
+                                            <div class="vendor-info">
+                                                <img src="~/image/5728131.png">
+                                            </div>
+                                            <div class="caption">
+                                                <p>
+                                                    <strong> Download the system information you want about the contest.</strong>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
-                            </div>
-                            <div class="col-lg-12" id="content-item">
-                                <div class="front-size-title" id="page-title" content-id="119" page-id="RULE" content-position="1">
-                                    Additional Contest Rules
                                 </div>
-                                <div class="border border-danger" id="page-content0">
-                                    <ul>
-                                        <li>
-                                            <p>It should be noted that the rules mentioned here are only subsidiary to the rules given at the ACM ICPC homepage.</p>
-                                        </li>
-                                        <li>
-                                            <p>Each school may register multiple teams for the preliminary contest. Each team's coach must fully register teams in the ICPC Registration System no later than November 19, 2017. A team is not eligible to compete in the regional contest until the regional contest director has accepted the team in the web registration system. Teams failing to comply with any of these requirements will be ruled ineligible to compete. Only registered reserves may be substituted for contestants . Such substitutions must be entered in the ICPC Registration System before the deadline. ACM guidelines suggest a contest roster which represents as many different schools as possible. This potentially increase the number of teams advancing from the region to the world finals. However, only one team per university can advance to the world finals. Keeping all this in mind, the regional contest director will accept a subset of size 1, 2 or more of the qualified teams from any one university for the regional final. This will be done no later than seven (7) days before the contest in November. Acceptance of teams is contingent on the availability of sufficient resources at the site.</p>
-                                        </li>
-                                        <li>
-                                            <p>No hardware substitutions will be allowed (that is, teams may not bring their own equipment onto the contest floor). &nbsp;This includes that teams may not substitute keyboards or other peripherals; all teams will use identical equipment, as described above, during the contest.</p>
-                                        </li>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container col-lg-12">
+                        <div class="form-group">
+                            <div class="section">
+                                <!-- Blog style taken from https://codepen.io/Michael-luke/pen/PzGywb?editors=1000 -->
+                                <div class="blog-post blog-single-post">
+                                    <div class="single-post-title">
+                                        <div class="col-lg-6 front-size-title">Upcoming schedule</div>
+                                        <div class="col-lg-6 front-size-title" onclick="location.href='@Url.Action("Event","Home")'"><a style="float:right">Show all schedule...</a></div>
+                                    </div>
+                                    <div class="single-post-content">
+                                        <table class="events-list">
+                                            <tr>
+                                                <td>
+                                                    <div class="event-date">
+
+                                                        <div class="event-month">Start date</div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="event-month"> Title</div>
+                                                </td>
+                                                <td class="event-venue hidden-xs"><i class="icon-map-marker"></i><div class="event-month">Location</div></td>
+                                                <td class="event-price hidden-xs"><div class="event-month">End date</div></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="event-date">
+
+                                                        <div class="event-price hidden-xs">22-03-2022</div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Đăng ký OLP'21, PROCON VN và Kỳ thi ICPC Asia Hanoi
+                                                </td>
+                                                <td class="event-venue hidden-xs"><i class="icon-map-marker"></i>Alpha Building, FPT University</td>
+                                                <td class="event-price hidden-xs">22-03-2022</td>
+                                                <td><a>Read More</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="event-date">
+
+                                                        <div class="event-price hidden-xs">23-03-2022</div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam
+                                                </td>
+                                                <td class="event-venue hidden-xs"><i class="icon-map-marker"></i>FPT University, Km28 Duong Cao Toc 08, Thach Hoa, Thach That, Ha Noi</td>
+                                                <td class="event-price hidden-xs">23-03-2022</td>
+                                                <td><a href="#">Read More</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="event-date">
+
+                                                        <div class="event-price hidden-xs">23-03-2022</div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam
+                                                </td>
+                                                <td class="event-venue hidden-xs"><i class="icon-map-marker"></i>FPT University, Km28 Duong Cao Toc 08, Thach Hoa, Thach That, Ha Noi</td>
+                                                <td class="event-price hidden-xs">23-03-2022</td>
+                                                <td><a href="#">Read More</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="event-date">
+
+                                                        <div class="event-price hidden-xs">24-03-2022</div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Giải PROCON Vietnam, Thi phần mềm nguồn mở và các hoạt động khác
+                                                </td>
+                                                <td class="event-venue hidden-xs"><i class="icon-map-marker"></i>FPT University, Km28 Duong Cao Toc 08, Thach Hoa, Thach That, Ha Noi</td>
+                                                <td class="event-price hidden-xs">25-03-2022</td>
+                                                <td><a href="#">Read More</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="event-date">
+
+                                                        <div class="event-month">25-03-2022</div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Giải PROCON Vietnam, Thi phần mềm nguồn mở và các hoạt động khác
+                                                </td>
+                                                <td class="event-venue hidden-xs"><i class="icon-map-marker"></i>FPT University, Km28 Duong Cao Toc 08, Thach Hoa, Thach That, Ha Noi</td>
+                                                <td class="event-price hidden-xs">26-03-2022</td>
+                                                <td><a href="#">Read More</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="event-date">
+
+                                                        <div class="event-price hidden-xs">25-03-2022</div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Giải PROCON Vietnam, Thi phần mềm nguồn mở và các hoạt động khác
+                                                </td>
+                                                <td class="event-venue hidden-xs"><i class="icon-map-marker"></i>FPT University, Km28 Duong Cao Toc 08, Thach Hoa, Thach That, Ha Noi</td>
+                                                <td class="event-price hidden-xs">26-03-2022</td>
+                                                <td><a href="#">Read More</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="event-date">
+
+                                                        <div class="event-price hidden-xs">25-03-2022</div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Giải PROCON Vietnam, Thi phần mềm nguồn mở và các hoạt động khác
+                                                </td>
+                                                <td class="event-venue hidden-xs"><i class="icon-map-marker"></i>FPT University, Km28 Duong Cao Toc 08, Thach Hoa, Thach That, Ha Noi</td>
+                                                <td class="event-price hidden-xs">26-03-2022</td>
+                                                <td><a href="#">Read More</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="event-date">
+
+                                                        <div class="event-price hidden-xs">25-03-2022</div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    Giải PROCON Vietnam, Thi phần mềm nguồn mở và các hoạt động khác
+                                                </td>
+                                                <td class="event-venue hidden-xs"><i class="icon-map-marker"></i>FPT University, Km28 Duong Cao Toc 08, Thach Hoa, Thach That, Ha Noi</td>
+                                                <td class="event-price hidden-xs">26-03-2022</td>
+                                                <td><a href="#">Read More</a></td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="blog-card">
+                                <div class="meta">
+                                    <div class="photo"> <img src="~/image/image-2.jpg"></div>
+                                    <ul class="details">
+                                        <li class="date">Aug. 24, 2015</li>
                                     </ul>
                                 </div>
-                                <div class="col-lg-12" id="delete_edit">
+                                <div class="description">
+                                    <lable class="front-size-title">Lễ khai mạc đại hội tin học</lable>
+                                    <h2>description:</h2>
+                                    <p class="border border-danger">
+                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                    </p>
+                                    <p class="read-more">
+                                        <a onclick="location.href='@Url.Action("HomePageContent","Home")'">Read More...</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="blog-card alt">
+                                <div class="meta">
+                                    <div class="photo"><img src="~/image/image-2.jpg"></div>
+                                    <ul class="details">
+                                        <li class="date">July. 15, 2015</li>
+                                    </ul>
+                                </div>
+                                <div class="description">
+                                    <h1>Lễ Bế mạc đại hội tin học</h1>
+                                    <h2>description:</h2>
+                                    <p>
+                                        Lễ Bế Mạc Năm Thánh 2010 và Đại Hội La Vang 29 diễn ra thành công tốt đẹp, Linh Mục Quản Nhiệm La Vang Giacôbê Lê Sĩ Hiền đã thay mặt ban tổ chức đọc lời cám ơn:
 
+                                        Thay mặt Ban Tổ Chức Đại Lễ Bế mạc Năm Thánh 2010 Giáo Hội Công Giáo Việt Nam và Đại Hội Hành Hương Đức Mẹ La Vang 29
+
+                                        Chúng con xin kính cảm ơn Đức Tổng Giám mục và Đức Giám mục Phụ tá đã tín nhiệm ủy thác công việc tổ chức ngày Đại Lễ Bế mạc Năm Thánh 2010 Giáo Hội Công Giáo Việt Nam và Đại Hội Hành Hương Đức Mẹ La Vang 29 cho chúng con.
+                                    </p>
+                                    <p class="read-more">
+                                        <a onclick="location.href='@Url.Action("HomePageContent","Home")'">Read More...</a>
+                                    </p>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <p class="text-center" id="text-content-home3">Pacific/Peninsula or Asia; About Asia administrative sub-regions partition, refer to</p>
-                                    <p class="text-center" id="text-content-home4">  http://blog.sina.com.cn/cjhwang</p>
-                                    <p class="text-center"><span id="text-content-home5">The ICPC International:</span><span id="text-content-home6"> https://icpc.global</span></p>
-                                </div>
+
+                        </div>
+
+                        <div class="blog-card">
+                            <div class="meta">
+                                <div class="photo"> <img src="~/image/image-2.jpg"></div>
+                                <ul class="details">
+                                    <li class="date">Aug. 24, 2015</li>
+                                </ul>
                             </div>
-                   
-             
-        </div>
+                            <div class="description">
+                                <lable class="front-size-title">Lễ khai mạc đại hội tin học</lable>
+                                <h2>description:</h2>
+                                <p class="border border-danger">
+                                    Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                    Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                    Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                </p>
+                                <p class="read-more">
+                                    <a onclick="location.href='@Url.Action("HomePageContent","Home")'">Read More...</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="blog-card alt">
+                            <div class="meta">
+                                <div class="photo"><img src="~/image/image-2.jpg"></div>
+                                <ul class="details">
+                                    <li class="date">July. 15, 2015</li>
+                                </ul>
+                            </div>
+                            <div class="description">
+                                <h1>Lễ Bế mạc đại hội tin học</h1>
+                                <h2>description:</h2>
+                                <p>
+                                    Lễ Bế Mạc Năm Thánh 2010 và Đại Hội La Vang 29 diễn ra thành công tốt đẹp, Linh Mục Quản Nhiệm La Vang Giacôbê Lê Sĩ Hiền đã thay mặt ban tổ chức đọc lời cám ơn:
+
+                                    Thay mặt Ban Tổ Chức Đại Lễ Bế mạc Năm Thánh 2010 Giáo Hội Công Giáo Việt Nam và Đại Hội Hành Hương Đức Mẹ La Vang 29
+
+                                    Chúng con xin kính cảm ơn Đức Tổng Giám mục và Đức Giám mục Phụ tá đã tín nhiệm ủy thác công việc tổ chức ngày Đại Lễ Bế mạc Năm Thánh 2010 Giáo Hội Công Giáo Việt Nam và Đại Hội Hành Hương Đức Mẹ La Vang 29 cho chúng con.
+                                    Lễ Bế Mạc Năm Thánh 2010 và Đại Hội La Vang 29 diễn ra thành công tốt đẹp, Linh Mục Quản Nhiệm La Vang Giacôbê Lê Sĩ Hiền đã thay mặt ban tổ chức đọc lời cám ơn:
+
+                                    Thay mặt Ban Tổ Chức Đại Lễ Bế mạc Năm Thánh 2010 Giáo Hội Công Giáo Việt Nam và Đại Hội Hành Hương Đức Mẹ La Vang 29
+
+                                    Chúng con xin kính cảm ơn Đức Tổng Giám mục và Đức Giám mục Phụ tá đã tín nhiệm ủy thác công việc tổ chức ngày Đại Lễ Bế mạc Năm Thánh 2010 Giáo Hội Công Giáo Việt Nam và Đại Hội Hành Hương Đức Mẹ La Vang 29 cho chúng con.
+                                    Lễ Bế Mạc Năm Thánh 2010 và Đại Hội La Vang 29 diễn ra thành công tốt đẹp, Linh Mục Quản Nhiệm La Vang Giacôbê Lê Sĩ Hiền đã thay mặt ban tổ chức đọc lời cám ơn:
+
+                                    Thay mặt Ban Tổ Chức Đại Lễ Bế mạc Năm Thánh 2010 Giáo Hội Công Giáo Việt Nam và Đại Hội Hành Hương Đức Mẹ La Vang 29
+
+                                    Chúng con xin kính cảm ơn Đức Tổng Giám mục và Đức Giám mục Phụ tá đã tín nhiệm ủy thác công việc tổ chức ngày Đại Lễ Bế mạc Năm Thánh 2010 Giáo Hội Công Giáo Việt Nam và Đại Hội Hành Hương Đức Mẹ La Vang 29 cho chúng con.
+                                    Lễ Bế Mạc Năm Thánh 2010 và Đại Hội La Vang 29 diễn ra thành công tốt đẹp, Linh Mục Quản Nhiệm La Vang Giacôbê Lê Sĩ Hiền đã thay mặt ban tổ chức đọc lời cám ơn:
+
+                                    Thay mặt Ban Tổ Chức Đại Lễ Bế mạc Năm Thánh 2010 Giáo Hội Công Giáo Việt Nam và Đại Hội Hành Hương Đức Mẹ La Vang 29
+
+                                    Chúng con xin kính cảm ơn Đức Tổng Giám mục và Đức Giám mục Phụ tá đã tín nhiệm ủy thác công việc tổ chức ngày Đại Lễ Bế mạc Năm Thánh 2010 Giáo Hội Công Giáo Việt Nam và Đại Hội Hành Hương Đức Mẹ La Vang 29 cho chúng con.
+                                    Lễ Bế Mạc Năm Thánh 2010 và Đại Hội La Vang 29 diễn ra thành công tốt đẹp, Linh Mục Quản Nhiệm La Vang Giacôbê Lê Sĩ Hiền đã thay mặt ban tổ chức đọc lời cám ơn:
+
+                                    Thay mặt Ban Tổ Chức Đại Lễ Bế mạc Năm Thánh 2010 Giáo Hội Công Giáo Việt Nam và Đại Hội Hành Hương Đức Mẹ La Vang 29
+
+                                    Chúng con xin kính cảm ơn Đức Tổng Giám mục và Đức Giám mục Phụ tá đã tín nhiệm ủy thác công việc tổ chức ngày Đại Lễ Bế mạc Năm Thánh 2010 Giáo Hội Công Giáo Việt Nam và Đại Hội Hành Hương Đức Mẹ La Vang 29 cho chúng con.
+
+                                </p>
+                                <p class="read-more">
+                                    <a onclick="location.href='@Url.Action("HomePageContent","Home")'">Read More...</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="front-size-title" onclick="location.href='@Url.Action("ListHomePageContent","Home")'"><a style="float:right">Show all content...</a></div>
+                    </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <p class="text-center" id="text-content-home3">Pacific/Peninsula or Asia; About Asia administrative sub-regions partition, refer to</p>
+                                <p class="text-center" id="text-content-home4">  http://blog.sina.com.cn/cjhwang</p>
+                                <p class="text-center"><span id="text-content-home5">The ICPC International:</span><span id="text-content-home6"> https://icpc.global</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
-    </div>
 <script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.1/owl.carousel.min.js'></script>

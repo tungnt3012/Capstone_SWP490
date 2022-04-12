@@ -18,6 +18,8 @@ namespace Capstone_SWP490.Services.Interfaces
         app_userViewModel GetUserByUsername(string username);
         PagingOutput<List<app_userViewModel>> GetListUsersManager(int crrUser);
         Task<bool> SwitchableUsers(int user_id, bool status);
+        Task<bool> ForgotPassword(string email);
+        Task<bool> ResetPassword(string username, string oldPass, string newPass);
         
 
 

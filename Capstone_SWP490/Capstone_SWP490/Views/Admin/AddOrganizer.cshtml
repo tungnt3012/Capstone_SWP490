@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "Add | Organizer";
+}
+
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Admin Add Organizer </label>
+        </div>
+    </div>
+    <div class="main">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1" id="under">
+                </br>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="firstName">Full name<span id="not-empty">*</span></label>
+                            <input class="form-control" id="AddOrganizerFullName" name="AddOrganizerFullName" , value="" placeholder="Full name" required="required" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="firstName">Email<span id="not-empty">*</span></label>
+                            <input type="email" class="form-control" id="AddOrganizerEmail" name="AddOrganizerEmail" , value="" placeholder="example@gmail.com" required="required" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="firstName">User name<span id="not-empty">*</span></label>
+                            <input class="form-control" id="AddOrganizerUserName" name="AddOrganizerUserName" , value="" placeholder="User name" required="required" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="firstName">Password<span id="not-empty">*</span></label>
+                            <input type="password" class="form-control" id="AddOrganizerPassword" name="TiLocationtle" , value="" placeholder="Password" required="required" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="firstName">Re-enter Password<span id="not-empty">*</span></label>
+                            <input type="password" class="form-control" id="AddOrganizerReenterPassword" name="TiLocationtle" , value="" placeholder="Re-enter Password" required="required" />
+                        </div>
+                        <span id="message2"> </span>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-secondary" onclick="history.back()" ; return false;" id="event-canner">Cancel</button>
+                                <button type="submit" class="btn btn-primary" id="event-upload">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12" style="padding-top:15px;">
+                        <div class="form-group pull-right">
+                            <span style="color:red">*Add a new account for the organizers(carefully)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('AddOrganizerFullName').onkeyup = function () {
+        var AddOrganizerFullName = $("#AddOrganizerFullName").val();
+        if (AddOrganizerFullName.length >= 1) {
+            document.getElementById("AddOrganizerFullName").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("AddOrganizerFullName").style.borderColor = "red";
+        }
+    }
+    document.getElementById('AddOrganizerEmail').onkeyup = function () {
+        var AddOrganizerEmail = $("#AddOrganizerEmail").val();
+        if (AddOrganizerEmail.length >= 1) {
+            document.getElementById("AddOrganizerEmail").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("AddOrganizerEmail").style.borderColor = "red";
+        }
+    }
+    document.getElementById('AddOrganizerUserName').onkeyup = function () {
+        var AddOrganizerUserName = $("#AddOrganizerUserName").val();
+        if (AddOrganizerUserName.length >= 1) {
+            document.getElementById("AddOrganizerUserName").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("AddOrganizerUserName").style.borderColor = "red";
+        }
+    }
+    document.getElementById('AddOrganizerPassword').onkeyup = function () {
+        var password = $("#AddOrganizerPassword").val();
+        var confirm_password = $("#AddOrganizerReenterPassword").val();
+        if (password.length < 6) {
+            document.getElementById("message2").style.color = "Red";
+            document.getElementById("message2").innerHTML = "*Password length must not exceed 6 characters";
+        }
+        else if (password != confirm_password) {
+            document.getElementById("message2").style.color = "Red";
+            document.getElementById("message2").innerHTML = "*Passwords are not same";
+        }
+        else if (password == confirm_password) {
+            document.getElementById("message2").style.color = "Green";
+            document.getElementById("message2").innerHTML = "*Same password";
+        }
+    }
+    document.getElementById('AddOrganizerReenterPassword').onkeyup = function () {
+        var password = $("#AddOrganizerPassword").val();
+        var confirm_password = $("#AddOrganizerReenterPassword").val();
+        if (confirm_password.length < 6) {
+            document.getElementById("message2").style.color = "Red";
+            document.getElementById("message2").innerHTML = "*Password length must not exceed 6 characters";
+        }
+        else if (password != confirm_password) {
+            document.getElementById("message2").style.color = "Red";
+            document.getElementById("message2").innerHTML = "*Passwords are not same";
+        }
+        else if (password == confirm_password) {
+            document.getElementById("message2").style.color = "Green";
+            document.getElementById("message2").innerHTML = "*Same password";
+        }
+    }
+</script>

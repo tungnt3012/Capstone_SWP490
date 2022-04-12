@@ -42,9 +42,40 @@ namespace Capstone_SWP490.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<ActionResult> ForgotPassword(app_userViewModel usersIn)
+        {
+            var rs = await _iapp_UserService.ForgotPassword(usersIn.email);
+            if (rs)
+            {
+                ViewData["SendSuccess"] = "Please check New Password in your Email!!!";
+                return View(usersIn);
+            }
+            ViewData["SendError"] = "Email not exist, please check again!!!";
+            return View(usersIn);
+        }
         public ActionResult ResetPassword()
         {
-            return View();
+            if (HttpContext.Session["username"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Login");
+        }
+        [HttpPost]
+        public async Task<ActionResult> ResetPassword(reset_password reset)
+        {
+            if (HttpContext.Session["username"] != null)
+            {
+                if (await _iapp_UserService.ResetPassword(HttpContext.Session["username"].ToString(), reset.old_password, reset.new_password))
+                {
+                    ViewData["ChangePasswordSuccess"] = "Change password Successfull!!!";
+                    return View(reset);
+                }
+                ViewData["ChangePasswordError"] = "Change password Fail!!!";
+                return View(reset);
+            }
+            return RedirectToAction("Login", "Login");
         }
 
 
@@ -97,6 +128,10 @@ namespace Capstone_SWP490.Controllers
                     if (user.verified == false)
                     {
                         return RedirectToAction("ChangePasswordFirst", "Login");
+                    }
+                    if (user.confirm_password == 0)
+                    {
+                        return RedirectToAction("ResetPassword", "Login");
                     }
                     return RedirectToAction("Index", "Home");
                 }

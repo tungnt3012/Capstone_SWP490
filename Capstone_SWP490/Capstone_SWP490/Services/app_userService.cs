@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.ExceptionHandler;
+using Capstone_SWP490.Helper;
 using Capstone_SWP490.Models;
 using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Repositories;
@@ -107,7 +108,8 @@ namespace Capstone_SWP490.Services
                     email = u.email,
                     active = u.active,
                     psw = u.psw,
-                    encrypted_psw = u.encrypted_psw
+                    encrypted_psw = u.encrypted_psw,
+                    confirm_password = u.confirm_password
                 };
                 return viewModel;
             }
@@ -342,6 +344,39 @@ namespace Capstone_SWP490.Services
             }
 
             return app_userTemp;
+        }
+
+        public async Task<bool> ForgotPassword(string email)
+        {
+            var u = _iapp_UserRepository.FindBy(x => x.email.Equals(email)).FirstOrDefault();
+            if (u != null)
+            {
+                u.psw = Helper.CommonHelper.CreatePassword(8);
+                u.encrypted_psw = Helper.CommonHelper.createEncryptedPassWord(u.psw);
+                u.confirm_password = 0;
+                if (await _iapp_UserRepository.Update(u, u.user_id) != -1)
+                {
+                    new MailHelper().sendMailForgotPassword(u);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public async Task<bool> ResetPassword(string username, string oldPass, string newPass)
+        {
+            var u = _iapp_UserRepository.FindBy(x => x.user_name.Equals(username) && x.psw.Equals(oldPass)).FirstOrDefault();
+            if (u != null)
+            {
+                u.psw = newPass;
+                u.encrypted_psw = CommonHelper.createEncryptedPassWord(u.psw);
+                u.confirm_password = 1;
+                if(await _iapp_UserRepository.Update(u, u.user_id)!=-1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

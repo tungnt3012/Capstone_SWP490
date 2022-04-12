@@ -48,14 +48,14 @@
                         </div>-->
                         <div class="form-group">
                             <label for="Title">Title<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "EventTitle", name = "Title", value = "", placeholder = "Title" })
+                            @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "EventTitle", name = "Title", value = "", placeholder = "Title", required = "required" })
                             @*<div class="valid-feedback">
                                     Looks good!
                                 </div>*@
                         </div>
                         <div class="form-group">
-                            <label for="Desctiption">Desctiption<span id="not-empty">*</span></label>
-                            @Html.TextAreaFor(m => m.desctiption, new { @class = "form-control", id = "EventDesctiption", name = "Desctiption", value = "", placeholder = "Description of the event" })
+                            <label for="Desctiption">Description<span id="not-empty">*</span></label>
+                            @Html.TextAreaFor(m => m.desctiption, new { @class = "form-control", id = "EventDesctiption", name = "Desctiption", value = "", placeholder = "Description of the event", required = "required" })
                         </div>
                         @*<div class="form-group">
                                 <label for="Location">Start date<span id="not-empty">*</span></label>
@@ -67,38 +67,63 @@
                             </div>*@
 
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="Location">Start date<span id="not-empty">*</span></label>
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-12">
                                             @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", @onchange = "checkDate()", name = "EventStartDate", @Value = Model.start_date.ToString("yyyy-MM-dd"), placeholder = "Start date" })
                                         </div>
-                                        <div class="col-lg-6">
+                                    </div>
+                                </div>
+                            </div> <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="Location">Start date<span id="not-empty">*</span></label>
+                                    <div class="row">
+                                        <div class="col-lg-12">
                                             @Html.TextBoxFor(m => m.start_time, new { type = "time", @class = "form-control", id = "EventStartTime", @onchange = "checkTime()", name = "EventStartTime", @Value = Model.start_date.ToString("HH:mm"), placeholder = "Start Time" })
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="Location">End date<span id="not-empty">*</span></label>
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-12">
                                             @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()", name = "EventEndDate", @Value = Model.end_date.ToString("yyyy-MM-dd"), placeholder = "End date" })
-                                        </div>
-                                        <div class="col-lg-6">
-                                            @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", @Value = Model.end_date.ToString("HH:mm"), placeholder = "End Time" })
                                         </div>
                                     </div>
                                     <span style="color:red"><i id="text-error-date"></i></span>
                                 </div>
+                            </div> <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="Location">End date<span id="not-empty">*</span></label>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", @Value = Model.end_date.ToString("HH:mm"), placeholder = "End Time" })
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="Location">Venue<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.venue, new { @class = "form-control", id = "EventLocation", name = "TiLocationtle", value = "", placeholder = "Location" })
+                            <label for="Location">Location<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.venue, new { @class = "form-control", id = "EventLocation", name = "TiLocationtle", value = "", placeholder = "Location", required = "required" })
                         </div>
+                        <div class="form-group">
+                            <label for="Location">Contactor phone<span id="not-empty">*</span></label>
+                            <input class="form-control" id="EventContactorPhone" name="TiLocationtle" , value="" placeholder="Contactor phone" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">Contactor email<span id="not-empty">*</span></label>
+                            <input class="form-control" id="EventContactorEmail" name="TiLocationtle" , value="" placeholder="example@gmail.com" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">Contactor name<span id="not-empty">*</span></label>
+                            <input class="form-control" id="EventContactorName" name="TiLocationtle" , value="" placeholder="Nguyen Van A" required="required" />
+                        </div>
+
                         @*<div class="form-group">
                                 <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
                                 @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
@@ -125,7 +150,9 @@
                                 <div class="col-lg-3">
                                     @Html.DropDownListFor(m => m.status, new List<SelectListItem>
                                       { new SelectListItem{Text="Default", Value="0"},
-                                        new SelectListItem{Text="Allow Join", Value="1"}}, new { @class = "form-control", id = "StatusSelect", @Value = Model.status })
+                                        new SelectListItem{Text="Allow Join", Value="1"},
+                                        new SelectListItem{Text="Medium", Value="2"},
+                                        new SelectListItem{Text="High", Value="3"}}, new { @class = "form-control", id = "StatusSelect", @Value = Model.status })
                                 </div>
                             </div>
                         </div>
@@ -135,16 +162,21 @@
                         <div class="form-group">
                             <div class="pull-right">
                                 <button type="submit" class="btn btn-primary" id="event-upload">Save</button>
-                                <button type="button" class="btn btn-secondary" onclick="location.href='/Home/Event'; return false;" id="event-canner">Cancel</button>
+                                @if (Model.event_type == 1)
+                                {
+                                    <button type="button" class="btn btn-secondary" onclick="location.href='/Home/Event'; return false;" id="event-canner">Cancel</button>
+                                }
+                                else if (Model.event_type == 2)
+                                {
+                                    <button type="button" class="btn btn-secondary" onclick="location.href = '/Home/EventDetail?id=@Model.main_event_id'; return false;" id="event-canner">Cancel</button>
+                                }
                             </div>
                         </div>
                     </div>
                 }
             </div>
         </div>
-
     </div>
-
 </div>
 
 <script>
@@ -219,4 +251,31 @@
             document.getElementById("EventLocation").style.borderColor = "red";
         }
     }
+    document.getElementById('EventContactorPhone').onkeyup = function () {
+        var EventContactorPhone = $("#EventContactorPhone").val();
+        if (EventContactorPhone.length >= 1) {
+            document.getElementById("EventContactorPhone").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventContactorPhone").style.borderColor = "red";
+        }
+    }
+    document.getElementById('EventContactorEmail').onkeyup = function () {
+        var EventContactorEmail = $("#EventContactorEmail").val();
+        if (EventContactorEmail.length >= 1) {
+            document.getElementById("EventContactorEmail").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventContactorEmail").style.borderColor = "red";
+        }
+    }
+    document.getElementById('EventContactorName').onkeyup = function () {
+        var EventContactorName = $("#EventContactorName").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("EventContactorName").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventContactorName").style.borderColor = "red";
+        }
+    }           
 </script>

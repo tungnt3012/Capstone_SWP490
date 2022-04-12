@@ -1,0 +1,883 @@
+﻿ 
+@{
+    ViewBag.Title = "List | Content";
+}
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/assets/owl.carousel.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.1/assets/owl.carousel.css'>
+<link rel="stylesheet" href="~/Content/PenStyle.css" asp-append-version="true" />
+<link rel='stylesheet' href='https://codepen.io/Michael-luke/pen/PzGywb.css'>
+<style>
+    #menu-home {
+        color: #ffffff !important;
+        background: #30cf6b;
+    }
+
+    #footer {
+        display: block;
+    }
+
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+</style>
+
+<div id="page-content-wrapper-home">
+    <div class="container-fluid xyz">
+        <div class="col-lg-12" id="content_area2_header">
+            <div class="col-lg-12" id="content_area2_title">
+                <label for="exampleInputTitle">List content</label>
+            </div>
+        </div>
+        <div class="main">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1" id="under">
+                    <div class="col-lg-12">
+                        <table id="dtBasicExample" class="table table-borderless" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="th-sm">
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card alt">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card alt">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="blog-card">
+                                                <div class="meta">
+                                                    <div class="photo"> <img src="~/image/image-2.jpg"> </div>
+                                                    <ul class="details">
+                                                        <li class="date"> Aug. 24, 2015</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="description">
+                                                    <lable class="front-size-title"> Lễ khai mạc đại hội tin học</lable>
+                                                    <h2> description:</h2>
+                                                    <p class="border border-danger">
+                                                        Lời đầu tiên, toàn thể dự án VNYP xin được gửi lời cảm ơn chân thành nhất tới tất cả các quý vị đại biểu, khách mời, các cơ quan báo chí và các bạn Nghị sĩ trẻ đã dành thời gian tham dự Lễ Khai mạc của Dự án Diễn đàn Nghị viện Trẻ năm 2016.Đối với dự án nói chung, buổi khai mạc ngày hôm nay có ý nghĩa đặc biệt quan trọng bởi đây là buổi lễ đánh dấu VNYP chính thức đi vào hoạt động.
+                                                        Dự án rất biết ơn các vị đại biểu, khách mời, cố vấn - những người đã cùng dõi theo dự án trong suốt thời gian qua, đưa ra những góp ý cần thiết và có những chia sẻ rất tâm huyết đối với dự án cũng như các bạn Nghị sĩ trẻ.
+                                                        Dự án xin được chân thành cảm ơn sự quan tâm của các đơn vị và các nhà báo, phóng viên đã dành thời gian tham gia sự kiện và tích cực đăng tin bài về sự kiện.
+                                                    </p>
+                                                    <p class="read-more">
+                                                        <a href="#"> Read More...</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>
