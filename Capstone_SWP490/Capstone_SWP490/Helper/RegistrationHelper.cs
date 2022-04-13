@@ -342,7 +342,7 @@ namespace Capstone_SWP490.Helper
                     error.objectName = "TEAM";
                     error.parentObject = APP_CONST.TEAM;
                     error.occur_position = "Row = " + row;
-                    error.msg = Message.UNKOWN_ERROR;
+                    error.msg = Message.UNKNOWN_ERROR;
                     error.type = 1;
                     result.error.Add(error);
                     Log.Error(e.Message);

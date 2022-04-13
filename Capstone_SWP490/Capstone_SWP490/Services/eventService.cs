@@ -20,7 +20,7 @@ namespace Capstone_SWP490.Services
 
         public IEnumerable<eventsViewModel> GetAllEventsAvailale()
         {
-            var events = _ieventRepository.FindBy(x => x.event_type == 1).ToList();
+            var events = _ieventRepository.FindBy(x => x.event_type == 1 && x.status != -1).ToList();
             var lstEventsViewModels = new List<eventsViewModel>();
             if (events != null)
             {
