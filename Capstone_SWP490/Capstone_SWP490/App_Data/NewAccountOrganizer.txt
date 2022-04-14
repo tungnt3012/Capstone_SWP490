@@ -1,0 +1,8 @@
+<p>Wellcome to <b><mark>ICPC Asia-VietNam Regional Contest</mark></b>
+<p>Hi <b>{0}</b>,</p>
+<p>Your new ORGANIZER account:</p>
+<p>Username :<b><mark>{1}</mark><b>
+<p>Password :<b><mark>{2}</mark><b>
+<p>
+ Check out that event here: <a href="{3}">View Detail</a> 
+</p>
