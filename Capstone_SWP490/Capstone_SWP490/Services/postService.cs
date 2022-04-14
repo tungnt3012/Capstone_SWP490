@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.Repositories;
+﻿using Capstone_SWP490.Models.post_ViewModel;
+using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Services.Interfaces;
 using log4net;
@@ -75,6 +76,36 @@ namespace Capstone_SWP490.Services
         public async Task<int> update(post post)
         {
             return await _ipostRepository.Update(post, post.post_id);
+        }
+
+        public List<post_TopViewModel> GetTop5Posts()
+        {
+            var posts = _ipostRepository.FindBy(x => x.featured == true).Take(5);
+            var lstPostOut = new List<post_TopViewModel>();
+            var lstPTemp = (from x in posts
+                     orderby x.schedule_date descending
+                     select x).ToList();
+
+            foreach(var x in lstPTemp)
+            {
+                var p = new post_TopViewModel
+                {
+                    post_id = x.post_id,
+                    content = x.content,
+                    enabled=x.enabled,
+                    featured =x.featured,
+                    html_content = x.html_content,
+                    insert_date = x.insert_date,
+                    post_by = x.post_by,
+                    post_to = x.post_to,
+                    schedule_date = x.schedule_date,
+                    short_description = x.short_description,
+                    title = x.title,
+                    update_date = x.update_date,
+                };
+                lstPostOut.Add(p);
+            }
+            return lstPostOut;
         }
     }
 }

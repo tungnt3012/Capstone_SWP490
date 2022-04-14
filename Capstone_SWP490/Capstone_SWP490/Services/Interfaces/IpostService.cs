@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone_SWP490.Models.post_ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,7 @@ namespace Capstone_SWP490.Services.Interfaces
         post getById(int id);
         List<post> getByAuthorId(int authorId, string statu);
         List<post> getToScheduler();
+
+        List<post_TopViewModel> GetTop5Posts();
     }
 }

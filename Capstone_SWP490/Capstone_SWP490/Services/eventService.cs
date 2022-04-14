@@ -448,9 +448,9 @@ namespace Capstone_SWP490.Services
                             }
                         }
                     }
-                    var sortSubTemp = from s in lstSubEventTemp
+                    var sortSubTemp = (from s in lstSubEventTemp
                                       orderby s.start_date ascending
-                                      select s;
+                                      select s).ToList();
                     foreach (var x in sortSubTemp)
                     {
                         var subViewModel = new eventsViewModel
@@ -551,10 +551,10 @@ namespace Capstone_SWP490.Services
                             }
                         }
                     }
-                    var sortSubTemp = from s in lstSubEventTemp
+                    var sortSubTemp = (from s in lstSubEventTemp
                                       orderby s.start_date ascending
-                                      select s;
-                    foreach(var x in sortSubTemp)
+                                      select s).ToList();
+                    foreach (var x in sortSubTemp)
                     {
                         var subViewModel = new eventsViewModel
                         {
@@ -591,6 +591,38 @@ namespace Capstone_SWP490.Services
                 }
             }
             return 0;
+        }
+
+        public List<eventsViewModel> GetTop8Event()
+        {
+            var lstEvent = new List<eventsViewModel>();
+            var events = _ieventRepository.FindBy(x => x.status != -1).ToList().Take(8);
+            var lstE = (from es in events
+                       orderby es.start_date ascending
+                       select es).ToList();
+            if (events.Count() > 0)
+            {
+                foreach(var x in lstE)
+                {
+                    var e = new eventsViewModel
+                    {
+                        event_id = x.event_id,
+                        title = x.title,
+                        event_type = x.event_type,
+                        desctiption = x.desctiption,
+                        start_date = x.start_date,
+                        end_date = x.end_date,
+                        start_date_str = x.start_date.ToString("dd-MM-yyyy, HH:mm"),
+                        end_date_str = x.end_date.ToString("dd-MM-yyyy, HH:mm"),
+                        venue = x.venue,
+                        note = x.note,
+                        status = x.status,
+                        total_joined = CountMemberJoinEvent(x.event_id)
+                    };
+                    lstEvent.Add(e);
+                }
+            }
+            return lstEvent;
         }
     }
 }

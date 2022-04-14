@@ -125,13 +125,13 @@ namespace Capstone_SWP490.Controllers
                     //add session
                     Session.Add("username", user.user_name);
                     Session["profile"] = user;
-                    if (user.verified == false)
-                    {
-                        return RedirectToAction("ChangePasswordFirst", "Login");
-                    }
                     if (user.confirm_password == 0)
                     {
                         return RedirectToAction("ResetPassword", "Login");
+                    }
+                    if (user.verified == false)
+                    {
+                        return RedirectToAction("ChangePasswordFirst", "Login");
                     }
                     return RedirectToAction("Index", "Home");
                 }
