@@ -61,6 +61,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ERROR.
+        /// </summary>
+        internal static string ERROR {
+            get {
+                return ResourceManager.GetString("ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RESULT.
+        /// </summary>
+        internal static string MESSGAE_RESULT {
+            get {
+                return ResourceManager.GetString("MESSGAE_RESULT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SYSTEM ERROR, please try again !.
         /// </summary>
         internal static string MSG001 {
@@ -79,7 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to invalid email!.
+        ///   Looks up a localized string similar to Invalid email!.
         /// </summary>
         internal static string MSG003 {
             get {
@@ -160,7 +178,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coach email is empty or not match with logged in, we uses information of logged in user.
+        ///   Looks up a localized string similar to Coach email is empty or not match with logged in, we uses information of logged inuser.
         /// </summary>
         internal static string MSG012 {
             get {
@@ -232,7 +250,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Member below ROW = {0} is not accepted. Because the contest {1} is just accept {2} contestant..
+        ///   Looks up a localized string similar to Member belows ROW = {0} is not accepted. Because the contest {1} is just accept {2} contestant..
         /// </summary>
         internal static string MSG020 {
             get {
@@ -277,7 +295,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Member name cannot be blank.
+        ///   Looks up a localized string similar to - Member name cannot be blank\n.
         /// </summary>
         internal static string MSG025 {
             get {
@@ -295,11 +313,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Member age must greater than or equal 15.
+        ///   Looks up a localized string similar to - Member age must greater than or equal 15\n.
         /// </summary>
         internal static string MSG027 {
             get {
                 return ResourceManager.GetString("MSG027", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot find school !.
+        /// </summary>
+        internal static string MSG028 {
+            get {
+                return ResourceManager.GetString("MSG028", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please waiting for Organizer confirmation !.
+        /// </summary>
+        internal static string MSG029 {
+            get {
+                return ResourceManager.GetString("MSG029", resourceCulture);
             }
         }
         

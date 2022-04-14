@@ -13,12 +13,12 @@ namespace Capstone_SWP490.Models.school_memberViewModel
             this.error = new List<import_error_ViewModel>();
         }
         public List<import_error_ViewModel> error { get; set; }
-        public school school { get; set; }
-        public member coach { get; set; }
-        public member vice_coach { get; set; }
-        public team displayTeam { get; set; }
-        public contest displayContest { get; set; }
-        public string source { get; set; } = "IMPORT";
+        public school School { get; set; }
+        public member Coach { get; set; }
+        public member ViceCoach { get; set; }
+        public team DisplayTeam { get; set; }
+        public contest DisplayContest { get; set; }
+        public string Source { get; set; } = "IMPORT";
         private void sortError()
         {
             if(error !=null)
@@ -28,9 +28,9 @@ namespace Capstone_SWP490.Models.school_memberViewModel
         public void setDisplayTeam(int teamId)
         {
             sortError();
-            if (school.teams.Count == 0)
+            if (School.teams.Count == 0)
             {
-                displayTeam = new team();
+                DisplayTeam = new team();
                 return;
             }
 
@@ -38,25 +38,25 @@ namespace Capstone_SWP490.Models.school_memberViewModel
             {
                 if (teamId == 0)
                 {
-                    displayTeam = school.teams.FirstOrDefault();
+                    DisplayTeam = School.teams.FirstOrDefault();
                 }
                 else
                 {
-                    foreach (var team in school.teams)
+                    foreach (var team in School.teams)
                     {
                         if (team.team_id == teamId)
                         {
-                            displayTeam = team;
+                            DisplayTeam = team;
                             break;
                         }
                     }
                 }
-                List<team_member> team_member = displayTeam.team_member.Where(x => x.member.member_role == 3).ToList();
+                List<team_member> team_member = DisplayTeam.team_member.Where(x => x.member.member_role == 3).ToList();
                 if (team_member != null && team_member.Count > 0)
                 {
                     member leader = team_member.FirstOrDefault().member;
                     if (leader.contest_member != null && leader.contest_member.Count > 0)
-                        displayContest = leader.contest_member.FirstOrDefault().contest;
+                        DisplayContest = leader.contest_member.FirstOrDefault().contest;
                 }
             }
             catch (Exception e)

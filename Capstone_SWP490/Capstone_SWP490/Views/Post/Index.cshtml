@@ -56,6 +56,7 @@
                                                 <th scope="col" width="30%">Short Description</th>
                                                 <th scope="col" width="12%">Create Date</th>
                                                 <th scope="col" width="12%">Post Date</th>
+                                                <th scope="col" width="11%">Featured</th>
                                                 <th scope="col" width="11%">Schedule/Time Remaining</th>
                                                 <th scope="col" width="10%">Posted</th>
                                                 <th scope="col" width="15%"></th>
@@ -64,30 +65,31 @@
                                         <tbody>
                                             @foreach (var item in Model.posts)
                                             {
-                                                <tr>
-                                                    <td>@(stt)</td>
-                                                    <td>@(item.title)</td>
-                                                    <td>@(item.short_description)</td>
-                                                    <td>@(item.insert_date)</td>
-                                                    <td>@(item.enabled == true ? item.update_date : "N/A")</td>
-                                                    <td>
-                                                        @(Model.calDate(item.schedule_date) == "" ?  "N/A" : Model.calDate(item.schedule_date))
-                                                    </td>
-                                                    <td>@(item.enabled)</td>
-                                                    <td>
+                                            <tr>
+                                                <td>@(stt)</td>
+                                                <td>@(item.title)</td>
+                                                <td>@(item.short_description)</td>
+                                                <td>@(item.insert_date)</td>
+                                                <td>@(item.enabled == true ? item.update_date : "N/A")</td>
+                                                <td>@(item.featured.Value)</td>
+                                                <td>
+                                                    @(Model.calDate(item.schedule_date) == "" ?  "N/A" : Model.calDate(item.schedule_date))
+                                                </td>
+                                                <td>@(item.enabled)</td>
+                                                <td>
 
-                                                        @if (item.enabled == true)
-                                                        {
-                                                            <a href="@Url.Action("Disable", "Post")?id=@item.post_id">Disable</a>
-                                                        }
-                                                        else
-                                                        {
-                                                            <a href="@Url.Action("Enable")?id=@item.post_id">RePost</a>
-                                                        }
-                                                        @("|")
-                                                        <a href="@Url.Action("Edit", "Post")?id=@item.post_id" style="color: red">Edit</a>
-                                                    </td>
-                                                </tr>
+                                                    @if (item.enabled == true)
+                                                    {
+                                                        <a href="@Url.Action("Disable", "Post")?id=@item.post_id">Disable</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="@Url.Action("Enable")?id=@item.post_id">RePost</a>
+                                                    }
+                                                    @("|")
+                                                    <a href="@Url.Action("Edit", "Post")?id=@item.post_id" style="color: red">Edit</a>
+                                                </td>
+                                            </tr>
                                                 { stt += 1; }
                                             }
 

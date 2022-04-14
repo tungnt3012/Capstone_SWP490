@@ -1,7 +1,6 @@
 ﻿using Capstone_SWP490.Constant.Const;
 using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Models.memberViewModel;
-using Capstone_SWP490.MyRoleProvider;
 using Capstone_SWP490.Services;
 using Capstone_SWP490.Services.Interfaces;
 using System;
@@ -13,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Capstone_SWP490.Controllers
 {
@@ -133,6 +133,7 @@ namespace Capstone_SWP490.Controllers
                     {
                         return RedirectToAction("ResetPassword", "Login");
                     }
+                    FormsAuthentication.SetAuthCookie(user.user_name, false);
                     return RedirectToAction("Index", "Home");
                 }
                 ViewData["LoginError"] = "Wrong username or password";
@@ -146,6 +147,7 @@ namespace Capstone_SWP490.Controllers
         {
             //remove session
             Session.RemoveAll();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Login");
         }
 

@@ -38,55 +38,40 @@
                             <div class="tab-pane active" role="tabpanel" id="step1">
                                 <div class="col-lg-12">
                                     <label class="border border-danger" for="Event_Schedule">
-                                        Total Registered School:
+                                        Registered Schools: 4 <a style="text-decoration: underline">detail</a>
                                     </label>
-                                    <label class="border border-danger" for="Event_Schedule" style="font-weight: normal">
-                                        @(Model.total_registered_school)
-                                    </label>
-                                    -<label class="border border-danger" for="Event_Schedule">
-                                        Total contestant:
-                                    </label>
-                                    <label class="border border-danger" for="Event_Schedule" style="font-weight: normal">
-                                        @(Model.total_contestant)
-                                    </label>
-                                </div>
-                                <div class="col-lg-12">
+                                    <br>
                                     <label class="border border-danger" for="Event_Schedule">
-                                        Download Excel : <a>Team contest</a> - <a>Individual contest</a>
+                                        Teams:  4 <a style="text-decoration: underline">detail</a>
                                     </label>
                                 </div>
                                 <div class="col-lg-12" id="under" style="border-top: 1px solid gray">
-                                    <label>Registered is waiting for confirmation:</label>
+                                    <label>Registered is waiting for confirmation (<span style="color: #337ab7">total= @(Model.school_confirrmation.Count)</span>)</label>
                                     <table class="table table-striped table-bordered table-sm" width="100%">
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="4%">STT</th>
                                                 <th scope="col" width="15%">School Name</th>
                                                 <th scope="col" width="10%">School Phone</th>
-                                                <th scope="col" width="10%">Coach Name</th>
-                                                <th scope="col" width="10%">Coach Email</th>
-                                                <th scope="col" width="10%">Coach Phone</th>
                                                 <th scope="col" width="4%">Teams</th>
                                                 <th scope="col" width="4%">Members</th>
-                                                <th scope="col" width="20%"></th>
+                                                <th scope="col" width="8%"></th>
                                             </tr>
                                         </thead>
                                         <tbody id="table-events">
+                                            @{int count = 0;}
                                             @foreach (var item in Model.school_confirrmation)
                                             {
                                                 <tr>
-                                                    <td class="date-table">1</td>
+                                                    <td class="date-table">@(++count)</td>
                                                     <td class="date-table">@(item.school_name)</td>
                                                     <td class="venue-table">@(item.school_phone)</td>
-                                                    <td class="venue-table">nguyenvanan@gmail.com</td>
-                                                    <td class="venue-table">nguyenvanan@gmail.com</td>
-                                                    <td class="venue-table">nguyenvanan@gmail.com</td>
                                                     <td class="title-table">@(item.total_team)</td>
                                                     <td class="title-table">@(item.total_member)</td>
                                                     <td class="title-table">
                                                         <a  onclick="triggerSubmit('@item.school_id',1)" style="cursor:pointer" data-toggle="modal" data-target="#myModal">Accept</a> |
-                                                        <a  onclick="triggerSubmit('@item.school_id',2)" style="cursor:pointer" data-toggle="modal" data-target="#myModal">Reject</a> |
-                                                        <a href="@Url.Action("RegistrationAction", "Statistic")?schoolId=@item.school_id">Detail</a>
+                                                        <a  onclick="triggerSubmit('@item.school_id',2)" style="cursor:pointer;color:red" data-toggle="modal" data-target="#myModal">Reject</a> |
+                                                        <a href="@Url.Action("DetailSchool", "Statistic")?schoolId=@item.school_id">Detail</a>
                                                     </td>
                                                 </tr>
                                             }
@@ -162,7 +147,7 @@
             {
                 <div class="modal-body">
                     <input id="schoolId" type="hidden" name="schoolId" />
-                    <input id="action" type="hidden" name="action" value="1"/>
+                    <input id="action" type="hidden" name="type" value="1"/>
                     <textarea id="reason-text" class="form-control" name="note" required></textarea>
                 </div>
                 <div class="modal-footer">

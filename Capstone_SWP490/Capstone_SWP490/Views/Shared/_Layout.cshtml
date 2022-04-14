@@ -108,5 +108,11 @@
     <script src="~/Scripts/bootstrap.js" asp-append-version="true"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/home.js" asp-append-version="true"></script>
+    @if (ViewData["RESULT"] != null)
+    {
+        <script type="text/javascript">
+    alert('@ViewData["RESULT"]')
+        </script>
+    }
 </body>
 </html>

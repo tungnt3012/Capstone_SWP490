@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone_SWP490.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -28,6 +29,22 @@ namespace Capstone_SWP490.Models.school_memberViewModel
         public Dictionary<string, string> errors { get; set; }
         public List<member_contest_ViewModel> contest_Members { get; set; }
 
+        public member buildMember()
+        {
+            member member = new member();
+            member.first_name = first_name;
+            member.middle_name = middle_name;
+            member.last_name = last_name;
+            member.dob = CommonHelper.toDateTime(dob.ToString());
+            member.email = email;
+            member.phone_number = phone_number;
+            member.year = year == null ? 0 : (int)year;
+            member.gender = gender;
+            member.award = award;
+            member.icpc_id = icpc_id;
+            member.member_role = (is_leader ? (short)3 : (short)4);
+            return member;
+        }
         public member_detail_ViewModel buildFromTeamMember(team_member teamMember)
         {
             team_id = (int)teamMember.team_id;
