@@ -122,9 +122,10 @@
 
 
 
+
 <input type="hidden" id="userss" value="@Session["username"]">
-<input type="hidden" id="me-start-date" value="@mainEvent.start_date">
-<input type="hidden" id="me-end-date" value="@mainEvent.end_date">
+<input type="hidden" id="me-start-date" value="@mainEvent.start_date.ToString("yyyy-MM-dd HH:mm:ss")">
+<input type="hidden" id="me-end-date" value="@mainEvent.end_date.ToString("yyyy-MM-dd HH:mm:ss")">
 @if (Session["username"] != null)
 {
     <input type="hidden" id="user_role" value="@profile.user_role">
@@ -151,40 +152,54 @@ else
         var _me_start_date = $('#me-start-date').val();
         var _me_end_date = $('#me-end-date').val();
 
-
-        if (_startDate > _endDate) {
-            $('#event-upload').attr("disabled", true);
-            $('#text-error-date').html("The End Date must NOT occur before the Start Date!!!");
-        } else {
-            $('#event-upload').attr("disabled", false);
-            $('#text-error-date').html("");
-        }
-
-        if (_startDate >= _me_start_date && _endDate <= _me_end_date) {
-            $('#event-upload').attr("disabled", false);
-            $('#text-error-date').html("");
-        } else {
-            $('#event-upload').attr("disabled", true);
-            $('#text-error-date').html("The Start Date must be >= Main Event Start Date:  " + _me_start_date + " </br> AND The End Date must be <= Main Event End Date:  " + _me_end_date + " !!!");
-        }
-        checkTime();
-    }
-
-    function checkTime() {
-        var _startDate = $('#EventStartDate').val();
-        var _endDate = $('#EventEndDate').val();
-
         var _startTime = $('#EventStartTime').val();
         var _endTime = $('#EventEndTime').val();
-        if (_startDate == _endDate) {
-            if (_startTime == _endTime || _startTime > _endTime) {
+
+        if (_startTime === '' || _endTime === '') {
+            //_endDate += ' 23:59:59';
+            //_startDate += ' 23:59:59';
+            $('#event-upload').attr("disabled", true);
+            $('#text-error-date').html("Time Not Null!!!");
+        } else {
+
+            _endDate += ' ' + _endTime;
+            _startDate += ' ' + _startTime;
+
+            if (_startDate > _endDate) {
                 $('#event-upload').attr("disabled", true);
-                $('#text-error-date').html("The End Time must be after the Start Time!!!");
+                $('#text-error-date').html("The End Date must NOT occur before the Start Date!!!");
             } else {
                 $('#event-upload').attr("disabled", false);
                 $('#text-error-date').html("");
             }
+
+            if (_startDate >= _me_start_date && _endDate <= _me_end_date) {
+                $('#event-upload').attr("disabled", false);
+                $('#text-error-date').html("");
+            } else {
+                $('#event-upload').attr("disabled", true);
+                $('#text-error-date').html("The Start Date must be >= Main Event Start Date:  " + _me_start_date + " </br> AND The End Date must be <= Main Event End Date:  " + _me_end_date + " !!!");
+            }
+
         }
+    }
+
+    function checkTime() {
+        checkDate();
+        //var _startDate = $('#EventStartDate').val();
+        //var _endDate = $('#EventEndDate').val();
+
+        //var _startTime = $('#EventStartTime').val();
+        //var _endTime = $('#EventEndTime').val();
+        //if (_startDate == _endDate) {
+        //    if (_startTime == _endTime || _startTime > _endTime) {
+        //        $('#event-upload').attr("disabled", true);
+        //        $('#text-error-date').html("The End Time must be after the Start Time!!!");
+        //    } else {
+        //        $('#event-upload').attr("disabled", false);
+        //        $('#text-error-date').html("");
+        //    }
+        //}
     }
 
 </script>

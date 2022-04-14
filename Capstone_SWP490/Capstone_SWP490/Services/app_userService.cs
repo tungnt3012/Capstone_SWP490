@@ -371,6 +371,7 @@ namespace Capstone_SWP490.Services
                 u.psw = newPass;
                 u.encrypted_psw = CommonHelper.createEncryptedPassWord(u.psw);
                 u.confirm_password = 1;
+                u.verified = true;
                 if (await _iapp_UserRepository.Update(u, u.user_id) != -1)
                 {
                     return true;
