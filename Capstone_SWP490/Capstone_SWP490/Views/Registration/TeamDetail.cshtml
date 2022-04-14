@@ -1,4 +1,4 @@
-﻿@model  Capstone_SWP490.Models.school_memberViewModel.import_resultViewModel
+﻿@model Capstone_SWP490.Models.school_memberViewModel.import_resultViewModel
 @{ ViewBag.Title = "Registration | Team Detail";
 }
 
@@ -20,17 +20,17 @@
             <div class="col-lg-10 col-lg-offset-1" id="under">
 
                 <div class="col-lg-12">
-                    @using (Html.BeginForm(Model.source == "IMPORT" ? "InsertMember" : "SaveChangeTeam", "Registration", FormMethod.Post))
+                    @using (Html.BeginForm(Model.Source == "IMPORT" ? "InsertMember" : "SaveChangeTeam", "Registration", FormMethod.Post))
                     {
-                        <input type="hidden" name="teamId" value="@Model.displayTeam.team_id" />
-                        <input type="hidden" name="contestId" value="@Model.displayTeam.team_id" />
+                        <input type="hidden" name="teamId" value="@Model.DisplayTeam.team_id" />
+                        <input type="hidden" name="contestId" value="@Model.DisplayTeam.team_id" />
                         <div class="col-lg-12">
                             <div class="form-group">
-                                @if (Model.source == "VIEW")
+                                @if (Model.Source == "VIEW")
                                 {
                                     <button class="btn btn-primary" id="registration_importdata">Save Changes</button>
                                 }
-                                else if (Model.source == "IMPORT")
+                                else if (Model.Source == "IMPORT")
                                 {
                                     <button class="btn btn-primary" id="registration_importdata">Save</button>
                                 }  <button type="button" class="btn btn-secondary" id="registration_importdata-cancel">Cancel</button>
@@ -40,62 +40,62 @@
                             <div class="form-group">
                                 <label style="font-size: 15px">
                                     Team Name:
-                                </label><input style="height:25px;" type="text" name="teamName" value=" @(Model.displayTeam.team_name)" />
+                                </label><input style="height:25px;" type="text" name="teamName" value=" @(Model.DisplayTeam.team_name)" />
 
                                 <label style="font-size: 15px">Contest:</label><span style="color: #2fa9fb">
-                                    @(Model.displayTeam.contest.contest_name +"("+ Model.displayTeam.contest.code+")")
+                                    @(Model.DisplayTeam.contest.contest_name +"("+ Model.DisplayTeam.contest.code+")")
                                 </span>
                             </div>
-                            
+
                         </div>
                     }
-                <div class="col-lg-12" style="overflow:auto;">
-                    <div class="form-group">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col" width="8%">First name</th>
-                                    <th scope="col" width="8%">Middle name</th>
-                                    <th scope="col" width="8%">Last name</th>
-                                    <th scope="col" width="8%">DOB</th>
-                                    <th scope="col" width="12%">Email</th>
-                                    <th scope="col" width="10%">Phone number</th>
-                                    <th scope="col" width="6%">ICPC ID</th>
-                                    <th scope="col" width="7%">Gender</th>
-                                    <th scope="col" width="7%">Year</th>
-                                    <th scope="col" width="7%">Award</th>
-                                    <th scope="col" width="10%">Member role</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.displayTeam.team_member)
-                                {
+                    <div class="col-lg-12" style="overflow:auto;">
+                        <div class="form-group">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td style="color : @(item.member.first_name == "" ? "red" : "black")">@(item.member.first_name == "" ? "N/A" : item.member.first_name)</td>
-                                        <td style="color: @(item.member.middle_name == "" ? "red" : "black")">@(item.member.middle_name == "" ? "N/A" : item.member.middle_name)</td>
-                                        <td style="color: @(item.member.last_name == "" ? "red" : "black")">@(item.member.last_name == "" ? "N/A" : item.member.last_name)</td>
-                                        <td style="color: @(item.member.dob == new DateTime() ? "red" : "black")">@(item.member.dob == new DateTime() ? "N/A" : (item.member.dob.Year + "-" + (item.member.dob.Month < 10 ? "0" + item.member.dob.Month : item.member.dob.Month+"") + "-" + (item.member.dob.Day < 10 ? "0" + item.member.dob.Day : item.member.dob.Day+"")))</td>
-                                        <td style="color: @(item.member.email == "" ? "red" : "black" )">@(item.member.email == "" ? "N/A" : item.member.email)</td>
-                                        <td style="color: @(item.member.phone_number == "" ? "red" : "black" )">@(item.member.phone_number == "" ? "N/A" : item.member.phone_number) </td>
-                                        <td style="color: @(item.member.icpc_id == null ? "red" : "black")">@(item.member.icpc_id == null ? "N/A" : item.member.icpc_id+"")</td>
-                                        <td>@(item.member.gender == 0 ? "Male" : "Female")</td>
-                                        <td style="color: @(item.member.year == -1 ? "red" : "black" )">@(item.member.year == -1 ? "N/A" : item.member.year+"")</td>
-                                        <td>@(item.member.award == null || item.member.award.Trim() == "" ? "N/A" : item.member.award)</td>
-                                        <td>@(item.member.member_role == 3 ? "Team Leader" : "Member" )</td>
-                                        <td>
-                                            <a href="@Url.Action("MemberDetail", "Registration")?id=@item.member.member_id&teamId=@item.team.team_id">Detail</a>
-                                            @if (item.member.member_role == 4)
-                                            {
-                                                @("| ")<a style="color:red" href="@Url.Action("RemoveMember", "Registration")?member_id=@item.member.member_id&team_id=@item.team.team_id">Remove</a>
-                                            }
-                                        </td>
+                                        <th scope="col" width="8%">First name</th>
+                                        <th scope="col" width="8%">Middle name</th>
+                                        <th scope="col" width="8%">Last name</th>
+                                        <th scope="col" width="8%">DOB</th>
+                                        <th scope="col" width="12%">Email</th>
+                                        <th scope="col" width="10%">Phone number</th>
+                                        <th scope="col" width="6%">ICPC ID</th>
+                                        <th scope="col" width="7%">Gender</th>
+                                        <th scope="col" width="7%">Year</th>
+                                        <th scope="col" width="7%">Award</th>
+                                        <th scope="col" width="10%">Member role</th>
+                                        <th scope="col"></th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.DisplayTeam.team_member)
+                                    {
+                                        <tr>
+                                            <td style="color : @(item.member.first_name == "" ? "red" : "black")">@(item.member.first_name == "" ? "N/A" : item.member.first_name)</td>
+                                            <td style="color: @(item.member.middle_name == "" ? "red" : "black")">@(item.member.middle_name == "" ? "N/A" : item.member.middle_name)</td>
+                                            <td style="color: @(item.member.last_name == "" ? "red" : "black")">@(item.member.last_name == "" ? "N/A" : item.member.last_name)</td>
+                                            <td style="color: @(item.member.dob == new DateTime() ? "red" : "black")">@(item.member.dob == new DateTime() ? "N/A" : (item.member.dob.Year + "-" + (item.member.dob.Month < 10 ? "0" + item.member.dob.Month : item.member.dob.Month+"") + "-" + (item.member.dob.Day < 10 ? "0" + item.member.dob.Day : item.member.dob.Day+"")))</td>
+                                            <td style="color: @(item.member.email == "" ? "red" : "black" )">@(item.member.email == "" ? "N/A" : item.member.email)</td>
+                                            <td style="color: @(item.member.phone_number == "" ? "red" : "black" )">@(item.member.phone_number == "" ? "N/A" : item.member.phone_number) </td>
+                                            <td style="color: @(item.member.icpc_id == null ? "red" : "black")">@(item.member.icpc_id == null ? "N/A" : item.member.icpc_id+"")</td>
+                                            <td>@(item.member.gender == 0 ? "Male" : "Female")</td>
+                                            <td style="color: @(item.member.year == -1 ? "red" : "black" )">@(item.member.year == -1 ? "N/A" : item.member.year+"")</td>
+                                            <td>@(item.member.award == null || item.member.award == "" ? "N/A" : item.member.award)</td>
+                                            <td>@(item.member.member_role == 3 ? "Team Leader" :"Member")</td>
+                                            <td>
+                                                <a href="@Url.Action("MemberDetail", "Registration")?id=@item.member.member_id&teamId=@item.team.team_id">Detail</a>
+                                                @if (item.member.member_role == 4)
+                                                {
+                                                    @("| ")<a style="color:red" href="@Url.Action("RemoveMember", "Registration")?member_id=@item.member.member_id&team_id=@item.team.team_id">Remove</a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>

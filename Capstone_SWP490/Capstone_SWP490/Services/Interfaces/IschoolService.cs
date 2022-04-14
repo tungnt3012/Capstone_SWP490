@@ -15,15 +15,18 @@ namespace Capstone_SWP490.Services.Interfaces
         school findActiveById(int id);
 
         void disable(school school);
+        Task<int> update(school school);
         int count(int coach_id);
        int disableUsingStore(int schoolId);
         school getInConfirmation(int coachId);
-        Task<int> update(school school);
         school findById(int schoolId);
         bool isExisted(string schoolName, string institutioName, int coachUserId);
         school getFirstRegistSchool(int coachUserId);
         List<statistic_schoolViewModel> findSchoolConfirmation();
         int getRegistered();
         int getTotalContestantInRegistered();
+        Task<int> useSchool(int schoolId, int coachId);
+        Task<int> processSchool(int schoolId, string type);
+        Task<int> removeSchool(int schoolId);
     }
 }

@@ -9,6 +9,7 @@ using log4net;
 using Capstone_SWP490.Models.statisticViewModel;
 using Capstone_SWP490.Constant.Const;
 using Capstone_SWP490.Helper;
+using System.Threading.Tasks;
 
 namespace Capstone_SWP490.Controllers.Organization
 {
@@ -36,7 +37,7 @@ namespace Capstone_SWP490.Controllers.Organization
                 return RedirectToAction(ACTION_CONST.Home.INDEX, ACTION_CONST.Home.CONTROLLER);
             }
         }
-        public ActionResult RegistrationAction(int? schoolId, string action, string note)
+        public async Task<ActionResult> RegistrationAction(int? schoolId, string type, string note)
         {
             try
             {
@@ -45,27 +46,10 @@ namespace Capstone_SWP490.Controllers.Organization
                     Log.Error("School ID is null");
                     return RedirectToAction(ACTION_CONST.Home.INDEX, ACTION_CONST.Home.CONTROLLER);
                 }
-                if (!action.Equals("1"))
-                {
-                    if (!action.Equals("2"))
-                    {
-                        Log.Error("Action fail");
-                        return RedirectToAction(ACTION_CONST.Home.INDEX, ACTION_CONST.Home.CONTROLLER);
-                    }
-                }
-
+                await _ischoolService.processSchool((int)schoolId, type);
                 school school = _ischoolService.findById((int)schoolId);
-                if (action.Equals("1"))
-                {
-                    school.active = 3;
-                }
-                else if (action.Equals("2"))
-                {
-                    school.active = -1;
-                }
-                _ischoolService.update(school);
                 app_user coachUser = _iapp_UserService.getByUserId((int)school.coach_id);
-                new MailHelper().sendMailConfrimRegistration(coachUser, action.Equals("1") ? "Accepted" : "Rejected", note);
+                new MailHelper().sendMailConfrimRegistration(coachUser, type.Equals("1") ? "Accepted" : "Rejected", note);
                 return RedirectToAction(ACTION_CONST.Statistic.INDEX, ACTION_CONST.Statistic.CONTROLLER);
             }
             catch (Exception e)
@@ -83,6 +67,26 @@ namespace Capstone_SWP490.Controllers.Organization
             }
             school school = _ischoolService.findById((int)schoolId);
             return View(school);
+        }
+
+        public ActionResult TeamContest()
+        {
+            return View();
+        }
+
+        public ActionResult DownloadTeamContest()
+        {
+            return View();
+        }
+
+        public ActionResult RegisteredTeam()
+        {
+            return View();
+        }
+
+        public ActionResult RegisteredSchool()
+        {
+            return View();
         }
     }
 }

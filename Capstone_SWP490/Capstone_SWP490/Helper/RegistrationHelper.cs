@@ -30,6 +30,7 @@ namespace Capstone_SWP490.Helper
                 return null;
             return teams.Find(x => x.team.team_name == teamName);
         }
+
         public bool isTeamLeader(member leader, member compared)
         {
             if (compared == null)
@@ -82,13 +83,13 @@ namespace Capstone_SWP490.Helper
                 {
                     contestModel.selected = false;
                 }
-                    listContestModel.Add(contestModel);
+                listContestModel.Add(contestModel);
             }
             return listContestModel;
         }
         public import_resultViewModel updateCoach(string[,] data, import_resultViewModel result)
         {
-            member loginedCoach = result.coach;
+            member loginedCoach = result.Coach;
             string full_name = data[4, 0];
             loginedCoach.first_name = extractFirstName(full_name);
             loginedCoach.middle_name = extractMiddleName(full_name);
@@ -99,7 +100,7 @@ namespace Capstone_SWP490.Helper
             try
             {
                 loginedCoach = validImportMember(loginedCoach);
-                result.coach = loginedCoach;
+                result.Coach = loginedCoach;
                 return result;
             }
             catch (Exception e)
@@ -119,10 +120,10 @@ namespace Capstone_SWP490.Helper
             try
             {
                 viceCoach = validImportMember(viceCoach);
-                app_user viceCoachAppUser = await createAppUserForMember(viceCoach, result.coach.user_id);
+                app_user viceCoachAppUser = await createAppUserForMember(viceCoach, result.Coach.user_id);
                 viceCoach.user_id = viceCoachAppUser.user_id;
                 viceCoach.app_user = viceCoachAppUser;
-                result.vice_coach = viceCoach;
+                result.ViceCoach = viceCoach;
                 return result;
             }
             catch (Exception e)
@@ -307,8 +308,8 @@ namespace Capstone_SWP490.Helper
                     }
 
                     team.team_id = teamId++;
-                    team.school = result.school;
-                    team.school_id = result.school.school_id;
+                    team.school = result.School;
+                    team.school_id = result.School.school_id;
                     team.team_name = teamName;
                     team.contest_id = contest.contest_id;
                     team.contest = contest;
@@ -348,7 +349,7 @@ namespace Capstone_SWP490.Helper
                     Log.Error(e.Message);
                 }
             }
-            result.school.teams = schoolTeam;
+            result.School.teams = schoolTeam;
             return result;
         }
 
@@ -357,7 +358,7 @@ namespace Capstone_SWP490.Helper
             import_error_ViewModel error;
             int col = importObject.getStartAtCol();
             int row = importObject.getStartAtRow();
-            school firstRegist = _ischoolService.getFirstRegistSchool(result.coach.app_user.user_id);
+            school firstRegist = _ischoolService.getFirstRegistSchool(result.Coach.app_user.user_id);
             //read school, if any field is empty then use first regist
             string school_name = schoolSheet.Cells[row++, col].Value + "";
             if (StringUtils.isNullOrEmpty(school_name))
@@ -384,7 +385,7 @@ namespace Capstone_SWP490.Helper
                 error.type = 2;
                 result.error.Add(error);
             }
-            bool existed = _ischoolService.isExisted(school_name, insitution_name, result.coach.app_user.user_id);
+            bool existed = _ischoolService.isExisted(school_name, insitution_name, result.Coach.app_user.user_id);
             //in case of school name and institution name inserted by other coach
             if (existed)
             {
@@ -438,9 +439,9 @@ namespace Capstone_SWP490.Helper
             school.phone_number = school_phone;
             school.website = school_website;
             school.address = address;
-            result.school = school;
+            result.School = school;
 
-            int loginedId = result.coach.user_id;
+            int loginedId = result.Coach.user_id;
             string coach_name = schoolSheet.Cells[row++, col].Value + "";
             string msgValidateCoach = "";
             if (coach_name.Trim().Equals(""))
@@ -449,7 +450,7 @@ namespace Capstone_SWP490.Helper
             }
 
             string coach_email = schoolSheet.Cells[row++, col].Value + "";
-            if (!IsValidEmail(coach_email) || !coach_email.Equals(result.coach.email))
+            if (!IsValidEmail(coach_email) || !coach_email.Equals(result.Coach.email))
             {
                 msgValidateCoach += "\n" + Message.MSG012;
             }
@@ -458,7 +459,7 @@ namespace Capstone_SWP490.Helper
                 error = new import_error_ViewModel();
                 error.objectName = "COACH";
                 error.occur_position = "ROW = 7 OR 8";
-                error.msg = msgValidateCoach.StartsWith("\n") ? msgValidateCoach.Remove(0,1) : msgValidateCoach;
+                error.msg = msgValidateCoach.StartsWith("\n") ? msgValidateCoach.Remove(0, 1) : msgValidateCoach;
                 error.parentObject = SchoolImport.sheetName;
                 error.type = 2;
                 result.error.Add(error);
@@ -472,8 +473,8 @@ namespace Capstone_SWP490.Helper
             coach.last_name = extractLastName(coach_name);
             coach.phone_number = coach_phone;
             coach.user_id = loginedId;
-            coach.app_user = result.coach.app_user;
-            result.coach = coach;
+            coach.app_user = result.Coach.app_user;
+            result.Coach = coach;
 
             //read vice coach
             string vice_coach_name = schoolSheet.Cells[row++, col].Value + "";
@@ -501,7 +502,7 @@ namespace Capstone_SWP490.Helper
                 }
                 else
                 {
-                    result.vice_coach = vice_coach;
+                    result.ViceCoach = vice_coach;
                 }
             }
 
@@ -602,7 +603,7 @@ namespace Capstone_SWP490.Helper
         public import_resultViewModel readMemberSheet(import_resultViewModel result, ExcelWorksheet memberSheet, MemberImport memberImport)
         {
             List<string> memberEmail = new List<string>();
-            int coachUserId = result.coach.app_user.user_id;
+            int coachUserId = result.Coach.app_user.user_id;
             import_error_ViewModel error;
             int rowCount = memberSheet.Dimension.End.Row;     //get row count
             int colCount = memberSheet.Dimension.End.Column;
@@ -625,7 +626,7 @@ namespace Capstone_SWP490.Helper
                     if (!StringUtils.isNullOrEmpty(cellVal))
                     {
                         //read team from sheet team
-                        team = result.school.teams.Where(x => x.team_name.ToUpper() == cellVal.ToUpper()).ToList().FirstOrDefault();
+                        team = result.School.teams.Where(x => x.team_name.ToUpper() == cellVal.ToUpper()).ToList().FirstOrDefault();
                         if (team == null)
                         {
                             error = new import_error_ViewModel();
@@ -669,7 +670,7 @@ namespace Capstone_SWP490.Helper
                         {
                             member = leaderTeamMember.member;
                             //remove leader (add before)
-                            result.school.teams.Where(x => x.team_id == team.team_id).FirstOrDefault().team_member.Remove(leaderTeamMember);
+                            result.School.teams.Where(x => x.team_id == team.team_id).FirstOrDefault().team_member.Remove(leaderTeamMember);
                         }
                         else
                         {
@@ -735,7 +736,7 @@ namespace Capstone_SWP490.Helper
                     teamMember.member_id = member.member_id;
                     teamMember.member = member;
                     //add member to team
-                    result.school.teams.Where(x => x.team_id == team.team_id).FirstOrDefault().team_member.Add(teamMember);
+                    result.School.teams.Where(x => x.team_id == team.team_id).FirstOrDefault().team_member.Add(teamMember);
                 }
                 catch (Exception e)
                 {

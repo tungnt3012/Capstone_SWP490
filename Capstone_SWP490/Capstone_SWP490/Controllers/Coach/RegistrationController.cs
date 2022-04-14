@@ -21,6 +21,7 @@ using Capstone_SWP490.Constant.Const;
 using Capstone_SWP490.Models.registrationViewModel;
 using Capstone_SWP490.Models.app_userViewModel;
 using Resources;
+using Capstone_SWP490.Sercurity;
 
 namespace Capstone_SWP490.Controllers.Coach
 {
@@ -38,31 +39,26 @@ namespace Capstone_SWP490.Controllers.Coach
         private readonly interfaces.IcontestService _icontestService = new services.contestService();
 
         // GET: Registration
+        [AuthorizationAccept(Roles = "COACH,GUEST")]
         public ActionResult Index()
         {
             try
             {
-                if (HttpContext.Session["username"] != null)
+                app_userViewModel logined = (app_userViewModel)Session[SESSION_CONST.Global.LOGIN_SESSION];
+                if (logined == null)
                 {
-                    var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
-                    //if user is COACH or CO-COACH so return Import file excel 
-                    if (u.user_role.Equals("COACH") || u.user_role.Equals("CO-COACH"))
-                    {
-                        IndexViewModel model = new IndexViewModel();
-                        List<school> schools = _ischoolService.findByCoachId(u.user_id);
-                        model.school = schools;
-                        List<import_error_ViewModel> result = (List<import_error_ViewModel>)Session[SESSION_CONST.Registration.INSERT_RESULT];
-                        Session.Remove(SESSION_CONST.Registration.INSERT_RESULT);
-                        //case insert data to database then check result in session
-                        if (result != null && result.Count > 0)
-                        {
-                            model.insert_result = result;
-                        }
-                        return View(model);
-                    }
+                    return RedirectToAction(ACTION_CONST.Registration.GUIDE, ACTION_CONST.Registration.CONTROLLER);
                 }
-                //if user is NOT COACH or CO-COACH so return view Guild 
-                return RedirectToAction(ACTION_CONST.Registration.GUIDE, ACTION_CONST.Registration.CONTROLLER);
+                List<school> schools = _ischoolService.findByCoachId(logined.user_id);
+                IndexViewModel model = new IndexViewModel(schools).build();
+                List<import_error_ViewModel> result = (List<import_error_ViewModel>)Session[SESSION_CONST.Registration.INSERT_RESULT];
+                Session.Remove(SESSION_CONST.Registration.INSERT_RESULT);
+                //case insert data to database then check result in session
+                if (result != null && result.Count > 0)
+                {
+                    model.insert_result = result;
+                }
+                return View(model);
             }
             catch (Exception e)
             {
@@ -71,15 +67,12 @@ namespace Capstone_SWP490.Controllers.Coach
             }
         }
 
+        [AllowAnonymous]
         public ActionResult Guide()
         {
             return View();
         }
-        public ActionResult RegistrationStatistic()
-        {
-            return View();
-        }
-
+        [AuthorizationAccept(Roles = "COACH")]
         public ActionResult MemberDetail(int? id, int? teamId)
         {
             try
@@ -93,12 +86,13 @@ namespace Capstone_SWP490.Controllers.Coach
                 {
                     return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER, new { team = 0 });
                 }
-                team_member teamMember = registrationHelper.getTeamMember((int)id, data.school.teams.Where(x => x.team_id == (int)teamId).FirstOrDefault());
+                team team = data.School.teams.Where(x => x.team_id == (int)teamId).FirstOrDefault();
+                team_member teamMember = registrationHelper.getTeamMember((int)id, team);
                 if (teamMember != null)
                 {
                     member_detail_ViewModel model = new member_detail_ViewModel().buildFromTeamMember(teamMember);
                     List<contest_member> contestMember = teamMember.member.contest_member.ToList();
-                    List<member_contest_ViewModel> listContestModel = registrationHelper.createContestViewMode(contestMember);
+                    List<member_contest_ViewModel> listContestModel = _icontestService.getContestMemberModel(contestMember);
                     model.contest_Members = listContestModel;
                     return View(model);
                 }
@@ -111,6 +105,7 @@ namespace Capstone_SWP490.Controllers.Coach
             }
         }
 
+        [AuthorizationAccept(Roles = "COACH")]
         [HttpPost]
         public ActionResult SaveChange()
         {
@@ -119,8 +114,8 @@ namespace Capstone_SWP490.Controllers.Coach
             {
                 return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
             }
-            _ischoolService.update(data.school);
-            foreach (var item in data.school.teams)
+            _ischoolService.update(data.School);
+            foreach (var item in data.School.teams)
             {
                 _iteamService.update(item);
                 foreach (var member in item.team_member)
@@ -132,6 +127,7 @@ namespace Capstone_SWP490.Controllers.Coach
             return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
         }
 
+        [AuthorizationAccept(Roles = "COACH")]
         public ActionResult SaveChangeTeam(string teamName, int teamId, int contestId)
         {
             try
@@ -143,7 +139,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 }
                 if (!StringUtils.isNullOrEmpty(teamName))
                 {
-                    data.school.teams.Where(x => x.team_id == teamId).FirstOrDefault().team_name = teamName;
+                    data.School.teams.Where(x => x.team_id == teamId).FirstOrDefault().team_name = teamName;
                     Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
                 }
             }
@@ -153,9 +149,11 @@ namespace Capstone_SWP490.Controllers.Coach
             }
             return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER);
         }
+
+        [AuthorizationAccept(Roles = "COACH")]
         public ActionResult TeamDetail(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER);
             }
@@ -174,14 +172,28 @@ namespace Capstone_SWP490.Controllers.Coach
             FileInfo file = new FileInfo(_path);
             if (file.Exists)
             {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage package = new ExcelPackage(file))
+                {
+                    List<contest> individualContest = _icontestService.getIndividualContest();
+                    ExcelWorksheet sheets = package.Workbook.Worksheets[3];
+                    int startCol = 12;
+                    int startRow = 2;
+                    foreach (var item in individualContest)
+                    {
+                        sheets.Cells[startRow, startCol++].Value = item.contest_name;
+                    }
+                    package.Save();
+                }
+                FileInfo afterEdit = new FileInfo(_path);
                 Response.Clear();
                 Response.ClearHeaders();
                 Response.ClearContent();
                 Response.AddHeader("content-disposition", "attachment; filename=" + fname);
                 Response.AddHeader("Content-Type", "application/Excel");
                 Response.ContentType = "application/vnd.xls";
-                Response.AddHeader("Content-Length", file.Length.ToString());
-                Response.WriteFile(file.FullName);
+                Response.AddHeader("Content-Length", afterEdit.Length.ToString());
+                Response.WriteFile(afterEdit.FullName);
                 Response.End();
             }
             else
@@ -190,6 +202,9 @@ namespace Capstone_SWP490.Controllers.Coach
             }
             return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
         }
+
+
+        [AuthorizationAccept(Roles = "COACH")]
         public async Task<ActionResult> InsertMember()
         {
             List<import_error_ViewModel> result = new List<import_error_ViewModel>();
@@ -210,10 +225,10 @@ namespace Capstone_SWP490.Controllers.Coach
                     return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER, new { error = false });
                 }
 
-                listTeam = data.school.teams.ToList();
+                listTeam = data.School.teams.ToList();
 
                 //insert school part
-                inserted_school = registrationHelper.cleanSchool(data.school);
+                inserted_school = registrationHelper.cleanSchool(data.School);
                 inserted_school.coach_id = logined.user_id;
                 //set school is in use if first insert
                 inserted_school.active = 1;
@@ -235,7 +250,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         msg = e.Message;
                     }
                     error = new import_error_ViewModel();
-                    error.objectName = data.school.school_name + "(" + data.school.institution_name + ")";
+                    error.objectName = data.School.school_name + "(" + data.School.institution_name + ")";
                     error.parentObject = "ROOT";
                     error.occur_position = "SCHOOL";
                     error.msg = "The process has been stopped becase of " + msg + ", please try again !";
@@ -245,7 +260,7 @@ namespace Capstone_SWP490.Controllers.Coach
 
                 }
 
-                member coach = data.coach;
+                member coach = data.Coach;
                 app_user coachUser = coach.app_user;
                 coachUser.full_name = coach.first_name + " " + coach.middle_name + " " + coach.last_name;
                 //update coach part
@@ -263,9 +278,9 @@ namespace Capstone_SWP490.Controllers.Coach
                 await _imemberService.update(storedCoach, storedCoach.member_id);
 
                 //insert vice coach part
-                if (data.vice_coach != null)
+                if (data.ViceCoach != null)
                 {
-                    member viceCoach =  registrationHelper.cleanMember(data.vice_coach);
+                    member viceCoach = registrationHelper.cleanMember(data.ViceCoach);
                     app_user viceCoachUser = await registrationHelper.createAppUserForMember(viceCoach, storedCoach.user_id);
                     viceCoach.enabled = true;
                     viceCoach.user_id = viceCoachUser.user_id;
@@ -299,7 +314,7 @@ namespace Capstone_SWP490.Controllers.Coach
                             msg = e.Message;
                         }
                         error = new import_error_ViewModel();
-                        error.objectName = data.vice_coach.first_name + " " + data.vice_coach.middle_name + " " + data.vice_coach.last_name + "(VICE COACH)";
+                        error.objectName = data.ViceCoach.first_name + " " + data.ViceCoach.middle_name + " " + data.ViceCoach.last_name + "(VICE COACH)";
                         error.parentObject = "ROOT";
                         error.occur_position = "VICE COACH";
                         error.msg = "The process has been stopped becase of " + msg + ", please try again !";
@@ -356,7 +371,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     {
                         contestMemberList = i.member.contest_member.ToList();
                         insertMember = registrationHelper.cleanMember(i.member);
-                        app_user memberUser = await registrationHelper.createAppUserForMember(insertMember,storedCoach.user_id);
+                        app_user memberUser = await registrationHelper.createAppUserForMember(insertMember, storedCoach.user_id);
                         insertMember.user_id = memberUser.user_id;
                         insertMember.enabled = i.member.enabled;
                         try
@@ -498,6 +513,7 @@ namespace Capstone_SWP490.Controllers.Coach
             return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
         }
 
+
         private async Task<team> insertTeamAsync(team team)
         {
             team.school = null;
@@ -521,6 +537,8 @@ namespace Capstone_SWP490.Controllers.Coach
             return team;
         }
 
+
+        [AuthorizationAccept(Roles = "COACH")]
         [HttpPost]
         public ActionResult MemberDetail(member_detail_ViewModel model, List<string> contest_members)
         {
@@ -532,7 +550,7 @@ namespace Capstone_SWP490.Controllers.Coach
             try
             {
 
-                team_member teamMember = data.school.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
+                team_member teamMember = data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
                      team_member.Where(y => y.member.member_id == model.member_id).FirstOrDefault();
                 string errorMsg = "";
                 if (StringUtils.isNullOrEmpty(model.first_name))
@@ -554,17 +572,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     model.contest_Members = listContestModel;
                     return View(model);
                 }
-                teamMember.member.first_name = model.first_name;
-                teamMember.member.middle_name = model.middle_name;
-                teamMember.member.last_name = model.last_name;
-                teamMember.member.dob = CommonHelper.toDateTime(model.dob.ToString());
-                teamMember.member.email = model.email;
-                teamMember.member.phone_number = model.phone_number;
-                teamMember.member.year = model.year == null ? 0 : (int)model.year;
-                teamMember.member.gender = model.gender;
-                teamMember.member.award = model.award;
-                teamMember.member.icpc_id = model.icpc_id;
-                teamMember.member.member_role = (model.is_leader ? (short)3 : (short)4);
+                teamMember.member = model.buildMember();
                 teamMember.member.contest_member.Clear();
                 foreach (var contestCode in contest_members)
                 {
@@ -586,9 +594,9 @@ namespace Capstone_SWP490.Controllers.Coach
                     registrationHelper.validImportMember(teamMember.member);
                     if (model.is_leader)
                     {
-                        data.school.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
+                        data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
                              team_member.Where(y => y.member.member_role == 3).FirstOrDefault().member.member_role = 4;
-                        data.school.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
+                        data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
                             team_member.Where(y => y.member.member_id == model.member_id).FirstOrDefault().member.member_role = 3;
                     }
 
@@ -607,6 +615,7 @@ namespace Capstone_SWP490.Controllers.Coach
             return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER, new { team = model.team_id });
         }
 
+        [AuthorizationAccept(Roles = "COACH")]
         [HttpGet]
         public ActionResult Result(string team)
         {
@@ -614,7 +623,7 @@ namespace Capstone_SWP490.Controllers.Coach
             Session.Remove(SESSION_CONST.Registration.INSERT_ERROR);
             Session.Remove(SESSION_CONST.Registration.READ_FILE_ERROR);
             import_resultViewModel dataSession = (import_resultViewModel)HttpContext.Session[SESSION_CONST.Registration.SCHOOL_SESSION];
-            if (dataSession == null || dataSession.school.teams == null || dataSession.school.teams.Count == 0)
+            if (dataSession == null || dataSession.School.teams == null || dataSession.School.teams.Count == 0)
             {
                 return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
             }
@@ -633,16 +642,16 @@ namespace Capstone_SWP490.Controllers.Coach
             return View(dataSession);
         }
 
-#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+        [AuthorizationAccept(Roles = "COACH")]
         public async Task<ActionResult> history(string school_id)
-#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+
         {
             import_resultViewModel data = new import_resultViewModel();
             school school = null;
             List<team> teams = null;
             try
             {
-                data.source = "VIEW";
+                data.Source = "VIEW";
                 int schoolId = Int32.Parse(school_id);
                 school = _ischoolService.findActiveById(schoolId);
                 teams = school.teams.ToList();
@@ -654,7 +663,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     item.contest = _icontestService.getById(item.contest_id);
                 }
                 school.teams = teams;
-                data.school = school;
+                data.School = school;
                 team coachTeam = storedCoach.team_member.FirstOrDefault().team;
                 if (coachTeam != null)
                 {
@@ -662,12 +671,12 @@ namespace Capstone_SWP490.Controllers.Coach
                     team_member coachMember = coachTeamMember.Where(x => x.member.member_role == 1).FirstOrDefault();
                     if (coachMember != null)
                     {
-                        data.coach = coachMember.member;
+                        data.Coach = coachMember.member;
                     }
                     team_member viceCoachMember = coachTeamMember.Where(x => x.member.member_role == 2).FirstOrDefault();
                     if (viceCoachMember != null)
                     {
-                        data.vice_coach = viceCoachMember.member;
+                        data.ViceCoach = viceCoachMember.member;
                     }
                 }
 
@@ -680,12 +689,13 @@ namespace Capstone_SWP490.Controllers.Coach
             {
                 return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
             }
-            data.school = school;
+            data.School = school;
             data.setDisplayTeam(0);
             Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
             return View(ACTION_CONST.Registration.RESULT, data);
         }
 
+        [AuthorizationAccept(Roles = "COACH")]
         [HttpPost]
         public async Task<ActionResult> Result(HttpPostedFileBase file)
         {
@@ -719,11 +729,11 @@ namespace Capstone_SWP490.Controllers.Coach
                 _path = _path.Replace(".xlsx", ".txt");
                 file.SaveAs(_path);
                 data = await importAsync(_path);
-                if (data.school != null)
+                if (data.School != null)
                 {
                     data.setDisplayTeam(0);
                 }
-                data.source = "IMPORT";
+                data.Source = "IMPORT";
                 Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
                 return View(data);
             }
@@ -739,6 +749,7 @@ namespace Capstone_SWP490.Controllers.Coach
             return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
         }
 
+        [AuthorizationAccept(Roles = "COACH")]
         public ActionResult RemoveMember(int team_id, int member_id)
         {
             import_resultViewModel data = (import_resultViewModel)HttpContext.Session[SESSION_CONST.Registration.SCHOOL_SESSION];
@@ -746,10 +757,12 @@ namespace Capstone_SWP490.Controllers.Coach
             {
                 return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
             }
-            data.school.teams.Where(x => x.team_id == team_id).FirstOrDefault().team_member.Where(x => x.member.member_id == member_id).FirstOrDefault().member.enabled = false;
+            data.School.teams.Where(x => x.team_id == team_id).FirstOrDefault().team_member.Where(x => x.member.member_id == member_id).FirstOrDefault().member.enabled = false;
             Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
             return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER, new { team = team_id });
         }
+
+        [AuthorizationAccept(Roles = "COACH")]
         public ActionResult RemoveTeam(int id)
         {
             import_resultViewModel data = (import_resultViewModel)HttpContext.Session[SESSION_CONST.Registration.SCHOOL_SESSION];
@@ -757,36 +770,33 @@ namespace Capstone_SWP490.Controllers.Coach
             {
                 return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
             }
-            team team = data.school.teams.Where(x => x.team_id == id).FirstOrDefault();
-            if (team != null && data.school.teams.Count >= 2)
+            team team = data.School.teams.Where(x => x.team_id == id).FirstOrDefault();
+            if (team != null && data.School.teams.Count >= 2)
             {
-                data.school.teams.Where(x => x.team_id == id).FirstOrDefault().enabled = false;
+                data.School.teams.Where(x => x.team_id == id).FirstOrDefault().enabled = false;
             }
             Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
             return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER, new { team = 0 });
         }
 
-
+        [AuthorizationAccept(Roles = "COACH")]
         public async Task<ActionResult> AcceptSchool(int id)
         {
-            app_userViewModel logined = (app_userViewModel)Session["profile"];
 
-            school inUsing = _ischoolService.getInConfirmation(logined.user_id);
-            //update to just imported (status = N/A)
-            if (inUsing != null)
+            app_userViewModel logined = (app_userViewModel)Session["profile"];
+            try
             {
-                inUsing.active = 1;
-                await _ischoolService.update(inUsing);
+                await _ischoolService.useSchool(id, logined.user_id);
+                ViewData[Message.MESSGAE_RESULT] = Message.MSG029;
             }
-            //update to waiting for confirmation (status = waiting for confirmation)
-            school activeSchool = _ischoolService.findActiveById(id);
-            if (activeSchool != null)
+            catch (Exception e)
             {
-                activeSchool.active = 2;
-                await _ischoolService.update(activeSchool);
+                ViewData[Message.ERROR] = e.Message;
             }
             return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
         }
+
+        [AuthorizationAccept(Roles = "COACH")]
         public async Task<ActionResult> RemoveSchool(int id)
         {
             app_userViewModel logined = (app_userViewModel)Session["profile"];
@@ -834,13 +844,14 @@ namespace Capstone_SWP490.Controllers.Coach
             _ischoolService.disable(school);
             return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
         }
+
         public async Task<import_resultViewModel> importAsync(string filePath)
         {
             import_resultViewModel result = new import_resultViewModel();
             member coach = new member();
             app_userViewModel logined = (app_userViewModel)Session[SESSION_CONST.Global.LOGIN_SESSION];
             coach.app_user = _iapp_UserService.getByUserName(logined.user_name);
-            result.coach = coach;
+            result.Coach = coach;
             import_error_ViewModel error;
             FileInfo existingFile = new FileInfo(filePath);
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -893,7 +904,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     iImport.TeamImport teamImport = new iImport.TeamImport();
                     ExcelWorksheet teamSheet = registrationHelper.getSheetByName(sheets, iImport.TeamImport.sheetName);
                     result = registrationHelper.readTeamSheet(result, teamSheet, teamImport);
-                    if (result.school.teams == null || result.school.teams.Count == 0)
+                    if (result.School.teams == null || result.School.teams.Count == 0)
                     {
                         error = new import_error_ViewModel();
                         error.objectName = "N/A";

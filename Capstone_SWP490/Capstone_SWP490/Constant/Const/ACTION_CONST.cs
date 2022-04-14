@@ -33,6 +33,7 @@ namespace Capstone_SWP490.Constant.Const
             public static string CONTROLLER = "Statistic";
             public static string CONFRIM_SCHOOL = "ConfirmSchool";
             public static string INDEX = "";
+            public static string TEAM_CONTEST = "TeamContest";
         }
     }
 }

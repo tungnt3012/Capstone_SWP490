@@ -12,5 +12,8 @@ namespace Capstone_SWP490.Models.post_ViewModel
         public post post { get; set; }
         public List<post_error> errors { get; set; }
         public string action { get; set; } = "Create";
+
+        public bool featured { get; set; }
+        public string insert_date { get; set; }
     }
 }

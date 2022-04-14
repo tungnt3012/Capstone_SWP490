@@ -1,7 +1,7 @@
 ﻿@{ ViewBag.Title = "Registration";
     Layout = "~/Views/Shared/_Layout.cshtml";
     int stt = 1;
-    }
+}
 
 <!-- Sidebar -->
 
@@ -14,131 +14,130 @@
     </style>
 </header>
 
-    <div class="container-fluid xyz">
-        <div class="col-lg-12" id="content_area2_header">
-            <div class="col-lg-12" id="content_area2_title">
-                <label for="exampleInputTitle">Registration</label>
-            </div>
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Registration</label>
         </div>
-        <div class="main">
-            <div class="row">
-                <div class="col-lg-10 col-lg-offset-1" id="under">
+    </div>
+    <div class="main">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1" id="under">
 
-                    <div class="col-lg-12">
-                        <div  id="btn-registrantionTitle-index">
-                            <label for="formFile" class="form-label">
-                                <span style="color:red">*Important Note: Email is used to distinguish members</span><br />
-                                - Visit @Html.ActionLink("Registration Guide", "Guide", "Registration") for more detail<br />
-                                - Default file input <a href="@Url.Action("DownloadSample", "Registration")">click here </a><br />
-                            </label>
-                            @using (Html.BeginForm("Result", "Registration", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                            {
-                                <input class="form-control" type="file" id="file" name="file" accept=".xlsx, .xls, .csv">
-                                <button class="btn btn-primary" value="Upload">Upload</button>}
-                        </div>
-                        <div class="col-lg-12">
-                            <label id="import-history">IMPORT HISTORY:</label>
-                        </div>
-                        <div class="col-lg-12" style="overflow:auto">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Short Name</th>
-                                        <th>Insert Date</th>
-                                        <th>Update Date</th>
-                                        <th>Status</th>
-                                        <th scope="col" width="5%"></th>
-                                        <th scope="col" width="5%"></th>
-                                        <th scope="col" width="5%"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (Model.school != null && Model.school.Count > 0)
-                                    {
-
-                                        foreach (var item in Model.school)
-                                        {
-                                    <tr>
-                                        <th scope="row" style="padding-top: 10px;">@stt</th>
-                                        <td style="padding-top: 15px;">@item.school_name</td>
-                                        <td style="padding-top: 15px;">@item.institution_name</td>
-                                        <td style="padding-top: 15px;">@item.insert_date</td>
-                                        <td style="padding-top: 15px;">@item.update_date</td>
-                                        <td style="padding-top: 15px;">@(item.active ==  2 ? "Waiting for confirmation" : item.active == 3 ? "In Use" : "N/A")</td>
-                                        @if (item.active != null && item.active == 1)
-                                        {
-                                            <td><button type="button" class="btn btn-success" id="btn-enable" onclick="acceptSchool(@item.school_id)">Use </button></td>
-                                        }
-
-                                        <td style="padding-top: 15px;">
-                                            <a href="@Url.Action("history", "Registration")?school_id=@item.school_id">Detail</a>
-                                        </td>
-                                        @if (item.active != null && item.active != 3)
-                                        {
-                                            <td style="padding-top: 15px;"><a href="@Url.Action("RemoveSchool", "Registration")?id=@item.school_id">Remove</a></td>
-
-                                        }
-
-
-                                    </tr>
-                                            { stt += 1;}
-                                        }
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                        @if (Model.insert_result != null && Model.insert_result.Count > 0)
+                <div class="col-lg-12">
+                    <div id="btn-registrantionTitle-index">
+                        <label for="formFile" class="form-label">
+                            <span style="color:red">*Important Note: Email is used to distinguish members</span><br />
+                            - Visit @Html.ActionLink("Registration Guide", "Guide", "Registration") for more detail<br />
+                            - Default file input <a href="@Url.Action("DownloadSample", "Registration")">click here </a><br />
+                        </label>
+                        @using (Html.BeginForm("Result", "Registration", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
+                            <input class="form-control" type="file" id="file" name="file" accept=".xlsx, .xls, .csv">
+                            <button class="btn btn-primary" value="Upload">Upload</button>}
+                    </div>
+                    <div class="col-lg-12">
+                        <label id="import-history">IMPORT HISTORY:</label><br />
+                    </div>
+                    <div class="col-lg-12" style="overflow:auto">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Short Name</th>
+                                    <th>Insert Date</th>
+                                    <th>Update Date</th>
+                                    <th>Status</th>
+                                    <th scope="col" width="5%"></th>
+                                    <th scope="col" width="5%"></th>
+                                    <th scope="col" width="5%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.school != null && Model.school.Count > 0)
+                                {
 
-                            <div class="col-lg-6">
-                                <!-- Modal -->
-                                <div class="modal fade" id="newModal" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
+                                    foreach (var item in Model.school)
+                                    {
+                                        <tr>
+                                            <th scope="row" style="padding-top: 10px;">@(++stt)</th>
+                                            <td style="padding-top: 15px;">@item.schoolName</td>
+                                            <td style="padding-top: 15px;">@item.insitutionName</td>
+                                            <td style="padding-top: 15px;">@item.insertDate</td>
+                                            <td style="padding-top: 15px;">@item.updateDate</td>
+                                            <td style="padding-top: 15px; @(item.status == -1 ? "color: red;" :item.status == 3 ? "color: green;" : "")">@(item.getStatusText())</td>
+                                            @if (item.status != null && item.status == 1)
+                                            {
+                                                <td><button type="button" class="btn btn-success" id="btn-enable" onclick="acceptSchool(@item.schoolId)">Use </button></td>
+                                            }
+                                            @if (item.status != null && item.status != -1)
+                                            {
+                                                <td style="padding-top: 15px;">
+                                                    <a href="@Url.Action("history", "Registration")?school_id=@item.schoolId">Detail</a>
+                                                </td>
+                                            }
+                                            @if (item.status != null && item.status != 3 && item.status != 2)
+                                            {
+                                                <td style="padding-top: 15px;"><a href="@Url.Action("RemoveSchool", "Registration")?id=@item.schoolId">Remove</a></td>
 
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <table class="table table-striped">
-                                                    <thead>
+                                            }
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    @if (Model.insert_result != null && Model.insert_result.Count > 0)
+                    {
+
+                        <div class="col-lg-6">
+                            <!-- Modal -->
+                            <div class="modal fade" id="newModal" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Object</th>
+                                                        <th scope="col">Message</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var error in Model.insert_result)
+                                                    {
                                                         <tr>
-                                                            <th scope="col">Object</th>
-                                                            <th scope="col">Message</th>
+                                                            <th scope="row">@error.objectName</th>
+                                                            <td>@error.msg</td>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach (var error in Model.insert_result)
-                                                        {
-                                                            <tr>
-                                                                <th scope="row">@error.objectName</th>
-                                                                <td>@error.msg</td>
-                                                            </tr>
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        }
-                 </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
-    <script>
+<script>
     $(document).ready(function () {
         $("#newModal").modal("show");
         $("#newModal").on('hide.bs.modal', function () {
@@ -149,9 +148,10 @@
         });
     });
 
-        function acceptSchool(id) {
-            window.location.href = "@Url.Action("AcceptSchool", "Registration")?id=" + id;
+    function acceptSchool(id) {
+        window.location.href = "@Url.Action("AcceptSchool", "Registration")?id=" + id;
+        alert('Please Waiting for Organizer confirmation!!!')
         }
-    </script>
+</script>
 
 

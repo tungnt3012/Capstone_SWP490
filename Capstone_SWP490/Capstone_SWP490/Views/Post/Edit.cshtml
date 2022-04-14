@@ -27,67 +27,79 @@
     </div>
     <div class="main">
         <div class="row">
-            <div class="col-lg-10 col-lg-offset-1" id="under"><div class="col-lg-12">
-     @using (Html.BeginForm(Model.action, "Post", FormMethod.Post)) { <div class="row">
-                        @Html.TextBoxFor(x => x.post.post_id, new { @class = "form-control", type = "hidden" })
-                        <label style="color:red"> @ViewData["EDIT_ERROR"]</label>
+            <div class="col-lg-10 col-lg-offset-1" id="under">
+                <div class="col-lg-12">
+                    @using (Html.BeginForm(Model.action, "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {<div class="row">
+                            @Html.TextBoxFor(x => x.post.post_id, new { @class = "form-control", type = "hidden" })
+                            <label style="color:red"> @ViewData["EDIT_ERROR"]</label>
 
-                        <div class="col-lg-6" style="overflow:auto">
-                            <div class="form-group">
-                                <label for="firstName">Schedule Date (For Schedule Only)<span id="not-empty">*</span></label><br />
-                                @Html.TextBoxFor(x => x.post.schedule_date, new { @class = "form-control", type = "datetime-local" })
+                            <div class="col-lg-6" style="overflow:auto">
+                                <div class="form-group">
+                                    <label for="firstName">Schedule Date (For Schedule Only)<span id="not-empty">*</span></label><br />
+                                    @Html.TextBoxFor(x => x.post.schedule_date, new { @class = "form-control", type = "datetime-local" })
                                 </div>
                             </div>
                         </div>
 
-                    <div class="row">
-                        <div class="col-lg-6" style="overflow:auto">
-                           
+                        <div class="row">
+                            <div class="col-lg-6" style="overflow:auto">
+
                             </div>
                         </div>
-                    <div class="row">
-                        <div class="col-lg-12" style="overflow:auto">
-                            <div class="form-group">
-                                <label for="firstName">Title<span id="not-empty">*</span></label><br />
-                                @Html.TextBoxFor(x => x.post.title, new { @class = "form-control" })
+                        <div class="row">
+                            <div class="col-lg-12" style="overflow:auto">
+                                <div class="form-group">
+                                    <label for="firstName">Title<span id="not-empty">*</span></label><br />
+                                    @Html.TextBoxFor(x => x.post.title, new { @class = "form-control" })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12" style="overflow:auto">
-                            <div class="form-group">
-                                <label for="firstName">Short Description</label><br />
-                                @Html.TextAreaFor(x => x.post.short_description, new { @class = "form-control", @rows = 3 })
+                        <div class="row">
+                            <div class="col-lg-12" style="overflow:auto">
+                                <div class="form-group">
+                                    <label for="firstName">Title Image<span id="not-empty">*</span></label><br />
+                                    <input type="file" name="image" accept="image/*" onchange="loadFile(event)">
+                                    <img id="preview" src="~/image/default.png" width="200" height="250" style="border: 1px solid gray" onclick="loadFile(event)" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12" style="overflow:auto">
-                            <div class="form-group">
-                                <label for="firstName">Content<span id="not-empty">*</span></label><br />
-                                @Html.TextAreaFor(x => x.post.html_content, new { id = "editor", @rows = 4 })
+                        <div class="row">
+                            <div class="col-lg-12" style="overflow:auto">
+                                <div class="form-group">
+                                    <label for="firstName">Short Description</label><br />
+                                    @Html.TextAreaFor(x => x.post.short_description, new { @class = "form-control", @rows = 3 })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6" style="overflow:auto">
-                            <div class="form-group">
-                                <label for="firstName">Post To Facebook Fan page</label>
-                                &nbsp;<input type="checkbox" name="postToFanPage" @(Model != null && Model.action == "Edit" && Model.post.post_to != null && Model.post.post_to.Contains("FANPAGE") ? "checked" : "") />
+                        <div class="row">
+                            <div class="col-lg-12" style="overflow:auto">
+                                <div class="form-group">
+                                    <label for="firstName">Content<span id="not-empty">*</span></label><br />
+                                    @Html.TextAreaFor(x => x.post.html_content, new { id = "editor", @rows = 4 })
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12" style="overflow:auto">
-                            <div class="form-group">
-                                <button class="btn btn-success">Post Now</button>
-                                <button class="btn btn-primary">Schedule</button>
-                                <button type="reset" onclick="window.location='@Url.Action("", "Post")';return false;" class="btn btn-warning">cancel</button>
+                        <div class="row">
+                            <div class="col-lg-6" style="overflow:auto">
+                                <div class="form-group">
+                                    <label for="firstName">Featured</label>
+                                    @Html.CheckBoxFor(x => x.featured, true)
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-            </div></div>
+                        <div class="row">
+                            <div class="col-lg-12" style="overflow:auto">
+                                <div class="form-group">
+                                    <button class="btn btn-success">Post Now</button>
+                                    <input type="submit" name="schedule" value="Schedule" class="btn btn-primary" />
+                                    <button type="reset" onclick="window.location='@Url.Action("", "Post")';return false;" class="btn btn-warning">cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -135,4 +147,11 @@
 
         });
     });
+    var loadFile = function (event) {
+        var output = document.getElementById('preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
 </script>

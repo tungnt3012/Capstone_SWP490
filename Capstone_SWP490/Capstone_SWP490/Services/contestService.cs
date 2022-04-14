@@ -8,6 +8,7 @@ using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Models.contestViewModel;
 using System.Threading.Tasks;
 using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.school_memberViewModel;
 
 namespace Capstone_SWP490.Services
 {
@@ -36,7 +37,7 @@ namespace Capstone_SWP490.Services
 
         public List<contest> getIndividualContest()
         {
-            return _icontestRepository.FindBy(x => x.max_contestant == -1).ToList();
+            return _icontestRepository.FindBy(x => x.max_contestant == 1).ToList();
         }
 
         public List<contestViewModel> GetContests()
@@ -293,6 +294,30 @@ namespace Capstone_SWP490.Services
             }
             output.Message = "Fail";
             return output;
+        }
+
+        public List<member_contest_ViewModel> getContestMemberModel(List<contest_member> contestMember)
+        {
+            List<member_contest_ViewModel> listContestModel = new List<member_contest_ViewModel>();
+            member_contest_ViewModel contestModel;
+            List<contest> individualContest = getIndividualContest();
+            foreach (var item in individualContest)
+            {
+                contestModel = new member_contest_ViewModel();
+                contestModel.code = item.code;
+                contestModel.name = item.contest_name;
+                contest_member joined = contestMember.Where(x => x.contest.max_contestant == -1 && x.contest.code.Equals(item.code)).FirstOrDefault();
+                if (joined != null)
+                {
+                    contestModel.selected = true;
+                }
+                else
+                {
+                    contestModel.selected = false;
+                }
+                listContestModel.Add(contestModel);
+            }
+            return listContestModel;
         }
     }
 }
