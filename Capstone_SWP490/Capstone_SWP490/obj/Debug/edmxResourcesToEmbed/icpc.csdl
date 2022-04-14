@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gocyberx_icpcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="app_user">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="user_role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="psw" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="encrypted_psw" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="full_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="verified" Type="Boolean" Nullable="false" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <Property Name="insert_date" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="update_date" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="confirm_password" Type="Int32" />
+    <NavigationProperty Name="members" Relationship="Self.FK__member__user_id__276EDEB3" FromRole="app_user" ToRole="member" />
+    <NavigationProperty Name="posts" Relationship="Self.FK__post__post_by__59063A47" FromRole="app_user" ToRole="post" />
+  </EntityType>
+  <EntityType Name="contest">
+    <Key>
+      <PropertyRef Name="contest_id" />
+    </Key>
+    <Property Name="contest_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="contest_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="start_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="end_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="venue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="max_contestant" Type="Int16" />
+    <Property Name="note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="shirt_id" Type="Int16" />
+    <NavigationProperty Name="contest_member" Relationship="Self.FK__contest_m__conte__31EC6D26" FromRole="contest" ToRole="contest_member" />
+  </EntityType>
+  <EntityType Name="contest_member">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="member_id" Type="Int32" Nullable="false" />
+    <Property Name="contest_id" Type="Int32" Nullable="false" />
+    <Property Name="check_in_date" Type="DateTime" Precision="3" />
+    <Property Name="note" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="contest" Relationship="Self.FK__contest_m__conte__31EC6D26" FromRole="contest_member" ToRole="contest" />
+    <NavigationProperty Name="member" Relationship="Self.FK__contest_m__membe__32E0915F" FromRole="contest_member" ToRole="member" />
+  </EntityType>
+  <EntityType Name="event">
+    <Key>
+      <PropertyRef Name="event_id" />
+    </Key>
+    <Property Name="event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="event_type" Type="Int16" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="desctiption" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="start_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="end_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="venue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="contactor_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="contactor_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="contactor_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fan_page" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="shirt_id" Type="Int16" />
+    <Property Name="note" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="member_join" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="sub_event" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Int32" />
+  </EntityType>
+  <EntityType Name="member">
+    <Key>
+      <PropertyRef Name="member_id" />
+    </Key>
+    <Property Name="member_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="member_role" Type="Int16" Nullable="false" />
+    <Property Name="first_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="middle_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="last_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="dob" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gender" Type="Int16" Nullable="false" />
+    <Property Name="year" Type="Int32" Nullable="false" />
+    <Property Name="award" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="shirt_sizing" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="event_notify" Type="Boolean" />
+    <Property Name="icpc_id" Type="Int32" />
+    <Property Name="enabled" Type="Boolean" />
+    <NavigationProperty Name="app_user" Relationship="Self.FK__member__user_id__276EDEB3" FromRole="member" ToRole="app_user" />
+    <NavigationProperty Name="contest_member" Relationship="Self.FK__contest_m__membe__32E0915F" FromRole="member" ToRole="contest_member" />
+    <NavigationProperty Name="team_member" Relationship="Self.FK__team_memb__membe__2C3393D0" FromRole="member" ToRole="team_member" />
+  </EntityType>
+  <EntityType Name="member_event">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="event_id" Type="Int32" Nullable="false" />
+    <Property Name="member_id" Type="Int32" Nullable="false" />
+    <Property Name="check_in_date" Type="DateTime" Precision="3" />
+    <Property Name="note" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="page_content">
+    <Key>
+      <PropertyRef Name="content_id" />
+    </Key>
+    <Property Name="content_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="page_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="position" Type="Int32" Nullable="false" />
+    <Property Name="user_role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Int32" />
+  </EntityType>
+  <EntityType Name="school">
+    <Key>
+      <PropertyRef Name="school_id" />
+    </Key>
+    <Property Name="school_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="school_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="institution_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="insert_date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="active" Type="Int32" />
+    <Property Name="update_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="coach_id" Type="Int32" />
+    <Property Name="enabled" Type="Boolean" />
+    <Property Name="rector_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="teams" Relationship="Self.FK__team__school_id__07F6335A" FromRole="school" ToRole="team" />
+  </EntityType>
+  <EntityType Name="team">
+    <Key>
+      <PropertyRef Name="team_id" />
+    </Key>
+    <Property Name="team_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="team_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="school_id" Type="Int32" />
+    <Property Name="type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="enabled" Type="Boolean" />
+    <Property Name="contest_id" Type="Int32" />
+    <NavigationProperty Name="school" Relationship="Self.FK__team__school_id__07F6335A" FromRole="team" ToRole="school" />
+    <NavigationProperty Name="team_member" Relationship="Self.FK__team_memb__team___2D27B809" FromRole="team" ToRole="team_member" />
+  </EntityType>
+  <EntityType Name="team_member">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="team_id" Type="Int32" />
+    <Property Name="member_id" Type="Int32" />
+    <NavigationProperty Name="member" Relationship="Self.FK__team_memb__membe__2C3393D0" FromRole="team_member" ToRole="member" />
+    <NavigationProperty Name="team" Relationship="Self.FK__team_memb__team___2D27B809" FromRole="team_member" ToRole="team" />
+  </EntityType>
+  <EntityType Name="post">
+    <Key>
+      <PropertyRef Name="post_id" />
+    </Key>
+    <Property Name="post_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="post_by" Type="Int32" Nullable="false" />
+    <Property Name="insert_date" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="update_date" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="short_description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="content" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="html_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="featured" Type="Boolean" />
+    <Property Name="enabled" Type="Boolean" />
+    <Property Name="schedule_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="post_to" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="app_user" Relationship="Self.FK__post__post_by__59063A47" FromRole="post" ToRole="app_user" />
+  </EntityType>
+  <EntityType Name="documentation">
+    <Key>
+      <PropertyRef Name="doc_id" />
+      <PropertyRef Name="title" />
+      <PropertyRef Name="doc_url" />
+    </Key>
+    <Property Name="doc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="page_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="doc_url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="can_download" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="image">
+    <Key>
+      <PropertyRef Name="user_id" />
+      <PropertyRef Name="image_url" />
+    </Key>
+    <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="page_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="image_url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="alt" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="position" Type="Int16" />
+    <Property Name="back_link" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK__member__user_id__276EDEB3">
+    <End Role="app_user" Type="Self.app_user" Multiplicity="1" />
+    <End Role="member" Type="Self.member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="app_user">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="member">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__post__post_by__59063A47">
+    <End Role="app_user" Type="Self.app_user" Multiplicity="1" />
+    <End Role="post" Type="Self.post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="app_user">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="post">
+        <PropertyRef Name="post_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__contest_m__conte__31EC6D26">
+    <End Role="contest" Type="Self.contest" Multiplicity="1" />
+    <End Role="contest_member" Type="Self.contest_member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contest">
+        <PropertyRef Name="contest_id" />
+      </Principal>
+      <Dependent Role="contest_member">
+        <PropertyRef Name="contest_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__contest_m__membe__32E0915F">
+    <End Role="member" Type="Self.member" Multiplicity="1" />
+    <End Role="contest_member" Type="Self.contest_member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member">
+        <PropertyRef Name="member_id" />
+      </Principal>
+      <Dependent Role="contest_member">
+        <PropertyRef Name="member_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__team_memb__membe__2C3393D0">
+    <End Role="member" Type="Self.member" Multiplicity="0..1" />
+    <End Role="team_member" Type="Self.team_member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member">
+        <PropertyRef Name="member_id" />
+      </Principal>
+      <Dependent Role="team_member">
+        <PropertyRef Name="member_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__team__school_id__07F6335A">
+    <End Role="school" Type="Self.school" Multiplicity="0..1" />
+    <End Role="team" Type="Self.team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="school">
+        <PropertyRef Name="school_id" />
+      </Principal>
+      <Dependent Role="team">
+        <PropertyRef Name="school_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__team_memb__team___2D27B809">
+    <End Role="team" Type="Self.team" Multiplicity="0..1" />
+    <End Role="team_member" Type="Self.team_member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="team">
+        <PropertyRef Name="team_id" />
+      </Principal>
+      <Dependent Role="team_member">
+        <PropertyRef Name="team_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="gocyberx_icpcEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="app_user" EntityType="Self.app_user" />
+    <EntitySet Name="contests" EntityType="Self.contest" />
+    <EntitySet Name="contest_member" EntityType="Self.contest_member" />
+    <EntitySet Name="events" EntityType="Self.event" />
+    <EntitySet Name="members" EntityType="Self.member" />
+    <EntitySet Name="member_event" EntityType="Self.member_event" />
+    <EntitySet Name="page_content" EntityType="Self.page_content" />
+    <EntitySet Name="schools" EntityType="Self.school" />
+    <EntitySet Name="teams" EntityType="Self.team" />
+    <EntitySet Name="team_member" EntityType="Self.team_member" />
+    <EntitySet Name="posts" EntityType="Self.post" />
+    <EntitySet Name="documentations" EntityType="Self.documentation" />
+    <EntitySet Name="images" EntityType="Self.image" />
+    <AssociationSet Name="FK__member__user_id__276EDEB3" Association="Self.FK__member__user_id__276EDEB3">
+      <End Role="app_user" EntitySet="app_user" />
+      <End Role="member" EntitySet="members" />
+    </AssociationSet>
+    <AssociationSet Name="FK__post__post_by__59063A47" Association="Self.FK__post__post_by__59063A47">
+      <End Role="app_user" EntitySet="app_user" />
+      <End Role="post" EntitySet="posts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__contest_m__conte__31EC6D26" Association="Self.FK__contest_m__conte__31EC6D26">
+      <End Role="contest" EntitySet="contests" />
+      <End Role="contest_member" EntitySet="contest_member" />
+    </AssociationSet>
+    <AssociationSet Name="FK__contest_m__membe__32E0915F" Association="Self.FK__contest_m__membe__32E0915F">
+      <End Role="member" EntitySet="members" />
+      <End Role="contest_member" EntitySet="contest_member" />
+    </AssociationSet>
+    <AssociationSet Name="FK__team_memb__membe__2C3393D0" Association="Self.FK__team_memb__membe__2C3393D0">
+      <End Role="member" EntitySet="members" />
+      <End Role="team_member" EntitySet="team_member" />
+    </AssociationSet>
+    <AssociationSet Name="FK__team__school_id__07F6335A" Association="Self.FK__team__school_id__07F6335A">
+      <End Role="school" EntitySet="schools" />
+      <End Role="team" EntitySet="teams" />
+    </AssociationSet>
+    <AssociationSet Name="FK__team_memb__team___2D27B809" Association="Self.FK__team_memb__team___2D27B809">
+      <End Role="team" EntitySet="teams" />
+      <End Role="team_member" EntitySet="team_member" />
+    </AssociationSet>
+    <FunctionImport Name="spSomeRoutine">
+      <Parameter Name="Code" Mode="In" Type="Int32" />
+      <Parameter Name="StatusLog" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Check_Email_In_Use" ReturnType="Collection(Int32)">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="coach_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Count_Contestant" ReturnType="Collection(Int32)" />
+    <FunctionImport Name="Count_Member_In_School" ReturnType="Collection(Int32)">
+      <Parameter Name="schoolId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Disable_App_User_Data">
+      <Parameter Name="school_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Disable_App_User_School">
+      <Parameter Name="school_id" Mode="In" Type="Int32" />
+      <Parameter Name="coach_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Disable_Member_Data">
+      <Parameter Name="school_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Disable_School_Data">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Disable_Team_Data">
+      <Parameter Name="school_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Enable_App_User_Data">
+      <Parameter Name="school_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Enable_Member_Data">
+      <Parameter Name="school_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Enable_School_Data">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Enable_Team_Data">
+      <Parameter Name="school_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

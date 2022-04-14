@@ -4,8 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="04c09d4d0f5b4018baa06ecc2dbba322" Name="Diagram1" ZoomLevel="88">
-        <EntityTypeShape EntityType="gocyberx_icpcModel.app_user" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+      <Diagram DiagramId="d78712a6163d4fe4a8e76303ab6c9844" Name="Diagram1">
+        <EntityTypeShape EntityType="gocyberx_icpcModel.app_user" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.contest" Width="1.5" PointX="3" PointY="17.25" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.contest_member" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="gocyberx_icpcModel.event" Width="1.5" PointX="5.75" PointY="7.625" IsExpanded="true" />

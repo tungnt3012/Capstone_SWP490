@@ -36,7 +36,7 @@
     </div>
     <div class="main">
         <div class="column">
-            
+
             <div class="col-lg-10 col-lg-offset-1" id="under">
                 <div class="form-group">
                     <label class="front-size-title" for="Event_Schedule">
@@ -79,7 +79,7 @@
                                 <tr>
                                     <th scope="col">Time Start</th>
                                     <th scope="col">Time End</th>
-                                    <th scope="col"width="30%">Location</th>
+                                    <th scope="col" width="30%">Location</th>
                                     <th scope="col">Title</th>
                                     @if (Session["username"] != null)
                                     {
@@ -106,8 +106,8 @@
                                             {
                                                 if (profile.user_role.Equals("ORGANIZER"))
                                                 {
-                                                    <td class="action-table"><a href="/Home/EventEdit?id=@x.event_id">Edit</a></td>
                                                     <td class="action-table"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
+                                                    <td class="action-table"><a href="/Home/EventEdit?id=@x.event_id">Edit</a></td>
                                                     <td class="action-table"><a href="/Home/EventDelete?id=@x.event_id">Delete</a></td>
                                                 }
                                                 else
@@ -147,7 +147,7 @@
                 }
 
             </div>
-            
+
         </div>
 
     </div>

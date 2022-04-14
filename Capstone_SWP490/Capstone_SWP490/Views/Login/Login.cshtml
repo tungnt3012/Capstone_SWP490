@@ -19,7 +19,6 @@
                         </div>
                         <div class="form-group">
                             @Html.PasswordFor(x => x.psw, new { @class = "form-control", id = "exampleInputLoginPassword", placeholder = "Password", required = "required" })
-                            <span id="message2"> </span>
                         </div>
                         <div class="form-group">
                             <p style="color:red">
@@ -39,18 +38,3 @@
             </div>
     </div>
 </div>
-<script>
-    document.getElementById('exampleInputLoginPassword').onkeyup = function () {
-        var password = $("#exampleInputLoginPassword").val();
-      
-        if (password.length < 6) {
-            document.getElementById("message2").style.color = "Red";
-            document.getElementById("message2").innerHTML = "*Password length must be more than 6 characters";
-            document.getElementById("exampleInputLoginPassword").style.borderColor = "red";
-        }
-        else {
-            document.getElementById("exampleInputLoginPassword").style.borderColor = "#66afe9";
-            document.getElementById("message2").innerHTML = "";
-        }
-    }
-    </script>

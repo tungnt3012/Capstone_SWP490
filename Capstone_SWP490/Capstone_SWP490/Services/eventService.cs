@@ -20,7 +20,7 @@ namespace Capstone_SWP490.Services
 
         public IEnumerable<eventsViewModel> GetAllEventsAvailale()
         {
-            var events = _ieventRepository.FindBy(x => x.event_type == 1).ToList();
+            var events = _ieventRepository.FindBy(x => x.event_type == 1 && x.status != -1).ToList();
             var lstEventsViewModels = new List<eventsViewModel>();
             if (events != null)
             {
@@ -186,6 +186,9 @@ namespace Capstone_SWP490.Services
                     title = events.title,
                     venue = events.venue,
                     status = events.status,
+                    contactor_phone = events.contactor_phone,
+                    contactor_email = events.contactor_email,
+                    contactor_name = events.contactor_name,
                     start_date_str = events.start_date.ToString("dd-MM-yyyy, HH:mm"),
                     end_date_str = events.end_date.ToString("dd-MM-yyyy, HH:mm"),
                 };
@@ -212,6 +215,9 @@ namespace Capstone_SWP490.Services
                 e.fan_page = eventsIn.fan_page;
                 e.note = eventsIn.note;
                 e.status = eventsIn.status;
+                e.contactor_name = eventsIn.contactor_name;
+                e.contactor_email = eventsIn.contactor_email;
+                e.contactor_phone = eventsIn.contactor_phone;
                 if (await _ieventRepository.Update(e, e.event_id) != -1)
                 {
                     var eOutput = new eventsViewModel
@@ -225,7 +231,10 @@ namespace Capstone_SWP490.Services
                         start_date = e.start_date,
                         title = e.title,
                         venue = e.venue,
-                        status = e.status
+                        status = e.status,
+                        contactor_phone = e.contactor_phone,
+                        contactor_email = e.contactor_email,
+                        contactor_name = e.contactor_name
                     };
 
                     var mainOfE = _ieventRepository.FindBy(x => x.sub_event.Contains(eOutput.event_id.ToString())).FirstOrDefault();
@@ -259,6 +268,9 @@ namespace Capstone_SWP490.Services
                     end_date = eventsIn.end_date + eventsIn.end_time,
                     venue = eventsIn.venue,
                     fan_page = eventsIn.fan_page,
+                    contactor_name = eventsIn.contactor_name,
+                    contactor_email = eventsIn.contactor_email,
+                    contactor_phone = eventsIn.contactor_phone,
                     note = eventsIn.note ?? "",
                     event_type = 1,
                     status = 0
@@ -317,6 +329,9 @@ namespace Capstone_SWP490.Services
                         end_date = eventsIn.end_date + eventsIn.end_time,
                         venue = eventsIn.venue,
                         fan_page = eventsIn.fan_page,
+                        contactor_name = eventsIn.contactor_name,
+                        contactor_email = eventsIn.contactor_email,
+                        contactor_phone = eventsIn.contactor_phone,
                         note = eventsIn.note ?? "",
                         event_type = 2,
                         status = eventsIn.status
@@ -399,6 +414,9 @@ namespace Capstone_SWP490.Services
                         end_date_str = x.end_date.ToString("dd-MM-yyyy"),
                         title = x.title,
                         venue = x.venue,
+                        contactor_name = x.contactor_name,
+                        contactor_email = x.contactor_email,
+                        contactor_phone = x.contactor_phone,
                         total_joined = CountMemberJoinEvent(x.event_id)
                     };
                     lstEventsViewModels.Add(e);
@@ -417,6 +435,7 @@ namespace Capstone_SWP490.Services
                 if (mainEvent.sub_event != null || !String.IsNullOrWhiteSpace(mainEvent.sub_event))
                 {
                     string[] subEventId = mainEvent.sub_event.Split(',');
+                    var lstSubEventTemp = new List<@event>();
                     foreach (var item in subEventId)
                     {
                         if (!String.IsNullOrWhiteSpace(item))
@@ -425,24 +444,34 @@ namespace Capstone_SWP490.Services
                             var sub = _ieventRepository.FindBy(x => x.event_id == subId && x.event_type == 2).FirstOrDefault();
                             if (sub != null)
                             {
-                                var subViewModel = new eventsViewModel
-                                {
-                                    event_id = sub.event_id,
-                                    title = sub.title,
-                                    event_type = sub.event_type,
-                                    desctiption = sub.desctiption,
-                                    start_date = sub.start_date,
-                                    end_date = sub.end_date,
-                                    start_date_str = sub.start_date.ToString("dd-MM-yyyy, HH:mm"),
-                                    end_date_str = sub.end_date.ToString("dd-MM-yyyy, HH:mm"),
-                                    venue = sub.venue,
-                                    note = sub.note,
-                                    status = sub.status,
-                                    total_joined = CountMemberJoinEvent(sub.event_id)
-                                };
-                                lstSubEvent.Add(subViewModel);
+                                lstSubEventTemp.Add(sub);
                             }
                         }
+                    }
+                    var sortSubTemp = (from s in lstSubEventTemp
+                                      orderby s.start_date ascending
+                                      select s).ToList();
+                    foreach (var x in sortSubTemp)
+                    {
+                        var subViewModel = new eventsViewModel
+                        {
+                            event_id = x.event_id,
+                            title = x.title,
+                            event_type = x.event_type,
+                            desctiption = x.desctiption,
+                            start_date = x.start_date,
+                            end_date = x.end_date,
+                            start_date_str = x.start_date.ToString("dd-MM-yyyy, HH:mm"),
+                            end_date_str = x.end_date.ToString("dd-MM-yyyy, HH:mm"),
+                            venue = x.venue,
+                            note = x.note,
+                            status = x.status,
+                            contactor_name = x.contactor_name,
+                            contactor_email = x.contactor_email,
+                            contactor_phone = x.contactor_phone,
+                            total_joined = CountMemberJoinEvent(x.event_id)
+                        };
+                        lstSubEvent.Add(subViewModel);
                     }
                 }
                 return lstSubEvent;
@@ -508,6 +537,8 @@ namespace Capstone_SWP490.Services
                 if (mainEvent.sub_event != null || !String.IsNullOrWhiteSpace(mainEvent.sub_event))
                 {
                     string[] subEventId = mainEvent.sub_event.Split(',');
+                    var lstSubEventTemp = new List<@event>();
+
                     foreach (var item in subEventId)
                     {
                         if (!String.IsNullOrWhiteSpace(item))
@@ -516,25 +547,32 @@ namespace Capstone_SWP490.Services
                             var sub = _ieventRepository.FindBy(x => x.event_id == subId && x.event_type == 2).FirstOrDefault();
                             if (sub != null)
                             {
-                                var subViewModel = new eventsViewModel
-                                {
-                                    event_id = sub.event_id,
-                                    title = sub.title,
-                                    event_type = sub.event_type,
-                                    desctiption = sub.desctiption,
-                                    start_date = sub.start_date,
-                                    end_date = sub.end_date,
-                                    start_date_str = sub.start_date.ToString("dd-MM-yyyy, HH:mm"),
-                                    end_date_str = sub.end_date.ToString("dd-MM-yyyy, HH:mm"),
-                                    venue = sub.venue,
-                                    note = sub.note,
-                                    status = sub.status,
-                                    is_user_joined = IsUserJoinEvent(sub.event_id, user.user_id),
-                                    total_joined = CountMemberJoinEvent(sub.event_id)
-                                };
-                                lstSubEvent.Add(subViewModel);
+                                lstSubEventTemp.Add(sub);
                             }
                         }
+                    }
+                    var sortSubTemp = (from s in lstSubEventTemp
+                                      orderby s.start_date ascending
+                                      select s).ToList();
+                    foreach (var x in sortSubTemp)
+                    {
+                        var subViewModel = new eventsViewModel
+                        {
+                            event_id = x.event_id,
+                            title = x.title,
+                            event_type = x.event_type,
+                            desctiption = x.desctiption,
+                            start_date = x.start_date,
+                            end_date = x.end_date,
+                            start_date_str = x.start_date.ToString("dd-MM-yyyy, HH:mm"),
+                            end_date_str = x.end_date.ToString("dd-MM-yyyy, HH:mm"),
+                            venue = x.venue,
+                            note = x.note,
+                            status = x.status,
+                            is_user_joined = IsUserJoinEvent(x.event_id, user.user_id),
+                            total_joined = CountMemberJoinEvent(x.event_id)
+                        };
+                        lstSubEvent.Add(subViewModel);
                     }
                 }
                 return lstSubEvent;
@@ -553,6 +591,38 @@ namespace Capstone_SWP490.Services
                 }
             }
             return 0;
+        }
+
+        public List<eventsViewModel> GetTop8Event()
+        {
+            var lstEvent = new List<eventsViewModel>();
+            var events = _ieventRepository.FindBy(x => x.status != -1).ToList().Take(8);
+            var lstE = (from es in events
+                       orderby es.start_date ascending
+                       select es).ToList();
+            if (events.Count() > 0)
+            {
+                foreach(var x in lstE)
+                {
+                    var e = new eventsViewModel
+                    {
+                        event_id = x.event_id,
+                        title = x.title,
+                        event_type = x.event_type,
+                        desctiption = x.desctiption,
+                        start_date = x.start_date,
+                        end_date = x.end_date,
+                        start_date_str = x.start_date.ToString("dd-MM-yyyy, HH:mm"),
+                        end_date_str = x.end_date.ToString("dd-MM-yyyy, HH:mm"),
+                        venue = x.venue,
+                        note = x.note,
+                        status = x.status,
+                        total_joined = CountMemberJoinEvent(x.event_id)
+                    };
+                    lstEvent.Add(e);
+                }
+            }
+            return lstEvent;
         }
     }
 }

@@ -179,5 +179,28 @@ namespace Capstone_SWP490.Helper
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
             sendMailAsync(emailModel);
         }
+
+        public void sendMailNewOrganizerAccount(app_user user)
+        {
+            EmailModel emailModel = new EmailModel();
+            string mailContent = readMailContent("NewAccountOrganizer.txt");
+            string username = user.user_name;
+            string password = user.psw;
+            string hostName = "";
+            try
+            {
+                hostName = WebConfigurationManager.AppSettings["HostName"];
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+            }
+            string fullname = user.full_name;
+            string url = hostName + "/Login/Login";
+            emailModel.toEmail = user.email;
+            emailModel.body = string.Format(mailContent, fullname, username, password, url);
+            emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
+            sendMailAsync(emailModel);
+        }
     }
 }

@@ -197,21 +197,24 @@
                                                 <td class="title-table">@x.title</td>
                                             }
 
+                                            <td class="action-table"><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>
 
                                             @if (Session["username"] != null)
                                             {
                                                 if (profile.user_role.Equals("ORGANIZER"))
                                                 {
                                                     <td class="action-table"><a href="/Home/EventEdit?id=@x.event_id">Edit</a></td>
-                                                    <td class="action-table"><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>
+                                                    @*<td class="action-table"><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>*@
                                                     <td class="action-table"><a href="/Home/EventDelete?id=@x.event_id">Delete</a></td>
                                                 }
-                                                else if (profile.user_role.Equals("MEMBER"))
+                                                else if ((((profile.user_role.Equals("COACH")) || (profile.user_role.Equals("MEMBER"))) && x.status != -1))
                                                 {
                                                     @*
                                                         Event cho phep Join hay khong
                                                     *@
-                                                    if (x.status == 1)
+                                                    if (((profile.user_role.Equals("MEMBER")) && x.status == 1)
+                                                    || ((profile.user_role.Equals("COACH")) && x.status == 2)
+                                                    || (((profile.user_role.Equals("COACH")) || (profile.user_role.Equals("MEMBER"))) && x.status == 3))
                                                     {
                                                         if (x.is_user_joined)
                                                         {
@@ -232,13 +235,13 @@
                                                     }
                                                     else
                                                     {
-                                                        <td class="join-event"></td>
+                                                        <td class="join-event">
+                                                            @*<button class="btn-sm btn-success" sub-event-id="@x.event_id" onclick="JoinSubEvent(this)">
+                                                                    Join Now
+                                                                </button>*@
+                                                        </td>
                                                     }
                                                 }
-                                            }
-                                            else
-                                            {
-                                                <td class="action-table"><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>
                                             }
                                         </tr>
                                     }
@@ -251,7 +254,7 @@
                         </table>
                     </div>
                     <div class="col-lg-12">
-                        <button type="button" id="btn-cancel-event" onclick="location.href='@Url.Action("Event","Home")'" class="btn btn-secondary">Back</button>
+                        <button type="button" id="btn-cancel-event" onclick="window.location.href = '/Home/Event'" class="btn btn-secondary">Back</button>
                     </div>
                 }
             </div>

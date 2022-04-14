@@ -37,6 +37,27 @@ namespace Capstone_SWP490.Controllers.Admin
         }
         public ActionResult AddOrganizer()
         {
+            if (HttpContext.Session["username"] != null)
+            {
+                var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                if (u.user_role.Equals("ADMIN"))
+                {
+                    return View();
+                }
+            }
+            ViewData["LoginError"] = "You NOT permission in this Function";
+            return RedirectToAction("Login", "Login");
+        }
+        [HttpPost]
+        public async Task<ActionResult> AddOrganizer(app_user app_UserIn)
+        {
+            var u = await _iapp_UserService.CreateOrganizer(app_UserIn);
+            if (u != null)
+            {
+                ViewData["Success"] = "Create ORGANIZER Successfully!!!";
+                return View();
+            }
+            ViewData["Error"] = "Create ORGANIZER FAIL!!!";
             return View();
         }
 
@@ -80,7 +101,19 @@ namespace Capstone_SWP490.Controllers.Admin
 
         public ActionResult ManagermentRole()
         {
-            return View();
+            if (HttpContext.Session["username"] != null)
+            {
+                var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                if (u.user_role.Equals("ADMIN"))
+                {
+                    
+                    return View();
+                }
+                //ViewData["LoginError"] = "You NOT permission in this Function";
+                //return RedirectToAction("Login", "Login");
+            }
+            ViewData["LoginError"] = "You NOT permission in this Function";
+            return RedirectToAction("Login", "Login");
         }
 
         public ActionResult GetMenuContentByRole(string roleName)

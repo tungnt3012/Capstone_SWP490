@@ -20,7 +20,8 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<bool> SwitchableUsers(int user_id, bool status);
         Task<bool> ForgotPassword(string email);
         Task<bool> ResetPassword(string username, string oldPass, string newPass);
-        
+        Task<app_user> CreateOrganizer(app_user userIn);
+
 
 
         Task<int> delete(app_user entity);

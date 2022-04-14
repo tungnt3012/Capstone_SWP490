@@ -112,30 +112,17 @@
                             @Html.TextBoxFor(m => m.venue, new { @class = "form-control", id = "EventLocation", name = "TiLocationtle", value = "", placeholder = "Location", required = "required" })
                         </div>
                         <div class="form-group">
-                            <label for="Location">Contactor phone<span id="not-empty">*</span></label>
-                            <input class="form-control" id="EventContactorPhone" name="TiLocationtle" , value="" placeholder="Contactor phone" required="required" />
+                            <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
                         </div>
                         <div class="form-group">
-                            <label for="Location">Contactor email<span id="not-empty">*</span></label>
-                            <input class="form-control" id="EventContactorEmail" name="TiLocationtle" , value="" placeholder="example@gmail.com" required="required" />
+                            <label for="ContactorEmail">Contactor email<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", name = "EventContactorEmail", value = "", placeholder = "ContactorEmail" })
                         </div>
                         <div class="form-group">
-                            <label for="Location">Contactor name<span id="not-empty">*</span></label>
-                            <input class="form-control" id="EventContactorName" name="TiLocationtle" , value="" placeholder="Nguyen Van A" required="required" />
+                            <label for="ContactorName">Contactor Name<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "ContactorName" })
                         </div>
-
-                        @*<div class="form-group">
-                                <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
-                            </div>
-                            <div class="form-group">
-                                <label for="ContactorEmail">Contactor email<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", name = "EventContactorEmail", value = "", placeholder = "ContactorEmail" })
-                            </div>
-                            <div class="form-group">
-                                <label for="ContactorName">Contactor Name<span id="not-empty">*</span></label>
-                                @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "ContactorName" })
-                            </div>*@
                         <div class="form-group">
                             <label for="Fanpage">Fanpage</label>
                             @Html.TextBoxFor(m => m.fan_page, new { @class = "form-control", id = "EventFanpage", name = "EventFanpage", value = "", placeholder = "Fanpage" })
@@ -150,9 +137,9 @@
                                 <div class="col-lg-3">
                                     @Html.DropDownListFor(m => m.status, new List<SelectListItem>
                                       { new SelectListItem{Text="Default", Value="0"},
-                                        new SelectListItem{Text="Allow Join", Value="1"},
-                                        new SelectListItem{Text="Medium", Value="2"},
-                                        new SelectListItem{Text="High", Value="3"}}, new { @class = "form-control", id = "StatusSelect", @Value = Model.status })
+                                        new SelectListItem{Text="Allow Member Join", Value="1"},
+                                        new SelectListItem{Text="Allow Coach Join", Value="2"},
+                                        new SelectListItem{Text="Allow Member & Coach Join", Value="3"}}, new { @class = "form-control", id = "StatusSelect", @Value = Model.status })
                                 </div>
                             </div>
                         </div>
@@ -277,5 +264,5 @@
         else {
             document.getElementById("EventContactorName").style.borderColor = "red";
         }
-    }           
+    }
 </script>

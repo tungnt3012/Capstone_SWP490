@@ -83,14 +83,26 @@
                             @Html.TextBoxFor(m => m.main_event_id, new { @class = "form-control", id = "MainEvent", name = "MainEvent", @Value = mainEvent.event_id, style = "display: none;" })
                         </div>
                         <div class="form-group">
+                            <label for="Location">Contactor phone<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", name = "Contactorphone", value = "", placeholder = "Contactor phone", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">Contactor email<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", name = "Contactorphone", value = "", placeholder = "example@gmail.com", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">Contactor name<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorName", name = "EventContactor Name", value = "", placeholder = "Nguyen Van A", required = "required" })
+                        </div>
+                        <div class="form-group">
                             <label for="type-event">Allow Member Join this event:</label>
                             <div class="row">
                                 <div class="col-lg-3">
                                     @Html.DropDownListFor(m => m.status, new List<SelectListItem>
                                       { new SelectListItem{Text="Default", Value="0"},
-                                        new SelectListItem{Text="Allow Join", Value="1"},
-                                        new SelectListItem{Text="Medium", Value="2"},
-                                        new SelectListItem{Text="High", Value="3"}}, new { @class = "form-control", id = "StatusSelect" })
+                                        new SelectListItem{Text="Allow Member Join", Value="1"},
+                                        new SelectListItem{Text="Allow Coach Join", Value="2"},
+                                        new SelectListItem{Text="Allow Member & Coach Join", Value="3"}}, new { @class = "form-control", id = "StatusSelect" })
                                 </div>
                             </div>
                         </div>
@@ -107,6 +119,7 @@
         </div>
     </div>
 </div>
+
 
 
 

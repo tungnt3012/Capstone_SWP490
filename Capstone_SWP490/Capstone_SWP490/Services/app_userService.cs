@@ -371,12 +371,46 @@ namespace Capstone_SWP490.Services
                 u.psw = newPass;
                 u.encrypted_psw = CommonHelper.createEncryptedPassWord(u.psw);
                 u.confirm_password = 1;
-                if(await _iapp_UserRepository.Update(u, u.user_id)!=-1)
+                u.verified = true;
+                if (await _iapp_UserRepository.Update(u, u.user_id) != -1)
                 {
                     return true;
                 }
             }
             return false;
+        }
+
+        public async Task<app_user> CreateOrganizer(app_user userIn)
+        {
+            if (!String.IsNullOrWhiteSpace(userIn.full_name) && !String.IsNullOrWhiteSpace(userIn.email))
+            {
+                var u = _iapp_UserRepository.FindBy(x => x.email == userIn.email).FirstOrDefault();
+                if (u == null)
+                {
+                    string pwRandom = CommonHelper.CreatePassword(8);
+                    var userTemp = new app_user
+                    {
+                        user_name = userIn.email,
+                        full_name = userIn.full_name,
+                        email = userIn.email,
+                        user_role = "ORGANIZER",
+                        psw = pwRandom,
+                        encrypted_psw = CommonHelper.createEncryptedPassWord(pwRandom),
+                        verified = false,
+                        active = true,
+                        insert_date = DateTime.Now.ToString(),
+                        update_date = DateTime.Now.ToString(),
+                        confirm_password = 0
+                    };
+                    var uChecker = await _iapp_UserRepository.Create(userTemp);
+                    if (uChecker != null)
+                    {
+                        new MailHelper().sendMailNewOrganizerAccount(uChecker);
+                        return uChecker;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

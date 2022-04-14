@@ -23,6 +23,7 @@ namespace Capstone_SWP490.Controllers
         private readonly Iapp_userService _iapp_UserService = new app_userService();
         private readonly ImemberService _imemberService = new memberService();
         private readonly IcontestService _icontestService = new contestService();
+        private readonly IpostService _ipostService = new postService();
 
 
         public ActionResult ShirtSizing()
@@ -309,6 +310,16 @@ namespace Capstone_SWP490.Controllers
             //return Json(rs, JsonRequestBehavior.AllowGet);
             return Json(rs);
         }
+        public ActionResult GetTopEvents()
+        {
+            return Json(_ieventService.GetTop8Event(), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetTopPosts()
+        {
+            return Json(_ipostService.GetTop5Posts(), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ScheduleOfActivities()
         {
             ViewBag.Message = "Your contact page.";
