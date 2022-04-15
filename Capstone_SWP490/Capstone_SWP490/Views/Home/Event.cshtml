@@ -7,24 +7,145 @@
 <style>
     #menu_Schedule {
         color: #ffffff !important;
-        background: #30cf6b;
+        background: #eee;
     }
 
-    .title-table {
-        /*width: 530px;*/
+    label {
+        margin-bottom: 0px !important;
+      
+    }
+    .JTable {
+        border: 1px solid #ccc;
+       
     }
 
-    .venue-table {
-        width: 120px;
+        .JTable .thead,
+        .JTable .tfoot {
+            background-color: #4c4f5a;
+            color: white;
+        }
+
+        .JTable.scrollable .tbody {
+            max-height: 400px;
+            overflow: scroll;
+        }
+
+        .JTable.scrollable ::-webkit-scrollbar {
+            width: 0.5em;
+            height: 0.5em;
+        }
+
+        .JTable.scrollable ::-webkit-scrollbar-thumb {
+            background-color: #4c4f5a;
+        }
+
+        .JTable .center {
+            text-align: center;
+        }
+
+        .JTable label {
+            cursor: pointer;
+        }
+
+            .JTable label:hover {
+                background-color: #ddd;
+            }
+
+        .JTable .tr {
+            display: grid;
+            grid-template-columns: 1fr repeat(2, 20em);
+            position: relative;
+            z-index: 1;
+        }
+
+            .JTable .tr .td:first-child {
+                padding-left: 1.25em;
+            }
+
+        .JTable .td,
+        .JTable .th {
+            padding: 0.3em 0.5em;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .JTable .th {
+            text-align: center;
+        }
+
+        .JTable .tr > .tr {
+            grid-column-end: span 3;
+            margin-left: 1em;
+        }
+
+        .JTable.group-line .tr > .tr:before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: #ccc;
+            height: 100%;
+            left: -0.5em;
+        }
+
+        .JTable .tr input[type='checkbox'] {
+            position: absolute;
+            top: 0.25em;
+        }
+
+            .JTable .tr input[type='checkbox']:before {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+            }
+
+            .JTable .tr input[type='checkbox']:after {
+                content: '-';
+                position: absolute;
+                font-size: 2em;
+                top: -0.45em;
+                left: 0.05em;
+                cursor: pointer;
+            }
+
+            .JTable .tr input[type='checkbox']:checked:after {
+                content: '+';
+                position: absolute;
+                font-size: 2em;
+                top: -0.37em;
+                left: -0.05em;
+            }
+
+
+            .JTable .tr input[type='checkbox'] ~ .tr {
+                transition: 0.3s;
+            }
+
+            .JTable .tr input[type='checkbox']:checked ~ .tr {
+                transition: 0.3s;
+                overflow: hidden;
+            }
+
+            .JTable .tr input[type='checkbox'] ~ .tr .td {
+                transition: 0.3s;
+            }
+
+            .JTable .tr input[type='checkbox']:checked ~ .tr .td {
+                transition: 0.3s;
+                border: none;
+                font-size: 0;
+            }
+
+
+    .tr.clickable {
+        cursor: pointer;
+        z-index: 10;
     }
 
-    .date-table {
-        width: 120px;
-    }
-
-    .action-table {
-        width: 70px;
-    }
+        .tr.clickable:hover {
+            background-color: #ccc;
+            z-index: 10;
+        }
 </style>
 
 
@@ -74,60 +195,58 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-12" id="Table_Size_All">
-                        <table class="table table-striped table-bordered table-sm">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Time Start</th>
-                                    <th scope="col">Time End</th>
-                                    <th scope="col" width="30%">Location</th>
-                                    <th scope="col">Title</th>
-                                    @if (Session["username"] != null)
-                                    {
-                                        if (profile.user_role.Equals("ORGANIZER"))
-                                        {
-                                            <th scope="col"></th>
-                                            <th scope="col"></th>
-                                            <th scope="col"></th>
-                                        }
-                                    }
-                                </tr>
-                            </thead>
-                            <tbody id="table-events">
-                                @if (lstEvent != null)
-                                {
-                                    foreach (var x in lstEvent)
-                                    {
-                                        <tr>
-                                            <td class="date-table">@x.start_date_str</td>
-                                            <td class="date-table">@x.end_date_str</td>
-                                            <td class="venue-table">@x.venue</td>
-                                            <td class="title-table">@x.title</td>
-                                            @if (Session["username"] != null)
-                                            {
-                                                if (profile.user_role.Equals("ORGANIZER"))
-                                                {
-                                                    <td class="action-table"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
-                                                    <td class="action-table"><a href="/Home/EventEdit?id=@x.event_id">Edit</a></td>
-                                                    <td class="action-table"><a href="/Home/EventDelete?id=@x.event_id">Delete</a></td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="action-table"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <td class="action-table"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></td>
-                                            }
-                                        </tr>
-                                    }
-                                }
-                                else
-                                {
-                                    <tr><td><i>No event</i></td></tr>
-                                }
-                            </tbody>
-                        </table>
+                        <div class="JTable scrollable">
+                            <div class="table">
+                                <div class="thead">
+                                    <div class="tr" style=" background-color: #ddd; color:#333333; font-weight:bold;">
+                                        <div class="td">Title</div>
+                                        <div class="td">Time</div>
+                                        <div class="td">Location</div>
+                                    </div>
+                                </div>
+                                <div class="tbody">
+                                    <div class="tr">
+                                        <label for="dso_1" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam</label>
+                                        <div class="td">15-04-2022 7h30AM-8h30AM</div>
+                                        <div class="td">Khu nhà Alpha</div>
+                                        <input id="dso_1" type="checkbox">
+                                        <div class="tr">
+                                            <div for="dso_2" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam</div>
+                                            <div class="td">7h30AM-8h30AM</div>
+                                            <div class="td">Khu nhà Alpha</div>
+                                        </div>
+                                        <div class="tr">
+                                            <div for="dso_2" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam</div>
+                                            <div class="td">7h30AM-8h30AM</div>
+                                            <div class="td">Khu nhà Alpha</div>
+                                        </div>
+                                        <div class="tr">
+                                            <div for="dso_2" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam</div>
+                                            <div class="td">7h30AM-8h30AM</div>
+                                            <div class="td">Khu nhà Alpha</div>
+                                        </div>
+                                    </div>
+                                    <div class="tr">
+                                        <label for="dso_1" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam</label>
+                                        <div class="td">7h30AM-8h30AM</div>
+                                        <div class="td">Khu nhà Beta</div>
+                                        <input id="dso_1" type="checkbox">
+                                        <div class="tr">
+                                            <div for="dso_2" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam1</div>
+                                            <div class="td">7h30AM-8h30AM</div>
+                                            <div class="td">Khu nhà Beta</div>
+                                        </div>
+                                        <div class="tr">
+                                            <div for="dso_2" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam</div>
+                                            <div class="td">7h30AM-8h30AM</div>
+                                            <div class="td">Khu nhà Alpha</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 @if (Session["username"] != null)
