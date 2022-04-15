@@ -28,5 +28,7 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<int> useSchool(int schoolId, int coachId);
         Task<int> processSchool(int schoolId, string type);
         Task<int> removeSchool(int schoolId);
+
+        bool checkDuplicate(string schoolName, string insitutionName);
     }
 }

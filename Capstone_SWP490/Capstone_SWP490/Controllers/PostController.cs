@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using log4net;
 using System.IO;
+using System.Threading.Tasks;
+using Capstone_SWP490.Sercurity;
 
 namespace Capstone_SWP490.Controllers
 {
@@ -17,7 +19,7 @@ namespace Capstone_SWP490.Controllers
         private static readonly ILog Log = LogManager.GetLogger(typeof(PostController));
         private readonly IpostService _postService = new postService();
 
-
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         // GET: Post
         public ActionResult Index(string status)
         {
@@ -33,6 +35,7 @@ namespace Capstone_SWP490.Controllers
             return View(model);
         }
 
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult Enable(int id)
         {
             try
@@ -52,6 +55,7 @@ namespace Capstone_SWP490.Controllers
             }
         }
 
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult Disable(int id)
         {
             try
@@ -70,27 +74,35 @@ namespace Capstone_SWP490.Controllers
 
             }
         }
+
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult Create()
         {
             post_ViewModel model = new post_ViewModel();
             return View("Edit", model);
         }
-
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(post_ViewModel model, string postToFanPage)
+        public ActionResult Create(post_ViewModel model, string postToFanPage, HttpPostedFileBase file,string actionBtn)
         {
-            app_userViewModel logined = (app_userViewModel)Session["profile"];
-            if (postToFanPage != null && postToFanPage.Equals("on"))
+            if (actionBtn != null && actionBtn.Equals("Schedule"))
             {
-                model.post.post_to += ",FANPAGE";
                 DateTime now = DateTime.Now;
                 if (model.post.schedule_date == null || DateTime.Parse(model.post.schedule_date) <= now)
                 {
                     @ViewData["EDIT_ERROR"] = "In Case Of Schedule Post, Schedule Date Cannot be empty or earlier than Now";
                     return View("Edit", model);
                 }
+                model.post.enabled = false;
             }
+            else
+            {
+                model.post.schedule_date = "";
+                model.post.enabled = true;
+            }
+
+            app_userViewModel logined = (app_userViewModel)Session["profile"];
             if (model.post.title == null || model.post.title.Equals(""))
             {
                 @ViewData["EDIT_ERROR"] = "Title cannot be empty";
@@ -104,10 +116,12 @@ namespace Capstone_SWP490.Controllers
             model.post.insert_date = DateTime.Now + "";
             model.post.update_date = DateTime.Now + "";
             model.post.post_by = logined.user_id;
-            model.post.enabled = false;
+            model.post.featured = model.featured;
             _postService.insert(model.post);
             return RedirectToAction("", "Post");
         }
+
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult Edit(int id)
         {
             try
@@ -127,14 +141,14 @@ namespace Capstone_SWP490.Controllers
             }
         }
 
-
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Edit(post_ViewModel model, string postToFanPage, HttpPostedFileBase file, string action)
+        public ActionResult Edit(post_ViewModel model, string postToFanPage, HttpPostedFileBase file, string actionBtn)
         {
             try
             {
-                if (action != null && action.Equals("Schedule"))
+                if (actionBtn != null && actionBtn.Equals("Schedule"))
                 {
                     DateTime now = DateTime.Now;
                     if (model.post.schedule_date == null || DateTime.Parse(model.post.schedule_date) <= now)
@@ -197,5 +211,11 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("", "Home");
         }
 
+        [AuthorizationAccept(Roles = "ORGANIZER")]
+        public async Task<ActionResult> Remove(int post_id)
+        {
+            await _postService.Delete(post_id);
+            return RedirectToAction("", "Post");
+        }
     }
 }

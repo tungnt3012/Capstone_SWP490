@@ -83,17 +83,17 @@ namespace Capstone_SWP490.Services
             var posts = _ipostRepository.FindBy(x => x.featured == true).Take(5);
             var lstPostOut = new List<post_TopViewModel>();
             var lstPTemp = (from x in posts
-                     orderby x.schedule_date descending
-                     select x).ToList();
+                            orderby x.schedule_date descending
+                            select x).ToList();
 
-            foreach(var x in lstPTemp)
+            foreach (var x in lstPTemp)
             {
                 var p = new post_TopViewModel
                 {
                     post_id = x.post_id,
                     content = x.content,
-                    enabled=x.enabled,
-                    featured =x.featured,
+                    enabled = x.enabled,
+                    featured = x.featured,
                     html_content = x.html_content,
                     insert_date = x.insert_date,
                     post_by = x.post_by,
@@ -106,6 +106,15 @@ namespace Capstone_SWP490.Services
                 lstPostOut.Add(p);
             }
             return lstPostOut;
+        }
+
+        public async Task<int> Delete(int postId)
+        {
+            post post = _ipostRepository.FindBy(x => x.post_id == postId).FirstOrDefault();
+            if (post != null)
+                return await _ipostRepository.Delete(post);
+
+            return -1;
         }
     }
 }

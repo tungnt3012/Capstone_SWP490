@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.ExceptionHandler;
+using Capstone_SWP490.Helper;
 using Capstone_SWP490.Models.statisticViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
@@ -197,6 +198,15 @@ namespace Capstone_SWP490.Services
                 return await update(data);
             }
             return -1;
+        }
+
+        public bool checkDuplicate(string schoolName, string insitutionName)
+        {
+            if (StringUtils.isNullOrEmpty(schoolName) || StringUtils.isNullOrEmpty(insitutionName)){
+                return false;
+            }
+            school check = _ischoolRepository.FindBy(x => x.school_name.Equals(schoolName) && x.institution_name.Equals(insitutionName)).FirstOrDefault();
+            return check == null;
         }
     }
 }

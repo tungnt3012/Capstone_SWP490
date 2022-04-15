@@ -1,6 +1,7 @@
 ﻿using Capstone_SWP490.Constant.Const;
 using Capstone_SWP490.Helper;
 using Capstone_SWP490.Models.organization_ViewModel;
+using Capstone_SWP490.Sercurity;
 using Capstone_SWP490.Services;
 using Capstone_SWP490.Services.Interfaces;
 using log4net;
@@ -30,6 +31,8 @@ namespace Capstone_SWP490.Controllers.Orgnazition
 
             return View();
         }
+
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult NewRegistCoach(organization_ListViewModel model, int? pageIndex)
         {
             try
@@ -56,6 +59,7 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                         itemModel.school_phone = school.phone_number;
                         itemModel.school_address = school.address;
                     }
+                    itemModel.is_duplicate_school = _ischoolService.checkDuplicate(itemModel.school_name, itemModel.institution_name);
                     data.Add(itemModel);
                 }
                 model.total_data = data.Count;
@@ -82,6 +86,8 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                 return RedirectToAction("", ACTION_CONST.Home.CONTROLLER);
             }
         }
+
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult CoachAccount(organization_ListViewModel model, int? pageIndex)
         {
             try
@@ -139,6 +145,7 @@ namespace Capstone_SWP490.Controllers.Orgnazition
             }
         }
 
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult RejectCoach(int coachId, string reason)
         {
             try
@@ -162,6 +169,8 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                 return RedirectToAction("", ACTION_CONST.Home.CONTROLLER);
             }
         }
+
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult EnableCoach(int user_id)
         {
             try
@@ -178,6 +187,7 @@ namespace Capstone_SWP490.Controllers.Orgnazition
             return RedirectToAction(ACTION_CONST.Orgnazation.COACH_ACCOUNT, ACTION_CONST.Orgnazation.CONTROLLER);
         }
 
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult DisableCoach(int user_id, string reason)
         {
             try

@@ -62,7 +62,13 @@
                                                             <td>@(item.full_name)</td>
                                                             <td>@(item.email)</td>
                                                             <td>@(item.coach_phone)</td>
-                                                            <td>@(item.school_name)</td>
+                                                            <td>
+                                                                @(item.school_name)
+                                                                @if (item.is_duplicate_school == true)
+                                                                {
+                                                                    <span style="color: red">(Duplicated)</span>
+                                                                }
+                                                            </td>
                                                             <td>@(item.institution_name)</td>
                                                             <td>@(item.school_phone)</td>
                                                             <td style="color: @(item.status == true ? "green" : " red")">@(item.status == true ? "Enabled" : "Disabled")</td>

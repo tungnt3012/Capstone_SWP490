@@ -17,6 +17,7 @@ namespace Capstone_SWP490.Models.organization_ViewModel
         public string school_phone { get; set; }
         public string school_address { get; set; }
         public bool status { get; set; }
+        public bool is_duplicate_school { get; set; }
 
     }
 }

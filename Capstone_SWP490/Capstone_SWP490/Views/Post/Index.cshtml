@@ -27,44 +27,44 @@
                 <br />
                 @*<a href="@Url.Action("Create", "Post")" style="text-decoration:underline">ADD NEW</a>*@
                 <div class="row">
-                        <div class="col-lg-12">
-                            @*<a href="@Url.Action("Create", "Post")" style="text-decoration:underline">ADD NEW</a>*@
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Status:</label>
-                                        <select class="form-control" id="selectStatus">
-                                            <option value="all" @(Model.status != null && Model.status != "postsed" && Model.status != "scheduling" ? "selected" : "")>All</option>
-                                            <option value="postsed" @(Model.status != null && Model.status == "postsed" ? "selected" : "")>Posted</option>
-                                            <option value="scheduling" @(Model.status != null && Model.status == "scheduling" ? "selected" : "")>Scheduling</option>
-                                        </select>
-                                    </div>
+                    <div class="col-lg-12">
+                        @*<a href="@Url.Action("Create", "Post")" style="text-decoration:underline">ADD NEW</a>*@
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Filter By:</label>
+                                    <select class="form-control" id="selectStatus">
+                                        <option value="all" @(Model.status != null && Model.status != "postsed" && Model.status != "scheduling" ? "selected" : "")>All</option>
+                                        <option value="postsed" @(Model.status != null && Model.status == "posted" ? "selected" : "")>Posted</option>
+                                        <option value="scheduling" @(Model.status != null && Model.status == "scheduling" ? "selected" : "")>Scheduling</option>
+                                    </select>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group pull-right">
-                                        <button type="button" onclick="window.location.href='/Post/Create'" class="btn btn-success add-post">Add New</button>
-                                    </div>
-                                    
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group pull-right">
+                                    <button type="button" onclick="window.location.href='/Post/Create'" class="btn btn-success add-post">Add New</button>
                                 </div>
 
-                                <div class="col-lg-12" style="overflow:auto">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" width="3%">No</th>
-                                                <th scope="col" width="15%">Title</th>
-                                                <th scope="col" width="30%">Short Description</th>
-                                                <th scope="col" width="12%">Create Date</th>
-                                                <th scope="col" width="12%">Post Date</th>
-                                                <th scope="col" width="11%">Featured</th>
-                                                <th scope="col" width="11%">Schedule/Time Remaining</th>
-                                                <th scope="col" width="10%">Posted</th>
-                                                <th scope="col" width="15%"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var item in Model.posts)
-                                            {
+                            </div>
+
+                            <div class="col-lg-12" style="overflow:auto">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" width="3%">No</th>
+                                            <th scope="col" width="15%">Title</th>
+                                            <th scope="col" width="30%">Short Description</th>
+                                            <th scope="col" width="12%">Create Date</th>
+                                            <th scope="col" width="12%">Post Date</th>
+                                            <th scope="col" width="11%">Featured</th>
+                                            <th scope="col" width="11%">Schedule/Time Remaining</th>
+                                            <th scope="col" width="10%">Posted</th>
+                                            <th scope="col" width="20%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.posts)
+                                        {
                                             <tr>
                                                 <td>@(stt)</td>
                                                 <td>@(item.title)</td>
@@ -87,18 +87,20 @@
                                                         <a href="@Url.Action("Enable")?id=@item.post_id">RePost</a>
                                                     }
                                                     @("|")
-                                                    <a href="@Url.Action("Edit", "Post")?id=@item.post_id" style="color: red">Edit</a>
+                                                    <a href="@Url.Action("Edit", "Post")?id=@item.post_id">Edit</a>
+                                                    |
+                                                    <a id="removePost" href="@Url.Action("Remove", "Post")?post_id=@item.post_id" style="color: red">Remove</a>
                                                 </td>
                                             </tr>
-                                                { stt += 1; }
-                                            }
+                                            { stt += 1; }
+                                        }
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                   
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -126,6 +128,12 @@
     $('#selectStatus').change(function () {
         document.getElementById('status').value = $(this).val();
         $('#form').submit();
+    });
+
+    $('#removePost').click(function () {
+        if (confirm("Continue delete post?") == true)
+            return true;
+        return false;
     });
 </script>
 
