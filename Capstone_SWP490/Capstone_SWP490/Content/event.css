@@ -1,0 +1,145 @@
+﻿@media only screen and (max-width: 600px) {
+    .JTable .tr {
+        display: grid;
+        grid-template-columns: 1fr repeat(2, 5em) !important;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+label {
+    margin-bottom: 0px !important;
+}
+
+.JTable {
+    border: 1px solid #ccc;
+}
+
+    .JTable .thead,
+    .JTable .tfoot {
+        background-color: #4c4f5a;
+        color: white;
+    }
+
+    .JTable.scrollable .tbody {
+        max-height: 400px;
+        overflow: scroll;
+    }
+
+    .JTable.scrollable ::-webkit-scrollbar {
+        width: 0.5em;
+        height: 0.5em;
+    }
+
+    .JTable.scrollable ::-webkit-scrollbar-thumb {
+        background-color: #4c4f5a;
+    }
+
+    .JTable .center {
+        text-align: center;
+    }
+
+    .JTable label {
+        cursor: pointer;
+    }
+
+        .JTable label:hover {
+            background-color: #ddd;
+        }
+
+    .JTable .tr {
+        display: grid;
+        grid-template-columns: 1fr repeat(2, 20em);
+        position: relative;
+        z-index: 1;
+    }
+
+        .JTable .tr .td:first-child {
+            padding-left: 1.25em;
+        }
+
+    .JTable .td,
+    .JTable .th {
+        padding: 0.3em 0.5em;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .JTable .th {
+        text-align: center;
+    }
+
+    .JTable .tr > .tr {
+        grid-column-end: span 3;
+        margin-left: 1em;
+    }
+
+    .JTable.group-line .tr > .tr:before {
+        content: '';
+        position: absolute;
+        width: 2px;
+        background-color: #ccc;
+        height: 100%;
+        left: -0.5em;
+    }
+
+    .JTable .tr input[type='checkbox'] {
+        position: absolute;
+        top: 0.25em;
+    }
+
+        .JTable .tr input[type='checkbox']:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+        }
+
+        .JTable .tr input[type='checkbox']:after {
+            content: '-';
+            position: absolute;
+            font-size: 2em;
+            top: -0.45em;
+            left: 0.05em;
+            cursor: pointer;
+        }
+
+        .JTable .tr input[type='checkbox']:checked:after {
+            content: '+';
+            position: absolute;
+            font-size: 2em;
+            top: -0.37em;
+            left: -0.05em;
+        }
+
+
+        .JTable .tr input[type='checkbox'] ~ .tr {
+            transition: 0.3s;
+        }
+
+        .JTable .tr input[type='checkbox']:checked ~ .tr {
+            transition: 0.3s;
+            overflow: hidden;
+        }
+
+        .JTable .tr input[type='checkbox'] ~ .tr .td {
+            transition: 0.3s;
+        }
+
+        .JTable .tr input[type='checkbox']:checked ~ .tr .td {
+            transition: 0.3s;
+            border: none;
+            font-size: 0;
+        }
+
+
+.tr.clickable {
+    cursor: pointer;
+    z-index: 10;
+}
+
+    .tr.clickable:hover {
+        background-color: #ccc;
+        z-index: 10;
+    }
+
