@@ -89,7 +89,7 @@
                                                     @("|")
                                                     <a href="@Url.Action("Edit", "Post")?id=@item.post_id">Edit</a>
                                                     |
-                                                    <a id="removePost" href="@Url.Action("Remove", "Post")?post_id=@item.post_id" style="color: red">Remove</a>
+                                                    <a onclick="return confirmRemove();" href="@Url.Action("Remove", "Post")?post_id=@item.post_id" style="color: red">Remove</a>
                                                 </td>
                                             </tr>
                                             { stt += 1; }
@@ -130,11 +130,11 @@
         $('#form').submit();
     });
 
-    $('#removePost').click(function () {
+    function confirmRemove() {
         if (confirm("Continue delete post?") == true)
             return true;
         return false;
-    });
+    }
 </script>
 
 

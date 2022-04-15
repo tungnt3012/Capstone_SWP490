@@ -51,7 +51,7 @@
                             <div class="col-lg-12" style="overflow:auto">
                                 <div class="form-group">
                                     <label for="firstName">Title<span id="not-empty">*</span></label><br />
-                                    @Html.TextBoxFor(x => x.post.title, new { @class = "form-control" , required = true })
+                                    @Html.TextBoxFor(x => x.post.title, new { @class = "form-control", required = true })
                                 </div>
                             </div>
                         </div>
@@ -59,8 +59,8 @@
                             <div class="col-lg-12" style="overflow:auto">
                                 <div class="form-group">
                                     <label for="firstName">Title Image<span id="not-empty">*</span></label><br />
-                                    <input type="file" name="image" accept="image/*" onchange="loadFile(event)">
-                                    <img id="preview" src="~/image/default.png" width="200" height="250" style="border: 1px solid gray" onclick="loadFile(event)" />
+                                    <input type="file" name="file" accept="image/*" onchange="loadFile(event)">
+                                    <img id="preview" src="~/image/@(Model.post== null ?"default.png" : Model.post.title_image)" width="200" height="250" style="border: 1px solid gray" onclick="loadFile(event)" />
                                 </div>
                             </div>
                         </div>

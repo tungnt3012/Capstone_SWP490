@@ -84,7 +84,7 @@ namespace Capstone_SWP490.Controllers
         [AuthorizationAccept(Roles = "ORGANIZER")]
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(post_ViewModel model, string postToFanPage, HttpPostedFileBase file,string actionBtn)
+        public ActionResult Create(post_ViewModel model, string postToFanPage, HttpPostedFileBase file, string actionBtn)
         {
             if (actionBtn != null && actionBtn.Equals("Schedule"))
             {
@@ -180,9 +180,9 @@ namespace Capstone_SWP490.Controllers
                 }
                 if (file != null)
                 {
-                    string pic = System.IO.Path.GetFileName(file.FileName);
+                    string pic = DateTime.Now.ToFileTime() + Path.GetExtension(file.FileName);
                     string path = System.IO.Path.Combine(
-                                           Server.MapPath("~/images/profile"), pic);
+                                           Server.MapPath("~/image/post"), pic);
                     // file is uploaded
                     file.SaveAs(path);
 
@@ -194,7 +194,7 @@ namespace Capstone_SWP490.Controllers
                         file.InputStream.CopyTo(ms);
                         byte[] array = ms.GetBuffer();
                     }
-
+                    model.post.title_image = pic;
                 }
                 model.post.insert_date = DateTime.Now + "";
                 model.post.update_date = DateTime.Now + "";
