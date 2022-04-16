@@ -104,6 +104,7 @@ namespace Capstone_SWP490.Controllers
                 return RedirectToAction("Index", "Home");
             }
             var user = _iapp_UserService.GetUserByUsername(app_User.user_name);
+         
             if (user != null)
             {
                 if (user.active == false)
@@ -132,6 +133,15 @@ namespace Capstone_SWP490.Controllers
                     if (user.verified == false)
                     {
                         return RedirectToAction("ChangePasswordFirst", "Login");
+                    }
+                    var memberTemp = _imemberService.GetMemberByAvaibleUserId(user.user_id);
+
+                    if (memberTemp != null)
+                    {
+                        if (String.IsNullOrWhiteSpace(memberTemp.shirt_sizing))
+                        {
+                            return RedirectToAction("RegisShirtSizing", "Login");
+                        }
                     }
                     FormsAuthentication.SetAuthCookie(user.user_name, false);
                     return RedirectToAction("Index", "Home");
