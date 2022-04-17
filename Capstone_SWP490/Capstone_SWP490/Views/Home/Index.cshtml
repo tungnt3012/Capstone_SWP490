@@ -243,14 +243,14 @@
                 let strRs = `<tr>
                                                 <td>
                                                     <div class="event-date">
-                                                        <div class="event-month">Start date</div>
+                                                        <div class="event-month" style="width:50%">Title</div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="event-month"> Title</div>
+                                                    <div class="event-month" style="width:20%">Time</div>
                                                 </td>
-                                                <td class="event-venue hidden-xs"><i class="icon-map-marker"></i><div class="event-month">Location</div></td>
-                                                <td class="event-price hidden-xs"><div class="event-month">End date</div></td>
+                                                <td class="event-venue hidden-xs" style="width:30%"><i class="icon-map-marker"></i><div class="event-month">Location</div></td>
+                                                
                                                 <td></td>
                                             </tr>`;
 
@@ -260,15 +260,15 @@
                                     `<tr>
                                                 <td>
                                                     <div class="event-date">
-
-                                                        <div class="event-month">`+ results[i].start_date_str + `</div>
+                                                        <div class="event-month"> `+ results[i].title + `</div>
+                                                      
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="event-month"> `+ results[i].title + `</div>
+                                                      <div class="event-month">`+ results[i].start_date_str + `</div>
                                                 </td>
                                                 <td class="event-venue hidden-xs"><i class="icon-map-marker"></i><div class="event-month">`+ results[i].venue + `</div></td>
-                                                <td class="event-price hidden-xs"><div class="event-month">`+ results[i].end_date_str + `</div></td>
+                                               
                                                 <td><a href="Home/EventDetail?id=`+ results[i].event_id + `">Read More</a></td>
                                       </tr>`;
                     }
@@ -282,10 +282,15 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="event-month"> Title</div>
+                                                    <div class="event-date">
+                                                        <div class="event-month" style="width:50%">Title</div>
+                                                    </div>
                                                 </td>
-                                                <td class="event-venue hidden-xs"><i class="icon-map-marker"></i><div class="event-month">Location</div></td>
-                                                <td class="event-price hidden-xs"><div class="event-month">End date</div></td>
+                                                <td>
+                                                    <div class="event-month" style="width:20%">Time</div>
+                                                </td>
+                                                <td class="event-venue hidden-xs" style="width:20%"><i class="icon-map-marker"></i><div class="event-month">Location</div></td>
+
                                                 <td></td>
                                      </tr>
 
