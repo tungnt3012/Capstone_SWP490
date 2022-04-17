@@ -10,10 +10,10 @@ namespace Capstone_SWP490.Services.Interfaces
 {
     public interface IeventService
     {
-        AjaxResponseViewModel<IEnumerable<eventsViewModel>>  GetEventsByDate(DateTime fromDateIn, DateTime toDateIn);
+        AjaxResponseViewModel<IEnumerable<eventsMainViewModel>>  GetEventsByDate(DateTime fromDateIn, DateTime toDateIn);
         AjaxResponseViewModel<IEnumerable<eventsViewModel>> SearchEventActivities(DateTime fromDateIn, DateTime toDateIn);
         IEnumerable<string> GetAllSectionEvent();
-        IEnumerable<eventsViewModel> GetAllEventsAvailale();
+        IEnumerable<eventsMainViewModel> GetAllEventsAvailale();
         IEnumerable<eventsViewModel> GetAllActivitiesAvailale();
         eventsViewModel GetEventsById(int id);
         List<eventsViewModel> GetSubEventsByEventId(int id);
@@ -26,6 +26,7 @@ namespace Capstone_SWP490.Services.Interfaces
         bool IsUserJoinEvent(int eventId, int userId);
         int CountMemberJoinEvent(int eventId);
         List<eventsViewModel> GetTop8Event();
+        AjaxResponseViewModel<bool> SendNotiNewEvent(int eventId);
 
     }
 }

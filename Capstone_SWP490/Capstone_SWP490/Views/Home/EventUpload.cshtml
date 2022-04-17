@@ -86,38 +86,37 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label for="Location">Start time<span id="not-empty">*</span></label>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            @Html.TextBoxFor(m => m.start_time, new { type = "time", @class = "form-control", id = "EventStartTime", @onchange = "checkTime()", name = "EventStartTime", placeholder = "Start Time" })
+                            @*<div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="Location">Start time<span id="not-empty">*</span></label>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                @Html.TextBoxFor(m => m.start_time, new { type = "time", @class = "form-control", id = "EventStartTime", @onchange = "checkTime()", name = "EventStartTime", placeholder = "Start Time" })
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label for="Location">End date<span id="not-empty">*</span></label>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()", name = "EventEndDate", placeholder = "End date" })
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="Location">End date<span id="not-empty">*</span></label>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()", name = "EventEndDate", placeholder = "End date" })
+                                            </div>
+                                        </div>
+                                        <span style="color:red"><i id="text-error-date"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="Location">End time<span id="not-empty">*</span></label>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", placeholder = "End Time" })
+                                            </div>
                                         </div>
                                     </div>
-                                    <span style="color:red"><i id="text-error-date"></i></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label for="Location">End time<span id="not-empty">*</span></label>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", placeholder = "End Time" })
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
+                                </div>*@
                         </div>
                         <div class="form-group">
                             <label for="Location">Location<span id="not-empty">*</span></label>
@@ -157,46 +156,68 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" id="st" value="@ViewData["status"]">
+<input type="hidden" id="event_id" value=@ViewData["event_id"]>
 <script>
     $(document).ready(function () {
-        var _startDate = $('#EventStartDate').val();
-        var _endDate = $('#EventEndDate').val();
-        if (_startDate === '' || _endDate == '') {
-            $('#event-upload').attr("disabled", true);
-        } else {
-            $('#event-upload').attr("disabled", false);
+        var statusTemp = $("#st").val();
+        if (statusTemp === "1") {
+            var _eventId = $("#event_id").val();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SendNotiEvent", "Home")',
+                data: JSON.stringify({ 'eventId': _eventId }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (rs) {
+                    if (rs != null) {
+                        var s = rs;
+                        if (rs.Data == true) {
+                            console.log("Add Event Successfully!!!");
+                        } else {
+                            console.log("Add Event Fail!!!");
+                        }
+                    }
+                }
+            });
         }
+        //var _startDate = $('#EventStartDate').val();
+        //var _endDate = $('#EventEndDate').val();
+        //if (_startDate === '' || _endDate == '') {
+        //    $('#event-upload').attr("disabled", true);
+        //} else {
+        //    $('#event-upload').attr("disabled", false);
+        //}
     });
 
     function checkDate() {
-        var _startDate = $('#EventStartDate').val();
-        var _endDate = $('#EventEndDate').val();
-        if (_startDate > _endDate) {
-            $('#event-upload').attr("disabled", true);
-            $('#text-error-date').html("The End Date must NOT occur before the Start Date!!!");
-        } else {
-            $('#event-upload').attr("disabled", false);
-            $('#text-error-date').html("");
-        }
-        checkTime();
+        //var _startDate = $('#EventStartDate').val();
+        //var _endDate = $('#EventEndDate').val();
+        //if (_startDate > _endDate) {
+        //    $('#event-upload').attr("disabled", true);
+        //    $('#text-error-date').html("The End Date must NOT occur before the Start Date!!!");
+        //} else {
+        //    $('#event-upload').attr("disabled", false);
+        //    $('#text-error-date').html("");
+        //}
+        //checkTime();
     }
 
     function checkTime() {
-        var _startDate = $('#EventStartDate').val();
-        var _endDate = $('#EventEndDate').val();
+        //var _startDate = $('#EventStartDate').val();
+        //var _endDate = $('#EventEndDate').val();
 
-        var _startTime = $('#EventStartTime').val();
-        var _endTime = $('#EventEndTime').val();
-        if (_startDate == _endDate) {
-            if (_startTime == _endTime || _startTime > _endTime) {
-                $('#event-upload').attr("disabled", true);
-                $('#text-error-date').html("The End Time must be after the Start Time!!!");
-            } else {
-                $('#event-upload').attr("disabled", false);
-                $('#text-error-date').html("");
-            }
-        }
+        //var _startTime = $('#EventStartTime').val();
+        //var _endTime = $('#EventEndTime').val();
+        //if (_startDate == _endDate) {
+        //    if (_startTime == _endTime || _startTime > _endTime) {
+        //        $('#event-upload').attr("disabled", true);
+        //        $('#text-error-date').html("The End Time must be after the Start Time!!!");
+        //    } else {
+        //        $('#event-upload').attr("disabled", false);
+        //        $('#text-error-date').html("");
+        //    }
+        //}
     }
 
     //function checkEmail() {

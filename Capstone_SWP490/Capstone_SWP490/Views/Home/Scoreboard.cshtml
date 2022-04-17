@@ -19,36 +19,38 @@
     <div class="main">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1" id="under">
-                <div class="col-lg-12">
-                    <div class="form-group pull-right">
-                        <button type="button" onclick="window.location.href='/Home/ScoreboardManagement'" class="btn btn-success">Change</button>
-
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="form-group pull-right">
-                        <span style="color:red">*Change the path of the Scoreboard</span>
-                    </div>
-                </div>
+                @*@if (Session["username"] != null)
+                {
+                    if (profile.user_role.Equals("ORGANIZER"))
+                    {*@
+                        <div class="row">
+                            <div class="form-group pull-right">
+                                <button type="button" onclick="window.location.href='/Home/ScoreboardManagement'" class="btn btn-success">Change</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group pull-right">
+                                <span style="color:red">*Change the path of the Scoreboard</span>
+                            </div>
+                        </div>
+                    @*}
+                }*@
                 <section>
-                    <div class="form-group" style="padding-left:15px">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li role="presentation" class="nav-item active">
-                                <a href="#step1" class="nav-link front-size-title active" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">Southern</a>
-                            </li>
-
-                            <li role="presentation" class="nav-item">
-                                <a href="#step2" class="nav-link front-size-title" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">Central</a>
-                            </li>
-                            <li role="presentation" class="nav-item">
-                                <a href="#step3" class="nav-link front-size-title" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">Northern</a>
-                            </li>
-
-                        </ul>
+                    <div class="form-group" style="padding-left:15px" id="tab-select">
+                        @*<ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li role="presentation" class="nav-item active">
+                                    <a href="#step1" class="nav-link front-size-title active" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">Southern</a>
+                                </li>
+                                <li role="presentation" class="nav-item">
+                                    <a href="#step2" class="nav-link front-size-title" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">Central</a>
+                                </li>
+                                <li role="presentation" class="nav-item">
+                                    <a href="#step3" class="nav-link front-size-title" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">Northern</a>
+                                </li>
+                            </ul>*@
                     </div>
-                    <form role="form">
-                        <div class="tab-content">
-                            <div class="tab-pane active" role="tabpanel" id="step1">
+                    <div class="tab-content" id="tab-show-content">
+                        @*<div class="tab-pane active" role="tabpanel" id="step1">
                                 <div class="col-lg-12">
                                     <iframe class="col-lg-12" id="content-iframe" src="https://icpcvn.github.io/2021/southern/scoreboard.html">
                                     </iframe>
@@ -66,19 +68,16 @@
                                     </iframe>
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </form>
+                            <div class="clearfix"></div>*@
+                    </div>
                 </section>
-
             </div>
-           
-
         </div>
     </div>
 </div>
 <script>
     $(function () {
+        GetListContent();
         var $content = $('#content-iframe');
         $('#toc a')
             .click(function () {
@@ -86,4 +85,59 @@
                 return false;
             });
     });
+
+    function GetListContent() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetContentScoreBoard", "Home")',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (results) {
+                document.getElementById("tab-select").innerHTML = "";
+                document.getElementById("tab-show-content").innerHTML = "";
+                if (results != null) {
+                            //fill input CKeditor
+                        let _tab_select = ``;
+                        let _tab_show_content = ``;
+                        _tab_select += `<ul class="nav nav-tabs" id="myTab" role="tablist">`;
+                        for (let i = 0; i < results.length; i++) {
+                                if (i == 0) {
+                                    _tab_select += `
+                                            <li role="presentation" class="nav-item active">
+                                                <a href="#step`+ i + `" class="nav-link front-size-title active" data-toggle="tab" aria-controls="step1" role="tab" title="Step ` + i + `">` + results[i].title + `</a>
+                                            </li>`;
+
+                                    _tab_show_content += `
+                                        <div class="tab-pane active" role="tabpanel" id="step`+ i + `">
+                                            <div class="col-lg-12">
+                                                <iframe class="col-lg-12" id="content-iframe" src="`+ results[i].content + `">
+                                                </iframe>
+                                            </div>
+                                        </div>`;
+
+                                } else {
+                                    _tab_select += `
+                                            <li role="presentation" class="nav-item">
+                                                <a href="#step`+ i + `" class="nav-link front-size-title" data-toggle="tab" aria-controls="step1" role="tab" title="Step ` + i + `">` + results[i].title + `</a>
+                                            </li>`;
+
+                                    _tab_show_content += `
+                                        <div class="tab-pane" role="tabpanel" id="step`+ i + `">
+                                            <div class="col-lg-12">
+                                                <iframe class="col-lg-12" id="content-iframe" src="`+ results[i].content + `">
+                                                </iframe>
+                                            </div>
+                                        </div>`;
+                                }
+                        }
+                        _tab_show_content += `<div class="clearfix"></div>`;
+                        _tab_select += `</ul>`;
+
+                        document.getElementById("tab-select").innerHTML = _tab_select;
+                        document.getElementById("tab-show-content").innerHTML = _tab_show_content;
+                }
+            }
+        });
+    };
+
 </script>

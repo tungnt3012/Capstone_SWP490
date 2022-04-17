@@ -18,15 +18,15 @@ namespace Capstone_SWP490.Services
         private readonly ImemberRepository _imemberRepository = new memberRepository();
         private readonly Iapp_userRepository _iapp_userRepository = new app_userRepository();
 
-        public IEnumerable<eventsViewModel> GetAllEventsAvailale()
+        public IEnumerable<eventsMainViewModel> GetAllEventsAvailale()
         {
             var events = _ieventRepository.FindBy(x => x.event_type == 1 && x.status != -1).ToList();
-            var lstEventsViewModels = new List<eventsViewModel>();
+            var lstEventsMainViewModels = new List<eventsMainViewModel>();
             if (events != null)
             {
                 foreach (var x in events)
                 {
-                    var e = new eventsViewModel
+                    var e = new eventsMainViewModel
                     {
                         event_id = x.event_id,
                         contactor_email = x.contactor_phone,
@@ -43,10 +43,11 @@ namespace Capstone_SWP490.Services
                         end_date_str = x.end_date.ToString("dd-MM-yyyy"),
                         title = x.title,
                         venue = x.venue,
+                        subEvent = GetSubEventsByEventId(x.event_id)
                     };
-                    lstEventsViewModels.Add(e);
+                    lstEventsMainViewModels.Add(e);
                 }
-                return lstEventsViewModels;
+                return lstEventsMainViewModels;
             }
             return null;
         }
@@ -56,9 +57,9 @@ namespace Capstone_SWP490.Services
             throw new NotImplementedException();
         }
 
-        public AjaxResponseViewModel<IEnumerable<eventsViewModel>> GetEventsByDate(DateTime fromDateIn, DateTime toDateIn)
+        public AjaxResponseViewModel<IEnumerable<eventsMainViewModel>> GetEventsByDate(DateTime fromDateIn, DateTime toDateIn)
         {
-            var output = new AjaxResponseViewModel<IEnumerable<eventsViewModel>>
+            var output = new AjaxResponseViewModel<IEnumerable<eventsMainViewModel>>
             {
                 Status = 0,
                 Data = null
@@ -71,42 +72,49 @@ namespace Capstone_SWP490.Services
             var events = new List<@event>();
             if (fromDateIn == temp && toDateIn == temp)
             {
-                events = _ieventRepository.FindBy(x => x.event_type == 1).ToList();
+                events = _ieventRepository.FindBy(x => x.event_type == 1 && x.status != -1).ToList();
             }
             if (fromDateIn == temp)
             {
-                events = _ieventRepository.FindBy(x => x.end_date <= toDateIn && x.event_type == 1).ToList();
+                events = _ieventRepository.FindBy(x => x.end_date <= toDateIn && x.event_type == 1 && x.status != -1).ToList();
             }
             if (toDateIn == temp)
             {
-                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.event_type == 1).ToList();
+                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.event_type == 1 && x.status != -1).ToList();
             }
             if (fromDateIn != temp && toDateIn != temp)
             {
-                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.end_date <= toDateIn && x.event_type == 1).ToList();
+                events = _ieventRepository.FindBy(x => x.start_date >= fromDateIn && x.end_date <= toDateIn && x.event_type == 1 && x.status != -1).ToList();
             }
             //ONLY Search Main-Event
-            var lstEventsViewModels = new List<eventsViewModel>();
+            var lstEventsMainViewModels = new List<eventsMainViewModel>();
             if (events != null)
             {
                 foreach (var x in events)
                 {
-                    var e = new eventsViewModel
+                    var e = new eventsMainViewModel
                     {
                         event_id = x.event_id,
+                        contactor_email = x.contactor_phone,
+                        contactor_name = x.contactor_name,
+                        contactor_phone = x.contactor_phone,
                         desctiption = x.desctiption,
-                        end_date = x.end_date,
+                        event_type = x.event_type,
                         fan_page = x.fan_page,
                         note = x.note,
                         shirt_id = x.shirt_id,
                         start_date = x.start_date,
+                        end_date = x.end_date,
+                        start_date_str = x.start_date.ToString("dd-MM-yyyy"),
+                        end_date_str = x.end_date.ToString("dd-MM-yyyy"),
                         title = x.title,
                         venue = x.venue,
+                        subEvent = GetSubEventsByEventId(x.event_id)
                     };
-                    lstEventsViewModels.Add(e);
+                    lstEventsMainViewModels.Add(e);
                 }
                 output.Message = "success";
-                output.Data = lstEventsViewModels;
+                output.Data = lstEventsMainViewModels;
                 output.Status = 1;
                 return output;
             }
@@ -251,21 +259,19 @@ namespace Capstone_SWP490.Services
         public async Task<eventsViewModel> CreateEvent(eventsViewModel eventsIn)
         {
             //var e = _ieventRepository.FindBy(x => x.event_id == eventsIn.event_id).FirstOrDefault();
-            var member = _imemberRepository.FindBy(x => x.event_notify == true && x.enabled == true).ToList();
 
             if (!string.IsNullOrWhiteSpace(eventsIn.title)
                 && !string.IsNullOrWhiteSpace(eventsIn.desctiption)
                 && !string.IsNullOrWhiteSpace(eventsIn.venue)
                 && !string.IsNullOrWhiteSpace(eventsIn.fan_page)
-                && Convert.ToDateTime("01/01/0001") != eventsIn.start_date
-                && Convert.ToDateTime("01/01/0001") != eventsIn.end_date)
+                && Convert.ToDateTime("01/01/0001") != eventsIn.start_date)
             {
                 var e = new @event
                 {
                     title = eventsIn.title,
                     desctiption = eventsIn.desctiption,
-                    start_date = eventsIn.start_date + eventsIn.start_time,
-                    end_date = eventsIn.end_date + eventsIn.end_time,
+                    start_date = eventsIn.start_date.Add(new TimeSpan(00, 00, 01)),
+                    end_date = eventsIn.start_date.Add(new TimeSpan(23, 59, 59)),
                     venue = eventsIn.venue,
                     fan_page = eventsIn.fan_page,
                     contactor_name = eventsIn.contactor_name,
@@ -279,14 +285,6 @@ namespace Capstone_SWP490.Services
                 var newEvent = await _ieventRepository.Create(e);
                 if (newEvent != null)
                 {
-                    if (member != null && member.Count > 0)
-                    {
-                        foreach (var x in member)
-                        {
-                            new MailHelper().sendMailEvent(x, newEvent);
-                        }
-                    }
-
                     return new eventsViewModel
                     {
                         event_id = newEvent.event_id,
@@ -449,8 +447,8 @@ namespace Capstone_SWP490.Services
                         }
                     }
                     var sortSubTemp = (from s in lstSubEventTemp
-                                      orderby s.start_date ascending
-                                      select s).ToList();
+                                       orderby s.start_date ascending
+                                       select s).ToList();
                     foreach (var x in sortSubTemp)
                     {
                         var subViewModel = new eventsViewModel
@@ -552,8 +550,8 @@ namespace Capstone_SWP490.Services
                         }
                     }
                     var sortSubTemp = (from s in lstSubEventTemp
-                                      orderby s.start_date ascending
-                                      select s).ToList();
+                                       orderby s.start_date ascending
+                                       select s).ToList();
                     foreach (var x in sortSubTemp)
                     {
                         var subViewModel = new eventsViewModel
@@ -598,11 +596,11 @@ namespace Capstone_SWP490.Services
             var lstEvent = new List<eventsViewModel>();
             var events = _ieventRepository.FindBy(x => x.status != -1).ToList().Take(8);
             var lstE = (from es in events
-                       orderby es.start_date ascending
-                       select es).ToList();
+                        orderby es.start_date ascending
+                        select es).ToList();
             if (events.Count() > 0)
             {
-                foreach(var x in lstE)
+                foreach (var x in lstE)
                 {
                     var e = new eventsViewModel
                     {
@@ -623,6 +621,27 @@ namespace Capstone_SWP490.Services
                 }
             }
             return lstEvent;
+        }
+
+        public AjaxResponseViewModel<bool> SendNotiNewEvent(int eventId)
+        {
+            var output = new AjaxResponseViewModel<bool>();
+            var eventIn = _ieventRepository.FindBy(x => x.event_id == eventId).FirstOrDefault();
+            if (eventIn != null)
+            {
+                var member = _imemberRepository.FindBy(x => x.event_notify == true && x.enabled == true).ToList();
+                if (member != null && member.Count > 0)
+                {
+                    foreach (var x in member)
+                    {
+                        new MailHelper().sendMailEvent(x, eventIn);
+                    }
+                    output.Data = true;
+                    return output;
+                }
+            }
+            output.Data = false;
+            return output;
         }
     }
 }

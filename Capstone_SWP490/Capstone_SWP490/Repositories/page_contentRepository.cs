@@ -12,7 +12,7 @@ namespace Capstone_SWP490.Repositories
         public List<page_content> GetPage_ContentByPageId(string stringId)
         {
             //var lstPage_Content = FindBy(x => x.page_id.Equals(stringId)).ToList();
-            var rs = (from data in FindBy(x => x.page_id.Equals(stringId)).ToList()
+            var rs = (from data in FindBy(x => x.page_id.Equals(stringId) && x.status != -1).ToList()
                       orderby data.position ascending
                       select data).ToList();
             return rs;

@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Sercurity;
 using Capstone_SWP490.Services;
 using Capstone_SWP490.Services.Interfaces;
 using System;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace Capstone_SWP490.Controllers.Admin
 {
+    [AuthorizationAccept(Roles = "ADMIN")]
     public class AdminController : Controller
     {
         private readonly Iapp_userService _iapp_UserService = new app_userService();
@@ -66,12 +68,12 @@ namespace Capstone_SWP490.Controllers.Admin
             if (HttpContext.Session["username"] != null)
             {
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
-                if (u.user_role.Equals("ADMIN"))
-                {
-                    var data = _iapp_UserService.GetListUsersManager(u.user_id);
-                    ViewData["Users"] = data;
-                    return View();
-                }
+                //if (u.user_role.Equals("ADMIN"))
+                //{
+                //    var data = _iapp_UserService.GetListUsersManager(u.user_id);
+                //    ViewData["Users"] = data;
+                return View();
+                //}
                 //ViewData["LoginError"] = "You NOT permission in this Function";
                 //return RedirectToAction("Login", "Login");
             }
@@ -118,7 +120,7 @@ namespace Capstone_SWP490.Controllers.Admin
 
         public ActionResult GetMenuContentByRole(string roleName)
         {
-            return Json(_ipage_contentService.GetMenuContentByRole(roleName), JsonRequestBehavior.AllowGet);
+            return Json(_ipage_contentService.ManagementMenuContentByRole(roleName), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -47,7 +47,8 @@ namespace Capstone_SWP490.Services
             var pc = _ipage_contentRepository.FindBy(x => x.content_id == page_ContentsIn.content_id).FirstOrDefault();
             if (pc != null)
             {
-                if (await _ipage_contentRepository.Delete(pc) != -1)
+                pc.status = -1;
+                if (await _ipage_contentRepository.Update(pc, pc.content_id) != -1)
                 {
                     output.Data = true;
                     output.Message = "Success";
@@ -89,11 +90,12 @@ namespace Capstone_SWP490.Services
 
             return null;
         }
-        public List<page_contentViewModel> GetMenuContentByRole(string user_role)
+        public List<page_contentViewModel> ManagementMenuContentByRole(string user_role)
         {
             var rs = (from data in _ipage_contentRepository.FindBy(x => x.user_role.Equals(user_role) 
                       && x.page_id.Equals("MENU")
-                      && !x.user_role.Equals("ADMIN")).ToList()
+                      && !x.user_role.Equals("ADMIN") 
+                      && x.status!=-1).ToList()
                       orderby data.position ascending
                       select data).ToList();
             if (rs != null)
@@ -236,6 +238,39 @@ namespace Capstone_SWP490.Services
                 }
             }
             return new AjaxResponseViewModel<bool> { Data = false, Status = 0, Message = "Fail" };
+        }
+
+        public async Task<page_content> DeleteContent(int id)
+        {
+            var pc = _ipage_contentRepository.FindBy(x => x.content_id == id).FirstOrDefault();
+            if (pc != null)
+            {
+                pc.status = -1;
+                if (await _ipage_contentRepository.Update(pc, pc.content_id) != -1)
+                {
+                    return pc;
+                }
+            }
+            return null;
+        }
+
+        public async Task<page_content> CreateScoreBoardPage(page_content page_ContentsIn)
+        {
+            var lstContent = _ipage_contentRepository.FindBy(x => x.page_id.Equals("SCOREBOARD")).ToList();
+
+            page_ContentsIn.page_id = "SCOREBOARD";
+            page_ContentsIn.user_role = "ORGANIZER";
+            page_ContentsIn.status = 1;
+            page_ContentsIn.position = lstContent.Count();
+            if (!String.IsNullOrEmpty(page_ContentsIn.content) && !String.IsNullOrEmpty(page_ContentsIn.title))
+            {
+                var data = await _ipage_contentRepository.Create(page_ContentsIn);
+                if (data != null)
+                {
+                    return data;
+                }
+            }
+            return null;
         }
     }
 }

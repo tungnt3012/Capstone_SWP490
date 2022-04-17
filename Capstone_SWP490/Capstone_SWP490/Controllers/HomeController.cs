@@ -53,14 +53,57 @@ namespace Capstone_SWP490.Controllers
         public ActionResult ScoreboardUpload()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> ScoreboardUpload(page_content pageContent)
+        {
+            var rsUpdate = await _ipage_contentService.CreateScoreBoardPage(pageContent);
+            if (rsUpdate != null)
+            {
+                ViewData["success"] = "*Edit Content Successfully !!!";
+                return View(rsUpdate);
+            }
+            ViewData["error"] = "*Edit Content Failed !!!";
+            return View(pageContent);
         }
         public ActionResult ScoreboardManagement()
         {
             ViewBag.Message = "Your contact page.";
-
+            var lstPageContent = _ipage_contentRepository.GetPage_ContentByPageId("SCOREBOARD");
+            ViewData["PageContents"] = lstPageContent;
             return View();
+        }
+        public ActionResult ScoreboardEdit(int id)
+        {
+            ViewBag.Message = "Your contact page.";
+            var pageContent = _ipage_contentRepository.FindBy(x => x.content_id == id).FirstOrDefault();
+            return View(pageContent);
+        }
+        [HttpPost]
+        public async Task<ActionResult> ScoreboardEdit(page_content pageContent)
+        {
+            var rsUpdate = await _ipage_contentService.UpdateSingleContent(pageContent);
+            if (rsUpdate != null)
+            {
+                ViewData["success"] = "*Edit Content Successfully !!!";
+                return View(rsUpdate.Data);
+            }
+            ViewData["error"] = "*Edit Content Failed !!!";
+            return View(pageContent);
+        }
+        public async Task<ActionResult> ScoreboardDelete(int id)
+        {
+            var rsPage = await _ipage_contentService.DeleteContent(id);
+            var lstPageContent = _ipage_contentRepository.GetPage_ContentByPageId("SCOREBOARD");
+            ViewData["PageContents"] = lstPageContent;
+            if (rsPage!=null)
+            {
+                ViewData["success"] = "Delete "+ rsPage.title + " Successfully!!!";
+                return View("ScoreboardManagement");
+            }
+            ViewData["error"] = "Delete " + rsPage.title + " Fail!!!";
+            return View("ScoreboardManagement");
         }
 
         public ActionResult ContestStatistic()
@@ -89,10 +132,11 @@ namespace Capstone_SWP490.Controllers
             return View(events);
         }
 
+
         public ActionResult EventUpload()
         {
             ViewBag.Message = "Your Event Upload page.";
-            return View();
+            return View(new eventsViewModel { event_id = 0 });
         }
         [HttpPost]
         public async Task<ActionResult> EventUpload(eventsViewModel events)
@@ -101,6 +145,8 @@ namespace Capstone_SWP490.Controllers
             if (rsCreate != null)
             {
                 ViewData["success"] = "*Add Event Successfully !!!";
+                ViewData["status"] = "1";
+                ViewData["event_id"] = rsCreate.event_id + "";
                 return View(rsCreate);
             }
             ViewData["error"] = "*Add Event Failed !!!";
@@ -296,7 +342,7 @@ namespace Capstone_SWP490.Controllers
         {
             //AjaxResponseViewModel<IEnumerable<eventsViewModel>> ajaxResponse = await _ieventService.GetEventsByDate(fromDate,toDate);
             //return Json(ajaxResponse);
-            AjaxResponseViewModel<IEnumerable<eventsViewModel>> rs = _ieventService.GetEventsByDate(eventIn.start_date, eventIn.end_date);
+            AjaxResponseViewModel<IEnumerable<eventsMainViewModel>> rs = _ieventService.GetEventsByDate(eventIn.start_date, eventIn.end_date);
             //return Json(rs, JsonRequestBehavior.AllowGet);
             return Json(rs);
         }
@@ -308,6 +354,12 @@ namespace Capstone_SWP490.Controllers
             //return Json(ajaxResponse);
             AjaxResponseViewModel<IEnumerable<eventsViewModel>> rs = _ieventService.SearchEventActivities(eventIn.start_date, eventIn.end_date);
             //return Json(rs, JsonRequestBehavior.AllowGet);
+            return Json(rs);
+        }
+        [HttpPost]
+        public ActionResult SendNotiEvent(int eventId)
+        {
+            AjaxResponseViewModel<bool> rs = _ieventService.SendNotiNewEvent(eventId);
             return Json(rs);
         }
         public ActionResult GetTopEvents()
@@ -374,7 +426,10 @@ namespace Capstone_SWP490.Controllers
         {
             return Json(_ipage_contentRepository.GetPage_ContentByPageId("GUID"), JsonRequestBehavior.AllowGet);
         }
-
+        public ActionResult GetContentScoreBoard()
+        {
+            return Json(_ipage_contentRepository.GetPage_ContentByPageId("SCOREBOARD"), JsonRequestBehavior.AllowGet);
+        }
         public ActionResult RegistrationFrom()
         {
             ViewBag.Message = "Your contact page.";

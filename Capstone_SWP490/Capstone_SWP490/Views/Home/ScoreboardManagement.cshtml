@@ -1,6 +1,6 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Scoreboard | Management";
+    var lstPageContent = ViewData["PageContents"] as List<Capstone_SWP490.page_content>;
 }
 
 <div class="container-fluid xyz">
@@ -18,11 +18,10 @@
                             <div class="form-group pull-right">
                                 <button type="button" onclick="window.location.href='/Home/ScoreboardUpload'" class="btn btn-success">Add</button>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                        </div>
-                        </div>
-                        <div class="col-lg-6">
+                            <div class="form-group pull-left">
+                                <p style="color:green">@ViewData["success"]</p>
+                                <p style="color:red">@ViewData["error"]</p>
+                            </div>
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -35,22 +34,33 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Scoreboard</td>
-                                        <td>https://getbootstrap.com/docs/4.1/content/tables/</td>
-                                        <td>Edit</td>
-                                        <td>Delete</td>
-                                    </tr>
-
+                                    @if (lstPageContent.Count > 0)
+                                    {
+                                        for (int i = 0; i < lstPageContent.Count(); i++)
+                                        {
+                                            <tr>
+                                                <th scope="row">@i</th>
+                                                <td>@lstPageContent[i].title</td>
+                                                <td>@lstPageContent[i].content</td>
+                                                <td><a href="/Home/ScoreboardEdit?id=@lstPageContent[i].content_id">Edit</a></td>
+                                                <td><a href="/Home/ScoreboardDelete?id=@lstPageContent[i].content_id">Delete</a></td>
+                                            </tr>
+                                        }
+                                    }
                                 </tbody>
                             </table>
+                            <div class="form-group">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-secondary" onclick="window.location.href='/Home/Scoreboard'" id="event-canner">Back</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-6">
                             <img src="~/image/Scoreboard.png" style=" width: 100%; height: 100%">
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 </div>

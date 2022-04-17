@@ -2,7 +2,6 @@
 <p>Hi <b>{0}</b>,</p>
 <p>We added a new event its name is "<b>{1}</b>"</p>
 <p>Time start :<b><mark>{2}</mark><b>
-<p>Time end :<b><mark>{3}</mark><b>
 <p>
- Check out that event here: <a href="{4}">View Detail</a> 
+ Check out that event here: <a href="{3}">View Detail</a> 
 </p>

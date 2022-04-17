@@ -1,4 +1,4 @@
-﻿
+﻿@model Capstone_SWP490.page_content
 @{
     ViewBag.Title = "Scoreboard | Upload";
 }
@@ -10,28 +10,28 @@
     </div>
     <div class="main">
         <div class="row">
-            <div class="col-lg-10 col-lg-offset-1" id="under">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label for="firstName">Title scoreboard<span id="not-empty">*</span></label>
-                            <input class="form-control" id="TitleScoreboard" name="TiLocationtle" , value="" placeholder="Scoreboard" required="required" />
-                        </div>
+            <div class="col-lg-6 col-lg-offset-3" id="under">
+                @using (Html.BeginForm("ScoreboardUpload", "Home"))
+                {
+                    <div class="form-group">
+                        <p style="color:green">@ViewData["success"]</p>
+                        <p style="color:green">@ViewData["error"]</p>
                     </div>
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label for="firstName">Link scoreboard<span id="not-empty">*</span></label>
-                            <input class="form-control" id="TitleLinkScoreboard" name="TiLocationtle" , value="" placeholder="Link scoreboard" required="required" />
-
-                        </div>
+                    <div class="form-group">
+                        <label for="Title">Title<span id="not-empty">*</span></label>
+                        @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "TitleScoreboard", name = "TiLocationtle", value = "", placeholder = "Title" })
+                    </div>
+                    <div class="form-group">
+                        <label for="Content">Link scoreboard<span id="not-empty">*</span></label>
+                        @Html.TextBoxFor(m => m.content, new { @class = "form-control", id = "TitleLinkScoreboard", name = "TitleLinkScoreboard", value = "", placeholder = "Link scoreboard" })
                     </div>
                     <div class="form-group">
                         <div class="pull-right">
-                            <button type="button" class="btn btn-secondary" onclick="history.back()" ; return false;" id="event-canner">Cancel</button>
                             <button type="submit" class="btn btn-primary" id="event-upload">Save</button>
+                            <button type="button" class="btn btn-secondary"  onclick="window.location.href='/Home/ScoreboardManagement'" id="event-canner">Cancel</button>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     </div>
@@ -55,4 +55,4 @@
             document.getElementById("TitleLinkScoreboard").style.borderColor = "red";
         }
     }
-    </script>
+</script>

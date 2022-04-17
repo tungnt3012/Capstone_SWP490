@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Event";
     var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
-    var lstEvent = ViewData["Events"] as List<Capstone_SWP490.Models.events_ViewModel.eventsViewModel>;
+    var lstEvent = ViewData["Events"] as List<Capstone_SWP490.Models.events_ViewModel.eventsMainViewModel>;
     var member = ViewData["Members"] as Capstone_SWP490.member;
 
     <link rel="stylesheet" href="~/Content/event.css" asp-append-version="true" />
@@ -67,47 +67,72 @@
                                         <div class="td">Title</div>
                                         <div class="td">Time</div>
                                         <div class="td">Location</div>
+                                        @if (Session["username"] != null)
+                                        {
+                                            if (profile.user_role.Equals("ORGANIZER"))
+                                            {
+                                                <div class="td"></div>
+                                                <div class="td"></div>
+                                                <div class="td"></div>
+                                            }
+                                        }
                                     </div>
                                 </div>
-                                <div class="tbody">
-                                    <div class="tr">
-                                        <label for="dso_1" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam</label>
-                                        <div class="td">15-04-2022 7h30AM-8h30AM</div>
-                                        <div class="td">Khu nhà Alpha</div>
-                                        <input id="dso_1" type="checkbox">
-                                        <div class="tr">
-                                            <div for="dso_2" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam</div>
-                                            <div class="td">7h30AM-8h30AM</div>
-                                            <div class="td">Khu nhà Alpha</div>
-                                        </div>
-                                        <div class="tr">
-                                            <div for="dso_2" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam</div>
-                                            <div class="td">7h30AM-8h30AM</div>
-                                            <div class="td">Khu nhà Alpha</div>
-                                        </div>
-                                        <div class="tr">
-                                            <div for="dso_2" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam</div>
-                                            <div class="td">7h30AM-8h30AM</div>
-                                            <div class="td">Khu nhà Alpha</div>
-                                        </div>
-                                    </div>
-                                    <div class="tr">
-                                        <label for="dso_1" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam</label>
-                                        <div class="td">7h30AM-8h30AM</div>
-                                        <div class="td">Khu nhà Beta</div>
-                                        <input id="dso_1" type="checkbox">
-                                        <div class="tr">
-                                            <div for="dso_2" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam1</div>
-                                            <div class="td">7h30AM-8h30AM</div>
-                                            <div class="td">Khu nhà Beta</div>
-                                        </div>
-                                        <div class="tr">
-                                            <div for="dso_2" class="td">Khai mạc OLP'21, PROCON, ICPC Asia Hanoi - Kỷ niệm 30 năm OLP và 15 năm ICPC Vietnam</div>
-                                            <div class="td">7h30AM-8h30AM</div>
-                                            <div class="td">Khu nhà Alpha</div>
-                                        </div>
-                                    </div>
+                                <div class="tbody" id="table-events">
+                                    @if (lstEvent.Count > 0)
+                                    {
+                                        foreach (var x in lstEvent)
+                                        {
+                                            <div class="tr">
+                                                <label for="dso_1" class="td" style="background-color: gold">@x.title</label>
+                                                <div class="td" style="background-color: gold ">@x.start_date_str</div>
+                                                <div class="td" style="background-color: gold">@x.venue</div>
 
+                                                @if (Session["username"] != null)
+                                                {
+                                                    if (profile.user_role.Equals("ORGANIZER"))
+                                                    {
+                                                        <div class="td"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></div>
+                                                        <div class="td"><a href="/Home/EventEdit?id=@x.event_id">Edit</a></div>
+                                                        <div class="td"><a href="/Home/EventDelete?id=@x.event_id">Delete</a></div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="td"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></div>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div class="td"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></div>
+                                                }
+
+                                                <input id="dso_1" type="checkbox">
+                                                @if (x.subEvent.Count > 0)
+                                                {
+                                                    foreach (var e in x.subEvent)
+                                                    {
+                                                        <div class="tr">
+                                                            <div for="dso_2" class="td">@e.title</div>
+                                                            <div class="td">@e.start_date.ToString("HH:mm") - @e.end_date.ToString("HH:mm")</div>
+                                                            <div class="td">@e.venue</div>
+                                                        </div>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div class="tr">
+                                                        <div class="td"><i>No Sub-events</i></div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="tr">
+                                            <div class="td"><i>No Events</i></div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -138,6 +163,7 @@
 
 </div>
 <input type="hidden" id="userss" value="@Session["username"]">
+
 @if (Session["username"] != null)
 {
     <input type="hidden" id="user_role" value="@profile.user_role">
@@ -188,32 +214,78 @@ else
                 if (results != null) {
                     document.getElementById("table-events").innerHTML = "";
                     if (vas != "" && role == 'ORGANIZER') {
-                        for (let i = 0; i < results.Data.length; i++) {
-                            let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
-                            let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
-                            document.getElementById("table-events").innerHTML += `
-                                        <tr>
-                                            <td class="date-table">`+ _startDate+`</td>
-                                            <td class="date-table">`+ _endDate+`</td>
-                                            <td class="venue-table">`+ results.Data[i].venue +`</td>
-                                            <td class="title-table">`+ results.Data[i].title +`</td>
-                                            <td class="action-table"><a href="/Home/EventEdit?id=`+ results.Data[i].event_id +`">Edit</a></td>
-                                            <td class="action-table"><a href="/Home/EventDetail?id=`+ results.Data[i].event_id+`">Detail</a></td>
-                                            <td class="action-table"><a href="/Home/EventDelete?id=`+ results.Data[i].event_id +`">Delete</a></td>
-                                        </tr>`;
+                        let strOut = ``;
+                        if (results.Data.length > 0) {
+                            for (let i = 0; i < results.Data.length; i++) {
+                                let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
+                                let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
+                                strOut += `<div class="tr">
+                                                <label for="dso_1" class="td" style="background-color: gold">`+ results.Data[i].title + `</label>
+                                                <div class="td" style="background-color: gold ">`+ _startDate + `</div>
+                                                <div class="td" style="background-color: gold">`+ results.Data[i].venue + `</div>
+                                                <div class="td"><a href="/Home/EventDetail?id=`+ results.Data[i].event_id + `">Detail</a></div>
+                                                <div class="td"><a href="/Home/EventEdit?id=`+ results.Data[i].event_id + `">Edit</a></div>
+                                                <div class="td"><a href="/Home/EventDelete?id=`+ results.Data[i].event_id + `">Delete</a></div>
+                                            `;
+                                if (results.Data[i].subEvent.length > 0) {
+                                    for (let ev = 0; ev < results.Data[i].subEvent.length; ev++) {
+                                        let _startTime = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { hour: "2-digit", minute: "2-digit" }).split("/").join("-");
+                                        let _endTime = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { hour: "2-digit", minute: "2-digit" }).split("/").join("-");
+                                        strOut += `<div class="tr">
+                                                            <div for="dso_2" class="td">`+ results.Data[i].subEvent[ev].title + `</div>
+                                                            <div class="td">`+ _startTime + ` - ` + _endTime + `</div>
+                                                            <div class="td">`+ results.Data[i].subEvent[ev].venue + `</div>
+                                                        </div>`;
+                                    }
+                                } else {
+                                    strOut += ` <div class="tr">
+                                                        <div class="td"><i>No Sub-events</i></div>
+                                                    </div>`;
+                                }
+                                strOut += `</div>`;
+                            }
+                        } else {
+                            strOut += ` <div class="tr">
+                                                        <div class="td"><i>No Events</i></div>
+                                                    </div>`;
                         }
-                    } else {
-                        for (let i = 0; i < results.Data.length; i++) {
-                            let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
-                            let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
-                            document.getElementById("table-events").innerHTML += `<tr>
-                                            <td class="date-table">`+ _startDate + `</td>
-                                            <td class="date-table">`+ _endDate + `</td>
-                                            <td class="venue-table">`+ results.Data[i].venue + `</td>
-                                            <td class="title-table">`+ results.Data[i].title + `</td>
-                                            <td class="action-table"><a href="/Home/EventDetail?id=`+ results.Data[i].event_id + `">Detail</a></td>
-                                        </tr>`;
+                        document.getElementById("table-events").innerHTML += strOut;
+                    }
+                    else {
+                        let strOut = ``;
+                        if (results.Data.length > 0) {
+                            for (let i = 0; i < results.Data.length; i++) {
+                                let _startDate = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
+                                let _endDate = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { year: "numeric", day: "2-digit", month: "2-digit" }).split("/").join("-");
+                                strOut += `<div class="tr">
+                                                <label for="dso_1" class="td" style="background-color: gold">`+ results.Data[i].title + `</label>
+                                                <div class="td" style="background-color: gold ">`+ _startDate + `</div>
+                                                <div class="td" style="background-color: gold">`+ results.Data[i].venue + `</div>
+                                                <div class="td"><a href="/Home/EventDetail?id=`+ results.Data[i].event_id + `">Detail</a></div>
+                                            `;
+                                if (results.Data[i].subEvent.length > 0) {
+                                    for (let ev = 0; ev < results.Data[i].subEvent.length; ev++) {
+                                        let _startTime = new Date(+("" + results.Data[i].start_date).slice(6, 19)).toLocaleString('en-GB', { hour: "2-digit", minute: "2-digit" }).split("/").join("-");
+                                        let _endTime = new Date(+("" + results.Data[i].end_date).slice(6, 19)).toLocaleString('en-GB', { hour: "2-digit", minute: "2-digit" }).split("/").join("-");
+                                        strOut += `<div class="tr">
+                                                            <div for="dso_2" class="td">`+ results.Data[i].subEvent[ev].title + `</div>
+                                                            <div class="td">`+ _startTime + ` - ` + _endTime + `</div>
+                                                            <div class="td">`+ results.Data[i].subEvent[ev].venue + `</div>
+                                                        </div>`;
+                                    }
+                                } else {
+                                    strOut += `<div class="tr">
+                                                        <div class="td"><i>No Sub-events</i></div>
+                                                    </div>`;
+                                }
+                                strOut += `</div>`;
+                            }
+                        } else {
+                            strOut += `<div class="tr">
+                                                        <div class="td"><i>No Events</i></div>
+                                                    </div>`;
                         }
+                        document.getElementById("table-events").innerHTML += strOut;
                     }
                 }
             }

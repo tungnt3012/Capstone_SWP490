@@ -116,11 +116,10 @@ namespace Capstone_SWP490.Helper
             }
 
             string urlEvent = hostName + "/Home/EventDetail?id=" + mainEvent.event_id;
-            string start_date = mainEvent.start_date.ToString("dd-MM-yyyy HH:mm");
-            string end_date = mainEvent.end_date.ToString("dd-MM-yyyy HH:mm");
+            string start_date = mainEvent.start_date.ToString("dd-MM-yyyy");
             string fullname = member.first_name + " " + member.middle_name + " " + member.last_name;
             emailModel.toEmail = member.email;
-            emailModel.body = string.Format(mailContent, fullname, titleEvent, start_date, end_date, urlEvent);
+            emailModel.body = string.Format(mailContent, fullname, titleEvent, start_date, urlEvent);
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
             sendMailAsync(emailModel);
         }

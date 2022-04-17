@@ -156,10 +156,9 @@
                         <table class="table table-striped table-bordered table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">Time Start</th>
-                                    <th scope="col">Time End</th>
-                                    <th scope="col" width="30%">Location</th>
                                     <th scope="col">Title</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col" width="30%">Location</th>
                                     @if (Session["username"] != null)
                                     {
                                         if (profile.user_role.Equals("ORGANIZER"))
@@ -177,9 +176,6 @@
                                     foreach (var x in subEvents)
                                     {
                                         <tr>
-                                            <td class="date-table">@x.start_date_str</td>
-                                            <td class="date-table">@x.end_date_str</td>
-                                            <td class="venue-table">@x.venue</td>
                                             @if (x.status == 1)
                                             {
                                                 <td class="title-table" style="color: #9e0505 "><strong>@x.title</strong></td>
@@ -196,7 +192,8 @@
                                             {
                                                 <td class="title-table">@x.title</td>
                                             }
-
+                                            <td class="date-table">@x.start_date.ToString("HH:mm") - @x.end_date.ToString("HH:mm")</td>
+                                            <td class="venue-table">@x.venue</td>
                                             <td class="action-table"><a href="/Home/SubEventDetail?id=@x.event_id">Detail</a></td>
 
                                             @if (Session["username"] != null)
