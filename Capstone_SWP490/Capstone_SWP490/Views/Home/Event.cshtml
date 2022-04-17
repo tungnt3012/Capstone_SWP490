@@ -87,6 +87,7 @@
                                                 <label for="dso_1" class="td" style="background-color: gold">@x.title</label>
                                                 <div class="td" style="background-color: gold ">@x.start_date_str</div>
                                                 <div class="td" style="background-color: gold">@x.venue</div>
+                                                <input id="dso_1" type="checkbox">
 
                                                 @if (Session["username"] != null)
                                                 {
@@ -106,7 +107,6 @@
                                                     <div class="td"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></div>
                                                 }
 
-                                                <input id="dso_1" type="checkbox">
                                                 @if (x.subEvent.Count > 0)
                                                 {
                                                     foreach (var e in x.subEvent)
@@ -223,6 +223,7 @@ else
                                                 <label for="dso_1" class="td" style="background-color: gold">`+ results.Data[i].title + `</label>
                                                 <div class="td" style="background-color: gold ">`+ _startDate + `</div>
                                                 <div class="td" style="background-color: gold">`+ results.Data[i].venue + `</div>
+                                                <input id="dso_1" type="checkbox">
                                                 <div class="td"><a href="/Home/EventDetail?id=`+ results.Data[i].event_id + `">Detail</a></div>
                                                 <div class="td"><a href="/Home/EventEdit?id=`+ results.Data[i].event_id + `">Edit</a></div>
                                                 <div class="td"><a href="/Home/EventDelete?id=`+ results.Data[i].event_id + `">Delete</a></div>
@@ -261,6 +262,7 @@ else
                                                 <label for="dso_1" class="td" style="background-color: gold">`+ results.Data[i].title + `</label>
                                                 <div class="td" style="background-color: gold ">`+ _startDate + `</div>
                                                 <div class="td" style="background-color: gold">`+ results.Data[i].venue + `</div>
+                                                <input id="dso_1" type="checkbox">
                                                 <div class="td"><a href="/Home/EventDetail?id=`+ results.Data[i].event_id + `">Detail</a></div>
                                             `;
                                 if (results.Data[i].subEvent.length > 0) {
