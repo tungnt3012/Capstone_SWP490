@@ -387,21 +387,21 @@ namespace Capstone_SWP490.Controllers
         }
         public ActionResult Index()
         {
-            //if (HttpContext.Session["username"] != null)
-            //{
-            //    var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
-            //    if (u != null)
-            //    {
-            //        var memberTemp = _imemberService.GetMemberByAvaibleUserId(u.user_id);
-            //        if (memberTemp != null)
-            //        {
-            //            if (String.IsNullOrWhiteSpace(memberTemp.shirt_sizing))
-            //            {
-            //                return RedirectToAction("RegisShirtSizing", "Login");
-            //            }
-            //        }
-            //    }
-            //}
+            if (HttpContext.Session["username"] != null)
+            {
+                var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                if (u != null)
+                {
+                    var memberTemp = _imemberService.GetMemberByAvaibleUserId(u.user_id);
+                    if (memberTemp != null)
+                    {
+                        if (String.IsNullOrWhiteSpace(memberTemp.shirt_sizing))
+                        {
+                            return RedirectToAction("RegisShirtSizing", "Login");
+                        }
+                    }
+                }
+            }
             ViewBag.Message = "Your contact page.";
             return View();
         }
