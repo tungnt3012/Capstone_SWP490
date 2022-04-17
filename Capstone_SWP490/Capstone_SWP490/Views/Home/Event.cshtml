@@ -9,7 +9,7 @@
 <style>
     #menu_Schedule {
         color: #ffffff !important;
-        background: #eee;
+        background: #30cf6b;
     }
 </style>
 
@@ -83,50 +83,77 @@
                                     {
                                         foreach (var x in lstEvent)
                                         {
-                                    <div class="tr" id="Or">
-                                        <label for="dso_1" class="td" style="background-color: gold">@x.title</label>
-                                        <div class="td" style="background-color: gold ">@x.start_date_str</div>
-                                        <div class="td" style="background-color: gold">@x.venue</div>
-                                        <input id="dso_1" type="checkbox">
+                                            <div class="tr" id="Or">
+                                                <label for="dso_1" class="td" style="background-color: gold">@x.title</label>
+                                                <div class="td" style="background-color: gold ">@x.start_date_str</div>
+                                                <div class="td" style="background-color: gold">@x.venue</div>
+                                                <input id="dso_1" type="checkbox">
 
-                                        @if (Session["username"] != null)
-                                        {
-                                            if (profile.user_role.Equals("ORGANIZER"))
-                                            {
+                                                @if (Session["username"] != null)
+                                                {
+                                                    if (profile.user_role.Equals("ORGANIZER"))
+                                                    {
 
-                                                <div class="td"><a href="/Home/EventDetail?id=@x.event_id">Detail</a>&ensp;<a href="/Home/EventEdit?id=@x.event_id">Edit</a>&ensp;<a href="/Home/EventDelete?id=@x.event_id">Delete</a></div>
-                                                <script>
-                                                    document.getElementById("Or").style.gridTemplateColumns = "36% 20% 35% 9%";
-                                                </script>
-                                            }
-                                            else
-                                            {
-                                                <div class="td"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></div>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <div class="td"><a href="/Home/EventDetail?id=@x.event_id">Detail</a></div>
-                                        }
+                                                        <div class="td">
+                                                            <a href="/Home/EventDetail?id=@x.event_id">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z" />
+                                                                </svg>
+                                                            </a>&ensp;<a href="/Home/EventEdit?id=@x.event_id">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" style="color:green" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                                                </svg>
+                                                            </a>&ensp;<a href="/Home/EventDelete?id=@x.event_id">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" style="color:red" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                                                </svg>
+                                                            </a>
+                                                        </div>
+                                                        <script>
+                                                            document.getElementById("Or").style.gridTemplateColumns = "42% 20% 32% 6%";
+                                                        </script>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="td">
+                                                            <a href="/Home/EventDetail?id=@x.event_id">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z" />
+                                                                </svg>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div class="td">
+                                                        <a href="/Home/EventDetail?id=@x.event_id">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                                                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z" />
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                }
 
-                                        @if (x.subEvent.Count > 0)
-                                        {
-                                            foreach (var e in x.subEvent)
-                                            {
-                                                <div class="tr">
-                                                    <div for="dso_2" class="td">@e.title</div>
-                                                    <div class="td" style="padding-left: 20px">@e.start_date.ToString("HH:mm") - @e.end_date.ToString("HH:mm")</div>
-                                                    <div class="td" style="padding-left: 30px">@e.venue</div>
-                                                </div>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <div class="tr">
-                                                <div class="td"><i>No Sub-events</i></div>
+                                                @if (x.subEvent.Count > 0)
+                                                {
+                                                    foreach (var e in x.subEvent)
+                                                    {
+                                                        <div class="tr">
+                                                            <div for="dso_2" class="td">@e.title</div>
+                                                            <div class="td" style="padding-left: 20px">@e.start_date.ToString("HH:mm") - @e.end_date.ToString("HH:mm")</div>
+                                                            <div class="td" style="padding-left: 30px">@e.venue</div>
+                                                        </div>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div class="tr">
+                                                        <div class="td"><i>No Sub-events</i></div>
+                                                    </div>
+                                                }
                                             </div>
-                                        }
-                                    </div>
                                         }
                                     }
                                     else
