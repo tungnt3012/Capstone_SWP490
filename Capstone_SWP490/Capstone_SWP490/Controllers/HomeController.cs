@@ -4,6 +4,7 @@ using Capstone_SWP490.Models.contestViewModel;
 using Capstone_SWP490.Models.events_ViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
+using Capstone_SWP490.Sercurity;
 using Capstone_SWP490.Services;
 using Capstone_SWP490.Services.Interfaces;
 using System;
@@ -50,6 +51,7 @@ namespace Capstone_SWP490.Controllers
 
             return View();
         }
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult ScoreboardUpload()
         {
             ViewBag.Message = "Your contact page.";
@@ -67,6 +69,7 @@ namespace Capstone_SWP490.Controllers
             ViewData["error"] = "*Edit Content Failed !!!";
             return View(pageContent);
         }
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult ScoreboardManagement()
         {
             ViewBag.Message = "Your contact page.";
@@ -74,6 +77,7 @@ namespace Capstone_SWP490.Controllers
             ViewData["PageContents"] = lstPageContent;
             return View();
         }
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult ScoreboardEdit(int id)
         {
             ViewBag.Message = "Your contact page.";
@@ -92,6 +96,7 @@ namespace Capstone_SWP490.Controllers
             ViewData["error"] = "*Edit Content Failed !!!";
             return View(pageContent);
         }
+
         public async Task<ActionResult> ScoreboardDelete(int id)
         {
             var rsPage = await _ipage_contentService.DeleteContent(id);
@@ -112,7 +117,7 @@ namespace Capstone_SWP490.Controllers
 
             return View();
         }
-
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult EventEdit(int id)
         {
             ViewBag.Message = "Your contact page.";
@@ -132,7 +137,7 @@ namespace Capstone_SWP490.Controllers
             return View(events);
         }
 
-
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult EventUpload()
         {
             ViewBag.Message = "Your Event Upload page.";
@@ -152,6 +157,7 @@ namespace Capstone_SWP490.Controllers
             ViewData["error"] = "*Add Event Failed !!!";
             return View(events);
         }
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public async Task<ActionResult> EventDelete(int id)
         {
             var rsCreate = await _ieventService.DeleteEvent(id);
@@ -223,35 +229,35 @@ namespace Capstone_SWP490.Controllers
         {
             return Json(_ipage_contentService.GetMenuContents("ORGANIZER"), JsonRequestBehavior.AllowGet);
         }
-
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         [HttpPost]
         public async Task<ActionResult> UpdateListContent(List<page_content> page_Contents)
         {
             AjaxResponseViewModel<IEnumerable<page_content>> ajaxResponse = await _ipage_contentService.UpdateListPageContent(page_Contents);
             return Json(ajaxResponse);
         }
-
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         [HttpPost]
         public async Task<ActionResult> UpdateSingleContent(page_content page_Contents)
         {
             AjaxResponseViewModel<page_content> ajaxResponse = await _ipage_contentService.UpdateSingleContent(page_Contents);
             return Json(ajaxResponse);
         }
-
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         [HttpPost]
         public async Task<ActionResult> DeleteSingleContent(page_content page_Contents)
         {
             AjaxResponseViewModel<bool> ajaxResponse = await _ipage_contentService.DeleteSingleContent(page_Contents);
             return Json(ajaxResponse);
         }
-
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         [HttpPost]
         public async Task<ActionResult> CreatePageContent(page_content page_Contents)
         {
             AjaxResponseViewModel<page_content> ajaxResponse = await _ipage_contentService.CreatePageContent(page_Contents);
             return Json(ajaxResponse);
         }
-
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         [HttpPost]
         public async Task<ActionResult> PinPageContent(page_content page_Contents)
         {
@@ -283,6 +289,7 @@ namespace Capstone_SWP490.Controllers
             ViewData["Events"] = _ieventService.GetEventsById(id);
             return View();
         }
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult SubEventUpload(int id)
         {
             ViewBag.Message = "Your Sub-Event Upload page.";
@@ -489,6 +496,7 @@ namespace Capstone_SWP490.Controllers
         //    ViewData["Contest"] = _icontestService.GetContestById(id);
         //    return View();
         //}
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult ContestEdit(int id)
         {
             ViewBag.Message = "Your contact page.";
@@ -507,7 +515,7 @@ namespace Capstone_SWP490.Controllers
             ViewData["error"] = "*Edit Contest Failed !!!";
             return View(contest);
         }
-
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult ContestUpload()
         {
             ViewBag.Message = "Your contact page.";
@@ -526,7 +534,7 @@ namespace Capstone_SWP490.Controllers
             ViewData["error"] = "*Add Contest Failed !!!";
             return View(rsCreate);
         }
-
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public async Task<ActionResult> ContestDelete(int id)
         {
             var rsCreate = await _icontestService.DeleteContest(id);
