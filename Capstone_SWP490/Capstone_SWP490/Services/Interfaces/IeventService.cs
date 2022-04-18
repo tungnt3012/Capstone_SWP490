@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Models.events_ViewModel;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,8 @@ namespace Capstone_SWP490.Services.Interfaces
         bool IsUserJoinEvent(int eventId, int userId);
         int CountMemberJoinEvent(int eventId);
         List<eventsViewModel> GetTop8Event();
+        List<eventsViewModel> EventStatic();
+        List<app_userViewModel> AllUsersInEvent(int eventId);
         AjaxResponseViewModel<bool> SendNotiNewEvent(int eventId);
 
     }

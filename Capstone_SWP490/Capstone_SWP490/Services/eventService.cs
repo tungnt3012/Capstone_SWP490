@@ -1,5 +1,6 @@
 ﻿using Capstone_SWP490.Helper;
 using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Models.events_ViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
@@ -594,7 +595,7 @@ namespace Capstone_SWP490.Services
         public List<eventsViewModel> GetTop8Event()
         {
             var lstEvent = new List<eventsViewModel>();
-            var events = _ieventRepository.FindBy(x => x.status != -1 && x.status !=null).ToList().Take(8);
+            var events = _ieventRepository.FindBy(x => x.status != -1 && x.status != null).ToList().Take(8);
             var lstE = (from es in events
                         orderby es.start_date ascending
                         select es).ToList();
@@ -642,6 +643,74 @@ namespace Capstone_SWP490.Services
             }
             output.Data = false;
             return output;
+        }
+
+        public List<eventsViewModel> EventStatic()
+        {
+            var sortSubTemp = (from x in _ieventRepository.FindBy(x => x.event_type == 2 && x.status != 0)
+                               orderby x.start_date descending
+                               select x).ToList();
+            var lstSubEvent = new List<eventsViewModel>();
+            if (sortSubTemp.Count > 0)
+            {
+                foreach (var x in sortSubTemp)
+                {
+                    var subViewModel = new eventsViewModel
+                    {
+                        event_id = x.event_id,
+                        title = x.title,
+                        event_type = x.event_type,
+                        desctiption = x.desctiption,
+                        start_date = x.start_date,
+                        end_date = x.end_date,
+                        start_date_str = x.start_date.ToString("dd-MM-yyyy, HH:mm"),
+                        end_date_str = x.end_date.ToString("dd-MM-yyyy, HH:mm"),
+                        venue = x.venue,
+                        note = x.note,
+                        status = x.status,
+                        total_joined = CountMemberJoinEvent(x.event_id)
+                    };
+                    lstSubEvent.Add(subViewModel);
+                }
+                return lstSubEvent;
+            }
+            return null;
+        }
+
+        public List<app_userViewModel> AllUsersInEvent(int eventId)
+        {
+            var subEvent = _ieventRepository.FindBy(x => x.event_id == eventId && x.status == 1).FirstOrDefault();
+            if (subEvent != null)
+            {
+                var lstUserJoin = new List<app_userViewModel>();
+                if (!String.IsNullOrWhiteSpace(subEvent.member_join))
+                {
+                    string[] lsUsers = subEvent.member_join.Split(',');
+                    foreach(var item in lsUsers)
+                    {
+                        var user = _iapp_userRepository.FindBy(x => x.user_id == Convert.ToInt32(item.ToString())).FirstOrDefault();
+                        if (user != null)
+                        {
+                            var u = new app_userViewModel
+                            {
+                                active = user.active,
+                                confirm_password = user.confirm_password,
+                                email = user.email,
+                                full_name = user.full_name,
+                                insert_date = Convert.ToDateTime(user.insert_date),
+                                update_date = Convert.ToDateTime(user.update_date),
+                                user_id = user.user_id,
+                                user_name = user.user_name,
+                                user_role = user.user_role,
+                                verified = user.verified,
+                            };
+                            lstUserJoin.Add(u);
+                        }
+                    }
+                    return lstUserJoin;
+                }
+            }
+            return null;
         }
     }
 }
