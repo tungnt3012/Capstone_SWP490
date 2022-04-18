@@ -88,5 +88,9 @@ namespace Capstone_SWP490.Controllers.Organization
         {
             return View();
         }
+        public ActionResult RegistrationSchedule()
+        {
+            return View();
+        }
     }
 }
