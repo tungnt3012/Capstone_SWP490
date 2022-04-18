@@ -257,51 +257,94 @@ namespace Capstone_SWP490.Services
             return null;
         }
 
-        public async Task<eventsViewModel> CreateEvent(eventsViewModel eventsIn)
+        public async Task<eventsMainCreateViewModel> CreateEvent(eventsMainCreateViewModel eventsIn)
         {
             //var e = _ieventRepository.FindBy(x => x.event_id == eventsIn.event_id).FirstOrDefault();
 
-            if (!string.IsNullOrWhiteSpace(eventsIn.title)
+            if ((!string.IsNullOrWhiteSpace(eventsIn.title)
                 && !string.IsNullOrWhiteSpace(eventsIn.desctiption)
                 && !string.IsNullOrWhiteSpace(eventsIn.venue)
                 && !string.IsNullOrWhiteSpace(eventsIn.fan_page)
                 && Convert.ToDateTime("01/01/0001") != eventsIn.start_date)
+                && (!string.IsNullOrWhiteSpace(eventsIn.subEvent.title)
+                && !string.IsNullOrWhiteSpace(eventsIn.subEvent.desctiption)
+                && !string.IsNullOrWhiteSpace(eventsIn.subEvent.venue)
+                && !string.IsNullOrWhiteSpace(eventsIn.subEvent.fan_page)
+                && Convert.ToDateTime("01/01/0001") != eventsIn.subEvent.start_date
+                && Convert.ToDateTime("01/01/0001") != eventsIn.subEvent.end_date))
             {
-                var e = new @event
-                {
-                    title = eventsIn.title,
-                    desctiption = eventsIn.desctiption,
-                    start_date = eventsIn.start_date.Add(new TimeSpan(00, 00, 01)),
-                    end_date = eventsIn.start_date.Add(new TimeSpan(23, 59, 59)),
-                    venue = eventsIn.venue,
-                    fan_page = eventsIn.fan_page,
-                    contactor_name = eventsIn.contactor_name,
-                    contactor_email = eventsIn.contactor_email,
-                    contactor_phone = eventsIn.contactor_phone,
-                    note = eventsIn.note ?? "",
-                    event_type = 1,
-                    status = 0
-                };
 
-                var newEvent = await _ieventRepository.Create(e);
-                if (newEvent != null)
+                var se = new @event
                 {
-                    return new eventsViewModel
+                    title = eventsIn.subEvent.title,
+                    desctiption = eventsIn.subEvent.desctiption,
+                    start_date = eventsIn.subEvent.start_date + eventsIn.subEvent.start_time,
+                    end_date = eventsIn.subEvent.end_date + eventsIn.subEvent.end_time,
+                    venue = eventsIn.subEvent.venue,
+                    fan_page = eventsIn.subEvent.fan_page,
+                    contactor_name = eventsIn.subEvent.contactor_name,
+                    contactor_email = eventsIn.subEvent.contactor_email,
+                    contactor_phone = eventsIn.subEvent.contactor_phone,
+                    note = eventsIn.note ?? "",
+                    event_type = 2,
+                    status = eventsIn.subEvent.status
+                };
+                var subEvent = await _ieventRepository.Create(se);
+                if (subEvent != null)
+                {
+                    var e = new @event
                     {
-                        event_id = newEvent.event_id,
-                        contactor_email = newEvent.contactor_phone,
-                        contactor_name = newEvent.contactor_name,
-                        contactor_phone = newEvent.contactor_phone,
-                        desctiption = newEvent.desctiption,
-                        end_date = newEvent.end_date,
-                        event_type = newEvent.event_type,
-                        fan_page = newEvent.fan_page,
-                        note = newEvent.note,
-                        start_date = newEvent.start_date,
-                        title = newEvent.title,
-                        venue = newEvent.venue,
-                        status = newEvent.status
+                        title = eventsIn.title,
+                        desctiption = eventsIn.desctiption,
+                        start_date = eventsIn.start_date.Add(new TimeSpan(00, 00, 01)),
+                        end_date = eventsIn.start_date.Add(new TimeSpan(23, 59, 59)),
+                        venue = eventsIn.venue,
+                        fan_page = eventsIn.fan_page,
+                        contactor_name = eventsIn.contactor_name,
+                        contactor_email = eventsIn.contactor_email,
+                        contactor_phone = eventsIn.contactor_phone,
+                        note = eventsIn.note ?? "",
+                        event_type = 1,
+                        status = 0,
+                        sub_event = subEvent.event_id+","
                     };
+
+                    var newEvent = await _ieventRepository.Create(e);
+                    if (newEvent != null)
+                    {
+                        return new eventsMainCreateViewModel
+                        {
+                            event_id = newEvent.event_id,
+                            contactor_email = newEvent.contactor_phone,
+                            contactor_name = newEvent.contactor_name,
+                            contactor_phone = newEvent.contactor_phone,
+                            desctiption = newEvent.desctiption,
+                            end_date = newEvent.end_date,
+                            event_type = newEvent.event_type,
+                            fan_page = newEvent.fan_page,
+                            note = newEvent.note,
+                            start_date = newEvent.start_date,
+                            title = newEvent.title,
+                            venue = newEvent.venue,
+                            status = newEvent.status,
+                            subEvent = new eventsViewModel
+                            {
+                                event_id = se.event_id,
+                                contactor_email = se.contactor_phone,
+                                contactor_name = se.contactor_name,
+                                contactor_phone = se.contactor_phone,
+                                desctiption = se.desctiption,
+                                end_date = se.end_date,
+                                event_type = se.event_type,
+                                fan_page = se.fan_page,
+                                note = se.note,
+                                start_date = se.start_date,
+                                title = se.title,
+                                venue = se.venue,
+                                status = se.status
+                            }
+                        };
+                    }
                 }
             }
             return null;
@@ -686,7 +729,7 @@ namespace Capstone_SWP490.Services
                 if (!String.IsNullOrWhiteSpace(subEvent.member_join))
                 {
                     string[] lsUsers = subEvent.member_join.Split(',');
-                    foreach(var item in lsUsers)
+                    foreach (var item in lsUsers)
                     {
                         var user = _iapp_userRepository.FindBy(x => x.user_id == Convert.ToInt32(item.ToString())).FirstOrDefault();
                         if (user != null)

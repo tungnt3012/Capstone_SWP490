@@ -20,7 +20,7 @@ namespace Capstone_SWP490.Services.Interfaces
         List<eventsViewModel> GetSubEventsByEventId(int id);
         List<eventsViewModel> GetSubEventsByEventIdAndUser(int id, int userId);
         Task<eventsViewModel> UpdateEvent(eventsViewModel eventsIn);
-        Task<eventsViewModel> CreateEvent(eventsViewModel eventsIn);
+        Task<eventsMainCreateViewModel> CreateEvent(eventsMainCreateViewModel eventsIn);
         Task<eventsViewModel> CreateSubEvent(eventsViewModel eventsIn);
         Task<bool> DeleteEvent(int id);
         Task<AjaxResponseViewModel<bool>> JoinSubEvent(int eventId, int userId);

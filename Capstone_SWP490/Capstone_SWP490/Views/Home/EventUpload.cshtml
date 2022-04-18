@@ -1,4 +1,4 @@
-﻿@model Capstone_SWP490.Models.events_ViewModel.eventsViewModel
+﻿@model Capstone_SWP490.Models.events_ViewModel.eventsMainCreateViewModel
 @{
     ViewBag.Title = "Event|Upload";
 }
@@ -24,53 +24,32 @@
     <div class="main">
         <div class="column">
             <div class="col-lg-10 col-lg-offset-1" id="under">
-                <div class="form-group">
-                    <label class="front-size-title" for="Event_Schedule">
-                        Add Event
-                    </label>
-                </div>
                 @using (Html.BeginForm("EventUpload", "Home"))
                 {
+                    <div class="form-group">
+                        <label class="front-size-title" for="Event_Schedule">
+                            Add Main Event
+                        </label>
+                    </div>
                     <div class="column">
                         <div class="form-group">
                             <h5 style="color:red"> @ViewData["error"] </h5>
                             <h5 style="color:green"> @ViewData["success"] </h5>
                         </div>
                         @*<div class="form-group">
-                                <label for="type-event">Choose a Type of Event:</label>
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        @Html.DropDownListFor(m => m.event_type, new List<SelectListItem>
-                                          { new SelectListItem{Text="Event", Value="1"},
-                                            new SelectListItem{Text="Activities", Value="2"}})
-                                    </div>
-                                </div>
-                            </div>*@
+            <label for="type-event">Choose a Type of Event:</label>
+            <div class="row">
+                <div class="col-lg-3">
+                    @Html.DropDownListFor(m => m.event_type, new List<SelectListItem>
+                      { new SelectListItem{Text="Event", Value="1"},
+                        new SelectListItem{Text="Activities", Value="2"}})
+                </div>
+            </div>
+        </div>*@
                         <div class="form-group">
                             <label for="Title">Title<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "EventTitle", name = "Title", value = "", placeholder = "Title", required = "required" })
                         </div>
-                        @*<div class="form-group">
-                                <div class="ml-2 col-sm-6" style="padding-left:0px;">
-                                    <label for="Desctiption">Image</label>
-                                    <form method="post" id="image-form">
-                                        <input type="file" name="img[]" class="file" accept="image/*">
-                                        <div class="input-group my-3">
-                                            <input type="text" class="form-control" disabled placeholder="Upload File" id="file">
-                                            <div class="input-group-append">
-                                                <button type="button" class="browse btn btn-primary">Browse...</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="ml-2 col-sm-6" style="padding-left:0px;">
-                                    <img src="https://placehold.it/80x80" id="preview" class="img-thumbnail">
-                                </div>
-                            </div>*@
-                        @* CKEditor<div class="form-group">
-                            <label for="Desctiption">Desctiption<span id="not-empty">*</span></label>
-                            <textarea cols="80" id="editor1" name="editor1" rows="10" data-sample-short>&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;.</textarea>
-                            </div>*@
                         <div class="form-group">
                             <label for="Desciption">Description<span id="not-empty">*</span></label>
                             @Html.TextAreaFor(m => m.desctiption, new { @class = "form-control", id = "EventDesctiption", name = "Desctiption", value = "", placeholder = "Description of the event", required = "required" })
@@ -81,42 +60,11 @@
                                     <label for="Location">Start date<span id="not-empty">*</span></label>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", @onchange = "checkDate()", name = "EventStartDate", placeholder = "Start date" })
+                                            @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", name = "EventStartDate", placeholder = "Start date" })
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            @*<div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label for="Location">Start time<span id="not-empty">*</span></label>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                @Html.TextBoxFor(m => m.start_time, new { type = "time", @class = "form-control", id = "EventStartTime", @onchange = "checkTime()", name = "EventStartTime", placeholder = "Start Time" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label for="Location">End date<span id="not-empty">*</span></label>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()", name = "EventEndDate", placeholder = "End date" })
-                                            </div>
-                                        </div>
-                                        <span style="color:red"><i id="text-error-date"></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label for="Location">End time<span id="not-empty">*</span></label>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", placeholder = "End Time" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>*@
                         </div>
                         <div class="form-group">
                             <label for="Location">Location<span id="not-empty">*</span></label>
@@ -145,6 +93,94 @@
                             @Html.TextBoxFor(m => m.note, new { @class = "form-control", id = "EventNote", name = "EventNote", value = "", placeholder = "Note" })
                         </div>
                         <div class="form-group">
+                            <label class="front-size-title" for="Event_Schedule">
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="front-size-title" for="Event_Schedule">
+                                Add Sub-Event
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="Title">Sub-Event Title<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.subEvent.title, new { @class = "form-control", id = "SubEventTitle", name = "SubTitle", value = "", placeholder = "Sub Event Title", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Desciption">Sub-Event Description<span id="not-empty">*</span></label>
+                            @Html.TextAreaFor(m => m.subEvent.desctiption, new { @class = "form-control", id = "SubEventDesctiption", name = "SubDesctiption", value = "", placeholder = "Sub Event Description of the event", required = "required" })
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="Location">Start date<span id="not-empty">*</span></label>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.subEvent.start_date, new { type = "date", @class = "form-control", id = "SubEventStartDate", @onchange = "checkDate()", name = "SubEventStartDate", placeholder = "Start date" })
+                                        </div>
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.subEvent.start_time, new { type = "time", @class = "form-control", id = "SubEventStartTime", @onchange = "checkTime()", name = "SubEventStartTime", placeholder = "Start Time" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="Location">End date<span id="not-empty">*</span></label>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.subEvent.end_date, new { type = "date", @class = "form-control", id = "SubEventEndDate", @onchange = "checkDate()", name = "SubEventEndDate", placeholder = "End date" })
+                                        </div>
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.subEvent.end_time, new { type = "time", @class = "form-control", id = "SubEventEndTime", @onchange = "checkTime()", name = "SubEventEndTime", placeholder = "End Time" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <span style="color:red"><i id="text-error-date"></i></span>
+                                <br />
+                                <span style="color:red"><i id="text-error-time"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">Sub-Event Location<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.subEvent.venue, new { @class = "form-control", id = "SubEventLocation", name = "SubTiLocationtle", value = "", placeholder = "Sub Event Location", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label for="ContactorPhone">Sub-Event Contactor phone<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.subEvent.contactor_phone, new { @class = "form-control", id = "SubEventContactorPhone", @onchange = "checkPhone()", name = "SubContactorPhone", value = "", placeholder = "Sub Event ContactorPhone" })
+                            <span style="color:red"><i id="text-error-phone"></i></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="ContactorEmail">Sub-Event Contactor email<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.subEvent.contactor_email, new { @class = "form-control", id = "SubEventContactorEmail", @onchange = "checkEmail()", name = "SubEventContactorEmail", value = "", placeholder = "Sub Event ContactorEmail" })
+                            <span style="color:red"><i id="text-error-email"></i></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="ContactorName">Sub-Event Contactor Name<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.subEvent.contactor_name, new { @class = "form-control", id = "SubEventContactorName", name = "SubEventContactorName", value = "", placeholder = "Sub Event ContactorName" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Fanpage">Sub-Event Fanpage</label>
+                            @Html.TextBoxFor(m => m.subEvent.fan_page, new { @class = "form-control", id = "SubEventFanpage", name = "SubEventFanpage", value = "", placeholder = "Sub Event Fanpage" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Fanpage">Sub-Event Note</label>
+                            @Html.TextBoxFor(m => m.subEvent.note, new { @class = "form-control", id = "SubEventNote", name = "SubEventNote", value = "", placeholder = "Sub Event Note" })
+                        </div>
+                        <div class="form-group">
+                            <label for="type-event">Allow Member Join this Sub-Event:</label>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    @Html.DropDownListFor(m => m.subEvent.status, new List<SelectListItem>
+                                      { new SelectListItem{Text="Not Allow Join", Value="0"},
+                                        new SelectListItem{Text="Allow Member Join", Value="1"},
+                                        new SelectListItem{Text="Allow Coach Join", Value="2"},
+                                        new SelectListItem{Text="Allow Member & Coach Join", Value="3"}}, new { @class = "form-control", id = "SubStatusSelect" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="pull-right">
                                 <button type="submit" class="btn btn-primary" id="event-upload">Add</button>
                                 <button type="button" class="btn btn-secondary" onclick="location.href='/Home/Event'; return false;" id="event-canner">Cancel</button>
@@ -156,6 +192,8 @@
         </div>
     </div>
 </div>
+
+<input type="hidden" id="validate-time" value="0">
 <input type="hidden" id="st" value="@ViewData["status"]">
 <input type="hidden" id="event_id" value=@ViewData["event_id"]>
 <script>
@@ -181,29 +219,51 @@
                 }
             });
         }
-        //var _startDate = $('#EventStartDate').val();
-        //var _endDate = $('#EventEndDate').val();
-        //if (_startDate === '' || _endDate == '') {
-        //    $('#event-upload').attr("disabled", true);
-        //} else {
-        //    $('#event-upload').attr("disabled", false);
-        //}
     });
 
     function checkDate() {
-        //var _startDate = $('#EventStartDate').val();
-        //var _endDate = $('#EventEndDate').val();
-        //if (_startDate > _endDate) {
-        //    $('#event-upload').attr("disabled", true);
-        //    $('#text-error-date').html("The End Date must NOT occur before the Start Date!!!");
-        //} else {
-        //    $('#event-upload').attr("disabled", false);
-        //    $('#text-error-date').html("");
-        //}
-        //checkTime();
+        var _startDateMainEvent = $('#EventStartDate').val()+' 00:00:01';
+        var _endDateMainEvent = $('#EventStartDate').val()+' 23:59:59';
+        var _startDateSubEvent = $('#SubEventStartDate').val();
+        var _endDateSubEvent = $('#SubEventEndDate').val();
+
+        var _startSubTime = $('#SubEventStartTime').val();
+        var _endSubTime = $('#SubEventEndTime').val();
+
+        if (_startSubTime === '' || _endSubTime === '') {
+            $('#event-upload').attr("disabled", true);
+            $('#text-error-date').html("Time Not Null!!!");
+        } else {
+            _startDateSubEvent += ' ' + _startSubTime;
+            _endDateSubEvent += ' ' + _endSubTime;
+
+            if (_startDateSubEvent >= _startDateMainEvent && _endDateSubEvent <= _endDateMainEvent) {
+                $('#validate-time').val("1");
+                $('#text-error-date').html("");
+            } else {
+                $('#validate-time').val("0");
+                $('#text-error-date').html("The Start Date must be >= Main Event Start Date:  " + _startDateMainEvent + " </br> AND The End Date must be <= Main Event End Date:  " + _endDateMainEvent + " !!!");
+            }
+
+            if (_startDateSubEvent >= _endDateSubEvent) {
+                $('#validate-time').val("1");
+                $('#text-error-time').html("");
+            } else {
+                $('#validate-time').val("0");
+                $('#text-error-time').html("The End Date must NOT occur before the Start Date!!!");
+            }
+        }
+
+        var _validTime = $('#validate-time').val();
+        if (_validTime === '0') {
+            $('#event-upload').attr("disabled", true);
+        } else if (_validTime === '1') {
+            $('#event-upload').attr("disabled", false);
+        }
     }
 
     function checkTime() {
+        checkDate();
         //var _startDate = $('#EventStartDate').val();
         //var _endDate = $('#EventEndDate').val();
 

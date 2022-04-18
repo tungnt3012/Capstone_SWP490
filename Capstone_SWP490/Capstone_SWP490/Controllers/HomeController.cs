@@ -146,10 +146,10 @@ namespace Capstone_SWP490.Controllers
         public ActionResult EventUpload()
         {
             ViewBag.Message = "Your Event Upload page.";
-            return View(new eventsViewModel { event_id = 0 });
+            return View(new eventsMainCreateViewModel { event_id = 0 });
         }
         [HttpPost]
-        public async Task<ActionResult> EventUpload(eventsViewModel events)
+        public async Task<ActionResult> EventUpload(eventsMainCreateViewModel events)
         {
             var rsCreate = await _ieventService.CreateEvent(events);
             if (rsCreate != null)
