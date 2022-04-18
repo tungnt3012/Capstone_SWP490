@@ -102,6 +102,7 @@ namespace Capstone_SWP490.Services
                     short_description = x.short_description,
                     title = x.title,
                     update_date = x.update_date,
+                    title_image = x.title_image
                 };
                 lstPostOut.Add(p);
             }

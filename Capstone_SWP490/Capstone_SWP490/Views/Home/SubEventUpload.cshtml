@@ -92,14 +92,14 @@
                         </div>
                         <div class="form-group">
                             <label for="Location">Contactor name<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorName", name = "EventContactor Name", value = "", placeholder = "Nguyen Van A", required = "required" })
+                            @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactor Name", value = "", placeholder = "Nguyen Van A", required = "required" })
                         </div>
                         <div class="form-group">
                             <label for="type-event">Allow Member Join this event:</label>
                             <div class="row">
                                 <div class="col-lg-3">
                                     @Html.DropDownListFor(m => m.status, new List<SelectListItem>
-                                      { new SelectListItem{Text="Default", Value="0"},
+                                      { new SelectListItem{Text="Not Allow Join", Value="0"},
                                         new SelectListItem{Text="Allow Member Join", Value="1"},
                                         new SelectListItem{Text="Allow Coach Join", Value="2"},
                                         new SelectListItem{Text="Allow Member & Coach Join", Value="3"}}, new { @class = "form-control", id = "StatusSelect" })

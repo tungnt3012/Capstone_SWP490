@@ -594,7 +594,7 @@ namespace Capstone_SWP490.Services
         public List<eventsViewModel> GetTop8Event()
         {
             var lstEvent = new List<eventsViewModel>();
-            var events = _ieventRepository.FindBy(x => x.status != -1).ToList().Take(8);
+            var events = _ieventRepository.FindBy(x => x.status != -1 && x.status !=null).ToList().Take(8);
             var lstE = (from es in events
                         orderby es.start_date ascending
                         select es).ToList();
@@ -610,8 +610,8 @@ namespace Capstone_SWP490.Services
                         desctiption = x.desctiption,
                         start_date = x.start_date,
                         end_date = x.end_date,
-                        start_date_str = x.start_date.ToString("dd-MM-yyyy, HH:mm"),
-                        end_date_str = x.end_date.ToString("dd-MM-yyyy, HH:mm"),
+                        start_date_str = x.start_date.ToString("dd-MM-yyyy"),
+                        end_date_str = x.end_date.ToString("dd-MM-yyyy"),
                         venue = x.venue,
                         note = x.note,
                         status = x.status,

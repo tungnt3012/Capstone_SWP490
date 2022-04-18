@@ -19,6 +19,7 @@ namespace Capstone_SWP490.Models.post_ViewModel
         public Nullable<bool> enabled { get; set; }
         public string schedule_date { get; set; }
         public string post_to { get; set; }
+        public string title_image { get; set; }
 
     }
 }

@@ -136,7 +136,7 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     @Html.DropDownListFor(m => m.status, new List<SelectListItem>
-                                      { new SelectListItem{Text="Default", Value="0"},
+                                      { new SelectListItem{Text="Not Allow Join", Value="0"},
                                         new SelectListItem{Text="Allow Member Join", Value="1"},
                                         new SelectListItem{Text="Allow Coach Join", Value="2"},
                                         new SelectListItem{Text="Allow Member & Coach Join", Value="3"}}, new { @class = "form-control", id = "StatusSelect", @Value = Model.status })

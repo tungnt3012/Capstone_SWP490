@@ -68,14 +68,12 @@ namespace Capstone_SWP490.Controllers.Admin
             if (HttpContext.Session["username"] != null)
             {
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
-                //if (u.user_role.Equals("ADMIN"))
-                //{
-                //    var data = _iapp_UserService.GetListUsersManager(u.user_id);
-                //    ViewData["Users"] = data;
-                return View();
-                //}
-                //ViewData["LoginError"] = "You NOT permission in this Function";
-                //return RedirectToAction("Login", "Login");
+                if (u.user_role.Equals("ADMIN"))
+                {
+                    var data = _iapp_UserService.GetListUsersManager(u.user_id);
+                    ViewData["Users"] = data;
+                    return View();
+                }
             }
             ViewData["LoginError"] = "You NOT permission in this Function";
             return RedirectToAction("Login", "Login");
@@ -108,7 +106,7 @@ namespace Capstone_SWP490.Controllers.Admin
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
                 if (u.user_role.Equals("ADMIN"))
                 {
-                    
+
                     return View();
                 }
                 //ViewData["LoginError"] = "You NOT permission in this Function";

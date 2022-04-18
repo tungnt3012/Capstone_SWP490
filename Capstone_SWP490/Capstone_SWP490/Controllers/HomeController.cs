@@ -45,11 +45,16 @@ namespace Capstone_SWP490.Controllers
 
             return View();
         }
-        public ActionResult HomePageContent()
+        public ActionResult HomePageContent(int post_Id)
         {
             ViewBag.Message = "Your contact page.";
-
-            return View();
+            var post = _ipostService.getById(post_Id);
+            if (post != null)
+            {
+                return View(post);
+            }
+            return View(new post { post_id = 0 });
+            //return View();
         }
         [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult ScoreboardUpload()
