@@ -57,7 +57,7 @@
                             <div class="tab-pane active" role="tabpanel" id="step1">
                                 <div class="col-lg-12">
                                     <label class="border border-danger" for="Event_Schedule">
-                                        Registered Schools: @(Model.total_registered_school) <a style="text-decoration: underline" onclick="location.href='@Url.Action("RegisteredSchool","Statistic")';return false;">detail</a>
+                                        Registered schools: @(Model.total_registered_school) <a style="text-decoration: underline" onclick="location.href='@Url.Action("RegisteredSchool","Statistic")';return false;">detail</a>
                                     </label>
                                     <br>
                                     <label class="border border-danger" for="Event_Schedule">
@@ -69,12 +69,12 @@
                                     <table class="table table-striped table-bordered table-sm" width="100%">
                                         <thead>
                                             <tr>
-                                                <th scope="col" width="1%">#</th>
-                                                <th scope="col" width="15%">School Name</th>
-                                                <th scope="col" width="10%">School Phone</th>
-                                                <th scope="col" width="2%">Teams</th>
-                                                <th scope="col" width="2%">Members</th>
-                                                <th scope="col" width="4%"></th>
+                                                <th scope="col" width="1%" >No</th>
+                                                <th scope="col" >School Name</th>
+                                                <th scope="col"width="30%" >School Phone</th>
+                                                <th scope="col"width="10%">Teams</th>
+                                                <th scope="col"width="10%">Members</th>
+                                                <th scope="col" width="170px"></th>
                                             </tr>
                                         </thead>
                                         <tbody id="table-contests">
@@ -87,7 +87,7 @@
                                                     <td class="venue-table">@(item.school_phone)</td>
                                                     <td class="title-table">@(item.total_team)</td>
                                                     <td class="title-table">@(item.total_member)</td>
-                                                    <td class="title-table">
+                                                    <td class="title-table" >
                                                         <a onclick="triggerSubmit('@item.school_id',1)" style="cursor:pointer" data-toggle="modal" data-target="#myModal">Accept</a> |
                                                         <a onclick="triggerSubmit('@item.school_id',2)" style="cursor:pointer;color:red" data-toggle="modal" data-target="#myModal">Reject</a> |
                                                         <a href="@Url.Action("DetailSchool", "Statistic")?schoolId=@item.school_id">Detail</a>
@@ -102,7 +102,7 @@
                             <div class="tab-pane" role="tabpanel" id="step2">
                                 <div class="col-lg-12">
                                     <label class="border border-danger" for="Event_Schedule">
-                                        Number of Event:
+                                        Number of event:
                                     </label>
                                     <label class="border border-danger" id="number-events" for="Event_Schedule">
                                         @Model.statistic_EventViewModel.totalEvent
@@ -120,7 +120,7 @@
                                     <table id="dtBasicExampleEvents" class="table table-striped table-bordered table-sm">
                                         <thead>
                                             <tr>
-                                                <th class="th-sm" scope="col">#</th>
+                                                <th class="th-sm" scope="col" >No</th>
                                                 <th class="th-sm" scope="col">Title</th>
                                                 <th class="th-sm" scope="col">Time</th>
                                                 <th class="th-sm" scope="col">Location</th>
@@ -132,12 +132,12 @@
                                             @for (int i = 0; i < Model.statistic_EventViewModel.lstEvents.Count(); i++)
                                             {
                                                 <tr>
-                                                    <td class="date-table">@(i+1)</td>
+                                                    <td class="date-table" width="1%">@(i+1)</td>
                                                     <td class="date-table">@Model.statistic_EventViewModel.lstEvents[i].title</td>
                                                     <td class="venue-table">@(Model.statistic_EventViewModel.lstEvents[i].start_date.ToString("dd-MM-yyyy"))</td>
                                                     <td class="title-table">@Model.statistic_EventViewModel.lstEvents[i].venue</td>
-                                                    <td class="title-table">@Model.statistic_EventViewModel.lstEvents[i].total_joined</td>
-                                                    <td class="title-table text-center">
+                                                    <td class="title-table" style="width: 14%;">@Model.statistic_EventViewModel.lstEvents[i].total_joined</td>
+                                                    <td class="title-table text-center" style="width: 4%;">
                                                         <a onclick="location.href='/Statistic/RegistrationSchedule?eventId=@Model.statistic_EventViewModel.lstEvents[i].event_id'">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
                                                                 <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z" />
@@ -219,7 +219,7 @@
                                     <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th class="th-sm" scope="col" >#</th>
+                                                <th class="th-sm" scope="col" >No</th>
                                                 <th class="th-sm" scope="col">Member</th>
                                                 <th class="th-sm" scope="col">Email</th>
                                                 <th class="th-sm" scope="col" width="10%">Phone number</th>
@@ -232,17 +232,17 @@
                                             @for (int i = 0; i < @Model.statistic_shirtSizeViewModel.lstMembers.Count(); i++)
                                             {
                                                 <tr>
-                                                    <td class="date-table">@(i+1)</td>
-                                                    <td class="date-table">
+                                                    <td class="date-table" width="1%">@(i+1)</td>
+                                                    <td class="date-table" width="20%">
                                                         @(Model.statistic_shirtSizeViewModel.lstMembers[i].first_name +" "+
                                                         Model.statistic_shirtSizeViewModel.lstMembers[i].middle_name +" "+
                                                         Model.statistic_shirtSizeViewModel.lstMembers[i].last_name)
                                                     </td>
-                                                    <td class="date-table">@(Model.statistic_shirtSizeViewModel.lstMembers[i].email??"")</td>
-                                                    <td class="venue-table">@(Model.statistic_shirtSizeViewModel.lstMembers[i].phone_number??"no phone")</td>
+                                                    <td class="date-table" width="20%">@(Model.statistic_shirtSizeViewModel.lstMembers[i].email??"")</td>
+                                                    <td class="venue-table" width="20%">@(Model.statistic_shirtSizeViewModel.lstMembers[i].phone_number??"no phone")</td>
                                                     @*<td class="venue-table"></td>
                                                     <td class="venue-table"></td>*@
-                                        <td class="venue-table">@(Model.statistic_shirtSizeViewModel.lstMembers[i].shirt_sizing??"no size")</td>
+                                        <td class="venue-table" width="6%">@(Model.statistic_shirtSizeViewModel.lstMembers[i].shirt_sizing??"no size")</td>
                                         </tr>
                                         }
                                         </tbody>
