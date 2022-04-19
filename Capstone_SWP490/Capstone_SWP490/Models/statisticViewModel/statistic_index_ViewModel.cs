@@ -10,5 +10,6 @@ namespace Capstone_SWP490.Models.statisticViewModel
         public List<statistic_schoolViewModel> school_confirrmation { get; set; }
         public int total_registered_school { get; set; }
         public int total_contestant { get; set; }
+        public statistic_eventViewModel statistic_EventViewModel { get; set; }
     }
 }

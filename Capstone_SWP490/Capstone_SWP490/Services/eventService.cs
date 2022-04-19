@@ -2,6 +2,7 @@
 using Capstone_SWP490.Models;
 using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Models.events_ViewModel;
+using Capstone_SWP490.Models.statisticViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Services.Interfaces;
@@ -306,7 +307,7 @@ namespace Capstone_SWP490.Services
                         note = eventsIn.note ?? "",
                         event_type = 1,
                         status = 0,
-                        sub_event = subEvent.event_id+","
+                        sub_event = subEvent.event_id + ","
                     };
 
                     var newEvent = await _ieventRepository.Create(e);
@@ -688,9 +689,9 @@ namespace Capstone_SWP490.Services
             return output;
         }
 
-        public List<eventsViewModel> EventStatic()
+        public statistic_eventViewModel EventStatic()
         {
-            var sortSubTemp = (from x in _ieventRepository.FindBy(x => x.event_type == 2 && x.status != 0)
+            var sortSubTemp = (from x in _ieventRepository.FindBy(x => x.event_type == 2 && x.status > 0)
                                orderby x.start_date descending
                                select x).ToList();
             var lstSubEvent = new List<eventsViewModel>();
@@ -715,45 +716,55 @@ namespace Capstone_SWP490.Services
                     };
                     lstSubEvent.Add(subViewModel);
                 }
-                return lstSubEvent;
+                return new statistic_eventViewModel { totalEvent = lstSubEvent.Count, lstEvents = lstSubEvent };
             }
             return null;
         }
 
-        public List<app_userViewModel> AllUsersInEvent(int eventId)
+        public statistic_eventDetailViewModel AllUsersInEvent(int eventId)
         {
-            var subEvent = _ieventRepository.FindBy(x => x.event_id == eventId && x.status == 1).FirstOrDefault();
+            var subEvent = _ieventRepository.FindBy(x => x.event_id == eventId && x.status > 0).FirstOrDefault();
             if (subEvent != null)
             {
-                var lstUserJoin = new List<app_userViewModel>();
+                var lstMemberJoin = new List<member>();
+                var staticEvent = new statistic_eventDetailViewModel();
                 if (!String.IsNullOrWhiteSpace(subEvent.member_join))
                 {
                     string[] lsUsers = subEvent.member_join.Split(',');
                     foreach (var item in lsUsers)
                     {
-                        var user = _iapp_userRepository.FindBy(x => x.user_id == Convert.ToInt32(item.ToString())).FirstOrDefault();
-                        if (user != null)
+                        if (!String.IsNullOrWhiteSpace(item))
                         {
-                            var u = new app_userViewModel
+                            int uId = Convert.ToInt32(item.ToString());
+                            var user = _imemberRepository.FindBy(x => x.user_id == uId).FirstOrDefault();
+                            if (user != null)
                             {
-                                active = user.active,
-                                confirm_password = user.confirm_password,
-                                email = user.email,
-                                full_name = user.full_name,
-                                insert_date = Convert.ToDateTime(user.insert_date),
-                                update_date = Convert.ToDateTime(user.update_date),
-                                user_id = user.user_id,
-                                user_name = user.user_name,
-                                user_role = user.user_role,
-                                verified = user.verified,
-                            };
-                            lstUserJoin.Add(u);
+                                lstMemberJoin.Add(user);
+                            }
                         }
                     }
-                    return lstUserJoin;
                 }
+
+                return new statistic_eventDetailViewModel
+                {
+                    event_id = subEvent.event_id,
+                    title = subEvent.title,
+                    event_type = subEvent.event_type,
+                    desctiption = subEvent.desctiption,
+                    start_date = subEvent.start_date,
+                    end_date = subEvent.end_date,
+                    venue = subEvent.venue,
+                    note = subEvent.note,
+                    status = subEvent.status,
+                    contactor_phone = subEvent.contactor_phone,
+                    contactor_email = subEvent.contactor_email,
+                    contactor_name = subEvent.contactor_name,
+                    fan_page = subEvent.fan_page,
+                    lstMembers = lstMemberJoin
+                };
             }
             return null;
         }
     }
+
 }

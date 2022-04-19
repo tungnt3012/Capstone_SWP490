@@ -18,6 +18,7 @@ namespace Capstone_SWP490.Controllers.Organization
         private static readonly ILog Log = LogManager.GetLogger(typeof(StatisticController));
         private readonly interfaces.IschoolService _ischoolService = new services.schoolService();
         private readonly interfaces.Iapp_userService _iapp_UserService = new services.app_userService();
+        private readonly interfaces.IeventService _ieventService = new services.eventService();
 
         // GET: Statistic
         public ActionResult Index()
@@ -29,6 +30,8 @@ namespace Capstone_SWP490.Controllers.Organization
                 model.school_confirrmation = _ischoolService.findSchoolConfirmation();
                 model.total_registered_school = _ischoolService.getRegistered();
                 model.total_contestant = _ischoolService.getTotalContestantInRegistered();
+
+                model.statistic_EventViewModel = _ieventService.EventStatic();
                 return View(model);
             }
             catch (Exception e)
@@ -88,9 +91,14 @@ namespace Capstone_SWP490.Controllers.Organization
         {
             return View();
         }
-        public ActionResult RegistrationSchedule()
+        public ActionResult RegistrationSchedule(int eventId)
         {
-            return View();
+            var st = _ieventService.AllUsersInEvent(eventId);
+            if (st != null)
+            {
+                return View(st);
+            }
+            return View(new statistic_eventDetailViewModel { event_id = 0 });
         }
     }
 }
