@@ -358,7 +358,7 @@ namespace Capstone_SWP490.Helper
             import_error_ViewModel error;
             int col = importObject.getStartAtCol();
             int row = importObject.getStartAtRow();
-            school firstRegist = _ischoolService.getFirstRegistSchool(result.Coach.app_user.user_id);
+            school firstRegist = _ischoolService.findByNewRegistCoach(result.Coach.app_user.user_id);
             //read school, if any field is empty then use first regist
             string school_name = schoolSheet.Cells[row++, col].Value + "";
             if (StringUtils.isNullOrEmpty(school_name))
@@ -372,6 +372,18 @@ namespace Capstone_SWP490.Helper
                 error.type = 2;
                 result.error.Add(error);
             }
+            else if (!school_name.Equals(firstRegist.school_name))
+            {
+                school_name = firstRegist.school_name;
+                error = new import_error_ViewModel();
+                error.objectName = "COACH";
+                error.occur_position = "ROW = " + row;
+                error.msg = Message.MSG030;
+                error.parentObject = SchoolImport.sheetName;
+                error.type = 2;
+                result.error.Add(error);
+            }
+
 
             string insitution_name = schoolSheet.Cells[row++, col].Value + "";
             if (StringUtils.isNullOrEmpty(insitution_name))
@@ -385,6 +397,19 @@ namespace Capstone_SWP490.Helper
                 error.type = 2;
                 result.error.Add(error);
             }
+            else if (!school_name.Equals(firstRegist.institution_name))
+            {
+                school_name = firstRegist.school_name;
+                error = new import_error_ViewModel();
+                error.objectName = "COACH";
+                error.occur_position = "ROW = " + row;
+                error.msg = Message.MSG031;
+                error.parentObject = SchoolImport.sheetName;
+                error.type = 2;
+                result.error.Add(error);
+            }
+
+
             bool existed = _ischoolService.isExisted(school_name, insitution_name, result.Coach.app_user.user_id);
             //in case of school name and institution name inserted by other coach
             if (existed)
@@ -450,7 +475,7 @@ namespace Capstone_SWP490.Helper
             }
 
             string coach_email = schoolSheet.Cells[row++, col].Value + "";
-            if (!IsValidEmail(coach_email) || !coach_email.Equals(result.Coach.email))
+            if (!IsValidEmail(coach_email) || !coach_email.Equals(result.Coach.app_user.email))
             {
                 msgValidateCoach += "\n" + Message.MSG012;
             }

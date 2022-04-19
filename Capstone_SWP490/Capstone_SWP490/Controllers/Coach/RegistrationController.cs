@@ -709,6 +709,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 error.occur_position = "N/A";
                 error.msg = Message.MSG013;
                 data.error.Add(error);
+                data.rootError = true;
                 return View(data);
             }
 
@@ -724,6 +725,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     error.occur_position = "N/A";
                     error.msg = Message.MSG013;
                     data.error.Add(error);
+                    data.rootError = true;
                     return View(data);
                 }
                 _path = _path.Replace(".xlsx", ".txt");
@@ -870,6 +872,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         error.msg = string.Format(Message.MSG015, sheetNotExist);
                         error.type = 1;
                         result.error.Add(error);
+                        result.rootError = true;
                         return result;
 
                     }
@@ -879,7 +882,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         iImport.SchoolImport schoolImport = new iImport.SchoolImport();
                         ExcelWorksheet schoolSheet = registrationHelper.getSheetByName(sheets, iImport.SchoolImport.sheetName);
                         result = registrationHelper.readSchoolSheet(result, schoolSheet, schoolImport);
-                    }
+                        }
                     catch (Exception e)
                     {
                         //read school information error then stop
@@ -898,6 +901,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         error.msg = msg;
                         error.type = 1;
                         result.error.Add(error);
+                        result.rootError = true;
                         return result;
                     }
                     //read team
@@ -913,6 +917,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         error.msg = Message.MSG022;
                         error.type = 1;
                         result.error.Add(error);
+                        result.rootError = true;
                         return result;
                     }
 
@@ -932,6 +937,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 error.occur_position = "UNKOWN";
                 error.msg = "IMPORT ERROR, PLEASE INSERT DATA CAREFULLY !";
                 result.error.Add(error);
+                result.rootError = true;
                 Log.Error(e.Message);
             }
             finally

@@ -210,6 +210,12 @@
   <data name="MSG029" xml:space="preserve">
     <value>Please waiting for Organizer confirmation !</value>
   </data>
+  <data name="MSG030" xml:space="preserve">
+    <value>Institution name is not same to current,Please check carefully</value>
+  </data>
+  <data name="MSG031" xml:space="preserve">
+    <value>School name is not same to current,Please check carefully</value>
+  </data>
   <data name="SYSTEM_ERROR" xml:space="preserve">
     <value>oops, something went wrong, please try again or contact to System admin</value>
   </data>

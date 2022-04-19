@@ -42,6 +42,7 @@ namespace Capstone_SWP490.Helper
             school.enabled = false;
             school.phone_number = StringUtils.isNullOrEmpty(data.school_phone) ? "" : data.school_phone;
             school.coach_id = coachUserId;
+            school.active = -1;
             return school;
         }
         public team buildCoachTeam(int schoolId)

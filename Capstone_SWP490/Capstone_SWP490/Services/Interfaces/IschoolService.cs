@@ -21,7 +21,6 @@ namespace Capstone_SWP490.Services.Interfaces
         school getInConfirmation(int coachId);
         school findById(int schoolId);
         bool isExisted(string schoolName, string institutioName, int coachUserId);
-        school getFirstRegistSchool(int coachUserId);
         List<statistic_schoolViewModel> findSchoolConfirmation();
         int getRegistered();
         int getTotalContestantInRegistered();
@@ -30,5 +29,7 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<int> removeSchool(int schoolId);
 
         bool checkDuplicate(string schoolName, string insitutionName);
+
+        school findByNewRegistCoach(int coachId);
     }
 }
