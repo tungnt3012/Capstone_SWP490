@@ -112,7 +112,9 @@
                                                             </a>
                                                         </div>
                                                         <script>
-                                                            document.getElementById("Or-@x.event_id").style.gridTemplateColumns = "42% 20% 32% 6%";
+                                                            document.getElementById("Or-@x.event_id").style.gridTemplateColumns = "45% 15% 34% 6%";
+                                                          
+
                                                         </script>
                                                     }
                                                     else
@@ -141,10 +143,10 @@
                                                 {
                                                     foreach (var e in x.subEvent)
                                                     {
-                                                        <div class="tr">
+                                                        <div class="tr" id="sub">
                                                             <div for="dso_2" class="td">@e.title</div>
-                                                            <div class="td" style="padding-left: 20px">@e.start_date.ToString("HH:mm") - @e.end_date.ToString("HH:mm")</div>
-                                                            <div class="td" style="padding-left: 30px">@e.venue</div>
+                                                            <div class="td">@e.start_date.ToString("HH:mm") - @e.end_date.ToString("HH:mm")</div>
+                                                            <div class="td">@e.venue</div>
                                                         </div>
                                                     }
                                                 }

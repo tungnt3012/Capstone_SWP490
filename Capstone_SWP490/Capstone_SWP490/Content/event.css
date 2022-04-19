@@ -49,7 +49,7 @@ label {
 
     .JTable .tr {
         display: grid;
-        grid-template-columns: 42% 20% 36% 2%;
+        grid-template-columns: 45% 15% 38% 2%;
         position: relative;
         z-index: 1;
     }
@@ -142,3 +142,6 @@ label {
         background-color: #ccc;
         z-index: 10;
     }
+#sub {
+    grid-template-columns: 46% 15% 39% 2%;
+}
