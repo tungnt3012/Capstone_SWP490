@@ -110,6 +110,31 @@ namespace Capstone_SWP490.Services
             return result;
         }
 
+        public List<team> GetTeams()
+        {
+            List<school> schools = _ischoolRepository.FindBy(x => x.active == 2).ToList();
+            List<team> teamRs = new List<team>();
+            if (schools != null)
+            {
+                foreach (var x in schools)
+                {
+                    if (x.teams.Count > 0)
+                    {
+                        foreach (var t in x.teams)
+                        {
+                            //if (t.enabled == true)
+                            //{
+                            //    teamRs.Add(t);
+                            //}
+                            teamRs.Add(t);
+                        }
+                    }
+                }
+                return teamRs;
+            }
+            return null;
+        }
+
         public int getRegistered()
         {
             List<school> schools = _ischoolRepository.FindBy(x => x.active == 3).ToList();

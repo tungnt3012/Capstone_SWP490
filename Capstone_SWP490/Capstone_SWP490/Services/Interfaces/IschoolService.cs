@@ -30,6 +30,10 @@ namespace Capstone_SWP490.Services.Interfaces
 
         bool checkDuplicate(string schoolName, string insitutionName);
 
+
         school findByNewRegistCoach(int coachId);
+
+        List<team> GetTeams();
+
     }
 }

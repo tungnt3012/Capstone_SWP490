@@ -64,5 +64,10 @@ namespace Capstone_SWP490.Services
         {
             return _iteamRepository.FindBy(x => x.school.active == 4 && x.school.enabled == true).ToList();
         }
+
+        public IEnumerable<team> getAllTeams()
+        {
+            return _iteamRepository.FindBy(x => x.enabled == true).ToList();
+        }
     }
 }

@@ -14,5 +14,6 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<int> delete(team team);
         Task<int> update(team team);
         IEnumerable<team> findRegistedTeam();
+        IEnumerable<team> getAllTeams();
     }
 }

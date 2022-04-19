@@ -20,6 +20,7 @@ namespace Capstone_SWP490.Controllers.Organization
         private readonly interfaces.Iapp_userService _iapp_UserService = new services.app_userService();
         private readonly interfaces.IeventService _ieventService = new services.eventService();
         private readonly interfaces.ImemberService _imemberService = new services.memberService();
+        private readonly interfaces.IteamService _iteamService = new services.teamService();
 
         // GET: Statistic
         public ActionResult Index()
@@ -31,6 +32,7 @@ namespace Capstone_SWP490.Controllers.Organization
                 model.school_confirrmation = _ischoolService.findSchoolConfirmation();
                 model.total_registered_school = _ischoolService.getRegistered();
                 model.total_contestant = _ischoolService.getTotalContestantInRegistered();
+                model.total_teams = _ischoolService.GetTeams().Count();
 
                 model.statistic_EventViewModel = _ieventService.EventStatic();
                 model.statistic_shirtSizeViewModel = _imemberService.statistic_ShirtSizeView();
