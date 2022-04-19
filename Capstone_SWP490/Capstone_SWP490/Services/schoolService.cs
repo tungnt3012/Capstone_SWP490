@@ -62,8 +62,6 @@ namespace Capstone_SWP490.Services
         }
         public async Task<school> insert(school school)
         {
-            school existActive = _ischoolRepository.checkActive(school);
-            school.active = (existActive == null) ? 2 : 1;
             try
             {
                 return await _ischoolRepository.Create(school);
@@ -93,10 +91,6 @@ namespace Capstone_SWP490.Services
             return _ischoolRepository.FindBy(x => x.coach_id != coachUserId && x.active == 3
             && x.school_name.Equals(schoolName)
             && x.institution_name.Equals(institutioName)).FirstOrDefault() != null;
-        }
-        public school getFirstRegistSchool(int coachUserId)
-        {
-            return _ischoolRepository.FindBy(x => x.coach_id == coachUserId && x.active == 0).FirstOrDefault();
         }
 
         public List<statistic_schoolViewModel> findSchoolConfirmation()
@@ -170,17 +164,23 @@ namespace Capstone_SWP490.Services
         public async Task<int> processSchool(int schoolId, string type)
         {
             school data = _ischoolRepository.FindBy(x => x.school_id == schoolId).FirstOrDefault();
+            school coachRegistSchool = findByNewRegistCoach((int)data.coach_id);
+
             if (data == null)
             {
                 throw new Exception(Message.MSG028);
             }
             if (type.Equals("1"))
             {
+                coachRegistSchool.school_name = data.school_name;
+                coachRegistSchool.institution_name = data.institution_name;
+                //if orgnaizier accept then update school record defined when coach create account
+                await update(coachRegistSchool);
                 data.active = 3;
             }
             else if (type.Equals("2"))
             {
-                data.active = -1;
+                data.active = 0;
             }
             return await update(data);
         }
@@ -202,11 +202,17 @@ namespace Capstone_SWP490.Services
 
         public bool checkDuplicate(string schoolName, string insitutionName)
         {
-            if (StringUtils.isNullOrEmpty(schoolName) || StringUtils.isNullOrEmpty(insitutionName)){
+            if (StringUtils.isNullOrEmpty(schoolName) || StringUtils.isNullOrEmpty(insitutionName))
+            {
                 return false;
             }
             school check = _ischoolRepository.FindBy(x => x.school_name.Equals(schoolName) && x.institution_name.Equals(insitutionName)).FirstOrDefault();
             return check == null;
+        }
+
+        public school findByNewRegistCoach(int coachId)
+        {
+            return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active == -1).FirstOrDefault();
         }
     }
 }

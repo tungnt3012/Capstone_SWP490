@@ -338,7 +338,26 @@ namespace Resources {
                 return ResourceManager.GetString("MSG029", resourceCulture);
             }
         }
-        
+        /// <summary>
+        ///   Looks up a localized string similar to Please waiting for Organizer confirmation !.
+        /// </summary>
+        internal static string MSG031
+        {
+            get
+            {
+                return ResourceManager.GetString("MSG031", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   Looks up a localized string similar to Please waiting for Organizer confirmation !.
+        /// </summary>
+        internal static string MSG030
+        {
+            get
+            {
+                return ResourceManager.GetString("MSG030", resourceCulture);
+            }
+        }
         /// <summary>
         ///   Looks up a localized string similar to oops, something went wrong, please try again or contact to System admin.
         /// </summary>

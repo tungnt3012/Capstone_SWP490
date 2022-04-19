@@ -29,7 +29,7 @@
 
                                         <label style="color:red">*Important Note: Values in red is required, Please check carefully!!!</label>
                                         <br />
-                                        @if (Model.School.teams.Count != 0)
+                                        @if (Model.rootError == false && Model.School.teams.Count != 0)
                                         {
                                             <div class="form-group">
                                                 <button class="btn btn-primary" id="registration_importdata">@(Model.Source == "VIEW" ? "Save Changes" : "Save")</button>
@@ -44,7 +44,7 @@
 
                                     </div>
                                 }
-                                @if (Model.School.teams.Count >= 1)
+                                @if (Model.rootError == false && Model.School.teams.Count >= 1)
                                 {
                                     <div class="col-lg-12">
                                         <label for="formFile" class="form-label">School Name: </label>: <span style="color: @(Model.School.school_name == "" ? "red" : "black")">@(Model.School.school_name == "" ? "N/A" : Model.School.school_name)</span>

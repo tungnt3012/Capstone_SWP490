@@ -12,6 +12,7 @@ namespace Capstone_SWP490.Models.school_memberViewModel
         {
             this.error = new List<import_error_ViewModel>();
         }
+        public bool rootError { get; set; } = false;
         public List<import_error_ViewModel> error { get; set; }
         public school School { get; set; }
         public member Coach { get; set; }

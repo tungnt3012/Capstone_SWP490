@@ -151,7 +151,7 @@ namespace Capstone_SWP490.Controllers.Orgnazition
             try
             {
                 app_user coachUser = _iapp_UserService.getByUserId(coachId);
-                school school = _ischoolService.findById(coachUser.user_id);
+                school school = _ischoolService.findByNewRegistCoach(coachUser.user_id);
                 member coachMember = _imemberService.GetMemberByUserId(coachUser.user_id);
                 team coachTeam = _iteamService.findBySchoolId(school.school_id).FirstOrDefault();
                 team_member teamMember = _iteam_memberService.getCoachTeamMember(coachTeam.team_id).FirstOrDefault();
