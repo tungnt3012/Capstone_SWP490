@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.statisticViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,6 @@ namespace Capstone_SWP490.Services.Interfaces
         member getByEmail(string email);
         member GetMemberByAvaibleUserId(int? userId);
         Task<AjaxResponseViewModel<bool>> JoinEvent(int id);
-
+        statistic_shirtSizeViewModel statistic_ShirtSizeView();
     }
 }

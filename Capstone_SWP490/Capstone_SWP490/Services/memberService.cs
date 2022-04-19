@@ -9,6 +9,7 @@ using System.Web;
 using Capstone_SWP490.ExceptionHandler;
 using log4net;
 using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.statisticViewModel;
 
 namespace Capstone_SWP490.Services
 {
@@ -96,7 +97,7 @@ namespace Capstone_SWP490.Services
             if (mem != null)
             {
                 mem.event_notify = true;
-                if(await _imemberRepository.Update(mem, mem.member_id) != -1)
+                if (await _imemberRepository.Update(mem, mem.member_id) != -1)
                 {
                     output.Message = "success";
                     output.Data = true;
@@ -110,7 +111,24 @@ namespace Capstone_SWP490.Services
 
         public member GetMemberByAvaibleUserId(int? userId)
         {
-            return _imemberRepository.FindBy(x => x.user_id == userId&&x.enabled==true).FirstOrDefault();
+            return _imemberRepository.FindBy(x => x.user_id == userId && x.enabled == true).FirstOrDefault();
+        }
+
+        public statistic_shirtSizeViewModel statistic_ShirtSizeView()
+        {
+            var lstMember = _imemberRepository.FindBy(x => x.enabled == true && !String.IsNullOrEmpty(x.shirt_sizing)).ToList();
+            return new statistic_shirtSizeViewModel
+            {
+                sizeS = _imemberRepository.FindBy(x => x.enabled == true && x.shirt_sizing.Equals("S")).Count(),
+                sizeXS = _imemberRepository.FindBy(x => x.enabled == true && x.shirt_sizing.Equals("XS")).Count(),
+                sizeM = _imemberRepository.FindBy(x => x.enabled == true && x.shirt_sizing.Equals("M")).Count(),
+                sizeL = _imemberRepository.FindBy(x => x.enabled == true && x.shirt_sizing.Equals("L")).Count(),
+                sizeXL = _imemberRepository.FindBy(x => x.enabled == true && x.shirt_sizing.Equals("XL")).Count(),
+                size2XL = _imemberRepository.FindBy(x => x.enabled == true && x.shirt_sizing.Equals("2XL")).Count(),
+                size3XL = _imemberRepository.FindBy(x => x.enabled == true && x.shirt_sizing.Equals("3XL")).Count(),
+                lstMembers = lstMember,
+                totalRegisterdSize = lstMember.Count(),
+            };
         }
     }
 }
