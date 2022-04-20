@@ -27,12 +27,12 @@
                             <li class="col-lg-12" id="user-information"></li>
                             <li class="col-lg-12" id="user-role">Role: @profile.user_role</li>
                         </ul>
-                        <ul class="dropdown-item" onclick="location.href='@Url.Action("ChangePassword","Login")';return false;" type="button" id="user-changpassword" style="list-style-type:none;">
+                        <ul class="dropdown-item" onclick="location.href='@Url.Action("ChangePassword","Authentication")';return false;" type="button" id="user-changpassword" style="list-style-type:none;">
                             <li class="col-lg-12">
                                 Change password
                             </li>
                         </ul>
-                        <ul class="dropdown-item" onclick="location.href='@Url.Action("Logout","Login")';return false;" type="button" id="user-logout" style="list-style-type:none;">
+                        <ul class="dropdown-item" onclick="location.href='@Url.Action("Logout","Authentication")';return false;" type="button" id="user-logout" style="list-style-type:none;">
                             <li class="col-lg-12">
                                 Log out
                             </li>
@@ -44,7 +44,7 @@
             {
         <button class="btn btn-outline-login" onclick="location.href='@Url.Action("", "SignUp")';return false;" id="btn-login-mobie" >Registration For Coach</button>
 
-                <button class="btn btn-outline-login" onclick="location.href='@Url.Action("Login", "Login")';return false;" id="btn-login-mobie">Login</button>
+                <button class="btn btn-outline-login" onclick="location.href='@Url.Action("Login", "Authentication")';return false;" id="btn-login-mobie">Login</button>
             }
 
         </div>
@@ -69,12 +69,12 @@
                             <li class="col-lg-12" id="user-information"></li>
                             <li class="col-lg-12" id="user-role">Role: @profile.user_role</li>
                         </ul>
-                        <ul class="dropdown-item" onclick="location.href='@Url.Action("ChangePassword","Login")';return false;" type="button" id="user-changpassword" style="list-style-type:none;">
+                        <ul class="dropdown-item" onclick="location.href='@Url.Action("ChangePassword","Authentication")';return false;" type="button" id="user-changpassword" style="list-style-type:none;">
                             <li class="col-lg-12">
                                 Change password
                             </li>
                         </ul>
-                        <ul class="dropdown-item" onclick="location.href='@Url.Action("Logout","Login")';return false;" type="button" id="user-logout" style="list-style-type:none;">
+                        <ul class="dropdown-item" onclick="location.href='@Url.Action("Logout","Authentication")';return false;" type="button" id="user-logout" style="list-style-type:none;">
                             <li class="col-lg-12">
                                 Log out
                             </li>
@@ -86,7 +86,7 @@
             {
         <button class="btn btn-outline-login" onclick="location.href='@Url.Action("", "SignUp")';return false;" id="btn-login-desktop" >Registration For Coach</button>
 
-                <button class="btn btn-outline-login" onclick="location.href='@Url.Action("Login", "Login")';return false;" id="btn-login-desktop">Login</button>
+                <button class="btn btn-outline-login" onclick="location.href='@Url.Action("Login", "Authentication")';return false;" id="btn-login-desktop">Login</button>
             }
 
         </div>

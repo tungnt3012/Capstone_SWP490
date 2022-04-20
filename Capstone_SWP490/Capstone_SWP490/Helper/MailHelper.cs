@@ -65,7 +65,7 @@ namespace Capstone_SWP490.Helper
             {
                 Log.Error(e.Message);
             }
-            string changePswUrl = hostName + "/Login";
+            string changePswUrl = hostName + "/Authentication";
             emailModel.body = string.Format(mailContent, user.psw, changePswUrl, changePswUrl);
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
             sendMailAsync(emailModel);
@@ -85,7 +85,7 @@ namespace Capstone_SWP490.Helper
             {
                 Log.Error(e.Message);
             }
-            string changePswUrl = hostName + "/Login";
+            string changePswUrl = hostName + "/Authentication";
             emailModel.body = string.Format(mailContent, user.full_name, user.psw, changePswUrl, changePswUrl);
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
             sendMailAsync(emailModel);
@@ -172,7 +172,7 @@ namespace Capstone_SWP490.Helper
                 Log.Error(e.Message);
             }
             string fullname = user.full_name;
-            string url = hostName + "/Login/Login";
+            string url = hostName + "/Authentication/Login";
             emailModel.toEmail = user.email;
             emailModel.body = string.Format(mailContent, fullname, password, url);
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;
@@ -195,7 +195,7 @@ namespace Capstone_SWP490.Helper
                 Log.Error(e.Message);
             }
             string fullname = user.full_name;
-            string url = hostName + "/Login/Login";
+            string url = hostName + "/Authentication/Login";
             emailModel.toEmail = user.email;
             emailModel.body = string.Format(mailContent, fullname, username, password, url);
             emailModel.title = "ICPC Asia-VietNam " + DateTime.Now.Year;

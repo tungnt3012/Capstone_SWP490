@@ -28,10 +28,10 @@ namespace Capstone_SWP490.Controllers.Admin
                     return View();
                 }
                 //ViewData["LoginError"] = "You NOT permission in this Function";
-                //return RedirectToAction("Login", "Login");
+                //return RedirectToAction("Login", "Authentication");
             }
             ViewData["LoginError"] = "You NOT permission in this Function";
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "Authentication");
         }
         public ActionResult Admin()
         {
@@ -48,7 +48,7 @@ namespace Capstone_SWP490.Controllers.Admin
                 }
             }
             ViewData["LoginError"] = "You NOT permission in this Function";
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "Authentication");
         }
         [HttpPost]
         public async Task<ActionResult> AddOrganizer(app_user app_UserIn)
@@ -76,7 +76,7 @@ namespace Capstone_SWP490.Controllers.Admin
                 }
             }
             ViewData["LoginError"] = "You NOT permission in this Function";
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "Authentication");
         }
 
         public ActionResult DisableUsers(int user_id)
@@ -110,10 +110,10 @@ namespace Capstone_SWP490.Controllers.Admin
                     return View();
                 }
                 //ViewData["LoginError"] = "You NOT permission in this Function";
-                //return RedirectToAction("Login", "Login");
+                //return RedirectToAction("Login", "Authentication");
             }
             ViewData["LoginError"] = "You NOT permission in this Function";
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "Authentication");
         }
 
         public ActionResult GetMenuContentByRole(string roleName)
