@@ -132,12 +132,8 @@ namespace Capstone_SWP490.Controllers
                     }
                     if (user.verified == false)
                     {
-<<<<<<< HEAD:Capstone_SWP490/Capstone_SWP490/Controllers/Login/LoginController.cs
                         FormsAuthentication.SetAuthCookie(user.user_name, false);
-                        return RedirectToAction("ChangePasswordFirst", "Login");
-=======
                         return RedirectToAction("ChangePasswordFirst", "Authentication");
->>>>>>> 8d41bf729e85f91cc28ec853755386f6b7b96b17:Capstone_SWP490/Capstone_SWP490/Controllers/Authentication/AuthenticationController.cs
                     }
                     var memberTemp = _imemberService.GetMemberByAvaibleUserId(user.user_id);
 
@@ -145,12 +141,8 @@ namespace Capstone_SWP490.Controllers
                     {
                         if (String.IsNullOrWhiteSpace(memberTemp.shirt_sizing))
                         {
-<<<<<<< HEAD:Capstone_SWP490/Capstone_SWP490/Controllers/Login/LoginController.cs
                             FormsAuthentication.SetAuthCookie(user.user_name, false);
-                            return RedirectToAction("RegisShirtSizing", "Login");
-=======
                             return RedirectToAction("RegisShirtSizing", "Authentication");
->>>>>>> 8d41bf729e85f91cc28ec853755386f6b7b96b17:Capstone_SWP490/Capstone_SWP490/Controllers/Authentication/AuthenticationController.cs
                         }
                     }
                     FormsAuthentication.SetAuthCookie(user.user_name, false);
@@ -254,7 +246,6 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("Login", "Authentication");
         }
 
-        [Authorize(Roles = "MEMBER")]
         public ActionResult RegisShirtSizing()
         {
             if (HttpContext.Session["username"] != null)

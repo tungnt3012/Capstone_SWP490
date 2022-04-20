@@ -16,7 +16,7 @@ namespace Capstone_SWP490.Sercurity
             if (filterContext.Result is HttpUnauthorizedResult)
             {
                 FormsAuthentication.SignOut();
-                filterContext.Result = new RedirectResult("~/Authentication");
+                filterContext.Result = new RedirectResult("~/Authentication/Login");
             }
         }
     }
