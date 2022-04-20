@@ -47,9 +47,12 @@
                         <div class="tab-content">
                             <div class="tab-pane active" role="tabpanel" id="step1">
                                 <div class="col-lg-12">
-                                    <label class="border border-danger" for="Event_Schedule">
-                                        Total team: 4
-                                    </label>
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-success add-post" style=" margin-bottom: 15px; margin-top: 0px !important;">
+                                            Export
+                                        </button>
+                                        <br>
+                                    </div>
                                     <br>
                                 </div>
                                 <div class="col-lg-12" id="under" style="border-top: 1px solid gray">
@@ -58,32 +61,57 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="1%">No</th>
-                                                <th scope="col" width="10%">Contest name</th>
-                                                <th scope="col" width="5%">Code</th>
-                                                <th scope="col" width="12%">Start date</th>
-                                                <th scope="col" width="12%">End date</th>
-                                                <th scope="col" width="15%">Venue</th>
-                                                <th scope="col" width="7%">Max contestant</th>
-                                                <th scope="col" width="10%">Note</th>
+                                                <th scope="col" >Contest name</th>
+                                                <th scope="col">Contest Code</th>
+                                                @*Loai hinh thi(chia làm thi nhóm và thi cá nhân, có nhân sẽ là: Individual)*@
+                                                <th scope="col" width="10%">
+                                                    Type
+                                                </th>
+                                                <th scope="col" width="200px">
+                                                    Number of Contesant/Team
+                                                </th>
+
                                             </tr>
                                         </thead>
                                         <tbody id="table-contests">
                                             <tr>
-                                                <td class="date-table" >1</td>
-                                                <td class="date-table" >OLP</td>
-                                                <td class="venue-table" >OLP</td>
-                                                <td class="venue-table" >2021-11-11 00:00:00.000</td>
-                                                <td class="venue-table" >2021-11-12 00:00:00.000</td>
-                                                <td class="venue-table" >Hoa Lac</td>
-                                                <td class="venue-table" >3</td>
-                                                <td class="venue-table" >note something  Else</td>
+                                                <td class="date-table">1</td>
+                                                <td class="date-table">
+                                                    PROCON
+                                                </td>
+                                                <td class="venue-table">
+                                                    PROCON
+                                                </td>
+                                                <td class="venue-table">
+                                                    Individual
+                                                </td>
+                                                <td class="venue-table">6</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="date-table">2</td>
+                                                <td class="date-table">
+                                                    Cao Dang
+
+                                                </td>
+                                                <td class="venue-table">
+                                                    CD
+
+                                                </td>
+                                                <td class="venue-table">
+                                                    Team
+
+                                                </td>
+                                                <td class="venue-table">12</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="col-lg-12">
+                                    <div class="pull-right">
+                                        <button type="button" id="btn-cancel-event" onclick="window.location.href = '/Statistic'" class="btn btn-secondary">Back</button>
+                                    </div>
+                                </div>
                             </div>
-
-
                             <div class="clearfix"></div>
                         </div>
                     </form>
