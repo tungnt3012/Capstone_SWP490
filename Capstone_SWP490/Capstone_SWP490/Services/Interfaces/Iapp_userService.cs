@@ -28,7 +28,7 @@ namespace Capstone_SWP490.Services.Interfaces
         bool isEmailInUse(string userName, int coachId);
         app_user getByUserName(string username);
         app_user getByUserId(int id);
-        Task<app_user> creatUserForImportMember(app_user user, int coachId);
+        Task<app_user> creatUserForImportMember(app_user user);
         Task<int> update(app_user user);
 
         List<app_user> findCoach(string status, string keyword);

@@ -11,6 +11,7 @@ namespace Capstone_SWP490.Models.registrationViewModel
         public int schoolId { get; set; }
         public string schoolName { get; set; }
         public string insitutionName { get; set; }
+        public string note { get; set; }
         private string insert_date;
         public string insertDate
         {
@@ -37,13 +38,11 @@ namespace Capstone_SWP490.Models.registrationViewModel
         {
             switch (status)
             {
-                case -1:
+                case 3:
                     return "Rejected";
                 case 1:
-                    return "N/A";
-                case 2:
                     return "Waiting for confirmation";
-                case 3:
+                case 2:
                     return "In Use";
                 default:
                     return "";

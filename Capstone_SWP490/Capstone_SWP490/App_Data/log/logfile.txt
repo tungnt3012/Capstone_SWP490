@@ -1,0 +1,62 @@
+2022-04-20 14:50:29,023 [5] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 14:54:59,283 [5] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 14:57:34,030 [17] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 14:58:11,025 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:00:45,490 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:00:52,039 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:00:52,101 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:01:31,855 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:01:31,917 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:01:39,340 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:01:39,401 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:03:15,248 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:05:57,973 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:06:24,618 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:06:28,458 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:06:45,911 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:06:47,753 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:17:05,064 [18] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-20 15:19:53,114 [8] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:31:40,481 [26] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-20 15:32:52,611 [27] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-20 15:34:47,422 [6] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:35:06,183 [5] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The given key was not present in the dictionary.
+2022-04-20 15:46:27,028 [17] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-20 15:54:47,177 [18] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-20 15:58:31,717 [5] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-20 16:06:19,320 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:06:19,370 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:06:19,392 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:06:19,418 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:06:26,179 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:06:26,201 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:06:34,119 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:06:34,139 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:06:44,305 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:06:44,325 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:08:21,451 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:08:21,488 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:08:21,507 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:08:21,527 [19] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The argument 'functionName' cannot be null, empty or contain only white space.
+2022-04-20 16:08:33,185 [17] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-20 16:22:31,320 [18] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-20 16:29:56,246 [18] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-20 17:04:25,972 [36] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-20 17:41:52,377 [21] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
+2022-04-20 17:43:42,991 [18] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
+2022-04-20 17:44:51,034 [6] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
+2022-04-20 17:54:30,736 [6] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
+2022-04-20 17:55:59,427 [18] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
+2022-04-20 18:03:04,328 [17] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
+2022-04-20 18:03:37,452 [26] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
+2022-04-20 18:13:22,275 [19] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.

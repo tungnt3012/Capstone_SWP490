@@ -133,38 +133,16 @@ namespace Capstone_SWP490.Services
 
         public bool isEmailInUse(string userName, int coachId)
         {
-            app_user existedUser = getByUserName(userName);
-            if (existedUser != null)
+            List<int?> existed = _iapp_UserRepository.getContext().Check_Mail_In_Use(userName, coachId).ToList();
+            if (existed.FirstOrDefault() >= 1)
             {
-                try
-                {
-                    member m = existedUser.members.FirstOrDefault();
-                    if (m == null)
-                    {
-                        return false;
-                    }
-                    //school school = m.team_member.FirstOrDefault().team.school;
-                    //if (school.coach_id != coachId)
-                    //{
-                    //    return true;
-                    //}
-                }
-                catch (Exception e)
-                {
-                    Log.Error(e.Message);
-                }
+                return true;
             }
             return false;
         }
 
-        public Task<app_user> creatUserForImportMember(app_user user, int coachId)
+        public Task<app_user> creatUserForImportMember(app_user user)
         {
-            app_user existedUser = getByUserName(user.user_name);
-            //check existed in previous imports
-            if (existedUser != null)
-            {
-                return Task.FromResult(existedUser);
-            }
             return CreateUser(user);
         }
 

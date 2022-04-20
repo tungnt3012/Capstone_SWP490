@@ -52,7 +52,7 @@ namespace Capstone_SWP490.Controllers.Organization
                     Log.Error("School ID is null");
                     return RedirectToAction(ACTION_CONST.Home.INDEX, ACTION_CONST.Home.CONTROLLER);
                 }
-                await _ischoolService.processSchool((int)schoolId, type);
+                await _ischoolService.processSchool((int)schoolId, type,note);
                 school school = _ischoolService.findById((int)schoolId);
                 app_user coachUser = _iapp_UserService.getByUserId((int)school.coach_id);
                 new MailHelper().sendMailConfrimRegistration(coachUser, type.Equals("1") ? "Accepted" : "Rejected", note);

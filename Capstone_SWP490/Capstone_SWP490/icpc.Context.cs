@@ -50,7 +50,7 @@ namespace Capstone_SWP490
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spSomeRoutine", codeParameter, statusLog);
         }
     
-        public virtual ObjectResult<Nullable<int>> Check_Email_In_Use(string email, Nullable<int> coach_id)
+        public virtual ObjectResult<Nullable<int>> Check_Mail_In_Use(string email, Nullable<int> coach_id)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
@@ -60,7 +60,7 @@ namespace Capstone_SWP490
                 new ObjectParameter("coach_id", coach_id) :
                 new ObjectParameter("coach_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Check_Email_In_Use", emailParameter, coach_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Check_Mail_In_Use", emailParameter, coach_idParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> Count_Contestant()
@@ -75,6 +75,15 @@ namespace Capstone_SWP490
                 new ObjectParameter("schoolId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Count_Member_In_School", schoolIdParameter);
+        }
+    
+        public virtual int Enable_App_User(Nullable<int> schoolId)
+        {
+            var schoolIdParameter = schoolId.HasValue ?
+                new ObjectParameter("schoolId", schoolId) :
+                new ObjectParameter("schoolId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Enable_App_User", schoolIdParameter);
         }
     
         public virtual int Disable_App_User_Data(Nullable<int> school_id)

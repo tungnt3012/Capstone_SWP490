@@ -24,14 +24,14 @@ namespace Capstone_SWP490.Helper
         private readonly interfaces.Iapp_userService _iapp_UserService = new services.app_userService();
         private readonly interfaces.IteamService _iteamService = new services.teamService();
         private readonly interfaces.IschoolService _ischoolService = new services.schoolService();
-        public team_member getTeamByTeamName(List<team_member> teams, string teamName)
+        public team_member GetTeamByTeamName(List<team_member> teams, string teamName)
         {
             if (teams == null)
                 return null;
             return teams.Find(x => x.team.team_name == teamName);
         }
 
-        public bool isTeamLeader(member leader, member compared)
+        public bool IsTeamLeader(member leader, member compared)
         {
             if (compared == null)
             {
@@ -39,12 +39,12 @@ namespace Capstone_SWP490.Helper
             }
             return (leader.email.Equals(compared.email));
         }
-        public string createFileName(string fileExtension)
+        public string CreateFileName(string fileExtension)
         {
             return DateTime.UtcNow.Ticks + "." + fileExtension;
         }
 
-        public member validImportMember(member member)
+        public member ValidImportMember(member member)
         {
             string role = APP_CONST.SCHOOL_ROLE.getRole(member.member_role);
             if (member.first_name.Equals("") && member.middle_name.Equals("") && member.last_name.Equals(""))
@@ -57,14 +57,14 @@ namespace Capstone_SWP490.Helper
             }
             if (member.member_role == 3 || member.member_role == 4)
             {
-                if (!isOver15YearOld(member.dob))
+                if (!IsOver15YearOld(member.dob))
                 {
                     throw new Exception(role + "age must greater or equal 15 year old!");
                 }
             }
             return member;
         }
-        public List<member_contest_ViewModel> createContestViewMode(List<contest_member> contestMember)
+        public List<member_contest_ViewModel> CreateContestViewMode(List<contest_member> contestMember)
         {
             List<member_contest_ViewModel> listContestModel = new List<member_contest_ViewModel>();
             member_contest_ViewModel contestModel;
@@ -87,19 +87,19 @@ namespace Capstone_SWP490.Helper
             }
             return listContestModel;
         }
-        public import_resultViewModel updateCoach(string[,] data, import_resultViewModel result)
+        public import_resultViewModel UpdateCoach(string[,] data, import_resultViewModel result)
         {
             member loginedCoach = result.Coach;
             string full_name = data[4, 0];
-            loginedCoach.first_name = extractFirstName(full_name);
-            loginedCoach.middle_name = extractMiddleName(full_name);
-            loginedCoach.last_name = extractLastName(full_name);
+            loginedCoach.first_name = ExtractFirstName(full_name);
+            loginedCoach.middle_name = ExtractMiddleName(full_name);
+            loginedCoach.last_name = ExtractLastName(full_name);
             loginedCoach.phone_number = data[5, 0];
             loginedCoach.email = data[6, 0];
             loginedCoach.member_role = 1;
             try
             {
-                loginedCoach = validImportMember(loginedCoach);
+                loginedCoach = ValidImportMember(loginedCoach);
                 result.Coach = loginedCoach;
                 return result;
             }
@@ -108,19 +108,19 @@ namespace Capstone_SWP490.Helper
                 throw e;
             }
         }
-        public async Task<import_resultViewModel> addViceCoach(string[,] data, import_resultViewModel result)
+        public async Task<import_resultViewModel> AddViceCoach(string[,] data, import_resultViewModel result)
         {
             member viceCoach = new member();
-            viceCoach.first_name = extractFirstName(data[7, 0]);
-            viceCoach.middle_name = extractMiddleName(data[7, 0]);
-            viceCoach.last_name = extractLastName(data[7, 0]);
+            viceCoach.first_name = ExtractFirstName(data[7, 0]);
+            viceCoach.middle_name = ExtractMiddleName(data[7, 0]);
+            viceCoach.last_name = ExtractLastName(data[7, 0]);
             viceCoach.phone_number = data[8, 0];
             viceCoach.email = data[9, 0];
             viceCoach.member_role = 2;
             try
             {
-                viceCoach = validImportMember(viceCoach);
-                app_user viceCoachAppUser = await createAppUserForMember(viceCoach, result.Coach.user_id);
+                viceCoach = ValidImportMember(viceCoach);
+                app_user viceCoachAppUser = await CreateAppUserForMember(viceCoach, result.Coach.user_id);
                 viceCoach.user_id = viceCoachAppUser.user_id;
                 viceCoach.app_user = viceCoachAppUser;
                 result.ViceCoach = viceCoach;
@@ -131,7 +131,7 @@ namespace Capstone_SWP490.Helper
                 throw e;
             }
         }
-        public school getSchool(string[,] data)
+        public school GetSchool(string[,] data)
         {
             string name = StringUtils.upperCaseFirstCharacter(data[0, 0]);
             string shortName = data[1, 0].ToUpper();
@@ -146,7 +146,7 @@ namespace Capstone_SWP490.Helper
             school.address = address;
             return school;
         }
-        public string extractFirstName(string name)
+        public string ExtractFirstName(string name)
         {
             string[] arr = name.Split(' ');
             if (arr.Length == 0)
@@ -155,7 +155,7 @@ namespace Capstone_SWP490.Helper
             }
             return StringUtils.upperCaseFirstCharacter(arr.FirstOrDefault());
         }
-        public string extractLastName(string name)
+        public string ExtractLastName(string name)
         {
             string[] arr = name.Split(' ');
             if (arr.Length == 0)
@@ -164,7 +164,7 @@ namespace Capstone_SWP490.Helper
             }
             return StringUtils.upperCaseFirstCharacter(arr.LastOrDefault());
         }
-        public string extractMiddleName(string name)
+        public string ExtractMiddleName(string name)
         {
             string[] arr = name.Split(' ');
             if (arr.Length <= 2)
@@ -179,11 +179,13 @@ namespace Capstone_SWP490.Helper
             }
             return StringUtils.upperCaseFirstCharacter(result);
         }
-        public school cleanSchool(school school)
+        public school BuildSchool(school school)
         {
             school.teams = null;
             school.insert_date = DateTime.Now + "";
             school.update_date = DateTime.Now + "";
+            school.active = 1;
+            school.enabled = true;
             return school;
         }
 
@@ -205,7 +207,7 @@ namespace Capstone_SWP490.Helper
                 return false;
             }
         }
-        public short getGender(string text)
+        public short GetGender(string text)
         {
             if (text.ToUpper().Equals("NAM") || text.ToUpper().Equals("MALE"))
             {
@@ -218,7 +220,7 @@ namespace Capstone_SWP490.Helper
             return 2;
         }
 
-        public import_resultViewModel readTeamSheet(import_resultViewModel result, ExcelWorksheet teamSheet, TeamImport teamObject)
+        public import_resultViewModel ReadTeamSheet(import_resultViewModel result, ExcelWorksheet teamSheet, TeamImport teamObject)
         {
             //hold all registed team in imported school and other schools
             List<team> registedTeam = _iteamService.findRegistedTeam().ToList();
@@ -242,7 +244,7 @@ namespace Capstone_SWP490.Helper
                     if (!cellVal.Equals(""))
                     {
                         contest = _icontestService.getByCode(cellVal.ToUpper());
-                        if (contest == null || contest.max_contestant == -1)
+                        if (contest == null || contest.max_contestant == 1)
                         {
                             error = new import_error_ViewModel();
                             error.objectName = "CONTEST";
@@ -276,7 +278,7 @@ namespace Capstone_SWP490.Helper
                         continue;
                     }
 
-                    team = getTeamByTeamName(registedTeam, teamName);
+                    team = GetTeamByTeamName(registedTeam, teamName);
                     //skip because team existed before or used by others
                     if (!StringUtils.isNullOrEmpty(team.team_name))
                     {
@@ -292,7 +294,7 @@ namespace Capstone_SWP490.Helper
                     }
 
                     string leaderFullName = teamSheet.Cells[row, ++col].Value + "";
-                    string leaderEmail = teamSheet.Cells[row, ++col].Value + "";
+                    string leaderEmail = $"{teamSheet.Cells[row, ++col].Value}".Trim().ToLower();
                     string leaderPhone = teamSheet.Cells[row, ++col].Value + "";
                     //skip because team leader email or team name is not valid
                     if (StringUtils.isNullOrEmpty(leaderFullName) || !IsValidEmail(leaderEmail))
@@ -306,7 +308,6 @@ namespace Capstone_SWP490.Helper
                         result.error.Add(error);
                         continue;
                     }
-
                     team.team_id = teamId++;
                     team.school = result.School;
                     team.school_id = result.School.school_id;
@@ -319,21 +320,37 @@ namespace Capstone_SWP490.Helper
                     leader.member_role = 3;
                     leader.member_id = 0;
                     leader.email = leaderEmail;
-                    leader.first_name = extractFirstName(leaderFullName);
-                    leader.middle_name = extractMiddleName(leaderFullName);
-                    leader.last_name = extractLastName(leaderFullName);
+                    leader.first_name = ExtractFirstName(leaderFullName);
+                    leader.middle_name = ExtractMiddleName(leaderFullName);
+                    leader.last_name = ExtractLastName(leaderFullName);
                     leader.phone_number = leaderPhone;
                     leader.dob = new DateTime();
                     leader.gender = -1;
                     leader.year = -1;
 
-                    //add leader to team
-                    teamMember = new team_member();
-                    teamMember.member = leader;
-                    teamMember.team = team;
-                    teamMember.team_id = team.team_id;
-                    teamMember.member_id = leader.member_id;
-                    team.team_member.Add(teamMember);
+                    //check email in use
+                    if (_iapp_UserService.isEmailInUse(leaderEmail, result.Coach.user_id))
+                    {
+                        error = new import_error_ViewModel
+                        {
+                            objectName = "MEMBER_NORMAL",
+                            parentObject = APP_CONST.MEMBER,
+                            occur_position = "Row = " + row,
+                            msg = Message.MSG024,
+                            type = 1
+                        };
+                        result.error.Add(error);
+                    }
+                    else
+                    {
+                        //add leader to team
+                        teamMember = new team_member();
+                        teamMember.member = leader;
+                        teamMember.team = team;
+                        teamMember.team_id = team.team_id;
+                        teamMember.member_id = leader.member_id;
+                        team.team_member.Add(teamMember);
+                    }
                     schoolTeam.Add(team);
                     registedTeam.Add(team);
                 }
@@ -353,39 +370,42 @@ namespace Capstone_SWP490.Helper
             return result;
         }
 
-        public import_resultViewModel readSchoolSheet(import_resultViewModel result, ExcelWorksheet schoolSheet, SchoolImport importObject)
+        public import_resultViewModel ReadSchoolSheet(import_resultViewModel result, ExcelWorksheet schoolSheet, SchoolImport importObject)
         {
             import_error_ViewModel error;
             int col = importObject.getStartAtCol();
             int row = importObject.getStartAtRow();
             school firstRegist = _ischoolService.findByNewRegistCoach(result.Coach.app_user.user_id);
             //read school, if any field is empty then use first regist
-            string school_name = schoolSheet.Cells[row++, col].Value + "";
+            string school_name = (schoolSheet.Cells[row++, col].Value + "").Trim();
             if (StringUtils.isNullOrEmpty(school_name))
             {
                 school_name = firstRegist.school_name;
-                error = new import_error_ViewModel();
-                error.objectName = "COACH";
-                error.occur_position = "ROW = " + row;
-                error.msg = Message.MSG006;
-                error.parentObject = SchoolImport.sheetName;
-                error.type = 2;
+                error = new import_error_ViewModel
+                {
+                    objectName = APP_CONST.SCHOOL,
+                    occur_position = "ROW = " + row,
+                    msg = Message.MSG006,
+                    parentObject = SchoolImport.sheetName,
+                    type = 2
+                };
                 result.error.Add(error);
             }
-            else if (!school_name.Equals(firstRegist.school_name))
+            else if (firstRegist != null && !school_name.Equals(firstRegist.school_name))
             {
-                school_name = firstRegist.school_name;
-                error = new import_error_ViewModel();
-                error.objectName = "COACH";
-                error.occur_position = "ROW = " + row;
-                error.msg = Message.MSG030;
-                error.parentObject = SchoolImport.sheetName;
-                error.type = 2;
+                error = new import_error_ViewModel
+                {
+                    objectName = "COACH",
+                    occur_position = "ROW = " + row,
+                    msg = Message.MSG031,
+                    parentObject = SchoolImport.sheetName,
+                    type = 2
+                };
                 result.error.Add(error);
             }
 
 
-            string insitution_name = schoolSheet.Cells[row++, col].Value + "";
+            string insitution_name = (schoolSheet.Cells[row++, col].Value + "").Trim();
             if (StringUtils.isNullOrEmpty(insitution_name))
             {
                 insitution_name = firstRegist.institution_name;
@@ -397,40 +417,33 @@ namespace Capstone_SWP490.Helper
                 error.type = 2;
                 result.error.Add(error);
             }
-            else if (!school_name.Equals(firstRegist.institution_name))
+            else if (firstRegist != null && !insitution_name.Equals(firstRegist.institution_name))
             {
                 school_name = firstRegist.school_name;
                 error = new import_error_ViewModel();
                 error.objectName = "COACH";
                 error.occur_position = "ROW = " + row;
-                error.msg = Message.MSG031;
+                error.msg = Message.MSG030;
                 error.parentObject = SchoolImport.sheetName;
                 error.type = 2;
                 result.error.Add(error);
             }
 
-
-            bool existed = _ischoolService.isExisted(school_name, insitution_name, result.Coach.app_user.user_id);
-            //in case of school name and institution name inserted by other coach
-            if (existed)
-            {
-                string msg = string.Format(Message.MSG021, school_name, insitution_name);
-                throw new SchoolException("1", msg, null);
-            }
-
-            string rector_name = schoolSheet.Cells[row++, col].Value + "";
+            string rector_name = $"{schoolSheet.Cells[row++, col].Value}".Trim();
             if (StringUtils.isNullOrEmpty(rector_name))
             {
-                error = new import_error_ViewModel();
-                error.objectName = "COACH";
-                error.occur_position = "ROW = " + row;
-                error.msg = Message.MSG008;
-                error.parentObject = SchoolImport.sheetName;
-                error.type = 2;
+                error = new import_error_ViewModel
+                {
+                    objectName = "COACH",
+                    occur_position = "ROW = " + row,
+                    msg = Message.MSG008,
+                    parentObject = SchoolImport.sheetName,
+                    type = 2
+                };
                 result.error.Add(error);
             }
 
-            string school_phone = schoolSheet.Cells[row++, col].Value + "";
+            string school_phone = $"{schoolSheet.Cells[row++, col].Value}".Trim();
             if (StringUtils.isNullOrEmpty(school_phone))
             {
                 school_phone = firstRegist.phone_number;
@@ -443,43 +456,51 @@ namespace Capstone_SWP490.Helper
                 result.error.Add(error);
             }
 
-            string address = schoolSheet.Cells[row++, col].Value + "";
+            string address = $"{schoolSheet.Cells[row++, col].Value}".Trim();
             if (StringUtils.isNullOrEmpty(address))
             {
                 school_phone = firstRegist.phone_number;
-                error = new import_error_ViewModel();
-                error.objectName = "COACH";
-                error.occur_position = "ROW = " + row;
-                error.msg = Message.MSG010;
-                error.parentObject = SchoolImport.sheetName;
-                error.type = 2;
+                error = new import_error_ViewModel
+                {
+                    objectName = "COACH",
+                    occur_position = "ROW = " + row,
+                    msg = Message.MSG010,
+                    parentObject = SchoolImport.sheetName,
+                    type = 2
+                };
                 result.error.Add(error);
             }
 
-            string school_website = schoolSheet.Cells[row++, col].Value + "";
-            school school = new school();
-            school.school_name = school_name;
-            school.rector_name = rector_name;
-            school.institution_name = insitution_name;
-            school.phone_number = school_phone;
-            school.website = school_website;
-            school.address = address;
-            result.School = school;
-
-            int loginedId = result.Coach.user_id;
-            string coach_name = schoolSheet.Cells[row++, col].Value + "";
-            string msgValidateCoach = "";
-            if (coach_name.Trim().Equals(""))
+            string school_website = $"{schoolSheet.Cells[row++, col].Value}";
+            school school = new school
             {
+                school_name = school_name,
+                rector_name = rector_name,
+                institution_name = insitution_name,
+                phone_number = school_phone,
+                website = school_website,
+                address = address,
+                active = 1,
+                insert_date = DateTime.Now + "",
+                update_date = DateTime.Now + "",
+                coach_id = result.Coach.user_id,
+                enabled = true
+            };
+            result.School = school;
+            string coach_name = $"{schoolSheet.Cells[row++, col].Value}".Trim();
+            string msgValidateCoach = "";
+            if (StringUtils.isNullOrEmpty(coach_name))
+            {
+                coach_name = result.Coach.first_name + " " + result.Coach.middle_name + " " + result.Coach.last_name;
                 msgValidateCoach += Message.MSG011;
             }
 
-            string coach_email = schoolSheet.Cells[row++, col].Value + "";
-            if (!IsValidEmail(coach_email) || !coach_email.Equals(result.Coach.app_user.email))
+            string coach_email = $"{schoolSheet.Cells[row++, col].Value}".Trim();
+            if (!IsValidEmail(coach_email) || !coach_email.Equals(result.Coach.email))
             {
                 msgValidateCoach += "\n" + Message.MSG012;
             }
-            if (!msgValidateCoach.Equals(""))
+            if (!StringUtils.isNullOrEmpty(msgValidateCoach))
             {
                 error = new import_error_ViewModel();
                 error.objectName = "COACH";
@@ -490,50 +511,39 @@ namespace Capstone_SWP490.Helper
                 result.error.Add(error);
             }
             string coach_phone = schoolSheet.Cells[row++, col].Value + "";
-
-            //read coach
-            member coach = new member();
-            coach.first_name = extractFirstName(coach_name);
-            coach.middle_name = extractMiddleName(coach_name);
-            coach.last_name = extractLastName(coach_name);
-            coach.phone_number = coach_phone;
-            coach.user_id = loginedId;
-            coach.app_user = result.Coach.app_user;
-            result.Coach = coach;
+            if (StringUtils.isNullOrEmpty(coach_phone))
+            {
+                coach_phone = result.Coach.phone_number;
+            }
+            //update coach
+            result.Coach.first_name = ExtractFirstName(coach_name);
+            result.Coach.middle_name = ExtractMiddleName(coach_name);
+            result.Coach.last_name = ExtractLastName(coach_name);
+            result.Coach.phone_number = coach_phone;
 
             //read vice coach
             string vice_coach_name = schoolSheet.Cells[row++, col].Value + "";
             string vice_coach_email = schoolSheet.Cells[row++, col].Value + "";
             string vice_coach_phone = schoolSheet.Cells[row++, col].Value + "";
-            //start read vice coach
-            if (!vice_coach_name.Equals(""))
-            {
-                member vice_coach = new member();
-                vice_coach.first_name = extractFirstName(vice_coach_name);
-                vice_coach.middle_name = extractMiddleName(vice_coach_name);
-                vice_coach.last_name = extractLastName(vice_coach_name);
-                vice_coach.phone_number = vice_coach_phone;
-                vice_coach.email = vice_coach_email;
-                //cannot read vice coach because no email recognized
-                if (!IsValidEmail(vice_coach_email))
-                {
-                    error = new import_error_ViewModel();
-                    error.objectName = APP_CONST.SCHOOL;
-                    error.parentObject = APP_CONST.SCHOOL;
-                    error.occur_position = "ROW = " + 10;
-                    error.msg = Message.MSG014;
-                    error.type = 2;
-                    result.error.Add(error);
-                }
-                else
-                {
-                    result.ViceCoach = vice_coach;
-                }
-            }
 
+            //start read vice coach
+            if (!vice_coach_name.Equals("") && IsValidEmail(vice_coach_email))
+            {
+                member vice_coach = new member
+                {
+                    first_name = ExtractFirstName(vice_coach_name),
+                    middle_name = ExtractMiddleName(vice_coach_name),
+                    last_name = ExtractLastName(vice_coach_name),
+                    phone_number = vice_coach_phone,
+                    email = vice_coach_email,
+                    member_role = 2,
+                    enabled = true
+                };
+                result.ViceCoach = vice_coach;
+            }
             return result;
         }
-        public ExcelWorksheet getSheetByName(List<ExcelWorksheet> sheets, string sheetName)
+        public ExcelWorksheet GetSheetByName(List<ExcelWorksheet> sheets, string sheetName)
         {
             if (sheets == null || sheets.Count == 0)
             {
@@ -549,7 +559,7 @@ namespace Capstone_SWP490.Helper
             }
             return null;
         }
-        public team_member getTeamMember(int memberId, team team)
+        public team_member GetTeamMember(int memberId, team team)
         {
             team_member result = team.team_member.Where(x => x.member.member_id == memberId).FirstOrDefault();
             if (result != null)
@@ -558,7 +568,7 @@ namespace Capstone_SWP490.Helper
             }
             return null;
         }
-        public team getTeamByTeamName(List<team> teams, string teamName)
+        public team GetTeamByTeamName(List<team> teams, string teamName)
         {
             foreach (var team in teams)
             {
@@ -570,11 +580,11 @@ namespace Capstone_SWP490.Helper
             return new team();
         }
 
-        public bool isExistEmail(List<string> emailList, string email)
+        public bool IsExistEmail(List<string> emailList, string email)
         {
             return emailList.Where(x => x.Equals(email)).FirstOrDefault() != null;
         }
-        public async Task<app_user> createAppUserForMember(member member, int coachId)
+        public async Task<app_user> CreateAppUserForMember(member member, int coachId)
         {
             if (member == null)
             {
@@ -586,24 +596,28 @@ namespace Capstone_SWP490.Helper
                 throw new Exception("Email '" + member.email + "' already used, please input new email!");
             }
 
-            app_user user = new app_user();
-            string rawPassword = CommonHelper.CreatePassword(8);
-            string encryptedPassword = CommonHelper.createEncryptedPassWord(rawPassword);
-            user.psw = rawPassword;
-            user.user_name = member.email;
-            user.user_role = APP_CONST.APP_ROLE.getUserRole(member.member_role);
-            user.encrypted_psw = encryptedPassword;
-            user.full_name = member.first_name + " " + member.middle_name + " " + member.last_name;
-            user.email = member.email;
-            user.verified = false;
-            user.active = true;
-            user.insert_date = DateTime.Now + "";
-            user.update_date = DateTime.Now + "";
-            user = await _iapp_UserService.creatUserForImportMember(user, coachId);
+            app_user user = _iapp_UserService.getByUserName(member.email);
+
+            if (user == null)
+            {
+                string rawPassword = CommonHelper.CreatePassword(8);
+                string encryptedPassword = CommonHelper.createEncryptedPassWord(rawPassword);
+                user.psw = rawPassword;
+                user.user_name = member.email;
+                user.user_role = APP_CONST.APP_ROLE.getUserRole(member.member_role);
+                user.encrypted_psw = encryptedPassword;
+                user.full_name = member.first_name + " " + member.middle_name + " " + member.last_name;
+                user.email = member.email;
+                user.verified = false;
+                user.active = false;
+                user.insert_date = DateTime.Now + "";
+                user.update_date = DateTime.Now + "";
+                user = await _iapp_UserService.creatUserForImportMember(user);
+            }
             return user;
         }
 
-        public Dictionary<int, contest> extractIndividualContest(ExcelWorksheet memberSheet, int startAtRow)
+        public Dictionary<int, contest> ExtractIndividualContest(ExcelWorksheet memberSheet, int startAtRow)
         {
             int colCount = memberSheet.Dimension.End.Column;
             //read individual contest
@@ -625,7 +639,7 @@ namespace Capstone_SWP490.Helper
             }
             return individualContestList;
         }
-        public import_resultViewModel readMemberSheet(import_resultViewModel result, ExcelWorksheet memberSheet, MemberImport memberImport)
+        public import_resultViewModel ReadMemberSheet(import_resultViewModel result, ExcelWorksheet memberSheet, MemberImport memberImport)
         {
             List<string> memberEmail = new List<string>();
             int coachUserId = result.Coach.app_user.user_id;
@@ -638,7 +652,7 @@ namespace Capstone_SWP490.Helper
             team team = null;
             member member = null;
             team_member teamMember;
-            Dictionary<int, contest> individualContestList = extractIndividualContest(memberSheet, memberImport.getStartAtRow());
+            Dictionary<int, contest> individualContestList = ExtractIndividualContest(memberSheet, memberImport.getStartAtRow());
             //read member information
             for (int row = memberImport.getStartAtRow(); row <= rowCount; row++)
             {
@@ -672,16 +686,32 @@ namespace Capstone_SWP490.Helper
                     //member
                     string memberName = memberSheet.Cells[row, ++col].Value + "";
                     string dtString = memberSheet.Cells[row, ++col].Value + "";
-                    string email = memberSheet.Cells[row, ++col].Value + "";
+                    string email = $"{memberSheet.Cells[row, ++col].Value}".Trim().ToLower();
                     //check for email is invalid
                     if (!IsValidEmail(email))
                     {
-                        error = new import_error_ViewModel();
-                        error.objectName = "MEMBER_NORMAL";
-                        error.parentObject = APP_CONST.MEMBER;
-                        error.occur_position = "Row = " + row;
-                        error.msg = Message.MSG026;
-                        error.type = 1;
+                        error = new import_error_ViewModel
+                        {
+                            objectName = "MEMBER_NORMAL",
+                            parentObject = APP_CONST.MEMBER,
+                            occur_position = "Row = " + row,
+                            msg = Message.MSG026,
+                            type = 1
+                        };
+                        result.error.Add(error);
+                        continue;
+                    }
+                    //check email in use
+                    if (_iapp_UserService.isEmailInUse(email, result.Coach.user_id))
+                    {
+                        error = new import_error_ViewModel
+                        {
+                            objectName = "MEMBER_NORMAL",
+                            parentObject = APP_CONST.MEMBER,
+                            occur_position = "Row = " + row,
+                            msg = Message.MSG024,
+                            type = 1
+                        };
                         result.error.Add(error);
                         continue;
                     }
@@ -691,7 +721,7 @@ namespace Capstone_SWP490.Helper
                     {
                         string leaderEmail = leaderTeamMember.member.email; ;
                         //check for current member is leader or not
-                        if (leaderEmail.ToUpper().Trim().Equals(email.ToUpper().Trim()))
+                        if (leaderEmail.Equals(email))
                         {
                             member = leaderTeamMember.member;
                             //remove leader (add before)
@@ -703,44 +733,52 @@ namespace Capstone_SWP490.Helper
                             member.member_id = memberId++;
                             member.member_role = 4;
                             //email used by another
-                            if (isExistEmail(memberEmail, member.email))
+                            if (IsExistEmail(memberEmail, member.email))
                             {
-                                error = new import_error_ViewModel();
-                                error.objectName = "MEMBER_NORMAL";
-                                error.parentObject = APP_CONST.MEMBER;
-                                error.occur_position = "Row = " + row;
-                                error.msg = Message.MSG024;
-                                error.type = 1;
+                                error = new import_error_ViewModel
+                                {
+                                    objectName = "MEMBER_NORMAL",
+                                    parentObject = APP_CONST.MEMBER,
+                                    occur_position = "Row = " + row,
+                                    msg = Message.MSG024,
+                                    type = 1
+                                };
                                 result.error.Add(error);
                                 continue;
                             }
                             else
                             {
-                                member.email = email.Trim();
+                                member.email = email;
                                 memberEmail.Add(email.Trim());
                             }
                         }
                     }
-                    member.first_name = extractFirstName(memberName);
-                    member.middle_name = extractMiddleName(memberName);
-                    member.last_name = extractLastName(memberName);
+                    else
+                    {
+                        member = new member();
+                    }
+                    member.first_name = ExtractFirstName(memberName);
+                    member.middle_name = ExtractMiddleName(memberName);
+                    member.last_name = ExtractLastName(memberName);
                     member.dob = CommonHelper.toDateTime(dtString);
                     member.phone_number = memberSheet.Cells[row, ++col].Value + "";
                     member.icpc_id = CommonHelper.toInt32(memberSheet.Cells[row, ++col].Value + "", -1);
-                    member.gender = getGender(memberSheet.Cells[row, ++col].Value + "");
+                    member.gender = GetGender(memberSheet.Cells[row, ++col].Value + "");
                     member.year = CommonHelper.toInt32(memberSheet.Cells[row, ++col].Value + "", 0);
                     member.award = memberSheet.Cells[row, ++col].Value + "";
                     member.enabled = true;
-                    string validateMemberMsg = validateMemberImport(member);
+                    string validateMemberMsg = ValidateMemberImport(member);
 
                     if (!validateMemberMsg.Equals(""))
                     {
-                        error = new import_error_ViewModel();
-                        error.objectName = "MEMBER_NORMAL";
-                        error.parentObject = APP_CONST.MEMBER;
-                        error.occur_position = "Row = " + row;
-                        error.msg = validateMemberMsg;
-                        error.type = 1;
+                        error = new import_error_ViewModel
+                        {
+                            objectName = "MEMBER_NORMAL",
+                            parentObject = APP_CONST.MEMBER,
+                            occur_position = "Row = " + row,
+                            msg = validateMemberMsg,
+                            type = 1
+                        };
                         result.error.Add(error);
                         continue;
                     }
@@ -754,18 +792,23 @@ namespace Capstone_SWP490.Helper
                             individualMember.contest = individualContestList[j];
                             individualMember.member = member;
                             member.contest_member.Add(individualMember);
+                            break;
                         }
                     }
-                    teamMember = new team_member();
-                    teamMember.team_id = team.team_id;
-                    teamMember.member_id = member.member_id;
-                    teamMember.member = member;
+
+                    teamMember = new team_member
+                    {
+                        team_id = team.team_id,
+                        member_id = member.member_id,
+                        member = member,
+                        team = team
+                    };
                     //add member to team
                     result.School.teams.Where(x => x.team_id == team.team_id).FirstOrDefault().team_member.Add(teamMember);
                 }
                 catch (Exception e)
                 {
-                    errMsg += "\n- UNKOW ERROR";
+                    errMsg += "\n-" + Message.UNKNOWN_ERROR;
                     Log.Error(e.Message);
                 }
 
@@ -781,7 +824,7 @@ namespace Capstone_SWP490.Helper
             }
             return result;
         }
-        public string validateMemberImport(member member)
+        public string ValidateMemberImport(member member)
         {
             string memberFullName = member.first_name + member.middle_name + member.last_name + "";
             string errmsg = "";
@@ -789,13 +832,13 @@ namespace Capstone_SWP490.Helper
             {
                 errmsg += Message.MSG025;
             }
-            if (member.dob == null || !isOver15YearOld(member.dob))
+            if (member.dob == null || !IsOver15YearOld(member.dob))
             {
                 errmsg += Message.MSG027;
             }
             return errmsg;
         }
-        public member cleanMember(member member)
+        public member CleanMember(member member)
         {
             member result = new member();
             if (member == null)
@@ -816,10 +859,11 @@ namespace Capstone_SWP490.Helper
             result.shirt_sizing = member.shirt_sizing;
             result.event_notify = member.event_notify;
             result.icpc_id = member.icpc_id;
+            result.enabled = true;
             return result;
         }
 
-        public bool isOver15YearOld(DateTime dob)
+        public bool IsOver15YearOld(DateTime dob)
         {
             DateTime now = DateTime.Now;
             dob = dob.AddYears(15);
@@ -831,7 +875,7 @@ namespace Capstone_SWP490.Helper
             return false;
 
         }
-        public string createEncryptedPassWord(string plainText)
+        public string CreateEncryptedPassWord(string plainText)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
             UTF8Encoding utf8 = new UTF8Encoding();
@@ -851,7 +895,7 @@ namespace Capstone_SWP490.Helper
             //}
             return passToData;
         }
-        public string checkExistSheets(List<ExcelWorksheet> sheets)
+        public string CheckExistSheets(List<ExcelWorksheet> sheets)
         {
             List<string> sheetNames = new List<string>();
             foreach (ExcelWorksheet sheet in sheets)

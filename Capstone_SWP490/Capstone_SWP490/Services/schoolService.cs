@@ -100,7 +100,7 @@ namespace Capstone_SWP490.Services
         public List<statistic_schoolViewModel> findSchoolConfirmation()
         {
             List<statistic_schoolViewModel> result = new List<statistic_schoolViewModel>();
-            List<school> schools = _ischoolRepository.FindBy(x => x.active == 2).ToList();
+            List<school> schools = _ischoolRepository.FindBy(x => x.active == 1 && x.enabled == true).ToList();
             foreach (school item in schools)
             {
                 statistic_schoolViewModel statistic_SchoolViewModel = new statistic_schoolViewModel();
@@ -141,7 +141,7 @@ namespace Capstone_SWP490.Services
 
         public int getRegistered()
         {
-            List<school> schools = _ischoolRepository.FindBy(x => x.active == 3).ToList();
+            List<school> schools = _ischoolRepository.FindBy(x => x.active == 2 && x.enabled == true).ToList();
             if (schools == null)
             {
                 return 0;
@@ -195,7 +195,7 @@ namespace Capstone_SWP490.Services
             throw new NotImplementedException();
         }
 
-        public async Task<int> processSchool(int schoolId, string type)
+        public async Task<int> processSchool(int schoolId, string type, string note)
         {
             school data = _ischoolRepository.FindBy(x => x.school_id == schoolId).FirstOrDefault();
             school coachRegistSchool = findByNewRegistCoach((int)data.coach_id);
@@ -210,11 +210,33 @@ namespace Capstone_SWP490.Services
                 coachRegistSchool.institution_name = data.institution_name;
                 //if orgnaizier accept then update school record defined when coach create account
                 await update(coachRegistSchool);
-                data.active = 3;
+                data.active = 2;
             }
             else if (type.Equals("2"))
             {
-                data.active = 0;
+                data.active = 3;
+            }
+            data.note = note;
+            List<school> current = _ischoolRepository.FindBy(x => x.school_id != data.school_id && x.coach_id == data.coach_id && x.enabled == true && x.active >= 1).ToList();
+            foreach (var item in current)
+            {
+                item.enabled = false;
+                item.active = -2;
+                await update(item);
+            }
+
+            List<app_user> users = new List<app_user>();
+            foreach(var item in data.teams)
+            {
+                foreach(var member in item.team_member)
+                {
+                    users.Add(member.member.app_user);
+                }
+            }
+            _ischoolRepository.getContext().Enable_App_User(data.school_id);
+            foreach(var item in users)
+            {
+                new MailHelper().sendMailToInsertedUser(item);
             }
             return await update(data);
         }
@@ -247,6 +269,25 @@ namespace Capstone_SWP490.Services
         public school findByNewRegistCoach(int coachId)
         {
             return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active == -1).FirstOrDefault();
+        }
+
+        public async Task<int> RemoveSchoolByCoach(int coachId, int currentInsertId)
+        {
+            List<school> schools = _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active != -1 && x.active != 2 && x.enabled == true && x.school_id != currentInsertId).ToList();
+            int count = 0;
+            foreach (var item in schools)
+            {
+                item.enabled = false;
+                item.active = -2;
+                await update(item);
+                count++;
+            }
+            return count;
+        }
+
+        public List<school> FindActive(int coachId)
+        {
+            return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active >= 1 && x.enabled == true).ToList();
         }
     }
 }

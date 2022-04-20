@@ -26,7 +26,7 @@ namespace Capstone_SWP490.Services.Interfaces
         List<school> listRegistered();
         int getTotalContestantInRegistered();
         Task<int> useSchool(int schoolId, int coachId);
-        Task<int> processSchool(int schoolId, string type);
+        Task<int> processSchool(int schoolId, string type, string note);
         Task<int> removeSchool(int schoolId);
 
         bool checkDuplicate(string schoolName, string insitutionName);
@@ -35,6 +35,8 @@ namespace Capstone_SWP490.Services.Interfaces
         school findByNewRegistCoach(int coachId);
 
         List<team> GetTeams();
+        Task<int> RemoveSchoolByCoach(int coachId, int currentInsertId);
 
+        List<school> FindActive(int coachId);
     }
 }

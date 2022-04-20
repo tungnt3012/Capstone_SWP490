@@ -154,6 +154,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="rector_name" Type="nvarchar" MaxLength="100" />
           <Property Name="website" Type="nvarchar" MaxLength="100" />
           <Property Name="phone_number" Type="nvarchar" MaxLength="20" />
+          <Property Name="note" Type="nchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="team">
           <Key>
@@ -185,7 +186,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="title" Type="nvarchar" MaxLength="200" />
           <Property Name="short_description" Type="nvarchar" MaxLength="200" />
           <Property Name="content" Type="nvarchar" MaxLength="1000" />
-          <Property Name="html_content" Type="text" />
+          <Property Name="html_content" Type="nvarchar(max)" />
           <Property Name="featured" Type="bit" />
           <Property Name="enabled" Type="bit" />
           <Property Name="schedule_date" Type="nvarchar" MaxLength="50" />
@@ -280,12 +281,15 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Parameter Name="Code" Type="int" Mode="In" />
           <Parameter Name="StatusLog" Type="int" Mode="InOut" />
         </Function>
-        <Function Name="Check_Email_In_Use" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_gocyberx">
+        <Function Name="Check_Mail_In_Use" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_gocyberx">
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="coach_id" Type="int" Mode="In" />
         </Function>
         <Function Name="Count_Contestant" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_gocyberx" />
         <Function Name="Count_Member_In_School" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_gocyberx">
+          <Parameter Name="schoolId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Enable_App_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_gocyberx">
           <Parameter Name="schoolId" Type="int" Mode="In" />
         </Function>
         <Function Name="Disable_App_User_Data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_icpc">
@@ -510,6 +514,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="rector_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="note" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="teams" Relationship="Self.FK__team__school_id__07F6335A" FromRole="school" ToRole="team" />
         </EntityType>
         <EntityType Name="team">
@@ -546,7 +551,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="short_description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="content" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="html_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="html_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="featured" Type="Boolean" />
           <Property Name="enabled" Type="Boolean" />
           <Property Name="schedule_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -708,12 +713,15 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             <Parameter Name="Code" Mode="In" Type="Int32" />
             <Parameter Name="StatusLog" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Check_Email_In_Use" ReturnType="Collection(Int32)">
+          <FunctionImport Name="Check_Mail_In_Use" ReturnType="Collection(Int32)">
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="coach_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Count_Contestant" ReturnType="Collection(Int32)" />
           <FunctionImport Name="Count_Member_In_School" ReturnType="Collection(Int32)">
+            <Parameter Name="schoolId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Enable_App_User">
             <Parameter Name="schoolId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Disable_App_User_Data">
@@ -878,6 +886,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
                 <ScalarProperty Name="rector_name" ColumnName="rector_name" />
                 <ScalarProperty Name="website" ColumnName="website" />
                 <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="note" ColumnName="note" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -945,9 +954,10 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="spSomeRoutine" FunctionName="gocyberx_icpcModel.Store.spSomeRoutine" />
-          <FunctionImportMapping FunctionImportName="Check_Email_In_Use" FunctionName="gocyberx_icpcModel.Store.Check_Email_In_Use" />
+          <FunctionImportMapping FunctionImportName="Check_Mail_In_Use" FunctionName="gocyberx_icpcModel.Store.Check_Mail_In_Use" />
           <FunctionImportMapping FunctionImportName="Count_Contestant" FunctionName="gocyberx_icpcModel.Store.Count_Contestant" />
           <FunctionImportMapping FunctionImportName="Count_Member_In_School" FunctionName="gocyberx_icpcModel.Store.Count_Member_In_School" />
+          <FunctionImportMapping FunctionImportName="Enable_App_User" FunctionName="gocyberx_icpcModel.Store.Enable_App_User" />
           <FunctionImportMapping FunctionImportName="Disable_App_User_Data" FunctionName="gocyberx_icpcModel.Store.Disable_App_User_Data" />
           <FunctionImportMapping FunctionImportName="Disable_App_User_School" FunctionName="gocyberx_icpcModel.Store.Disable_App_User_School" />
           <FunctionImportMapping FunctionImportName="Disable_Member_Data" FunctionName="gocyberx_icpcModel.Store.Disable_Member_Data" />
