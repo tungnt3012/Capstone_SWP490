@@ -16,7 +16,7 @@ using System.Web.Security;
 
 namespace Capstone_SWP490.Controllers
 {
-    public class LoginController : Controller
+    public class AuthenticationController : Controller
     {
         private readonly Iapp_userService _iapp_UserService = new app_userService();
         private readonly ImemberService _imemberService = new memberService();
@@ -60,7 +60,7 @@ namespace Capstone_SWP490.Controllers
             {
                 return View();
             }
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "Authentication");
         }
         [HttpPost]
         public async Task<ActionResult> ResetPassword(reset_password reset)
@@ -75,7 +75,7 @@ namespace Capstone_SWP490.Controllers
                 ViewData["ChangePasswordError"] = "Change password Fail!!!";
                 return View(reset);
             }
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "Authentication");
         }
 
 
@@ -128,12 +128,16 @@ namespace Capstone_SWP490.Controllers
                     Session["profile"] = user;
                     if (user.confirm_password == 0)
                     {
-                        return RedirectToAction("ResetPassword", "Login");
+                        return RedirectToAction("ResetPassword", "Authentication");
                     }
                     if (user.verified == false)
                     {
+<<<<<<< HEAD:Capstone_SWP490/Capstone_SWP490/Controllers/Login/LoginController.cs
                         FormsAuthentication.SetAuthCookie(user.user_name, false);
                         return RedirectToAction("ChangePasswordFirst", "Login");
+=======
+                        return RedirectToAction("ChangePasswordFirst", "Authentication");
+>>>>>>> 8d41bf729e85f91cc28ec853755386f6b7b96b17:Capstone_SWP490/Capstone_SWP490/Controllers/Authentication/AuthenticationController.cs
                     }
                     var memberTemp = _imemberService.GetMemberByAvaibleUserId(user.user_id);
 
@@ -141,8 +145,12 @@ namespace Capstone_SWP490.Controllers
                     {
                         if (String.IsNullOrWhiteSpace(memberTemp.shirt_sizing))
                         {
+<<<<<<< HEAD:Capstone_SWP490/Capstone_SWP490/Controllers/Login/LoginController.cs
                             FormsAuthentication.SetAuthCookie(user.user_name, false);
                             return RedirectToAction("RegisShirtSizing", "Login");
+=======
+                            return RedirectToAction("RegisShirtSizing", "Authentication");
+>>>>>>> 8d41bf729e85f91cc28ec853755386f6b7b96b17:Capstone_SWP490/Capstone_SWP490/Controllers/Authentication/AuthenticationController.cs
                         }
                     }
                     FormsAuthentication.SetAuthCookie(user.user_name, false);
@@ -160,7 +168,7 @@ namespace Capstone_SWP490.Controllers
             //remove session
             Session.RemoveAll();
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "Authentication");
         }
 
         public ActionResult ChangePasswordFirst()
@@ -170,11 +178,11 @@ namespace Capstone_SWP490.Controllers
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
                 if (u.verified == true)
                 {
-                    return RedirectToAction("ChangePassword", "Login");
+                    return RedirectToAction("ChangePassword", "Authentication");
                 }
                 return View(new app_userViewModel());
             }
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "Authentication");
         }
 
         [HttpPost]
@@ -194,13 +202,13 @@ namespace Capstone_SWP490.Controllers
                 {
                     if (await _iapp_UserService.UpdatePasswordFirst(HttpContext.Session["username"].ToString(), app_UserIn.psw, passToData, app_UserIn.send_me_event))
                     {
-                        return RedirectToAction("RegisShirtSizing", "Login");
+                        return RedirectToAction("RegisShirtSizing", "Authentication");
                     }
                 }
                 ViewData["ChangePasswordError"] = "Change Password fail";
                 return View();
             }
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "Authentication");
         }
 
         //[Authorize/*(Roles = "ORGANIZER")*/]
@@ -212,11 +220,11 @@ namespace Capstone_SWP490.Controllers
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
                 if (u.verified == false)
                 {
-                    return RedirectToAction("ChangePasswordFirst", "Login");
+                    return RedirectToAction("ChangePasswordFirst", "Authentication");
                 }
                 return View(new app_userViewModel());
             }
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "Authentication");
         }
 
         [HttpPost]
@@ -243,20 +251,19 @@ namespace Capstone_SWP490.Controllers
                 ViewData["ChangePasswordError"] = "Change Password fail";
                 return View();
             }
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "Authentication");
         }
 
-        //[Authorize(Roles = "ORGANIZER")]
+        [Authorize(Roles = "MEMBER")]
         public ActionResult RegisShirtSizing()
         {
             if (HttpContext.Session["username"] != null)
             {
                 return View(new member());
             }
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Login", "Authentication");
         }
 
-        //[Authorize(Roles = "ORGANIZER")]
         [HttpPost]
         public async Task<ActionResult> RegisShirtSizing(member member)
         {

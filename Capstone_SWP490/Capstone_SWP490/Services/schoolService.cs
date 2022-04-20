@@ -47,9 +47,13 @@ namespace Capstone_SWP490.Services
             return _ischoolRepository.getContext().Disable_School_Data(schoolId);
         }
 
+        //public List<school> findByCoachId(int coachId)
+        //{
+        //    return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.enabled == true).OrderByDescending(x => x.update_date).ToList();
+        //}
         public List<school> findByCoachId(int coachId)
         {
-            return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.enabled == true).OrderByDescending(x => x.update_date).ToList();
+            return _ischoolRepository.FindBy(x => x.coach_id == coachId).OrderByDescending(x => x.update_date).ToList();
         }
 
         public school findActiveById(int id)
@@ -143,6 +147,11 @@ namespace Capstone_SWP490.Services
                 return 0;
             }
             return schools.Count;
+        }
+
+        public List<school> listRegistered()
+        {
+            return _ischoolRepository.FindBy(x => x.active == 3).ToList();
         }
 
         public int getTotalContestantInRegistered()

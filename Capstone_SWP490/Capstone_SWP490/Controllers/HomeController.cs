@@ -402,7 +402,7 @@ namespace Capstone_SWP490.Controllers
                     {
                         if (String.IsNullOrWhiteSpace(memberTemp.shirt_sizing))
                         {
-                            return RedirectToAction("RegisShirtSizing", "Login");
+                            return RedirectToAction("RegisShirtSizing", "Authentication");
                         }
                     }
                 }

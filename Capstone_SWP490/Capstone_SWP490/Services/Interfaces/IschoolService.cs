@@ -23,6 +23,7 @@ namespace Capstone_SWP490.Services.Interfaces
         bool isExisted(string schoolName, string institutioName, int coachUserId);
         List<statistic_schoolViewModel> findSchoolConfirmation();
         int getRegistered();
+        List<school> listRegistered();
         int getTotalContestantInRegistered();
         Task<int> useSchool(int schoolId, int coachId);
         Task<int> processSchool(int schoolId, string type, string note);
