@@ -58,9 +58,9 @@ namespace Capstone_SWP490.Helper
         {
 
             member member = new member();
-            member.first_name = registrationHelper.extractFirstName(data.full_name);
-            member.middle_name = registrationHelper.extractMiddleName(data.full_name);
-            member.last_name = registrationHelper.extractLastName(data.full_name);
+            member.first_name = registrationHelper.ExtractFirstName(data.full_name);
+            member.middle_name = registrationHelper.ExtractMiddleName(data.full_name);
+            member.last_name = registrationHelper.ExtractLastName(data.full_name);
             member.dob = DateTime.Now;
             member.email = data.email;
             member.phone_number = StringUtils.isNullOrEmpty(data.phone_numer) ? "" : data.phone_numer;

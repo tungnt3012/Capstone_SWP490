@@ -32,6 +32,7 @@ namespace Capstone_SWP490
         public string rector_name { get; set; }
         public string website { get; set; }
         public string phone_number { get; set; }
+        public string note { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<team> teams { get; set; }

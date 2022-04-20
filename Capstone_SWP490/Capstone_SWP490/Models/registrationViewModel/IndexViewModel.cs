@@ -27,6 +27,7 @@ namespace Capstone_SWP490.Models.registrationViewModel
                 schoolViewModel.insertDate = item.insert_date;
                 schoolViewModel.updateDate = item.update_date;
                 schoolViewModel.status = (int)item.active;
+                schoolViewModel.note = item.note;
                 school.Add(schoolViewModel);
             }
             return this;

@@ -27,9 +27,9 @@ namespace Capstone_SWP490.Models.school_memberViewModel
         public int? icpc_id { get; set; }
 
         public Dictionary<string, string> errors { get; set; }
-        public List<member_contest_ViewModel> contest_Members { get; set; }
+        public string individual_contest { get; set; }
 
-        public member buildMember()
+        public member buildMember(contest contest)
         {
             member member = new member();
             member.first_name = first_name;
@@ -43,6 +43,13 @@ namespace Capstone_SWP490.Models.school_memberViewModel
             member.award = award;
             member.icpc_id = icpc_id;
             member.member_role = (is_leader ? (short)3 : (short)4);
+            member.contest_member.Clear();
+            contest_member contestMember = new contest_member();
+            contestMember.contest = contest;
+            contestMember.contest_id = contest.contest_id;
+            contestMember.member = member;
+            contestMember.member_id = member_id;
+            member.contest_member.Add(contestMember);
             return member;
         }
         public member_detail_ViewModel buildFromTeamMember(team_member teamMember)
@@ -60,6 +67,8 @@ namespace Capstone_SWP490.Models.school_memberViewModel
             gender = teamMember.member.gender;
             award = teamMember.member.award;
             is_leader = teamMember.member.member_role == 3;
+            contest_member contestMember = teamMember.member.contest_member.FirstOrDefault();
+            individual_contest = contestMember == null ? "" : contestMember.contest.code;
             return this;
         }
     }

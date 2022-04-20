@@ -49,9 +49,7 @@
                                     <th>Insert Date</th>
                                     <th>Update Date</th>
                                     <th>Status</th>
-                                    <th scope="col" width="5%"></th>
-                                    <th scope="col" width="5%"></th>
-                                    <th scope="col" width="5%"></th>
+                                    <th>Note</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,22 +64,8 @@
                                             <td style="padding-top: 15px;">@item.insitutionName</td>
                                             <td style="padding-top: 15px;">@item.insertDate</td>
                                             <td style="padding-top: 15px;">@item.updateDate</td>
-                                            <td style="padding-top: 15px; @(item.status == -1 ? "color: red;" :item.status == 3 ? "color: green;" : "")">@(item.getStatusText())</td>
-                                            @if (item.status != null && item.status == 1)
-                                            {
-                                                <td><button type="button" class="btn btn-success" id="btn-enable" onclick="acceptSchool(@item.schoolId)">Use </button></td>
-                                            }
-                                            @if (item.status != null && item.status != -1)
-                                            {
-                                                <td style="padding-top: 15px;">
-                                                    <a href="@Url.Action("history", "Registration")?school_id=@item.schoolId">Detail</a>
-                                                </td>
-                                            }
-                                            @if (item.status != null && item.status != 3 && item.status != 2)
-                                            {
-                                                <td style="padding-top: 15px;"><a href="@Url.Action("RemoveSchool", "Registration")?id=@item.schoolId">Remove</a></td>
-
-                                            }
+                                            <td style="padding-top: 15px; @(item.status == 3 ? "color: red;" :item.status == 2 ? "color: green;" : "")">@(item.getStatusText())</td>
+                                            <td>@(item.note)</td>
                                         </tr>
                                     }
                                 }

@@ -132,6 +132,7 @@ namespace Capstone_SWP490.Controllers
                     }
                     if (user.verified == false)
                     {
+                        FormsAuthentication.SetAuthCookie(user.user_name, false);
                         return RedirectToAction("ChangePasswordFirst", "Login");
                     }
                     var memberTemp = _imemberService.GetMemberByAvaibleUserId(user.user_id);
@@ -140,6 +141,7 @@ namespace Capstone_SWP490.Controllers
                     {
                         if (String.IsNullOrWhiteSpace(memberTemp.shirt_sizing))
                         {
+                            FormsAuthentication.SetAuthCookie(user.user_name, false);
                             return RedirectToAction("RegisShirtSizing", "Login");
                         }
                     }
