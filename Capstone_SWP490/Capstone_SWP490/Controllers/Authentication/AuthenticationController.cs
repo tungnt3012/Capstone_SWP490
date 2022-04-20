@@ -24,7 +24,7 @@ namespace Capstone_SWP490.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            return View("Authentication");
+            return View("Login");
         }
 
         // GET: Login/Details/5
