@@ -50,6 +50,7 @@
                                     <th>Update Date</th>
                                     <th>Status</th>
                                     <th>Note</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,6 +67,7 @@
                                             <td style="padding-top: 15px;">@item.updateDate</td>
                                             <td style="padding-top: 15px; @(item.status == 3 ? "color: red;" :item.status == 2 ? "color: green;" : "")">@(item.getStatusText())</td>
                                             <td>@(item.note)</td>
+                                            <td><a href="@Url.Action("History", "Registration")?school_id=@(item.schoolId)">Detail</a></td>
                                         </tr>
                                     }
                                 }

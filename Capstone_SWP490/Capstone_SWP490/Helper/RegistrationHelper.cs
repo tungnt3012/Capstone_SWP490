@@ -31,14 +31,6 @@ namespace Capstone_SWP490.Helper
             return teams.Find(x => x.team.team_name == teamName);
         }
 
-        public bool IsTeamLeader(member leader, member compared)
-        {
-            if (compared == null)
-            {
-                return false;
-            }
-            return (leader.email.Equals(compared.email));
-        }
         public string CreateFileName(string fileExtension)
         {
             return DateTime.UtcNow.Ticks + "." + fileExtension;
@@ -419,7 +411,6 @@ namespace Capstone_SWP490.Helper
             }
             else if (firstRegist != null && !insitution_name.Equals(firstRegist.institution_name))
             {
-                school_name = firstRegist.school_name;
                 error = new import_error_ViewModel();
                 error.objectName = "COACH";
                 error.occur_position = "ROW = " + row;
@@ -600,6 +591,7 @@ namespace Capstone_SWP490.Helper
 
             if (user == null)
             {
+                user = new app_user();
                 string rawPassword = CommonHelper.CreatePassword(8);
                 string encryptedPassword = CommonHelper.createEncryptedPassWord(rawPassword);
                 user.psw = rawPassword;
@@ -642,11 +634,9 @@ namespace Capstone_SWP490.Helper
         public import_resultViewModel ReadMemberSheet(import_resultViewModel result, ExcelWorksheet memberSheet, MemberImport memberImport)
         {
             List<string> memberEmail = new List<string>();
-            int coachUserId = result.Coach.app_user.user_id;
             import_error_ViewModel error;
             int rowCount = memberSheet.Dimension.End.Row;     //get row count
             int colCount = memberSheet.Dimension.End.Column;
-            List<team> teamList = new List<team>();
             int memberId = 1;
             int col;
             team team = null;
@@ -702,7 +692,7 @@ namespace Capstone_SWP490.Helper
                         continue;
                     }
                     //check email in use
-                    if (_iapp_UserService.isEmailInUse(email, result.Coach.user_id))
+                    if (_iapp_UserService.isEmailInUse(email, result.Coach.user_id) || IsExistEmail(memberEmail, email))
                     {
                         error = new import_error_ViewModel
                         {
@@ -716,57 +706,33 @@ namespace Capstone_SWP490.Helper
                         continue;
                     }
 
-                    team_member leaderTeamMember = team.team_member.Where(x => x.member.member_role == 3).FirstOrDefault();
-                    if (leaderTeamMember != null)
+                    member = new member
                     {
-                        string leaderEmail = leaderTeamMember.member.email; ;
-                        //check for current member is leader or not
-                        if (leaderEmail.Equals(email))
+                        member_id = memberId++,
+                        member_role = 4,
+                        email = email,
+                        first_name = ExtractFirstName(memberName),
+                        middle_name = ExtractMiddleName(memberName),
+                        last_name = ExtractLastName(memberName),
+                        dob = CommonHelper.toDateTime(dtString),
+                        phone_number = memberSheet.Cells[row, ++col].Value + "",
+                        icpc_id = CommonHelper.toInt32(memberSheet.Cells[row, ++col].Value + "", -1),
+                        gender = GetGender(memberSheet.Cells[row, ++col].Value + ""),
+                        year = CommonHelper.toInt32(memberSheet.Cells[row, ++col].Value + "", 0),
+                        award = memberSheet.Cells[row, ++col].Value + "",
+                        enabled = true
+                    };
+
+                    team_member team_Member = team.team_member.Where(x => x.member.member_role == 3).FirstOrDefault();
+                    if (team_Member != null)
+                    {
+                        if (team_Member.member.email.Equals(email))
                         {
-                            member = leaderTeamMember.member;
-                            //remove leader (add before)
-                            result.School.teams.Where(x => x.team_id == team.team_id).FirstOrDefault().team_member.Remove(leaderTeamMember);
-                        }
-                        else
-                        {
-                            member = new member();
-                            member.member_id = memberId++;
-                            member.member_role = 4;
-                            //email used by another
-                            if (IsExistEmail(memberEmail, member.email))
-                            {
-                                error = new import_error_ViewModel
-                                {
-                                    objectName = "MEMBER_NORMAL",
-                                    parentObject = APP_CONST.MEMBER,
-                                    occur_position = "Row = " + row,
-                                    msg = Message.MSG024,
-                                    type = 1
-                                };
-                                result.error.Add(error);
-                                continue;
-                            }
-                            else
-                            {
-                                member.email = email;
-                                memberEmail.Add(email.Trim());
-                            }
+                            result.School.teams.Where(x => x.team_id == team.team_id).FirstOrDefault().team_member.Remove(team_Member);
+                            member.member_role = 3;
                         }
                     }
-                    else
-                    {
-                        member = new member();
-                    }
-                    member.first_name = ExtractFirstName(memberName);
-                    member.middle_name = ExtractMiddleName(memberName);
-                    member.last_name = ExtractLastName(memberName);
-                    member.dob = CommonHelper.toDateTime(dtString);
-                    member.phone_number = memberSheet.Cells[row, ++col].Value + "";
-                    member.icpc_id = CommonHelper.toInt32(memberSheet.Cells[row, ++col].Value + "", -1);
-                    member.gender = GetGender(memberSheet.Cells[row, ++col].Value + "");
-                    member.year = CommonHelper.toInt32(memberSheet.Cells[row, ++col].Value + "", 0);
-                    member.award = memberSheet.Cells[row, ++col].Value + "";
-                    member.enabled = true;
+
                     string validateMemberMsg = ValidateMemberImport(member);
 
                     if (!validateMemberMsg.Equals(""))
@@ -803,6 +769,7 @@ namespace Capstone_SWP490.Helper
                         member = member,
                         team = team
                     };
+                    memberEmail.Add(email.Trim());
                     //add member to team
                     result.School.teams.Where(x => x.team_id == team.team_id).FirstOrDefault().team_member.Add(teamMember);
                 }
@@ -822,6 +789,7 @@ namespace Capstone_SWP490.Helper
                     result.error.Add(error);
                 }
             }
+
             return result;
         }
         public string ValidateMemberImport(member member)
@@ -866,6 +834,10 @@ namespace Capstone_SWP490.Helper
         public bool IsOver15YearOld(DateTime dob)
         {
             DateTime now = DateTime.Now;
+            if (DateTime.Compare(dob, new DateTime()) == 0)
+            {
+                return false;
+            }
             dob = dob.AddYears(15);
             int compare = DateTime.Compare(dob, now);
             if (compare <= 0)
@@ -915,6 +887,46 @@ namespace Capstone_SWP490.Helper
                 return SchoolImport.sheetName.Trim();
             }
             return "";
+        }
+
+        public List<team> SetTeamLeaderIfNotExist(List<team> noneZeroMember)
+        {
+            //check
+            foreach (var item in noneZeroMember)
+            {
+                team_member team_Member = item.team_member.Where(x => x.member.member_role == 3).FirstOrDefault();
+                if (team_Member == null)
+                {
+                    item.team_member.FirstOrDefault().member.member_role = 3;
+                }
+            }
+            return noneZeroMember;
+        }
+
+        public string ValidateMemberDetail(member_detail_ViewModel model)
+        {
+            string errorMsg = "";
+            if (StringUtils.isNullOrEmpty(model.first_name))
+            {
+                errorMsg = Message.MSG032;
+            }
+            else if (StringUtils.isNullOrEmpty(model.middle_name))
+            {
+                errorMsg = Message.MSG033;
+            }
+            else if (StringUtils.isNullOrEmpty(model.last_name))
+            {
+                errorMsg = Message.MSG034;
+            }
+            else if (!IsOver15YearOld(model.dob))
+            {
+                errorMsg = Message.MSG027;
+            }
+            else if (!IsValidEmail(model.email))
+            {
+                errorMsg = Message.MSG003;
+            }
+            return errorMsg;
         }
     }
 }
