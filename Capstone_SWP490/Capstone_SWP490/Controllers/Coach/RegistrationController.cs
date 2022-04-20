@@ -90,6 +90,7 @@ namespace Capstone_SWP490.Controllers.Coach
                 if (teamMember != null)
                 {
                     member_detail_ViewModel model = new member_detail_ViewModel().buildFromTeamMember(teamMember);
+                    model.source = data.Source;
                     return View(model);
                 }
                 return RedirectToAction(ACTION_CONST.Registration.TEAM_DETAIL, ACTION_CONST.Home.CONTROLLER);
@@ -293,7 +294,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     insertedTeam = data.GetCleanTeam(item.team_id, inserted_school.school_id);
                     try
                     {
-                        insertedTeam = await insertTeamAsync(insertedTeam);
+                        insertedTeam = await InsertTeamAsync(insertedTeam);
                     }
                     catch (Exception e)
                     {
@@ -393,7 +394,7 @@ namespace Capstone_SWP490.Controllers.Coach
                         }
                     }
                 }
-                await _ischoolService.RemoveSchoolByCoach(data.Coach.user_id,inserted_school.school_id);
+                await _ischoolService.RemoveSchoolByCoach(data.Coach.user_id, inserted_school.school_id);
             }
             catch (Exception e)
             {
@@ -410,7 +411,7 @@ namespace Capstone_SWP490.Controllers.Coach
         }
 
 
-        private async Task<team> insertTeamAsync(team team)
+        private async Task<team> InsertTeamAsync(team team)
         {
             team.school = null;
             try
@@ -445,51 +446,25 @@ namespace Capstone_SWP490.Controllers.Coach
             }
             try
             {
-
-                team_member teamMember = data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
-                     team_member.Where(y => y.member.member_id == model.member_id).FirstOrDefault();
-                string errorMsg = "";
-                if (StringUtils.isNullOrEmpty(model.first_name))
-                {
-                    errorMsg = "First Name cannot be empty";
-                }
-                else if (StringUtils.isNullOrEmpty(model.middle_name))
-                {
-                    errorMsg = "Middle Name cannot be empty";
-                }
-                else if (StringUtils.isNullOrEmpty(model.last_name))
-                {
-                    errorMsg = "Last Name cannot be empty";
-                }
-                if (!errorMsg.Equals(""))
+                model.individual_contest = contest_members;
+                string errorMsg = registrationHelper.ValidateMemberDetail(model);
+                if (!StringUtils.isNullOrEmpty(errorMsg))
                 {
                     @ViewData["Update_ERROR"] = errorMsg;
-                    List<member_contest_ViewModel> listContestModel = registrationHelper.CreateContestViewMode(teamMember.member.contest_member.ToList());
-                    model.individual_contest = contest_members;
                     return View(model);
                 }
+
+                team_member current = data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
+                    team_member.Where(y => y.member.member_id == model.member_id).FirstOrDefault();
+
                 contest newContest = _icontestService.getByCode(contest_members);
-                teamMember.member = model.buildMember(newContest);
-
-
-                try
-                {
-                    registrationHelper.ValidImportMember(teamMember.member);
-                    if (model.is_leader)
-                    {
-                        data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
-                             team_member.Where(y => y.member.member_role == 3).FirstOrDefault().member.member_role = 4;
-                        data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().
-                            team_member.Where(y => y.member.member_id == model.member_id).FirstOrDefault().member.member_role = 3;
-                    }
-
-                    Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
-                }
-                catch (Exception e)
-                {
-                    @ViewData["Update_ERROR"] = e.Message;
-                    return View(model);
-                }
+                team_member new_Member = new team_member();
+                new_Member.member = model.buildMember(newContest);
+                new_Member.member_id = model.member_id;
+                new_Member.team_id = model.team_id;
+                data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().team_member.Remove(current);
+                data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().team_member.Add(new_Member);
+                Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
             }
             catch (Exception e)
             {
@@ -526,7 +501,7 @@ namespace Capstone_SWP490.Controllers.Coach
         }
 
         [AuthorizationAccept(Roles = "COACH")]
-        public async Task<ActionResult> history(string school_id)
+        public ActionResult History(string school_id)
 
         {
             import_resultViewModel data = new import_resultViewModel();
@@ -805,6 +780,23 @@ namespace Capstone_SWP490.Controllers.Coach
                     iImport.MemberImport memberImport = new iImport.MemberImport();
                     ExcelWorksheet memberSheet = registrationHelper.GetSheetByName(sheets, iImport.MemberImport.sheetName);
                     result = registrationHelper.ReadMemberSheet(result, memberSheet, memberImport);
+                    List<team> noneZeroMember = result.School.teams.Where(x => x.team_member.Count >= 1).ToList();
+                    if (noneZeroMember == null || noneZeroMember.Count == 0)
+                    {
+                        error = new import_error_ViewModel
+                        {
+                            objectName = "N/A",
+                            parentObject = APP_CONST.ROOT,
+                            occur_position = "N/A",
+                            msg = Message.MSG022,
+                            type = 1
+                        };
+                        result.error.Add(error);
+                        result.RootError = true;
+                        return Task.FromResult(result);
+                    }
+                    noneZeroMember = registrationHelper.SetTeamLeaderIfNotExist(noneZeroMember);
+                    result.School.teams = noneZeroMember;
                     //display team at index 0 first
                     result.SetDisplayTeam(0);
                 }

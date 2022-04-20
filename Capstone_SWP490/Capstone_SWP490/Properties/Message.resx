@@ -216,6 +216,15 @@
   <data name="MSG031" xml:space="preserve">
     <value>School name is not same to current,Please check carefully</value>
   </data>
+  <data name="MSG032" xml:space="preserve">
+    <value>First Name cannot be empty</value>
+  </data>
+  <data name="MSG033" xml:space="preserve">
+    <value>Middle Name cannot be empty</value>
+  </data>
+  <data name="MSG034" xml:space="preserve">
+    <value>Last Name cannot be empty</value>
+  </data>
   <data name="SYSTEM_ERROR" xml:space="preserve">
     <value>oops, something went wrong, please try again or contact to System admin</value>
   </data>

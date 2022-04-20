@@ -12,7 +12,7 @@
 <div class="container-fluid xyz">
     <div class="col-lg-12" id="content_area2_header">
         <div class="col-lg-12" id="content_area2_title">
-            <label for="exampleInputTitle"> @(Model.Source.Equals("IMPORT") ? "IMPORT RESULT" : "IMPORT HISTORY")</label>
+            <label for="exampleInputTitle"> @(Model.Source.Equals("IMPORT") ? "Result" : "Detail Import")</label>
         </div>
     </div>
     <div class="main">
@@ -26,22 +26,24 @@
                                 @using (Html.BeginForm(Model.Source == "IMPORT" ? "InsertMember" : "SaveChange", "Registration", FormMethod.Post))
                                 {
                                     <div class="col-lg-12">
-
-                                        <label style="color:red">*Important Note: Values in red is required, Please check carefully!!!</label>
-                                        <br />
+                                        @if (Model.Source != "VIEW")
+                                        {
+                                            <label style="color:red">*Important Note: Values in red is required, Please check carefully!!!</label>
+                                            <br />
+                                        }
                                         @if (Model.RootError == false && Model.School.teams.Count != 0)
                                         {
                                             <div class="form-group">
-                                                @if (Model.Source == "VIEW")
+                                                @if (Model.Source != "VIEW")
                                                 {
-                                                    <button class="btn btn-primary" id="registration_importdata">Save Changes</button>
+                                                    <button class="btn btn-primary" style="" id="registration_importdata" onclick="return confirmSave()">Save</button>
                                                 }
-                                                else
+
+                                                <button type="reset" class="btn btn-secondary" id="registration_importdata-cancel">@(Model.Source != "VIEW" ? "Cancel" : "Back")</button>
+                                                @if (Model.Source != "VIEW" && Model.error != null && Model.error.Count >= 1)
                                                 {
-                                                    <button class="btn btn-primary" id="registration_importdata" onclick="return confirmSave()">Save</button>
+                                                    <button type="reset" class="btn btn-danger" id="registration_importdata-Error" data-toggle="modal" data-target="#newModal">Current Error</button>
                                                 }
-                                                <button type="reset" class="btn btn-secondary" id="registration_importdata-cancel">Cancel</button>
-                                                <button type="reset" class="btn btn-danger" id="registration_importdata-Error" data-toggle="modal" data-target="#newModal">Current Import Error</button>
                                             </div>
                                         }
                                         else
@@ -53,26 +55,29 @@
                                 }
                                 @if (Model.RootError == false && Model.School.teams.Count >= 1)
                                 {
-                                    <div class="col-lg-12">
-                                        <label for="formFile" class="form-label">School Name: </label>: <span style="color: @(Model.School.school_name == "" ? "red" : "black")">@(Model.School.school_name == "" ? "N/A" : Model.School.school_name)</span>
-                                        -
-                                        <label for="formFile" class="form-label">Insitution Name: </label>: <span style="color: @(Model.School.institution_name == "" ? "red" : "black")">@(Model.School.institution_name == "" ? "N/A" : Model.School.institution_name)</span>
+                                    <div class="col-lg-12" style="border-bottom: 1px solid black">
+                                        <label for="formFile" class="form-label">+ School Name: </label> <span style="color: @(Model.School.school_name == "" ? "red" : "black")">@(Model.School.school_name == "" ? "N/A" : Model.School.school_name)</span>
+                                        <br>
+                                        <label for="formFile" class="form-label">+ Insitution Name: </label> <span style="color: @(Model.School.institution_name == "" ? "red" : "black")">@(Model.School.institution_name == "" ? "N/A" : Model.School.institution_name)</span>
+                                        <br>
+                                        <label for="formFile" class="form-label">+ Address: </label> <span style="color: @(Model.School.address == "" ? "red" : "black")">@(Model.School.address == "" ? "N/A" : Model.School.address)</span>
+                                        @if (Model.Coach != null)
+                                        {
+                                            <br>
+                                            <label for="formFile" class="form-label">+ Coach: </label> @(Model.Coach.first_name + " " + Model.Coach.middle_name + " " + Model.Coach.last_name) @(" - ")
+                                            <label for="formFile" class="form-label">Email: </label> @Model.Coach.email @(" - ") <label for="formFile" class="form-label">Phone: </label> @Model.Coach.phone_number
+                                        }
+
+                                        @if (Model.ViceCoach != null)
+                                        {
+
+                                            <label for="formFile" class="form-label">+ Vice Coach: </label> @(Model.ViceCoach.first_name + " " + Model.ViceCoach.middle_name + " " + Model.ViceCoach.last_name) @(" - ")
+                                            <label for="formFile" class="form-label">Email: </label> @Model.ViceCoach.email @(" - ") <label for="formFile" class="form-label">Phone: </label> @Model.ViceCoach.phone_number
+
+                                        }
                                     </div>
-                                    <div class="col-lg-12">
-                                        <label for="formFile" class="form-label">Address: </label> <span style="color: @(Model.School.address == "" ? "red" : "black")">@(Model.School.address == "" ? "N/A" : Model.School.address)</span>
-                                    </div>
-                                    if (Model.Coach != null)
-                                    {
 
-                                        <div class="col-lg-12"><label for="formFile" class="form-label">Coach: </label> @(Model.Coach.first_name + " " + Model.Coach.middle_name + " " + Model.Coach.last_name) - <label for="formFile" class="form-label">Email: </label> @Model.Coach.email - <label for="formFile" class="form-label">Phone: </label> @Model.Coach.phone_number</div>
 
-                                    }
-                                    if (Model.ViceCoach != null)
-                                    {
-
-                                        <div class="col-lg-12"><label for="formFile" class="form-label">Vice Coach: </label> @(Model.ViceCoach.first_name + " " + Model.ViceCoach.middle_name + " " + Model.ViceCoach.last_name) - <label for="formFile" class="form-label">Email: </label> @Model.ViceCoach.email - <label for="formFile" class="form-label">Phone: </label> @Model.ViceCoach.phone_number</div>
-
-                                    }
                                     <br><br />
                                     <div class="col-lg-12" style="overflow:auto;">
                                         <table class="table table-striped">
@@ -103,8 +108,12 @@
                                                         }
                                                         <td>@(item.team_member.Count)</td>
                                                         <td>
-                                                            <a href="@Url.Action("TeamDetail", "Registration")?id=@item.team_id">Detail</a> |
-                                                            <a style="color:red" href="@Url.Action("RemoveTeam", "Registration")?id=@item.team_id">Remove</a>
+                                                            <a href="@Url.Action("TeamDetail", "Registration")?id=@item.team_id">Detail</a>
+                                                            @if (Model.Source != "VIEW")
+                                                            {
+                                                                @("|")
+                                                                <a style="color:red" href="@Url.Action("RemoveTeam", "Registration")?id=@item.team_id"> Remove </a>
+                                                            }
                                                         </td>
                                                     </tr>
                                                 }

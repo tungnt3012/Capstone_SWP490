@@ -25,7 +25,7 @@ namespace Capstone_SWP490.Models.school_memberViewModel
         public int? year { get; set; }
         public string award { get; set; }
         public int? icpc_id { get; set; }
-
+        public string source { get; set; }
         public Dictionary<string, string> errors { get; set; }
         public string individual_contest { get; set; }
 
