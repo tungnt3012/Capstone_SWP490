@@ -244,7 +244,7 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("Login", "Login");
         }
 
-        //[Authorize(Roles = "ORGANIZER")]
+        [Authorize(Roles = "MEMBER")]
         public ActionResult RegisShirtSizing()
         {
             if (HttpContext.Session["username"] != null)
@@ -254,7 +254,6 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("Login", "Login");
         }
 
-        //[Authorize(Roles = "ORGANIZER")]
         [HttpPost]
         public async Task<ActionResult> RegisShirtSizing(member member)
         {

@@ -28,7 +28,6 @@ namespace Capstone_SWP490.Controllers.Organization
             statistic_index_ViewModel model = new statistic_index_ViewModel();
             try
             {
-
                 model.school_confirrmation = _ischoolService.findSchoolConfirmation();
                 model.total_registered_school = _ischoolService.getRegistered();
                 model.total_contestant = _ischoolService.getTotalContestantInRegistered();
@@ -67,13 +66,14 @@ namespace Capstone_SWP490.Controllers.Organization
         }
         public ActionResult DetailSchool(int? schoolId)
         {
+            statistic_index_ViewModel model = new statistic_index_ViewModel();
             if (schoolId == null)
             {
                 Log.Error("School ID is null");
                 return RedirectToAction(ACTION_CONST.Home.INDEX, ACTION_CONST.Home.CONTROLLER);
             }
-            school school = _ischoolService.findById((int)schoolId);
-            return View(school);
+            model.detail_school = _ischoolService.findById((int)schoolId);
+            return View(model);
         }
 
         public ActionResult TeamContest()
@@ -88,12 +88,34 @@ namespace Capstone_SWP490.Controllers.Organization
 
         public ActionResult RegisteredTeam()
         {
-            return View();
+            statistic_index_ViewModel model = new statistic_index_ViewModel();
+            try
+            {
+                model.total_teams = _ischoolService.GetTeams().Count();
+                model.list_registered_team = _ischoolService.GetTeams();
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return RedirectToAction(ACTION_CONST.Home.INDEX, ACTION_CONST.Home.CONTROLLER);
+            }
         }
 
         public ActionResult RegisteredSchool()
         {
-            return View();
+            statistic_index_ViewModel model = new statistic_index_ViewModel();
+            try
+            {
+                model.total_registered_school = _ischoolService.getRegistered();
+                model.list_registered_school = _ischoolService.listRegistered();
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return RedirectToAction(ACTION_CONST.Home.INDEX, ACTION_CONST.Home.CONTROLLER);
+            }
         }
         public ActionResult RegistrationSchedule(int eventId)
         {
