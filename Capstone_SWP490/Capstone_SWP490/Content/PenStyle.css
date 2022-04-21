@@ -271,6 +271,7 @@ html, body {
 @media (min-width: 640px) {
     .blog-card {
         flex-direction: row;
+        height:200px;
     }
 
         .blog-card .meta {
