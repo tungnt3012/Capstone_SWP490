@@ -1333,3 +1333,10 @@ a{
     color: #FFFFFF;
     position: absolute;
 }
+#button-coach{
+    margin-top: 15px !important;
+}
+#button-coach1 {
+    margin-top: 15px !important;
+    width: auto!important;
+}
