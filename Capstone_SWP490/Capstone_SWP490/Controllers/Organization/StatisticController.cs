@@ -21,6 +21,7 @@ namespace Capstone_SWP490.Controllers.Organization
         private readonly interfaces.IeventService _ieventService = new services.eventService();
         private readonly interfaces.ImemberService _imemberService = new services.memberService();
         private readonly interfaces.IteamService _iteamService = new services.teamService();
+        private readonly interfaces.IcontestService _icontestService = new services.contestService();
 
         // GET: Statistic
         public ActionResult Index()
@@ -30,9 +31,11 @@ namespace Capstone_SWP490.Controllers.Organization
             {
                 model.school_confirrmation = _ischoolService.findSchoolConfirmation();
                 model.total_registered_school = _ischoolService.getRegistered();
-                model.total_contestant = _ischoolService.getTotalContestantInRegistered();
+                //model.total_contestant = _ischoolService.getTotalContestantInRegistered();
                 model.total_teams = _ischoolService.GetTeams().Count();
 
+                model.total_contestant = _icontestService.GetStaticAllContestAvailale().Count();
+                model.list_registered_contest = _icontestService.GetStaticAllContestAvailale();
                 model.statistic_EventViewModel = _ieventService.EventStatic();
                 model.statistic_shirtSizeViewModel = _imemberService.statistic_ShirtSizeView();
                 return View(model);
@@ -78,7 +81,18 @@ namespace Capstone_SWP490.Controllers.Organization
 
         public ActionResult TeamContest()
         {
-            return View();
+            statistic_index_ViewModel model = new statistic_index_ViewModel();
+            try
+            {
+                model.total_contestant = _icontestService.GetStaticAllContestAvailale().Count();
+                model.list_registered_contest = _icontestService.GetStaticAllContestAvailale();
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e);
+                return RedirectToAction(ACTION_CONST.Home.INDEX, ACTION_CONST.Home.CONTROLLER);
+            }
         }
 
         public ActionResult DownloadTeamContest()
@@ -108,7 +122,7 @@ namespace Capstone_SWP490.Controllers.Organization
             try
             {
                 model.total_registered_school = _ischoolService.getRegistered();
-                model.list_registered_school = _ischoolService.listRegistered();
+                model.list_registered_school = _ischoolService.listRegisteredSchool();
                 return View(model);
             }
             catch (Exception e)

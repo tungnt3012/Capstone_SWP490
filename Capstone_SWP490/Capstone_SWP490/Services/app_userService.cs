@@ -341,9 +341,9 @@ namespace Capstone_SWP490.Services
             return false;
         }
 
-        public async Task<bool> ResetPassword(string username, string oldPass, string newPass)
+        public async Task<bool> ResetPassword(string username, string newPass)
         {
-            var u = _iapp_UserRepository.FindBy(x => x.user_name.Equals(username) && x.psw.Equals(oldPass)).FirstOrDefault();
+            var u = _iapp_UserRepository.FindBy(x => x.user_name.Equals(username)).FirstOrDefault();
             if (u != null)
             {
                 u.psw = newPass;

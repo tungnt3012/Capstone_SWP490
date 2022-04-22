@@ -42,7 +42,7 @@ namespace Capstone_SWP490.Controllers
         public ActionResult ListHomePageContent()
         {
             ViewBag.Message = "Your contact page.";
-
+            ViewData["ListPost"] = _ipostService.GetTop5Posts();
             return View();
         }
         public ActionResult HomePageContent(int post_Id)

@@ -9,12 +9,15 @@ using Capstone_SWP490.Models.contestViewModel;
 using System.Threading.Tasks;
 using Capstone_SWP490.Models;
 using Capstone_SWP490.Models.school_memberViewModel;
+using Capstone_SWP490.Models.statisticViewModel;
 
 namespace Capstone_SWP490.Services
 {
     public class contestService : IcontestService
     {
         private readonly IcontestRepository _icontestRepository = new contestRepository();
+        private readonly ImemberRepository _imemberRepository = new memberRepository();
+        private readonly Icontest_memberRepository _icontest_memberRepository = new contest_memberRepository();
 
         public contest getByCode(string code)
         {
@@ -318,6 +321,37 @@ namespace Capstone_SWP490.Services
                 listContestModel.Add(contestModel);
             }
             return listContestModel;
+        }
+
+        public List<registered_contest_ViewModel> GetStaticAllContestAvailale()
+        {
+            var contests = _icontestRepository.FindBy(x => x.max_contestant != -1).ToList();
+            var lstContestOut = new List<registered_contest_ViewModel>();
+            if (contests != null)
+            {
+                foreach (var newContest in contests)
+                {
+                    var lstMembers = new List<member>();
+                    var cTemp = new registered_contest_ViewModel
+                    {
+                        contest = newContest,
+                    };
+                    var contestMember = _icontest_memberRepository.FindBy(cm => cm.contest_id == newContest.contest_id).ToList();
+                    if (contestMember.Count > 0)
+                    {
+                        foreach(var mem in contestMember)
+                        {
+                            var mTemp = _imemberRepository.FindBy(x => x.member_id == mem.member_id).FirstOrDefault();
+                            lstMembers.Add(mTemp);
+                        }
+                        cTemp.lstMember = lstMembers;
+                        cTemp.contestant_number = lstMembers.Count();
+                    }
+                    lstContestOut.Add(cTemp);
+                }
+                return lstContestOut;
+            }
+            return null;
         }
     }
 }

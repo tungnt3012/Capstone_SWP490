@@ -46,15 +46,14 @@
                     <form role="form">
                         <div class="tab-content">
                             <div class="tab-pane active" role="tabpanel" id="step1">
-                                <div class="col-lg-12" >
+                                <div class="col-lg-12">
                                     <div class="pull-right">
                                         <button type="button" class="btn btn-success add-post" style=" margin-bottom: 15px; margin-top: 0px !important;">
-
                                             Export
                                         </button>
                                         <br>
-                                        </div>
                                     </div>
+                                </div>
                                 <div class="col-lg-12" id="under" style="border-top: 1px solid gray">
                                     <table class="table table-striped table-bordered table-sm" width="100%">
                                         <thead>
@@ -63,39 +62,33 @@
                                                 <th scope="col" width="10%">School name</th>
                                                 <th scope="col" width="10%">Institution Name</th>
                                                 <th scope="col" width="5%">Phone</th>
-                                                @*<th scope="col" width="7%">Insert date</th>
-        <th scope="col" width="7%">Update date</th>*@
                                                 <th scope="col" width="17%">Address</th>
                                                 <th scope="col" width="7%">Coach name</th>
                                                 <th scope="col" width="4%">Coach phone</th>
                                                 <th scope="col" width="4%">Team</th>
                                                 @*<So thanh vien cua tat ca cac team ben tren*@
                                                 <th scope="col" width="4%">Contestant</th>
-
                                             </tr>
                                         </thead>
                                         <tbody id="table-contests">
-                                         
-                                            <tr>
-                                                <td class="date-table">1</td>
-                                                <td class="date-table">
-                                                    Dai Hoc FPT
-                                                </td>
-                                                <td class="venue-table">
-                                                    FU-HL
-                                                </td>
-                                                <td class="venue-table">0123456789</td>
-                                                @*<td class="venue-table">2/18/2022 3:03:54 AM</td>
-        <td class="venue-table">2/18/2022 3:03:54 AM</td>*@
-                                                <td class="venue-table">
-                                                    Dai hoc FPT, Thach Hoa, Thac That, Son Tay , Ha Noi
-                                                </td>
-                                                <td class="venue-table">Nguyen Van Minh</td>
-                                                <td class="venue-table">0123456789</td>
-                                                <td class="venue-table">3</td>
-                                                <td class="venue-table">9</td>
-                                            </tr>
-                                              
+                                            @if (Model.list_registered_school.Count > 0)
+                                            {
+                                                int count = 0;
+                                                foreach (var x in Model.list_registered_school)
+                                                {
+                                                    <tr>
+                                                        <td class="date-table">@(++count)</td>
+                                                        <td class="date-table">@(x.school.school_name??"N/A")</td>
+                                                        <td class="venue-table">@(x.school.institution_name??"N/A")</td>
+                                                        <td class="venue-table">@(x.school.phone_number??"N/A")</td>
+                                                        <td class="venue-table">@(x.school.address??"N/A")</td>
+                                                        <td class="venue-table">@(x.coach_name??"N/A")</td>
+                                                        <td class="venue-table">@(x.coach_phone??"N/A")</td>
+                                                        <td class="venue-table">@(x.school.teams.Count)</td>
+                                                        <td class="venue-table">@(x.contestant)</td>
+                                                    </tr>
+                                                }
+                                            }
                                         </tbody>
                                     </table>
                                 </div>

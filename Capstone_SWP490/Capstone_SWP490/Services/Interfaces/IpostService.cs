@@ -16,6 +16,7 @@ namespace Capstone_SWP490.Services.Interfaces
         List<post> getToScheduler();
 
         List<post_TopViewModel> GetTop5Posts();
+        List<post_TopViewModel> GetTopAllPosts();
         Task<int> Delete(int postId);
     }
 }

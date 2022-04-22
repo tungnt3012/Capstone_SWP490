@@ -67,7 +67,7 @@ namespace Capstone_SWP490.Controllers
         {
             if (HttpContext.Session["username"] != null)
             {
-                if (await _iapp_UserService.ResetPassword(HttpContext.Session["username"].ToString(), reset.old_password, reset.new_password))
+                if (await _iapp_UserService.ResetPassword(HttpContext.Session["username"].ToString(), reset.new_password))
                 {
                     ViewData["ChangePasswordSuccess"] = "Change password Successfull!!!";
                     return View(reset);

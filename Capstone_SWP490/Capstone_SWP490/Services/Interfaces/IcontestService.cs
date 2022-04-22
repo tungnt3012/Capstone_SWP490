@@ -1,6 +1,7 @@
 ﻿using Capstone_SWP490.Models;
 using Capstone_SWP490.Models.contestViewModel;
 using Capstone_SWP490.Models.school_memberViewModel;
+using Capstone_SWP490.Models.statisticViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,5 +24,6 @@ namespace Capstone_SWP490.Services.Interfaces
         contestViewModel GetContestById(int id);
         AjaxResponseViewModel<List<contestViewModel>> FilterContest(string keyFilter);
         List<member_contest_ViewModel> getContestMemberModel(List<contest_member> contestMember);
+        List<registered_contest_ViewModel> GetStaticAllContestAvailale();
     }
 }

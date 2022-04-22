@@ -19,7 +19,7 @@ namespace Capstone_SWP490.Services.Interfaces
         PagingOutput<List<app_userViewModel>> GetListUsersManager(int crrUser);
         Task<bool> SwitchableUsers(int user_id, bool status);
         Task<bool> ForgotPassword(string email);
-        Task<bool> ResetPassword(string username, string oldPass, string newPass);
+        Task<bool> ResetPassword(string username, string newPass);
         Task<app_user> CreateOrganizer(app_user userIn);
 
 

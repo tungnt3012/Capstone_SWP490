@@ -1,4 +1,4 @@
-﻿
+﻿@model  Capstone_SWP490.Models.statisticViewModel.statistic_index_ViewModel
 @{
     ViewBag.Title = "Registered Team Contest";
 }
@@ -61,7 +61,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="1%">No</th>
-                                                <th scope="col" >Contest name</th>
+                                                <th scope="col">Contest name</th>
                                                 <th scope="col">Contest Code</th>
                                                 @*Loai hinh thi(chia làm thi nhóm và thi cá nhân, có nhân sẽ là: Individual)*@
                                                 <th scope="col" width="10%">
@@ -74,35 +74,32 @@
                                             </tr>
                                         </thead>
                                         <tbody id="table-contests">
-                                            <tr>
-                                                <td class="date-table">1</td>
-                                                <td class="date-table">
-                                                    PROCON
-                                                </td>
-                                                <td class="venue-table">
-                                                    PROCON
-                                                </td>
-                                                <td class="venue-table">
-                                                    Individual
-                                                </td>
-                                                <td class="venue-table">6</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="date-table">2</td>
-                                                <td class="date-table">
-                                                    Cao Dang
+                                            @if (Model.list_registered_contest.Count > 0)
+                                            {
+                                                int count = 0;
+                                                foreach (var item in Model.list_registered_contest)
+                                                {
+                                                    <tr>
+                                                        <td class="date-table">@(++count)</td>
+                                                        <td class="date-table">
+                                                            @item.contest.contest_name
+                                                        </td>
+                                                        <td class="venue-table">
+                                                            @item.contest.code
+                                                        </td>
 
-                                                </td>
-                                                <td class="venue-table">
-                                                    CD
-
-                                                </td>
-                                                <td class="venue-table">
-                                                    Team
-
-                                                </td>
-                                                <td class="venue-table">12</td>
-                                            </tr>
+                                                        @if (item.contest.max_contestant == 1)
+                                                        {
+                                                            <td class="venue-table">Individual</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td class="venue-table">Team</td>
+                                                        }
+                                                        <td class="venue-table">@item.contestant_number</td>
+                                                    </tr>
+                                                }
+                                            }
                                         </tbody>
                                     </table>
                                 </div>

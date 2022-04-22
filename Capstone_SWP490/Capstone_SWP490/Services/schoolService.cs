@@ -18,7 +18,9 @@ namespace Capstone_SWP490.Services
     public class schoolService : IschoolService
     {
         private readonly IschoolRepository _ischoolRepository = new schoolRepository();
+        private readonly ImemberRepository _imemberRepository = new memberRepository();
         private static readonly ILog Log = LogManager.GetLogger(typeof(schoolService));
+       
         public int count(int coach_id)
         {
             List<school> schools = _ischoolRepository.FindBy(x => x.coach_id == coach_id && x.enabled == true).ToList();
@@ -153,7 +155,36 @@ namespace Capstone_SWP490.Services
         {
             return _ischoolRepository.FindBy(x => x.active == 3).ToList();
         }
-
+        public List<registered_school_ViewModel> listRegisteredSchool()
+        {
+            var schools = _ischoolRepository.FindBy(x => x.active == 2 && x.enabled == true).ToList();
+            if (schools.Count > 0)
+            {
+                var schoolsOut = new List<registered_school_ViewModel>();
+                foreach (var x in schools)
+                {
+                    int contestant=0;
+                    var schoolsTempt = new registered_school_ViewModel
+                    {
+                        school = x,
+                    };
+                    if (x.teams.Count > 0)
+                    {
+                        foreach(var m in x.teams)
+                        {
+                            contestant += m.team_member.Count();
+                        }
+                    }
+                    var coach = _imemberRepository.FindBy(u => u.user_id == x.coach_id).FirstOrDefault();
+                    schoolsTempt.coach_name = coach.first_name + " " + coach.middle_name + " " + coach.last_name;
+                    schoolsTempt.coach_phone = coach.phone_number;
+                    schoolsTempt.contestant = contestant;
+                    schoolsOut.Add(schoolsTempt);
+                }
+                return schoolsOut;
+            }
+            return null;
+        }
         public int getTotalContestantInRegistered()
         {
             return (int)_ischoolRepository.getContext().Count_Contestant().FirstOrDefault();
@@ -226,15 +257,15 @@ namespace Capstone_SWP490.Services
             }
 
             List<app_user> users = new List<app_user>();
-            foreach(var item in data.teams)
+            foreach (var item in data.teams)
             {
-                foreach(var member in item.team_member)
+                foreach (var member in item.team_member)
                 {
                     users.Add(member.member.app_user);
                 }
             }
             _ischoolRepository.getContext().Enable_App_User(data.school_id);
-            foreach(var item in users)
+            foreach (var item in users)
             {
                 new MailHelper().sendMailToInsertedUser(item);
             }

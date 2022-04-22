@@ -639,10 +639,10 @@ namespace Capstone_SWP490.Services
         public List<eventsViewModel> GetTop8Event()
         {
             var lstEvent = new List<eventsViewModel>();
-            var events = _ieventRepository.FindBy(x => x.status != -1 && x.status != null).ToList().Take(8);
+            var events = _ieventRepository.FindBy(x => x.event_type == 1 && x.status != -1).ToList();
             var lstE = (from es in events
-                        orderby es.start_date ascending
-                        select es).ToList();
+                        orderby es.start_date descending
+                        select es).Take(8).ToList();
             if (events.Count() > 0)
             {
                 foreach (var x in lstE)
@@ -691,30 +691,55 @@ namespace Capstone_SWP490.Services
 
         public statistic_eventViewModel EventStatic()
         {
-            var sortSubTemp = (from x in _ieventRepository.FindBy(x => x.event_type == 2 && x.status > 0)
+            var sortSubTemp = (from x in _ieventRepository.FindBy(x => x.event_type == 1 && x.status != 0)
                                orderby x.start_date descending
                                select x).ToList();
             var lstSubEvent = new List<eventsViewModel>();
             if (sortSubTemp.Count > 0)
             {
+                var lstSubEventTemp = new List<@event>();
+
                 foreach (var x in sortSubTemp)
                 {
-                    var subViewModel = new eventsViewModel
+                    if (x.sub_event != null || !String.IsNullOrWhiteSpace(x.sub_event))
                     {
-                        event_id = x.event_id,
-                        title = x.title,
-                        event_type = x.event_type,
-                        desctiption = x.desctiption,
-                        start_date = x.start_date,
-                        end_date = x.end_date,
-                        start_date_str = x.start_date.ToString("dd-MM-yyyy, HH:mm"),
-                        end_date_str = x.end_date.ToString("dd-MM-yyyy, HH:mm"),
-                        venue = x.venue,
-                        note = x.note,
-                        status = x.status,
-                        total_joined = CountMemberJoinEvent(x.event_id)
-                    };
-                    lstSubEvent.Add(subViewModel);
+                        string[] subEventId = x.sub_event.Split(',');
+                        foreach (var item in subEventId)
+                        {
+                            if (!String.IsNullOrWhiteSpace(item))
+                            {
+                                int subId = Convert.ToInt32(item.ToString());
+                                var sub = _ieventRepository.FindBy(s => s.event_id == subId && s.event_type == 2 && s.status > 0).FirstOrDefault();
+                                if (sub != null)
+                                {
+                                    lstSubEventTemp.Add(sub);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (lstSubEventTemp.Count > 0)
+                {
+                    foreach (var x in lstSubEventTemp)
+                    {
+                        var subViewModel = new eventsViewModel
+                        {
+                            event_id = x.event_id,
+                            title = x.title,
+                            event_type = x.event_type,
+                            desctiption = x.desctiption,
+                            start_date = x.start_date,
+                            end_date = x.end_date,
+                            start_date_str = x.start_date.ToString("dd-MM-yyyy, HH:mm"),
+                            end_date_str = x.end_date.ToString("dd-MM-yyyy, HH:mm"),
+                            venue = x.venue,
+                            note = x.note,
+                            status = x.status,
+                            total_joined = CountMemberJoinEvent(x.event_id)
+                        };
+                        lstSubEvent.Add(subViewModel);
+                    }
                 }
                 return new statistic_eventViewModel { totalEvent = lstSubEvent.Count, lstEvents = lstSubEvent };
             }
