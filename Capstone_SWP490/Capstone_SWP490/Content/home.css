@@ -614,6 +614,9 @@ input, select, textarea {
 #exampleInputLoginPassword {
     height: 45px;
 }
+#exampleReInputLoginPassword {
+    height: 45px;
+}
 
 #btnHomeSignInGoogle {
     display: block;

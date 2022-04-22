@@ -72,17 +72,17 @@
                         </div>
                         <div class="form-group">
                             <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", @onchange = "checkPhone()", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
+                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", @onchange = "checkPhone()", name = "Contactor phone", value = "", placeholder = "Contactor phone" })
                             <span style="color:red"><i id="text-error-phone"></i></span>
                         </div>
                         <div class="form-group">
                             <label for="ContactorEmail">Contactor email<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", @onchange = "checkEmail()", name = "EventContactorEmail", value = "", placeholder = "ContactorEmail" })
+                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", @onchange = "checkEmail()", name = "EventContactor email", value = "", placeholder = "Contactor email" })
                             <span style="color:red"><i id="text-error-email"></i></span>
                         </div>
                         <div class="form-group">
-                            <label for="ContactorName">Contactor Name<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "ContactorName" })
+                            <label for="ContactorName">Contactor mame<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "Contactor name" })
                         </div>
                         <div class="form-group">
                             <label for="Fanpage">Fanpage</label>
@@ -102,12 +102,12 @@
                             </label>
                         </div>
                         <div class="form-group">
-                            <label for="Title">Sub-Event Title<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.subEvent.title, new { @class = "form-control", id = "SubEventTitle", name = "SubTitle", value = "", placeholder = "Sub Event Title", required = "required" })
+                            <label for="Title">Sub-Event title<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.subEvent.title, new { @class = "form-control", id = "SubEventTitle", name = "SubTitle", value = "", placeholder = "Sub event title", required = "required" })
                         </div>
                         <div class="form-group">
-                            <label for="Desciption">Sub-Event Description<span id="not-empty">*</span></label>
-                            @Html.TextAreaFor(m => m.subEvent.desctiption, new { @class = "form-control", id = "SubEventDesctiption", name = "SubDesctiption", value = "", placeholder = "Sub Event Description of the event", required = "required" })
+                            <label for="Desciption">Sub-Event description<span id="not-empty">*</span></label>
+                            @Html.TextAreaFor(m => m.subEvent.desctiption, new { @class = "form-control", id = "SubEventDesctiption", name = "SubDesctiption", value = "", placeholder = "Sub event description of the event", required = "required" })
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
@@ -143,33 +143,33 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="Location">Sub-Event Location<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.subEvent.venue, new { @class = "form-control", id = "SubEventLocation", name = "SubTiLocationtle", value = "", placeholder = "Sub Event Location", required = "required" })
+                            <label for="Location">Sub-Event location<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.subEvent.venue, new { @class = "form-control", id = "SubEventLocation", name = "SubTiLocationtle", value = "", placeholder = "Sub event location", required = "required" })
                         </div>
                         <div class="form-group">
-                            <label for="ContactorPhone">Sub-Event Contactor phone<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.subEvent.contactor_phone, new { @class = "form-control", id = "SubEventContactorPhone", @onchange = "checkPhone()", name = "SubContactorPhone", value = "", placeholder = "Sub Event ContactorPhone" })
+                            <label for="ContactorPhone">Sub-Event contactor phone<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.subEvent.contactor_phone, new { @class = "form-control", id = "SubEventContactorPhone", @onchange = "checkPhone()", name = "SubContactorPhone", value = "", placeholder = "Sub event contactor phone" })
                             <span style="color:red"><i id="text-error-phone"></i></span>
                         </div>
                         <div class="form-group">
-                            <label for="ContactorEmail">Sub-Event Contactor email<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.subEvent.contactor_email, new { @class = "form-control", id = "SubEventContactorEmail", @onchange = "checkEmail()", name = "SubEventContactorEmail", value = "", placeholder = "Sub Event ContactorEmail" })
+                            <label for="ContactorEmail">Sub-Event contactor email<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.subEvent.contactor_email, new { @class = "form-control", id = "SubEventContactorEmail", @onchange = "checkEmail()", name = "SubEventContactorEmail", value = "", placeholder = "Sub event contactor email" })
                             <span style="color:red"><i id="text-error-email"></i></span>
                         </div>
                         <div class="form-group">
-                            <label for="ContactorName">Sub-Event Contactor Name<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.subEvent.contactor_name, new { @class = "form-control", id = "SubEventContactorName", name = "SubEventContactorName", value = "", placeholder = "Sub Event ContactorName" })
+                            <label for="ContactorName">Sub-Event contactor name<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.subEvent.contactor_name, new { @class = "form-control", id = "SubEventContactorName", name = "SubEventContactorName", value = "", placeholder = "Sub event contactor name" })
                         </div>
                         <div class="form-group">
-                            <label for="Fanpage">Sub-Event Fanpage</label>
-                            @Html.TextBoxFor(m => m.subEvent.fan_page, new { @class = "form-control", id = "SubEventFanpage", name = "SubEventFanpage", value = "", placeholder = "Sub Event Fanpage" })
+                            <label for="Fanpage">Sub-event fanpage</label>
+                            @Html.TextBoxFor(m => m.subEvent.fan_page, new { @class = "form-control", id = "SubEventFanpage", name = "SubEventFanpage", value = "", placeholder = "Sub event fanpage" })
                         </div>
                         <div class="form-group">
-                            <label for="Fanpage">Sub-Event Note</label>
-                            @Html.TextBoxFor(m => m.subEvent.note, new { @class = "form-control", id = "SubEventNote", name = "SubEventNote", value = "", placeholder = "Sub Event Note" })
+                            <label for="Fanpage">Sub-Event note</label>
+                            @Html.TextBoxFor(m => m.subEvent.note, new { @class = "form-control", id = "SubEventNote", name = "SubEventNote", value = "", placeholder = "Sub event note" })
                         </div>
                         <div class="form-group">
-                            <label for="type-event">Allow Member Join this Sub-Event:</label>
+                            <label for="type-event">Allow member join this Sub-Event:</label>
                             <div class="row">
                                 <div class="col-lg-3">
                                     @Html.DropDownListFor(m => m.subEvent.status, new List<SelectListItem>
