@@ -80,7 +80,7 @@ namespace Capstone_SWP490.Services
 
         public List<post_TopViewModel> GetTop5Posts()
         {
-            var posts = _ipostRepository.FindBy(x => x.featured == true);
+            var posts = _ipostRepository.FindBy(x => x.featured == true && x.enabled == true);
             var lstPostOut = new List<post_TopViewModel>();
             var lstPTemp = (from x in posts
                             orderby x.schedule_date descending

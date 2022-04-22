@@ -76,49 +76,44 @@ namespace Capstone_SWP490.Services
             var c = _icontestRepository.FindBy(x => x.contest_id == contestIn.contest_id).FirstOrDefault();
             if (c != null)
             {
-                if (contestIn.end_date > contestIn.start_date)
+                c.contest_name = contestIn.contest_name;
+                c.code = contestIn.code;
+                c.venue = contestIn.venue;
+
+                if (contestIn.contest_type.Equals("Team"))
                 {
-                    c.contest_name = contestIn.contest_name;
-                    c.start_date = contestIn.start_date;
-                    c.end_date = contestIn.end_date;
-                    c.code = contestIn.code;
-                    c.venue = contestIn.venue;
+                    c.max_contestant = contestIn.max_contestant;
+                }
+                else if (contestIn.contest_type.Equals("Individual"))
+                {
+                    c.max_contestant = 1;
+                }
 
-                    if (contestIn.contest_type.Equals("Team"))
+                c.note = contestIn.note;
+                if (await _icontestRepository.Update(c, c.contest_id) != -1)
+                {
+                    var cOutput = new contestViewModel
                     {
-                        c.max_contestant = contestIn.max_contestant;
-                    }
-                    else if (contestIn.contest_type.Equals("Individual"))
+                        code = c.code,
+                        contest_id = c.contest_id,
+                        contest_member = c.contest_member,
+                        contest_name = c.contest_name,
+                        end_date = c.end_date,
+                        max_contestant = c.max_contestant,
+                        note = c.note,
+                        shirt_id = c.shirt_id,
+                        start_date = c.start_date,
+                        venue = c.venue,
+                    };
+                    if (cOutput.max_contestant == 1)
                     {
-                        c.max_contestant = 1;
+                        cOutput.contest_type = "Individual";
                     }
-
-                    c.note = contestIn.note;
-                    if (await _icontestRepository.Update(c, c.contest_id) != -1)
+                    if (cOutput.max_contestant > 1)
                     {
-                        var cOutput = new contestViewModel
-                        {
-                            code = c.code,
-                            contest_id = c.contest_id,
-                            contest_member = c.contest_member,
-                            contest_name = c.contest_name,
-                            end_date = c.end_date,
-                            max_contestant = c.max_contestant,
-                            note = c.note,
-                            shirt_id = c.shirt_id,
-                            start_date = c.start_date,
-                            venue = c.venue,
-                        };
-                        if(cOutput.max_contestant == 1)
-                        {
-                            cOutput.contest_type = "Individual";
-                        }  
-                        if(cOutput.max_contestant > 1)
-                        {
-                            cOutput.contest_type = "Team";
-                        }
-                        return cOutput;
+                        cOutput.contest_type = "Team";
                     }
+                    return cOutput;
                 }
             }
             return null;
@@ -126,56 +121,48 @@ namespace Capstone_SWP490.Services
 
         public async Task<contestViewModel> CreateContest(contestViewModel contestIn)
         {
-            if (!string.IsNullOrWhiteSpace(contestIn.contest_name)
-                && Convert.ToDateTime("01/01/0001") != contestIn.start_date
-                && Convert.ToDateTime("01/01/0001") != contestIn.end_date
-                )
+            if (!string.IsNullOrWhiteSpace(contestIn.contest_name))
             {
-                if (contestIn.end_date > contestIn.start_date)
+                var c = new contest
                 {
-                    var c = new contest
+                    contest_name = contestIn.contest_name,
+                    code = contestIn.code,
+                    note = contestIn.note,
+                    venue = contestIn.venue,
+                };
+                if (contestIn.contest_type.Equals("Team"))
+                {
+                    c.max_contestant = contestIn.max_contestant;
+                }
+                else if (contestIn.contest_type.Equals("Individual"))
+                {
+                    c.max_contestant = 1;
+                }
+                var newContest = await _icontestRepository.Create(c);
+                if (newContest != null)
+                {
+                    var cOutput = new contestViewModel
                     {
-                        contest_name = contestIn.contest_name,
-                        code = contestIn.code,
-                        note = contestIn.note,
-                        start_date = contestIn.start_date,
-                        end_date = contestIn.end_date,
-                        venue = contestIn.venue,
+                        code = newContest.code,
+                        contest_id = newContest.contest_id,
+                        contest_member = newContest.contest_member,
+                        contest_name = newContest.contest_name,
+                        end_date = newContest.end_date,
+                        max_contestant = newContest.max_contestant,
+                        note = newContest.note,
+                        shirt_id = newContest.shirt_id,
+                        start_date = newContest.start_date,
+                        venue = newContest.venue,
                     };
-                    if (contestIn.contest_type.Equals("Team"))
+                    if (cOutput.max_contestant == 1)
                     {
-                        c.max_contestant = contestIn.max_contestant;
+                        cOutput.contest_type = "Individual";
                     }
-                    else if (contestIn.contest_type.Equals("Individual"))
+                    if (cOutput.max_contestant > 1)
                     {
-                        c.max_contestant = 1;
+                        cOutput.contest_type = "Team";
                     }
-                    var newContest = await _icontestRepository.Create(c);
-                    if (newContest != null)
-                    {
-                        var cOutput = new contestViewModel
-                        {
-                            code = newContest.code,
-                            contest_id = newContest.contest_id,
-                            contest_member = newContest.contest_member,
-                            contest_name = newContest.contest_name,
-                            end_date = newContest.end_date,
-                            max_contestant = newContest.max_contestant,
-                            note = newContest.note,
-                            shirt_id = newContest.shirt_id,
-                            start_date = newContest.start_date,
-                            venue = newContest.venue,
-                        };
-                        if (cOutput.max_contestant == 1)
-                        {
-                            cOutput.contest_type = "Individual";
-                        }
-                        if (cOutput.max_contestant > 1)
-                        {
-                            cOutput.contest_type = "Team";
-                        }
-                        return cOutput;
-                    }
+                    return cOutput;
                 }
             }
             return null;
@@ -339,7 +326,7 @@ namespace Capstone_SWP490.Services
                     var contestMember = _icontest_memberRepository.FindBy(cm => cm.contest_id == newContest.contest_id).ToList();
                     if (contestMember.Count > 0)
                     {
-                        foreach(var mem in contestMember)
+                        foreach (var mem in contestMember)
                         {
                             var mTemp = _imemberRepository.FindBy(x => x.member_id == mem.member_id).FirstOrDefault();
                             lstMembers.Add(mTemp);

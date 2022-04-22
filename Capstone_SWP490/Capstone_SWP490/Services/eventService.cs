@@ -691,7 +691,7 @@ namespace Capstone_SWP490.Services
 
         public statistic_eventViewModel EventStatic()
         {
-            var sortSubTemp = (from x in _ieventRepository.FindBy(x => x.event_type == 1 && x.status != 0)
+            var sortSubTemp = (from x in _ieventRepository.FindBy(x => x.event_type == 1 && x.status != -1)
                                orderby x.start_date descending
                                select x).ToList();
             var lstSubEvent = new List<eventsViewModel>();

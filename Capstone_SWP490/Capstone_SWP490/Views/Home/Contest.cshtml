@@ -73,8 +73,7 @@
                             <thead>
                                 <tr>
                                     <th class="th-sm" scope="col">Contest name</th>
-                                    <th class="th-sm" scope="col">Start date</th>
-                                    <th class="th-sm" scope="col">Start end</th>
+                                    <th class="th-sm" scope="col">Code</th>
                                     <th class="th-sm" scope="col">Max contestant</th>
                                     <th class="th-sm" scope="col">Note</th>
                                     @if (Session["username"] != null)
@@ -94,8 +93,7 @@
                                     {
                                         <tr>
                                             <td>@x.contest_name</td>
-                                            <td>@x.start_date.ToString("dd-MM-yyyy")</td>
-                                            <td>@x.end_date.ToString("dd-MM-yyyy")</td>
+                                            <td>@x.code</td>
                                             @if (@x.max_contestant == 1)
                                             {
                                                 <td style="text-align:center">Individual</td>

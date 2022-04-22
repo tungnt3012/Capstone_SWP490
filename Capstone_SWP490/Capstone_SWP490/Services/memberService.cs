@@ -117,7 +117,7 @@ namespace Capstone_SWP490.Services
         public statistic_shirtSizeViewModel statistic_ShirtSizeView()
         {
             var lstMember = _imemberRepository.FindBy(x => x.enabled == true && !String.IsNullOrEmpty(x.shirt_sizing)).ToList();
-            return new statistic_shirtSizeViewModel
+            var output = new statistic_shirtSizeViewModel
             {
                 sizeS = _imemberRepository.FindBy(x => x.enabled == true && x.shirt_sizing.Equals("S")).Count(),
                 sizeXS = _imemberRepository.FindBy(x => x.enabled == true && x.shirt_sizing.Equals("XS")).Count(),
@@ -129,6 +129,7 @@ namespace Capstone_SWP490.Services
                 lstMembers = lstMember,
                 totalRegisterdSize = lstMember.Count(),
             };
+            return output;
         }
     }
 }
