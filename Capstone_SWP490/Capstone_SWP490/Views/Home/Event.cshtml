@@ -81,13 +81,15 @@
                                 <div class="tbody" id="table-events">
                                     @if (lstEvent.Count > 0)
                                     {
+                                        int cou = 0;
                                         foreach (var x in lstEvent)
                                         {
+                                            ++cou;
                                             <div class="tr" id="Or-@x.event_id">
-                                                <label for="dso_1" class="td" style="background-color: gold">@x.title</label>
+                                                <label for="dso_@cou" class="td" style="background-color: gold">@x.title</label>
                                                 <div class="td" style="background-color: gold ">@x.start_date_str</div>
                                                 <div class="td" style="background-color: gold">@x.venue</div>
-                                                <input id="dso_1" type="checkbox">
+                                                <input id="dso_@cou" type="checkbox">
 
                                                 @if (Session["username"] != null)
                                                 {
@@ -113,7 +115,7 @@
                                                         </div>
                                                         <script>
                                                             document.getElementById("Or-@x.event_id").style.gridTemplateColumns = "45% 15% 34% 6%";
-                                                          
+
 
                                                         </script>
                                                     }
