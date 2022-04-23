@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.Models.post_ViewModel;
+﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.post_ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,6 @@ namespace Capstone_SWP490.Services.Interfaces
         List<post_TopViewModel> GetTop5Posts();
         List<post_TopViewModel> GetTopAllPosts();
         Task<int> Delete(int postId);
+        Task<AjaxResponseViewModel<bool>> PinPost(int postId);
     }
 }

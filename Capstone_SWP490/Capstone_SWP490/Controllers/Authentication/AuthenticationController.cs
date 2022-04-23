@@ -70,6 +70,13 @@ namespace Capstone_SWP490.Controllers
                 if (await _iapp_UserService.ResetPassword(HttpContext.Session["username"].ToString(), reset.new_password))
                 {
                     ViewData["ChangePasswordSuccess"] = "Change password Successfull!!!";
+                    var user = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                    if (user.user_role.Equals("ORGANIZER"))
+                    {
+                        Session.RemoveAll();
+                        FormsAuthentication.SignOut();
+                        return RedirectToAction("Login", "Authentication");
+                    }
                     return View(reset);
                 }
                 ViewData["ChangePasswordError"] = "Change password Fail!!!";

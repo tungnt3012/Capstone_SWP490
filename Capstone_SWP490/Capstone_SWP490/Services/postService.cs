@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.Models.post_ViewModel;
+﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.post_ViewModel;
 using Capstone_SWP490.Repositories;
 using Capstone_SWP490.Repositories.Interfaces;
 using Capstone_SWP490.Services.Interfaces;
@@ -80,13 +81,19 @@ namespace Capstone_SWP490.Services
 
         public List<post_TopViewModel> GetTop5Posts()
         {
-            var posts = _ipostRepository.FindBy(x => x.featured == true && x.enabled == true);
+            var postsNotPin = _ipostRepository.FindBy(x => x.featured == true && x.enabled == true && x.post_to == null);
+            var postsHasPin = _ipostRepository.FindBy(x => x.featured == true && x.enabled == true && x.post_to != null);
             var lstPostOut = new List<post_TopViewModel>();
-            var lstPTemp = (from x in posts
-                            orderby x.schedule_date ascending
-                            select x).Take(5).ToList();
+            var lstPNoTemp = (from x in postsNotPin
+                              orderby x.update_date ascending
+                              select x).ToList();
 
-            foreach (var x in lstPTemp)
+
+            var lstPPinTemp = (from x in postsHasPin
+                               orderby Convert.ToInt32(x.post_to) ascending
+                               select x).ToList();
+
+            foreach (var x in lstPPinTemp)
             {
                 var p = new post_TopViewModel
                 {
@@ -106,6 +113,28 @@ namespace Capstone_SWP490.Services
                 };
                 lstPostOut.Add(p);
             }
+
+            foreach (var x in lstPNoTemp)
+            {
+                var p = new post_TopViewModel
+                {
+                    post_id = x.post_id,
+                    content = x.content,
+                    enabled = x.enabled,
+                    featured = x.featured,
+                    html_content = x.html_content,
+                    insert_date = x.insert_date,
+                    post_by = x.post_by,
+                    post_to = x.post_to,
+                    schedule_date = x.schedule_date,
+                    short_description = x.short_description,
+                    title = x.title,
+                    update_date = x.update_date,
+                    title_image = x.title_image
+                };
+                lstPostOut.Add(p);
+            }
+
             return lstPostOut;
         }
 
@@ -116,6 +145,69 @@ namespace Capstone_SWP490.Services
                 return await _ipostRepository.Delete(post);
 
             return -1;
+        }
+        public async Task<AjaxResponseViewModel<bool>> PinPost(int postId)
+        {
+            var post = _ipostRepository.FindBy(x => x.post_id == postId).FirstOrDefault();
+            var listPostPin = (from x in _ipostRepository.FindBy(x => x.post_to != null)
+                               orderby Convert.ToInt32(x.post_to) ascending
+                               select x).ToList();
+
+            if (!String.IsNullOrWhiteSpace(post.post_to))
+            {
+                if (listPostPin.Count > 0)
+                {
+                    int pos = 1;
+                    foreach (var item in listPostPin)
+                    {
+                        if (item.post_id == post.post_id)
+                        {
+                            post.post_to = 0 + "";
+                            if (await _ipostRepository.Update(post, post.post_id) == -1)
+                            {
+                                return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
+                            }
+                        }
+                        else
+                        {
+                            item.post_to = pos + "";
+                            if (await _ipostRepository.Update(item, item.post_id) == -1)
+                            {
+                                return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
+                            }
+                            pos++;
+                        }
+                    }
+                }
+                else
+                {
+                    post.post_to = 0 + "";
+                    if (await _ipostRepository.Update(post, post.post_id) == -1)
+                    {
+                        return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
+                    }
+                }
+                return new AjaxResponseViewModel<bool> { Data = true, Message = "Success", Status = 1 };
+            }
+            else
+            {
+                int pos = 1;
+                post.post_to = 0 + "";
+                if (await _ipostRepository.Update(post, post.post_id) == -1)
+                {
+                    return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
+                }
+                foreach (var item in listPostPin)
+                {
+                    item.post_to = pos + "";
+                    if (await _ipostRepository.Update(item, item.post_id) == -1)
+                    {
+                        return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
+                    }
+                    pos++;
+                }
+                return new AjaxResponseViewModel<bool> { Data = true, Message = "Success", Status = 1 };
+            }
         }
 
         public List<post_TopViewModel> GetTopAllPosts()

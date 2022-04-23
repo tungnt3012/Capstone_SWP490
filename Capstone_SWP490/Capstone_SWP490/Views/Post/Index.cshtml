@@ -89,6 +89,8 @@
                                                     @("|")
                                                     <a href="@Url.Action("Edit", "Post")?id=@item.post_id">Edit</a>
                                                     |
+                                                    <a onclick="AjaxPinPost(this)" post-id="@item.post_id">Pin</a>
+                                                    |
                                                     <a onclick="return confirmRemove();" href="@Url.Action("Remove", "Post")?post_id=@item.post_id" style="color: red">Remove</a>
                                                 </td>
                                             </tr>
@@ -135,6 +137,31 @@
             return true;
         return false;
     }
+
+
+    function AjaxPinPost(e) {
+
+        if (confirm("PIN this Post ???") == true) {
+            var _post_id = e.getAttribute("post-id");
+            console.log("id= " + _post_id);
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("PinPost", "Post")?postId=' + _post_id + '',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (rs) {
+                    var s = rs;
+                    if (rs.Status == 1) {
+                        alert("Pin Post Successfull");
+                    } else {
+                        alert("Pin Post Failed!!!");
+                    }
+                }
+            });
+        }
+    }
+
 </script>
 
 

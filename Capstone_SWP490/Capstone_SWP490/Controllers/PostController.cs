@@ -11,6 +11,7 @@ using log4net;
 using System.IO;
 using System.Threading.Tasks;
 using Capstone_SWP490.Sercurity;
+using Capstone_SWP490.Models;
 
 namespace Capstone_SWP490.Controllers
 {
@@ -216,6 +217,13 @@ namespace Capstone_SWP490.Controllers
         {
             await _postService.Delete(post_id);
             return RedirectToAction("", "Post");
+        }
+
+        public async Task<ActionResult> PinPost(int postId)
+        {
+            AjaxResponseViewModel<bool> ajaxResponse = await _postService.PinPost(postId);
+            return Json(ajaxResponse);
+            //return RedirectToAction("", "Post");
         }
     }
 }
