@@ -10,9 +10,11 @@ using Capstone_SWP490.Models.statisticViewModel;
 using Capstone_SWP490.Constant.Const;
 using Capstone_SWP490.Helper;
 using System.Threading.Tasks;
+using Capstone_SWP490.Sercurity;
 
 namespace Capstone_SWP490.Controllers.Organization
 {
+    [AuthorizationAccept(Roles = "ORGANIZER")]
     public class StatisticController : Controller
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(StatisticController));

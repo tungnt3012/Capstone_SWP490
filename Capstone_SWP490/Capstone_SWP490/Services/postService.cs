@@ -83,7 +83,7 @@ namespace Capstone_SWP490.Services
             var posts = _ipostRepository.FindBy(x => x.featured == true && x.enabled == true);
             var lstPostOut = new List<post_TopViewModel>();
             var lstPTemp = (from x in posts
-                            orderby x.schedule_date descending
+                            orderby x.schedule_date ascending
                             select x).Take(5).ToList();
 
             foreach (var x in lstPTemp)

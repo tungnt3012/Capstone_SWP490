@@ -245,7 +245,7 @@
                 $('#text-error-date').html("The Start Date must be >= Main Event Start Date:  " + _startDateMainEvent + " </br> AND The End Date must be <= Main Event End Date:  " + _endDateMainEvent + " !!!");
             }
 
-            if (_startDateSubEvent >= _endDateSubEvent) {
+            if (_startDateSubEvent <= _endDateSubEvent) {
                 $('#validate-time').val("1");
                 $('#text-error-time').html("");
             } else {
