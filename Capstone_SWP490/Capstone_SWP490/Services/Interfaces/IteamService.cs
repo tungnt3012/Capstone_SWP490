@@ -13,7 +13,8 @@ namespace Capstone_SWP490.Services.Interfaces
         List<team> findBySchoolId(int schoolId);
         Task<int> delete(team team);
         Task<int> update(team team);
-        IEnumerable<team> findRegistedTeam();
+        IEnumerable<team> findRegistedTeam(int coachId);
         IEnumerable<team> getAllTeams();
+        team FindByTeamName(string teamName);
     }
 }

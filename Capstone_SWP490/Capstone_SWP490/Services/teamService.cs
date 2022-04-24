@@ -60,14 +60,19 @@ namespace Capstone_SWP490.Services
             return _iteamRepository.Update(team, team.team_id);
         }
 
-        public IEnumerable<team> findRegistedTeam()
+        public IEnumerable<team> findRegistedTeam(int coachId)
         {
-            return _iteamRepository.FindBy(x => x.school.active == 4 && x.school.enabled == true).ToList();
+            return _iteamRepository.FindBy(x => x.school.active == 2 && x.school.coach_id != coachId).ToList();
         }
 
         public IEnumerable<team> getAllTeams()
         {
             return _iteamRepository.FindBy(x => x.enabled == true).ToList();
+        }
+
+        public team FindByTeamName(string teamName)
+        {
+            return _iteamRepository.FindBy(x => x.team_name.ToUpper().Equals(teamName.ToUpper())).FirstOrDefault();
         }
     }
 }

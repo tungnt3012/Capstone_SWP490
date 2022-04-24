@@ -20,7 +20,7 @@ namespace Capstone_SWP490.Services
         private readonly IschoolRepository _ischoolRepository = new schoolRepository();
         private readonly ImemberRepository _imemberRepository = new memberRepository();
         private static readonly ILog Log = LogManager.GetLogger(typeof(schoolService));
-       
+        private readonly Iapp_userService _iappUserService = new app_userService();
         public int count(int coach_id)
         {
             List<school> schools = _ischoolRepository.FindBy(x => x.coach_id == coach_id && x.enabled == true).ToList();
@@ -254,6 +254,16 @@ namespace Capstone_SWP490.Services
                 item.enabled = false;
                 item.active = -2;
                 await update(item);
+
+                foreach (var team in data.teams)
+                {
+                    foreach (var member in team.team_member)
+                    {
+                        member.member.app_user.active = false;
+                       await _iappUserService.update(member.member.app_user);
+                    }
+                }
+
             }
 
             List<app_user> users = new List<app_user>();

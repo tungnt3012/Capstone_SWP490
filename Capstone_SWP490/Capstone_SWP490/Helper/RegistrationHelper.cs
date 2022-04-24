@@ -212,10 +212,36 @@ namespace Capstone_SWP490.Helper
             return 2;
         }
 
+        public import_error_ViewModel ValidateTeam(List<team> currentTeam, team team, int row)
+        {
+            import_error_ViewModel error = new import_error_ViewModel
+            {
+                objectName = "MEMBER-LEADER",
+                parentObject = APP_CONST.TEAM,
+                occur_position = "Row = " + row,
+                type = 1
+            };
+
+            //team name cannot be black or less than 2 character
+            if (StringUtils.isNullOrEmpty(team.team_name) || team.team_name.Length <= 2)
+            {
+                error.msg = Message.MSG017;
+                return error;
+            }
+            team = GetTeamByTeamName(currentTeam, team.team_name);
+            //skip because team existed before or used by others
+            if (team != null)
+            {
+                string msg = Message.MSG018;
+                error.msg = msg.Replace("#TEAM_NAME#", team.team_name);
+                return error;
+            }
+            return null;
+        }
         public import_resultViewModel ReadTeamSheet(import_resultViewModel result, ExcelWorksheet teamSheet, TeamImport teamObject)
         {
             //hold all registed team in imported school and other schools
-            List<team> registedTeam = _iteamService.findRegistedTeam().ToList();
+            List<team> registedTeam = _iteamService.findRegistedTeam(result.Coach.user_id).ToList();
             List<team> schoolTeam = new List<team>();
             import_error_ViewModel error;
             contest contest = null;
@@ -256,39 +282,28 @@ namespace Capstone_SWP490.Helper
 
                     //read team
                     string teamName = teamSheet.Cells[row, ++col].Value + "";
-                    teamName = teamName.Trim();
-                    //team name cannot be black or less than 2 character
-                    if (StringUtils.isNullOrEmpty(teamName) || teamName.Length <= 2)
+                    team = new team
                     {
-                        error = new import_error_ViewModel();
-                        error.objectName = "MEMBER-LEADER";
-                        error.parentObject = APP_CONST.TEAM;
-                        error.occur_position = "Row = " + row;
-                        error.msg = Message.MSG017;
-                        error.type = 1;
-                        result.error.Add(error);
-                        continue;
-                    }
+                        team_id = teamId++,
+                        school = result.School,
+                        school_id = result.School.school_id,
+                        team_name = teamName.Trim(),
+                        contest_id = contest.contest_id,
+                        contest = contest,
+                        type = "NORMAL"
+                    };
 
-                    team = GetTeamByTeamName(registedTeam, teamName);
-                    //skip because team existed before or used by others
-                    if (!StringUtils.isNullOrEmpty(team.team_name))
+                    import_error_ViewModel validError = ValidateTeam(registedTeam, team, row);
+                    if (validError != null)
                     {
-                        error = new import_error_ViewModel();
-                        error.objectName = "TEAM";
-                        error.parentObject = APP_CONST.TEAM;
-                        error.occur_position = "Row = " + row;
-                        string msg = Message.MSG018;
-                        error.msg = msg.Replace("#TEAM_NAME#", team.team_name);
-                        error.type = 1;
-                        result.error.Add(error);
+                        result.error.Add(validError);
                         continue;
                     }
 
                     string leaderFullName = teamSheet.Cells[row, ++col].Value + "";
                     string leaderEmail = $"{teamSheet.Cells[row, ++col].Value}".Trim().ToLower();
                     string leaderPhone = teamSheet.Cells[row, ++col].Value + "";
-                    //skip because team leader email or team name is not valid
+                    //skip because team leader email or leader Name name is not valid
                     if (StringUtils.isNullOrEmpty(leaderFullName) || !IsValidEmail(leaderEmail))
                     {
                         error = new import_error_ViewModel();
@@ -300,13 +315,6 @@ namespace Capstone_SWP490.Helper
                         result.error.Add(error);
                         continue;
                     }
-                    team.team_id = teamId++;
-                    team.school = result.School;
-                    team.school_id = result.School.school_id;
-                    team.team_name = teamName;
-                    team.contest_id = contest.contest_id;
-                    team.contest = contest;
-                    team.type = "NORMAL";
                     //read leader
                     leader = new member();
                     leader.member_role = 3;
@@ -518,7 +526,7 @@ namespace Capstone_SWP490.Helper
             string vice_coach_phone = schoolSheet.Cells[row++, col].Value + "";
 
             //start read vice coach
-            if (!vice_coach_name.Equals("") && IsValidEmail(vice_coach_email))
+            if (!vice_coach_name.Equals("") && !IsValidEmail(vice_coach_email))
             {
                 member vice_coach = new member
                 {
@@ -568,7 +576,7 @@ namespace Capstone_SWP490.Helper
                     return team;
                 }
             }
-            return new team();
+            return null;
         }
 
         public bool IsExistEmail(List<string> emailList, string email)
