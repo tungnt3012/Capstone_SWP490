@@ -762,6 +762,19 @@ namespace Capstone_SWP490.Helper
                         var joinedText = memberSheet.Cells[row, j].Value + "";
                         if (joinedText.Trim().ToUpper().Equals("YES"))
                         {
+                            if (member.contest_member.Count >= 2)
+                            {
+                                error = new import_error_ViewModel
+                                {
+                                    objectName = "MEMBER_NORMAL",
+                                    parentObject = APP_CONST.MEMBER,
+                                    occur_position = "Row = " + row,
+                                    msg = "Member is in a individual contest",
+                                    type = 2
+                                };
+                                result.error.Add(error);
+                                break;
+                            }
                             contest_member individualMember = new contest_member();
                             individualMember.contest = individualContestList[j];
                             individualMember.member = member;
