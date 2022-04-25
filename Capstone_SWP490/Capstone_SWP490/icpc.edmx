@@ -184,7 +184,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="insert_date" Type="nvarchar" MaxLength="30" />
           <Property Name="update_date" Type="nvarchar" MaxLength="30" />
           <Property Name="title" Type="nvarchar" MaxLength="200" />
-          <Property Name="short_description" Type="nvarchar" MaxLength="200" />
+          <Property Name="short_description" Type="nvarchar(max)" />
           <Property Name="content" Type="nvarchar" MaxLength="1000" />
           <Property Name="html_content" Type="nvarchar(max)" />
           <Property Name="featured" Type="bit" />
@@ -277,10 +277,6 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="spSomeRoutine" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Code" Type="int" Mode="In" />
-          <Parameter Name="StatusLog" Type="int" Mode="InOut" />
-        </Function>
         <Function Name="Check_Mail_In_Use" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="gocyberx_gocyberx">
           <Parameter Name="email" Type="varchar" Mode="In" />
           <Parameter Name="coach_id" Type="int" Mode="In" />
@@ -549,7 +545,7 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
           <Property Name="insert_date" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="update_date" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="short_description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="short_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="content" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="html_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="featured" Type="Boolean" />
@@ -709,10 +705,6 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
             <End Role="team" EntitySet="teams" />
             <End Role="team_member" EntitySet="team_member" />
           </AssociationSet>
-          <FunctionImport Name="spSomeRoutine">
-            <Parameter Name="Code" Mode="In" Type="Int32" />
-            <Parameter Name="StatusLog" Mode="InOut" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="Check_Mail_In_Use" ReturnType="Collection(Int32)">
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="coach_id" Mode="In" Type="Int32" />
@@ -953,7 +945,6 @@ warning 6002: The table/view 'gocyberx_icpc.dbo.image' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="spSomeRoutine" FunctionName="gocyberx_icpcModel.Store.spSomeRoutine" />
           <FunctionImportMapping FunctionImportName="Check_Mail_In_Use" FunctionName="gocyberx_icpcModel.Store.Check_Mail_In_Use" />
           <FunctionImportMapping FunctionImportName="Count_Contestant" FunctionName="gocyberx_icpcModel.Store.Count_Contestant" />
           <FunctionImportMapping FunctionImportName="Count_Member_In_School" FunctionName="gocyberx_icpcModel.Store.Count_Member_In_School" />

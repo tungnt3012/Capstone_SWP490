@@ -41,15 +41,6 @@ namespace Capstone_SWP490
         public virtual DbSet<documentation> documentations { get; set; }
         public virtual DbSet<image> images { get; set; }
     
-        public virtual int spSomeRoutine(Nullable<int> code, ObjectParameter statusLog)
-        {
-            var codeParameter = code.HasValue ?
-                new ObjectParameter("Code", code) :
-                new ObjectParameter("Code", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spSomeRoutine", codeParameter, statusLog);
-        }
-    
         public virtual ObjectResult<Nullable<int>> Check_Mail_In_Use(string email, Nullable<int> coach_id)
         {
             var emailParameter = email != null ?

@@ -26,7 +26,6 @@ namespace Capstone_SWP490
         public string type { get; set; }
         public Nullable<bool> enabled { get; set; }
         public Nullable<int> contest_id { get; set; }
-
         public contest contest { get; set; }
         public virtual school school { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

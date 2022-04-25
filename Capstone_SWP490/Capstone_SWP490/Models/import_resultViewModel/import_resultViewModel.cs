@@ -99,6 +99,7 @@ namespace Capstone_SWP490.Models.school_memberViewModel
                 phone_number = Coach.phone_number,
                 gender = 0,
                 year = -1,
+                shirt_sizing = Coach.shirt_sizing,
                 enabled = Coach.enabled
             };
             return result;

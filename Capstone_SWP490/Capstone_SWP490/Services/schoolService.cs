@@ -163,14 +163,14 @@ namespace Capstone_SWP490.Services
                 var schoolsOut = new List<registered_school_ViewModel>();
                 foreach (var x in schools)
                 {
-                    int contestant=0;
+                    int contestant = 0;
                     var schoolsTempt = new registered_school_ViewModel
                     {
                         school = x,
                     };
                     if (x.teams.Count > 0)
                     {
-                        foreach(var m in x.teams)
+                        foreach (var m in x.teams)
                         {
                             contestant += m.team_member.Count();
                         }
@@ -248,36 +248,42 @@ namespace Capstone_SWP490.Services
                 data.active = 3;
             }
             data.note = note;
-            List<school> current = _ischoolRepository.FindBy(x => x.school_id != data.school_id && x.coach_id == data.coach_id && x.enabled == true && x.active >= 1).ToList();
-            foreach (var item in current)
-            {
-                item.enabled = false;
-                item.active = -2;
-                await update(item);
 
-                foreach (var team in data.teams)
+            //accept
+            if (type.Equals("1"))
+            {
+                List<school> current = _ischoolRepository.FindBy(x => x.school_id != data.school_id && x.coach_id == data.coach_id && x.enabled == true && x.active >= 1).ToList();
+                foreach (var item in current)
                 {
-                    foreach (var member in team.team_member)
+                    item.enabled = false;
+                    item.active = -2;
+                    await update(item);
+
+                    foreach (var team in item.teams)
                     {
-                        member.member.app_user.active = false;
-                       await _iappUserService.update(member.member.app_user);
+                        foreach (var member in team.team_member)
+                        {
+                            member.member.app_user.active = false;
+                            await _iappUserService.update(member.member.app_user);
+                        }
+                    }
+
+                }
+
+                List<app_user> users = new List<app_user>();
+                foreach (var item in data.teams)
+                {
+                    foreach (var member in item.team_member)
+                    {
+                        member.member.app_user.active = true;
+                        await _iappUserService.update(member.member.app_user);
                     }
                 }
-
-            }
-
-            List<app_user> users = new List<app_user>();
-            foreach (var item in data.teams)
-            {
-                foreach (var member in item.team_member)
+                _ischoolRepository.getContext().Enable_App_User(data.school_id);
+                foreach (var item in users)
                 {
-                    users.Add(member.member.app_user);
+                    new MailHelper().sendMailToInsertedUser(item);
                 }
-            }
-            _ischoolRepository.getContext().Enable_App_User(data.school_id);
-            foreach (var item in users)
-            {
-                new MailHelper().sendMailToInsertedUser(item);
             }
             return await update(data);
         }

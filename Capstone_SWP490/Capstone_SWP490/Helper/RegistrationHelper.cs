@@ -779,7 +779,23 @@ namespace Capstone_SWP490.Helper
                     };
                     memberEmail.Add(email.Trim());
                     //add member to team
-                    result.School.teams.Where(x => x.team_id == team.team_id).FirstOrDefault().team_member.Add(teamMember);
+                    team current = result.School.teams.Where(x => x.team_id == team.team_id).FirstOrDefault();
+                    if (current.team_member.Count <= 2)
+                    {
+                        result.School.teams.Where(x => x.team_id == team.team_id).FirstOrDefault().team_member.Add(teamMember);
+                    }
+                    else
+                    {
+                        error = new import_error_ViewModel
+                        {
+                            objectName = "MEMBER_NORMAL",
+                            parentObject = APP_CONST.MEMBER,
+                            occur_position = "Row = " + row,
+                            msg = Message.MSG035,
+                            type = 2
+                        };
+                        result.error.Add(error);
+                    }
                 }
                 catch (Exception e)
                 {
