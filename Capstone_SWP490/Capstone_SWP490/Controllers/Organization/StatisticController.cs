@@ -78,6 +78,10 @@ namespace Capstone_SWP490.Controllers.Organization
                 return RedirectToAction(ACTION_CONST.Home.INDEX, ACTION_CONST.Home.CONTROLLER);
             }
             model.detail_school = _ischoolService.findById((int)schoolId);
+            foreach(var item in model.detail_school.teams)
+            {
+                model.detail_school.teams.Where(x => x.team_id == item.team_id).FirstOrDefault().contest = _icontestService.getById(item.contest_id);
+            }
             return View(model);
         }
 

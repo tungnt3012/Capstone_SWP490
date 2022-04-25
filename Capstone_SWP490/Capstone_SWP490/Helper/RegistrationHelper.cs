@@ -336,7 +336,7 @@ namespace Capstone_SWP490.Helper
                             objectName = "MEMBER_NORMAL",
                             parentObject = APP_CONST.MEMBER,
                             occur_position = "Row = " + row,
-                            msg = Message.MSG024,
+                            msg = string.Format(Message.MSG024, cellVal),
                             type = 1
                         };
                         result.error.Add(error);
@@ -685,6 +685,10 @@ namespace Capstone_SWP490.Helper
                     string memberName = memberSheet.Cells[row, ++col].Value + "";
                     string dtString = memberSheet.Cells[row, ++col].Value + "";
                     string email = $"{memberSheet.Cells[row, ++col].Value}".Trim().ToLower();
+                    if (StringUtils.isNullOrEmpty(email))
+                    {
+                        continue;
+                    }
                     //check for email is invalid
                     if (!IsValidEmail(email))
                     {

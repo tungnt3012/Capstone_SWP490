@@ -462,6 +462,14 @@ namespace Capstone_SWP490.Controllers.Coach
                 new_Member.member = model.buildMember(newContest);
                 new_Member.member_id = model.member_id;
                 new_Member.team_id = model.team_id;
+                if(new_Member.member.member_role == 3)
+                {
+                    team_member leader = data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().team_member.Where(x => x.member.member_role == 3).FirstOrDefault();
+                    if(leader != null)
+                    {
+                        data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().team_member.Where(x => x.member.member_role == 3).FirstOrDefault().member.member_role = 4;
+                    }
+                }
                 data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().team_member.Remove(current);
                 data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().team_member.Add(new_Member);
                 Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);

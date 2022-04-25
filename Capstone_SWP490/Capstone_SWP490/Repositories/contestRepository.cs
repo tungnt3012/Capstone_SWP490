@@ -11,7 +11,7 @@ namespace Capstone_SWP490.Repositories
     {
         public contest getByCode(string code)
         {
-           return FindBy(x => x.code.Equals(code.Trim())).First();
+           return FindBy(x => x.code.Trim().ToUpper().Equals(code.Trim())).First();
         }
     }
 }

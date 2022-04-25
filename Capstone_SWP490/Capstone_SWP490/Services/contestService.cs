@@ -21,8 +21,15 @@ namespace Capstone_SWP490.Services
 
         public contest getByCode(string code)
         {
-            return _icontestRepository.getByCode(code);
-        }
+            try
+            {
+                return _icontestRepository.getByCode(code);
+            }
+            catch
+            {
+                return null;
+            }
+            }
 
         public contest getByCodeOrName(string code, string name)
         {
