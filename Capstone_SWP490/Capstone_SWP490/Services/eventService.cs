@@ -180,7 +180,7 @@ namespace Capstone_SWP490.Services
 
         public eventsViewModel GetEventsById(int id)
         {
-            var events = _ieventRepository.FindBy(x => x.event_id == id).FirstOrDefault();
+            var events = _ieventRepository.FindBy(x => x.event_id == id && x.status != -1).FirstOrDefault();
             if (events != null)
             {
                 var eOutput = new eventsViewModel
@@ -495,7 +495,7 @@ namespace Capstone_SWP490.Services
 
         public List<eventsViewModel> GetSubEventsByEventId(int id)
         {
-            var mainEvent = _ieventRepository.FindBy(x => x.event_id == id).FirstOrDefault();
+            var mainEvent = _ieventRepository.FindBy(x => x.event_id == id && x.status != -1).FirstOrDefault();
             if (mainEvent != null)
             {
                 var lstSubEvent = new List<eventsViewModel>();
@@ -508,7 +508,7 @@ namespace Capstone_SWP490.Services
                         if (!String.IsNullOrWhiteSpace(item))
                         {
                             int subId = Convert.ToInt32(item.ToString());
-                            var sub = _ieventRepository.FindBy(x => x.event_id == subId && x.event_type == 2 && x.status!=-1).FirstOrDefault();
+                            var sub = _ieventRepository.FindBy(x => x.event_id == subId && x.event_type == 2 && x.status != -1).FirstOrDefault();
                             if (sub != null)
                             {
                                 lstSubEventTemp.Add(sub);
@@ -641,7 +641,7 @@ namespace Capstone_SWP490.Services
 
         public List<eventsViewModel> GetSubEventsByEventIdAndUser(int eventId, int userId)
         {
-            var mainEvent = _ieventRepository.FindBy(x => x.event_id == eventId).FirstOrDefault();
+            var mainEvent = _ieventRepository.FindBy(x => x.event_id == eventId && x.status != -1).FirstOrDefault();
             var user = _iapp_userRepository.FindBy(x => x.user_id == userId).FirstOrDefault();
 
             if (mainEvent != null && user != null)
@@ -657,7 +657,7 @@ namespace Capstone_SWP490.Services
                         if (!String.IsNullOrWhiteSpace(item))
                         {
                             int subId = Convert.ToInt32(item.ToString());
-                            var sub = _ieventRepository.FindBy(x => x.event_id == subId && x.event_type == 2).FirstOrDefault();
+                            var sub = _ieventRepository.FindBy(x => x.event_id == subId && x.event_type == 2 && x.status != -1).FirstOrDefault();
                             if (sub != null)
                             {
                                 lstSubEventTemp.Add(sub);

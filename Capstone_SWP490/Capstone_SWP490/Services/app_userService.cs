@@ -86,6 +86,10 @@ namespace Capstone_SWP490.Services
             var findUser = _iapp_UserRepository.FindBy(x => x.user_name == username).FirstOrDefault();
             if (findUser != null)
             {
+                if (findUser.psw.Equals(password))
+                {
+                    return false;
+                }
                 findUser.psw = password;
                 findUser.encrypted_psw = passwordEncrypted;
                 var rsUpdate = await _iapp_UserRepository.Update(findUser, findUser.user_id);
