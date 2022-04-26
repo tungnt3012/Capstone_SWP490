@@ -2,56 +2,47 @@
 @{
     ViewBag.Title = "HomePage | Content";
 }
-
+<link rel="stylesheet" href="~/Content/home-content.css" asp-append-version="true" />
 <style>
     #menu-home {
         color: #ffffff !important;
         background: #30cf6b;
     }
-
-    #footer {
-        display: block;
-    }
-
-    table.dataTable thead .sorting:after,
-    table.dataTable thead .sorting:before,
-    table.dataTable thead .sorting_asc:after,
-    table.dataTable thead .sorting_asc:before,
-    table.dataTable thead .sorting_asc_disabled:after,
-    table.dataTable thead .sorting_asc_disabled:before,
-    table.dataTable thead .sorting_desc:after,
-    table.dataTable thead .sorting_desc:before,
-    table.dataTable thead .sorting_desc_disabled:after,
-    table.dataTable thead .sorting_desc_disabled:before {
-        bottom: .5em;
+    .jumbotron p {
+        margin-bottom: 15px;
+        font-size: 18px;
+        font-weight: 200;
     }
 </style>
 
 
-    <div class="container-fluid xyz">
-        <div class="col-lg-12" id="content_area2_header">
-            <div class="col-lg-12" id="content_area2_title">
-                <label for="exampleInputTitle">Content</label>
-            </div>
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Content</label>
         </div>
-        <div class="main">
-            <div class="row">
-                <div class="col-lg-10 col-lg-offset-1" id="under">
-                    <div class="col-lg-12">
-                        <div class="container">
-                            <div class="jumbotron">
-                                <div class="row">
-                                    <div class="col-xs-12" id="post-content">
+    </div>
+    <div class="main">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1" id="under">
+                <div class="col-lg-12">
+                    <div class="container">
+                        <div class="jumbotron">
+                            <div class="row">
+                                <div class="col-xs-12" id="post-content">
+                                   
+                                    <article>
                                         @if (Model.post_id != 0)
                                         {
-                                            <h1 class="text-center front-size-title">@Model.title</h1>
-                                            <div class="thumbnail">
-                                                <image src="~/image/post/@Model.title_image">
-                                            </div>
+                                        <div class="hero">
+
+                                            <h1 class="heading-article front-size-title">@Model.title</h1>
+                                            <image src="~/image/post/@Model.title_image" style="width:100%;">
+                                        </div>
                                             <div class="col-lg-12">
-                                                <div class="border border-danger">
+                                                <h2 class="border border-danger">
                                                     @Html.Raw(Model.html_content.ToString())
-                                                </div>
+                                                </h2>
                                             </div>
                                         }
                                         else
@@ -66,8 +57,36 @@
                                                 </div>
                                             </div>
                                         }
+                                    </article>
+
+
+
+                                        @*  @if (Model.post_id != 0)
+            {
+                <h1 class="text-center front-size-title">@Model.title</h1>
+                <div class="thumbnail">
+                    <image src="~/image/post/@Model.title_image">
+                </div>
+                <div class="col-lg-12">
+                    <div class="border border-danger">
+                        @Html.Raw(Model.html_content.ToString())
+                    </div>
+                </div>
+            }
+            else
+            {
+                <h1 class="text-center front-size-title">Lễ khai mạc đại hội tin học</h1>
+                <div class="thumbnail">
+                    <image src="~/image/default.png">
+                </div>
+                <div class="col-lg-12">
+                    <div class="border border-danger">
+                        <i>Post Not Found</i>
+                    </div>
+                </div>
+            }*@
+
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -75,5 +94,20 @@
             </div>
         </div>
     </div>
+</div>
+<script>
+    // remove outline effect in Safari
 
+    var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    if (isSafari) {
+        const boxes = document.querySelectorAll(".editorial-image-right");
+        boxes.forEach((box) => {
+            box.style.outline = "none";
+        });
+        const boxes1 = document.querySelectorAll(".editorial-image-left");
+        boxes1.forEach((box) => {
+            box.style.outline = "none";
+        });
+    }
 
+    </script>
