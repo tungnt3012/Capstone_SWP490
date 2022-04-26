@@ -31,11 +31,11 @@
                         </div>
                         <div class="form-group">
                             <label for="Title">Contest name</label>
-                            @Html.TextBoxFor(m => m.contest_name, new { type = "text", @class = "form-control", id = "Contestname", name = "Contestname", placeholder = "Contest name" })
+                            @Html.TextBoxFor(m => m.contest_name, new { type = "text", @class = "form-control", id = "Contestname", name = "Contestname", placeholder = "Contest name", required = "required" })
                         </div>
                         <div class="form-group">
                             <label for="Title">Code</label>
-                            @Html.TextBoxFor(m => m.code, new { type = "text", @class = "form-control", id = "Code", name = "Code", placeholder = "Code" })
+                            @Html.TextBoxFor(m => m.code, new { type = "text", @class = "form-control", id = "Code", name = "Code", placeholder = "Code", required = "required" })
                         </div>
                         @*<div class="form-group">
                             <div class="row">
@@ -52,7 +52,7 @@
                         </div>*@
                         <div class="form-group">
                             <label for="Title">Venue</label>
-                            @Html.TextBoxFor(m => m.venue, new { type = "text", @class = "form-control", id = "Venue", name = "Venue", placeholder = "Venue" })
+                            @Html.TextBoxFor(m => m.venue, new { type = "text", @class = "form-control", id = "Venue", name = "Venue", placeholder = "Venue", required = "required" })
                         </div>
                         <div class="form-group ">
                             <div class="row">
@@ -153,6 +153,31 @@
     //        }
     //    }
     //}
-
-
+    document.getElementById('Contestname').onkeyup = function () {
+        var EventContactorName = $("#Contestname").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("Contestname").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("Contestname").style.borderColor = "red";
+        }
+    }
+    document.getElementById('Code').onkeyup = function () {
+        var EventContactorName = $("#Code").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("Code").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("Code").style.borderColor = "red";
+        }
+    }
+    document.getElementById('Venue').onkeyup = function () {
+        var EventContactorName = $("#Venue").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("Venue").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("Venue").style.borderColor = "red";
+        }
+    }
 </script>

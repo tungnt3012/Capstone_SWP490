@@ -37,15 +37,15 @@
                             <h5 style="color:green"> @ViewData["success"] </h5>
                         </div>
                         @*<div class="form-group">
-            <label for="type-event">Choose a Type of Event:</label>
-            <div class="row">
-                <div class="col-lg-3">
-                    @Html.DropDownListFor(m => m.event_type, new List<SelectListItem>
-                      { new SelectListItem{Text="Event", Value="1"},
-                        new SelectListItem{Text="Activities", Value="2"}})
-                </div>
-            </div>
-        </div>*@
+                                <label for="type-event">Choose a Type of Event:</label>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        @Html.DropDownListFor(m => m.event_type, new List<SelectListItem>
+                                          { new SelectListItem{Text="Event", Value="1"},
+                                            new SelectListItem{Text="Activities", Value="2"}})
+                                    </div>
+                                </div>
+                            </div>*@
                         <div class="form-group">
                             <label for="Title">Title<span id="not-empty">*</span></label>
                             @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "EventTitle", name = "Title", value = "", placeholder = "Title", required = "required" })
@@ -72,17 +72,17 @@
                         </div>
                         <div class="form-group">
                             <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", @onchange = "checkPhone()", name = "Contactor phone", value = "", placeholder = "Contactor phone" })
+                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", @onchange = "checkPhone()", name = "Contactor phone", value = "", placeholder = "Contactor phone", required = "required" })
                             <span style="color:red"><i id="text-error-phone"></i></span>
                         </div>
                         <div class="form-group">
                             <label for="ContactorEmail">Contactor email<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", @onchange = "checkEmail()", name = "EventContactor email", value = "", placeholder = "Contactor email" })
+                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", @onchange = "checkEmail()", name = "EventContactor email", value = "", placeholder = "Contactor email", required = "required" })
                             <span style="color:red"><i id="text-error-email"></i></span>
                         </div>
                         <div class="form-group">
                             <label for="ContactorName">Contactor name<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "Contactor name" })
+                            @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "Contactor name", required = "required" })
                         </div>
                         <div class="form-group">
                             <label for="Fanpage">Fanpage</label>
@@ -148,17 +148,17 @@
                         </div>
                         <div class="form-group">
                             <label for="ContactorPhone">Sub-Event contactor phone<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.subEvent.contactor_phone, new { @class = "form-control", id = "SubEventContactorPhone", @onchange = "checkPhone()", name = "SubContactorPhone", value = "", placeholder = "Sub event contactor phone" })
+                            @Html.TextBoxFor(m => m.subEvent.contactor_phone, new { @class = "form-control", id = "SubEventContactorPhone", @onchange = "checkPhone()", name = "SubContactorPhone", value = "", placeholder = "Sub event contactor phone", required = "required" })
                             <span style="color:red"><i id="text-error-phone"></i></span>
                         </div>
                         <div class="form-group">
                             <label for="ContactorEmail">Sub-Event contactor email<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.subEvent.contactor_email, new { @class = "form-control", id = "SubEventContactorEmail", @onchange = "checkEmail()", name = "SubEventContactorEmail", value = "", placeholder = "Sub event contactor email" })
+                            @Html.TextBoxFor(m => m.subEvent.contactor_email, new { @class = "form-control", id = "SubEventContactorEmail", @onchange = "checkEmail()", name = "SubEventContactorEmail", value = "", placeholder = "Sub event contactor email", required = "required" })
                             <span style="color:red"><i id="text-error-email"></i></span>
                         </div>
                         <div class="form-group">
                             <label for="ContactorName">Sub-Event contactor name<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.subEvent.contactor_name, new { @class = "form-control", id = "SubEventContactorName", name = "SubEventContactorName", value = "", placeholder = "Sub event contactor name" })
+                            @Html.TextBoxFor(m => m.subEvent.contactor_name, new { @class = "form-control", id = "SubEventContactorName", name = "SubEventContactorName", value = "", placeholder = "Sub event contactor name", required = "required" })
                         </div>
                         <div class="form-group">
                             <label for="Fanpage">Sub-event fanpage</label>
@@ -391,6 +391,60 @@
         }
         else {
             document.getElementById("EventContactorName").style.borderColor = "red";
+        }
+    }
+    document.getElementById('SubEventTitle').onkeyup = function () {
+        var EventContactorName = $("#SubEventTitle").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("SubEventTitle").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("SubEventTitle").style.borderColor = "red";
+        }
+    }
+    document.getElementById('SubEventDesctiption').onkeyup = function () {
+        var EventContactorName = $("#SubEventDesctiption").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("SubEventDesctiption").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("SubEventDesctiption").style.borderColor = "red";
+        }
+    }
+    document.getElementById('SubEventLocation').onkeyup = function () {
+        var EventContactorName = $("#SubEventLocation").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("SubEventLocation").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("SubEventLocation").style.borderColor = "red";
+        }
+    }
+    document.getElementById('SubEventContactorPhone').onkeyup = function () {
+        var EventContactorName = $("#SubEventContactorPhone").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("SubEventContactorPhone").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("SubEventContactorPhone").style.borderColor = "red";
+        }
+    }
+    document.getElementById('SubEventContactorEmail').onkeyup = function () {
+        var EventContactorName = $("#SubEventContactorEmail").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("SubEventContactorEmail").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("SubEventContactorEmail").style.borderColor = "red";
+        }
+    }
+    document.getElementById('SubEventContactorName').onkeyup = function () {
+        var EventContactorName = $("#SubEventContactorName").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("SubEventContactorName").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("SubEventContactorName").style.borderColor = "red";
         }
     }
 </script>
