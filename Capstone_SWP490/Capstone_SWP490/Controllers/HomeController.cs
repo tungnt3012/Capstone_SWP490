@@ -149,6 +149,8 @@ namespace Capstone_SWP490.Controllers
             return View(events);
         }
 
+       
+
         [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult EventUpload()
         {
@@ -323,7 +325,29 @@ namespace Capstone_SWP490.Controllers
             ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event_id);
             return View(events);
         }
+        [AuthorizationAccept(Roles = "ORGANIZER")]
+        public ActionResult SubEventEdit(int id)
+        {
+            ViewBag.Message = "Your contact page.";
+            var events = _ieventService.GetEventsById(id);
+            ViewData["MainEvent"] = _ieventService.GetEventsById(id);
+            return View(events);
+        }
 
+        [HttpPost]
+        public async Task<ActionResult> SubEventEdit(eventsViewModel events)
+        {
+            var rsUpdate = await _ieventService.UpdateEvent(events);
+            if (rsUpdate != null)
+            {
+                ViewData["success"] = "*Edit Event Successfully !!!";
+                ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event_id);
+                return View(rsUpdate);
+            }
+            ViewData["MainEvent"] = _ieventService.GetEventsById(events.main_event_id);
+            ViewData["error"] = "*Edit Event Failed !!!";
+            return View(events);
+        }
 
         [HttpPost]
         public async Task<ActionResult> JoinSubEvent(int subEvent, int userCrr)

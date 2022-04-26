@@ -136,13 +136,21 @@ else
 
 <script>
     $(document).ready(function () {
-        var _startDate = $('#EventStartDate').val();
-        var _endDate = $('#EventEndDate').val();
-        if (_startDate === '' || _endDate == '') {
+        //var _startDate = $('#EventStartDate').val();
+        //var _endDate = $('#EventEndDate').val();
+        //if (_startDate === '' || _endDate === '') {
+        //    $('#event-upload').attr("disabled", true);
+        //} else {
+        //    $('#event-upload').attr("disabled", false);
+        //}
+        var _startTime = $('#EventStartTime').val();
+        var _endTime = $('#EventEndTime').val();
+        if (_startTime === '' || _endTime === '') {
             $('#event-upload').attr("disabled", true);
         } else {
             $('#event-upload').attr("disabled", false);
         }
+
     });
 
     function checkDate() {

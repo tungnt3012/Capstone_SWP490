@@ -227,21 +227,27 @@ namespace Capstone_SWP490.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ChangePassword(app_userViewModel app_UserIn)
+        public async Task<ActionResult> ChangePassword(reset_password app_UserIn)
         {
             if (HttpContext.Session["username"] != null)
             {
+                var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                if (u.psw.Equals(app_UserIn.old_password))
+                {
+                    ViewData["ChangePasswordError"] = "Password has same the old password!!!";
+                    return View();
+                }
                 MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
                 UTF8Encoding utf8 = new UTF8Encoding();
-                byte[] data = md5.ComputeHash(utf8.GetBytes(app_UserIn.psw));
+                byte[] data = md5.ComputeHash(utf8.GetBytes(app_UserIn.new_password));
 
                 var passToData = Convert.ToBase64String(data);
 
-                if (!String.IsNullOrWhiteSpace(app_UserIn.psw) && !String.IsNullOrWhiteSpace(app_UserIn.repsw)
-                    && app_UserIn.psw == app_UserIn.repsw
-                    && app_UserIn.psw.Length >= 6 && app_UserIn.repsw.Length >= 6)
+                if (!String.IsNullOrWhiteSpace(app_UserIn.new_password) && !String.IsNullOrWhiteSpace(app_UserIn.reNew_password)
+                    && app_UserIn.new_password == app_UserIn.reNew_password
+                    && app_UserIn.new_password.Length >= 6 && app_UserIn.reNew_password.Length >= 6)
                 {
-                    if (await _iapp_UserService.UpdatePassword(HttpContext.Session["username"].ToString(), app_UserIn.psw, passToData))
+                    if (await _iapp_UserService.UpdatePassword(HttpContext.Session["username"].ToString(), app_UserIn.new_password, passToData))
                     {
                         ViewData["ChangePasswordSuccess"] = "Change Password Successfully";
                         return View();
@@ -257,6 +263,15 @@ namespace Capstone_SWP490.Controllers
         {
             if (HttpContext.Session["username"] != null)
             {
+                var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
+                if (u != null)
+                {
+                    var mem = _imemberService.GetMemberByUserId(u.user_id);
+                    if (mem != null)
+                    {
+                        return View(mem);
+                    }
+                }
                 return View(new member());
             }
             return RedirectToAction("Login", "Authentication");

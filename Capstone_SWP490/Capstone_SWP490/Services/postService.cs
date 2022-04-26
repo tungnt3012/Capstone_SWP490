@@ -84,7 +84,7 @@ namespace Capstone_SWP490.Services
 
                 var lstOut = new List<post_TopViewModel>();
                 var lstNoPin = (from x in _ipostRepository.FindBy(x => x.post_by == authorId && x.post_to.Equals("No"))
-                                orderby x.update_date
+                                orderby x.update_date descending
                                 select x).ToList();
 
                 var lstPin = (from x in _ipostRepository.FindBy(x => x.post_by == authorId && !x.post_to.Equals("No"))
@@ -305,7 +305,7 @@ namespace Capstone_SWP490.Services
 
                 if (listPostPin.Count > 3)
                 {
-                    for (int i = 3; i < listPostPin.Count; i++)
+                    for (int i = 2; i < listPostPin.Count; i++)
                     {
                         var p = listPostPin[i];
                         p.post_to = "NO";
@@ -337,7 +337,7 @@ namespace Capstone_SWP490.Services
 
                 if (listPostPin.Count > 3)
                 {
-                    for (int i = 3; i < listPostPin.Count; i++)
+                    for (int i = 2; i < listPostPin.Count; i++)
                     {
                         var p = listPostPin[i];
                         p.post_to = "NO";
