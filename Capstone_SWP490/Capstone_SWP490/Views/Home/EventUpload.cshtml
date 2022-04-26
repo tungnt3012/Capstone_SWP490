@@ -72,12 +72,12 @@
                         </div>
                         <div class="form-group">
                             <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", @onchange = "checkPhone()", name = "Contactor phone", value = "", placeholder = "Contactor phone", required = "required" })
+                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", type = "number", id = "EventContactorPhone", @onchange = "checkPhone()", name = "Contactor phone", value = "", placeholder = "Contactor phone", required = "required" })
                             <span style="color:red"><i id="text-error-phone"></i></span>
                         </div>
                         <div class="form-group">
                             <label for="ContactorEmail">Contactor email<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", @onchange = "checkEmail()", name = "EventContactor email", value = "", placeholder = "Contactor email", required = "required" })
+                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", type = "email", id = "EventContactorEmail", @onchange = "checkEmail()", name = "EventContactor email", value = "", placeholder = "Contactor email", required = "required" })
                             <span style="color:red"><i id="text-error-email"></i></span>
                         </div>
                         <div class="form-group">
@@ -85,8 +85,8 @@
                             @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "Contactor name", required = "required" })
                         </div>
                         <div class="form-group">
-                            <label for="Fanpage">Fanpage</label>
-                            @Html.TextBoxFor(m => m.fan_page, new { @class = "form-control", id = "EventFanpage", name = "EventFanpage", value = "", placeholder = "Fanpage" })
+                            <label for="Fanpage">Fanpage<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.fan_page, new { @class = "form-control", id = "EventFanpage", name = "EventFanpage", value = "", placeholder = "Fanpage", required = "required" })
                         </div>
                         <div class="form-group">
                             <label for="Fanpage">Note</label>
@@ -148,12 +148,12 @@
                         </div>
                         <div class="form-group">
                             <label for="ContactorPhone">Sub-Event contactor phone<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.subEvent.contactor_phone, new { @class = "form-control", id = "SubEventContactorPhone", @onchange = "checkPhone()", name = "SubContactorPhone", value = "", placeholder = "Sub event contactor phone", required = "required" })
+                            @Html.TextBoxFor(m => m.subEvent.contactor_phone, new { @class = "form-control", type = "number", id = "SubEventContactorPhone", @onchange = "checkPhone()", name = "SubContactorPhone", value = "", placeholder = "Sub event contactor phone", required = "required" })
                             <span style="color:red"><i id="text-error-phone"></i></span>
                         </div>
                         <div class="form-group">
                             <label for="ContactorEmail">Sub-Event contactor email<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.subEvent.contactor_email, new { @class = "form-control", id = "SubEventContactorEmail", @onchange = "checkEmail()", name = "SubEventContactorEmail", value = "", placeholder = "Sub event contactor email", required = "required" })
+                            @Html.TextBoxFor(m => m.subEvent.contactor_email, new { @class = "form-control", type = "email", id = "SubEventContactorEmail", @onchange = "checkEmail()", name = "SubEventContactorEmail", value = "", placeholder = "Sub event contactor email", required = "required" })
                             <span style="color:red"><i id="text-error-email"></i></span>
                         </div>
                         <div class="form-group">
@@ -161,8 +161,8 @@
                             @Html.TextBoxFor(m => m.subEvent.contactor_name, new { @class = "form-control", id = "SubEventContactorName", name = "SubEventContactorName", value = "", placeholder = "Sub event contactor name", required = "required" })
                         </div>
                         <div class="form-group">
-                            <label for="Fanpage">Sub-event fanpage</label>
-                            @Html.TextBoxFor(m => m.subEvent.fan_page, new { @class = "form-control", id = "SubEventFanpage", name = "SubEventFanpage", value = "", placeholder = "Sub event fanpage" })
+                            <label for="Fanpage">Sub-event fanpage<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.subEvent.fan_page, new { @class = "form-control", id = "SubEventFanpage", name = "SubEventFanpage", value = "", placeholder = "Sub event fanpage", required = "required" })
                         </div>
                         <div class="form-group">
                             <label for="Fanpage">Sub-Event note</label>
@@ -182,8 +182,9 @@
                         </div>
                         <div class="form-group">
                             <div class="pull-right">
-                                <button type="submit" class="btn btn-primary" id="event-upload">Add</button>
                                 <button type="button" class="btn btn-secondary" onclick="location.href='/Home/Event'; return false;" id="event-canner">Cancel</button>
+
+                                <button type="submit" class="btn btn-primary" id="event-upload">Add</button>
                             </div>
                         </div>
                     </div>
@@ -445,6 +446,24 @@
         }
         else {
             document.getElementById("SubEventContactorName").style.borderColor = "red";
+        }
+    }
+    document.getElementById('SubEventFanpage').onkeyup = function () {
+        var EventContactorName = $("#SubEventFanpage").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("SubEventFanpage").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("SubEventFanpage").style.borderColor = "red";
+        }
+    }
+    document.getElementById('EventFanpage').onkeyup = function () {
+        var EventContactorName = $("#EventFanpage").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("EventFanpage").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventFanpage").style.borderColor = "red";
         }
     }
 </script>

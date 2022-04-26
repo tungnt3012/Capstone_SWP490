@@ -22,96 +22,98 @@
                 </div>
                 @using (Html.BeginForm("SubEventUpload", "Home"))
                 {
-                    <div class="column" style="padding-top:20px">
+            <div class="column" style="padding-top:20px">
+                <div class="form-group">
+                    <h5 style="color:red"> @ViewData["error"] </h5>
+                    <h5 style="color:green"> @ViewData["success"] </h5>
+                </div>
+                <div class="form-group">
+                    <label for="Title">Title<span id="not-empty">*</span></label>
+                    @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "EventTitle", name = "Title", value = "", placeholder = "Title" })
+                </div>
+                <div class="form-group">
+                    <label for="Desctiption">Desctiption<span id="not-empty">*</span></label>
+                    @Html.TextAreaFor(m => m.desctiption, new { @class = "form-control", id = "EventDesctiption", name = "Desctiption", value = "", placeholder = "Description of the event" })
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
                         <div class="form-group">
-                            <h5 style="color:red"> @ViewData["error"] </h5>
-                            <h5 style="color:green"> @ViewData["success"] </h5>
-                        </div>
-                        <div class="form-group">
-                            <label for="Title">Title<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "EventTitle", name = "Title", value = "", placeholder = "Title" })
-                        </div>
-                        <div class="form-group">
-                            <label for="Desctiption">Desctiption<span id="not-empty">*</span></label>
-                            @Html.TextAreaFor(m => m.desctiption, new { @class = "form-control", id = "EventDesctiption", name = "Desctiption", value = "", placeholder = "Description of the event" })
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="Location">Start date<span id="not-empty">*</span></label>
-                                    <div class="row">
-                                        @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "hidden", id = "", @onchange = "checkDate()", @Value = mainEvent.start_date, disabled = "disabled", name = "EventStartDate", placeholder = "Start date" })
-                                        <div class="col-lg-6">
-                                            @Html.TextBoxFor(m => m.start_time, new { type = "time", @class = "form-control", id = "EventStartTime", @onchange = "checkTime()", name = "EventStartTime", placeholder = "Start Time" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="Location">End date<span id="not-empty">*</span></label>
-                                    <div class="row">
-                                        @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "hidden", id = "", @onchange = "checkDate()", @Value = mainEvent.end_date, disabled = "disabled", name = "EventEndDate", placeholder = "End date" })
-                                        <div class="col-lg-6">
-                                            @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", placeholder = "End Time" })
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <span style="color:red"><i id="text-error-date"></i></span>
-                                <br />
-                                <span style="color:red"><i id="text-error-time"></i></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Location">Venue<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.venue, new { @class = "form-control", id = "EventLocation", name = "TiLocationtle", value = "", placeholder = "Location" })
-                        </div>
-                        <div class="form-group">
-                            <label for="Fanpage">Fanpage<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.fan_page, new { @class = "form-control", id = "EventFanpage", name = "EventFanpage", value = "", placeholder = "Fanpage" })
-                        </div>
-                        <div class="form-group">
-                            <label for="Fanpage">Note</label>
-                            @Html.TextBoxFor(m => m.note, new { @class = "form-control", id = "EventNote", name = "EventNote", value = "", placeholder = "Note" })
-                        </div>
-                        <div class="form-group">
-                            @Html.TextBoxFor(m => m.main_event_id, new { @class = "form-control", id = "MainEvent", name = "MainEvent", @Value = mainEvent.event_id, style = "display: none;" })
-                        </div>
-                        <div class="form-group">
-                            <label for="Location">Contactor phone<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", name = "Contactorphone", value = "", placeholder = "Contactor phone", required = "required" })
-                        </div>
-                        <div class="form-group">
-                            <label for="Location">Contactor email<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", name = "Contactorphone", value = "", placeholder = "example@gmail.com", required = "required" })
-                        </div>
-                        <div class="form-group">
-                            <label for="Location">Contactor name<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactor Name", value = "", placeholder = "Nguyen Van A", required = "required" })
-                        </div>
-                        <div class="form-group">
-                            <label for="type-event">Allow Member Join this event:</label>
+                            <label for="Location">Start time<span id="not-empty">*</span></label>
                             <div class="row">
-                                <div class="col-lg-3">
-                                    @Html.DropDownListFor(m => m.status, new List<SelectListItem>
-                                      { new SelectListItem{Text="Not Allow Join", Value="0"},
-                                        new SelectListItem{Text="Allow Member Join", Value="1"},
-                                        new SelectListItem{Text="Allow Coach Join", Value="2"},
-                                        new SelectListItem{Text="Allow Member & Coach Join", Value="3"}}, new { @class = "form-control", id = "StatusSelect" })
+                                @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "hidden", id = "", @onchange = "checkDate()", @Value = mainEvent.start_date, disabled = "disabled", name = "EventStartDate", placeholder = "Start date" })
+                                <div class="col-lg-6">
+                                    @Html.TextBoxFor(m => m.start_time, new { type = "time", @class = "form-control", id = "EventStartTime", @onchange = "checkTime()", name = "EventStartTime", placeholder = "Start Time" })
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="pull-right">
-                                <button type="submit" class="btn btn-primary" id="event-upload">Add</button>
-                                <button type="button" class="btn btn-secondary" onclick="location.href='/Home/EventDetail?id=@mainEvent.event_id'; return false;" id="event-canner">Cancel</button>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="Location">End time<span id="not-empty">*</span></label>
+                            <div class="row">
+                                @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "hidden", id = "", @onchange = "checkDate()", @Value = mainEvent.end_date, disabled = "disabled", name = "EventEndDate", placeholder = "End date" })
+                                <div class="col-lg-6">
+                                    @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", placeholder = "End Time" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <span style="color:red"><i id="text-error-date"></i></span>
+                        <br />
+                        <span style="color:red"><i id="text-error-time"></i></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Location">Venue<span id="not-empty">*</span></label>
+                    @Html.TextBoxFor(m => m.venue, new { @class = "form-control", id = "EventLocation", name = "TiLocationtle", value = "", placeholder = "Location" })
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.main_event_id, new { @class = "form-control", id = "MainEvent", name = "MainEvent", @Value = mainEvent.event_id, style = "display: none;" })
+                </div>
+                <div class="form-group">
+                    <label for="Location">Contactor phone<span id="not-empty">*</span></label>
+                    @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", type = "number", id = "EventContactorPhone", name = "Contactorphone", value = "", placeholder = "Contactor phone", required = "required" })
+                </div>
+                <div class="form-group">
+                    <label for="Location">Contactor email<span id="not-empty">*</span></label>
+                    @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", type = "email", id = "EventContactorEmail", name = "Contactorphone", value = "", placeholder = "example@gmail.com", required = "required" })
+                </div>
+                <div class="form-group">
+                    <label for="Location">Contactor name<span id="not-empty">*</span></label>
+                    @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactor Name", value = "", placeholder = "Nguyen Van A", required = "required" })
+                </div>
+                <div class="form-group">
+                    <label for="Fanpage">Fanpage<span id="not-empty">*</span></label>
+                    @Html.TextBoxFor(m => m.fan_page, new { @class = "form-control", id = "EventFanpage", name = "EventFanpage", value = "", placeholder = "Fanpage", required = "required" })
+                </div>
+
+                <div class="form-group">
+                    <label for="Fanpage">Note</label>
+                    @Html.TextBoxFor(m => m.note, new { @class = "form-control", id = "EventNote", name = "EventNote", value = "", placeholder = "Note" })
+                </div>
+                <div class="form-group">
+                    <label for="type-event">Allow member join this event:</label>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            @Html.DropDownListFor(m => m.status, new List<SelectListItem>
+                              { new SelectListItem{Text="Not Allow Join", Value="0"},
+                                new SelectListItem{Text="Allow Member Join", Value="1"},
+                                new SelectListItem{Text="Allow Coach Join", Value="2"},
+                                new SelectListItem{Text="Allow Member & Coach Join", Value="3"}}, new { @class = "form-control", id = "StatusSelect" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary" id="event-upload">Add</button>
+                        <button type="button" class="btn btn-secondary" onclick="location.href='/Home/EventDetail?id=@mainEvent.event_id'; return false;" id="event-canner">Cancel</button>
+                    </div>
+                </div>
+            </div>
                 }
             </div>
         </div>
@@ -214,5 +216,69 @@ else
         //    }
         //}
     }
+    document.getElementById('EventTitle').onkeyup = function () {
+        var EventTitle = $("#EventTitle").val();
+        if (EventTitle.length >= 1) {
+            document.getElementById("EventTitle").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventTitle").style.borderColor = "red";
+        }
+    }
 
+    document.getElementById('EventDesctiption').onkeyup = function () {
+        var EventDesctiption = $("#EventDesctiption").val();
+        if (EventDesctiption.length >= 1) {
+            document.getElementById("EventDesctiption").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventDesctiption").style.borderColor = "red";
+        }
+    }
+
+    document.getElementById('EventLocation').onkeyup = function () {
+        var EventLocation = $("#EventLocation").val();
+        if (EventLocation.length >= 1) {
+            document.getElementById("EventLocation").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventLocation").style.borderColor = "red";
+        }
+    }
+    document.getElementById('EventContactorPhone').onkeyup = function () {
+        var EventContactorPhone = $("#EventContactorPhone").val();
+        if (EventContactorPhone.length >= 1) {
+            document.getElementById("EventContactorPhone").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventContactorPhone").style.borderColor = "red";
+        }
+    }
+    document.getElementById('EventContactorEmail').onkeyup = function () {
+        var EventContactorEmail = $("#EventContactorEmail").val();
+        if (EventContactorEmail.length >= 1) {
+            document.getElementById("EventContactorEmail").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventContactorEmail").style.borderColor = "red";
+        }
+    }
+    document.getElementById('EventContactorName').onkeyup = function () {
+        var EventContactorName = $("#EventContactorName").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("EventContactorName").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventContactorName").style.borderColor = "red";
+        }
+    }
+    document.getElementById('EventFanpage').onkeyup = function () {
+        var EventContactorName = $("#EventFanpage").val();
+        if (EventContactorName.length >= 1) {
+            document.getElementById("EventFanpage").style.borderColor = "#66afe9";
+        }
+        else {
+            document.getElementById("EventFanpage").style.borderColor = "red";
+        }
+    }
 </script>

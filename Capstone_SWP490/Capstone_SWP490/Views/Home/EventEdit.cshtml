@@ -13,7 +13,7 @@
 <div class="container-fluid xyz">
     <div class="col-lg-12" id="content_area2_header">
         <div class="col-lg-12" id="content_area2_title">
-            <label for="exampleInputTitle">Sub-Event Edit</label>
+            <label for="exampleInputTitle">Event Edit</label>
         </div>
     </div>
     <div class="main">
@@ -26,7 +26,7 @@
                 </div>
                 @using (Html.BeginForm("EventEdit", "Home"))
                 {
-                    <div class="column" style="padding-top:20px">
+                    <div class="column" >
                         <div class="form-group">
                             <h5 style="color:red"> @ViewData["error"] </h5>
                             <h5 style="color:green"> @ViewData["success"] </h5>
@@ -115,15 +115,15 @@
                         </div>
                         <div class="form-group">
                             <label for="ContactorPhone">Contactor phone<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", name = "ContactorPhone", value = "", placeholder = "ContactorPhone" })
+                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", type = "number", id = "EventContactorPhone", name = "ContactorPhone", value = "", placeholder = "ContactorPhone", required = "required" })
                         </div>
                         <div class="form-group">
                             <label for="ContactorEmail">Contactor email<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", name = "EventContactorEmail", value = "", placeholder = "ContactorEmail" })
+                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", type = "email", id = "EventContactorEmail", name = "EventContactorEmail", value = "", placeholder = "ContactorEmail", required = "required" })
                         </div>
                         <div class="form-group">
-                            <label for="ContactorName">Contactor Name<span id="not-empty">*</span></label>
-                            @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "ContactorName" })
+                            <label for="ContactorName">Contactor name<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactorName", value = "", placeholder = "ContactorName", required = "required" })
                         </div>
                         <div class="form-group">
                             <label for="Fanpage">Fanpage</label>
