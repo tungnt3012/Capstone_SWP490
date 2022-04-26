@@ -217,10 +217,12 @@ namespace Capstone_SWP490.Services
             var e = _ieventRepository.FindBy(x => x.event_id == eventsIn.event_id).FirstOrDefault();
             if (e != null)
             {
+                DateTime dateTimeStartTemp = e.start_date;
+                DateTime dateTimeEndTemp = e.end_date;
                 e.title = eventsIn.title;
                 e.desctiption = eventsIn.desctiption;
-                e.start_date = eventsIn.start_date + eventsIn.start_time;
-                e.end_date = eventsIn.end_date + eventsIn.end_time;
+                e.start_date = eventsIn.start_date.Add(new TimeSpan(00, 00, 01));
+                e.end_date = eventsIn.start_date.Add(new TimeSpan(23, 59, 59));
                 e.venue = eventsIn.venue;
                 e.fan_page = eventsIn.fan_page;
                 e.note = eventsIn.note;
@@ -246,6 +248,30 @@ namespace Capstone_SWP490.Services
                         contactor_email = e.contactor_email,
                         contactor_name = e.contactor_name
                     };
+                    if (dateTimeStartTemp != eventsIn.start_date.Add(new TimeSpan(00, 00, 01))
+                        && dateTimeEndTemp != eventsIn.start_date.Add(new TimeSpan(23, 59, 59)))
+                    {
+                        if (e.sub_event != null || !String.IsNullOrWhiteSpace(e.sub_event))
+                        {
+                            string[] subEventId = e.sub_event.Split(',');
+                            foreach (var item in subEventId)
+                            {
+                                if (!String.IsNullOrWhiteSpace(item))
+                                {
+                                    //update ngày subEvent theo Main Event
+                                    int eId = Convert.ToInt32(item);
+                                    var subE = _ieventRepository.FindBy(x => x.event_id == eId).FirstOrDefault();
+                                    subE.start_date = Convert.ToDateTime(eOutput.start_date.Date) + subE.start_date.TimeOfDay;
+                                    subE.end_date = Convert.ToDateTime(eOutput.start_date.Date) + subE.end_date.TimeOfDay;
+                                    if (await _ieventRepository.Update(subE, subE.event_id) == -1)
+                                    {
+                                        return null;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
 
                     var mainOfE = _ieventRepository.FindBy(x => x.sub_event.Contains(eOutput.event_id.ToString())).FirstOrDefault();
                     if (mainOfE != null)
@@ -625,7 +651,7 @@ namespace Capstone_SWP490.Services
 
         public int CountMemberJoinEvent(int eventId)
         {
-            var subEvent = _ieventRepository.FindBy(x => x.event_id == eventId && x.status == 1).FirstOrDefault();
+            var subEvent = _ieventRepository.FindBy(x => x.event_id == eventId && x.status != -1).FirstOrDefault();
             if (subEvent != null)
             {
                 if (!String.IsNullOrWhiteSpace(subEvent.member_join))
@@ -701,7 +727,7 @@ namespace Capstone_SWP490.Services
 
                 foreach (var x in sortSubTemp)
                 {
-                    if (x.sub_event != null || !String.IsNullOrWhiteSpace(x.sub_event))
+                    if (x.sub_event != null)
                     {
                         string[] subEventId = x.sub_event.Split(',');
                         foreach (var item in subEventId)
@@ -721,22 +747,22 @@ namespace Capstone_SWP490.Services
 
                 if (lstSubEventTemp.Count > 0)
                 {
-                    foreach (var x in lstSubEventTemp)
+                    foreach (var item in lstSubEventTemp)
                     {
                         var subViewModel = new eventsViewModel
                         {
-                            event_id = x.event_id,
-                            title = x.title,
-                            event_type = x.event_type,
-                            desctiption = x.desctiption,
-                            start_date = x.start_date,
-                            end_date = x.end_date,
-                            start_date_str = x.start_date.ToString("dd-MM-yyyy, HH:mm"),
-                            end_date_str = x.end_date.ToString("dd-MM-yyyy, HH:mm"),
-                            venue = x.venue,
-                            note = x.note,
-                            status = x.status,
-                            total_joined = CountMemberJoinEvent(x.event_id)
+                            event_id = item.event_id,
+                            title = item.title,
+                            event_type = item.event_type,
+                            desctiption = item.desctiption,
+                            start_date = item.start_date,
+                            end_date = item.end_date,
+                            start_date_str = item.start_date.ToString("dd-MM-yyyy, HH:mm"),
+                            end_date_str = item.end_date.ToString("dd-MM-yyyy, HH:mm"),
+                            venue = item.venue,
+                            note = item.note,
+                            status = item.status,
+                            total_joined = CountMemberJoinEvent(item.event_id)
                         };
                         lstSubEvent.Add(subViewModel);
                     }

@@ -87,18 +87,6 @@ namespace Capstone_SWP490.Controllers
         [ValidateInput(false)]
         public ActionResult Create(post_ViewModel model, string postToFanPage, HttpPostedFileBase file, string actionBtn)
         {
-            if(model.post.title == null || model.post.title.Length >= 190)
-            {
-                @ViewData["EDIT_ERROR"] = "Post title tooo long, please reduce characater (accepted less than 190 characters)";
-                return View("Edit", model);
-            }
-
-            if (model.post.title == null || model.post.title.Length >= 190)
-            {
-                @ViewData["EDIT_ERROR"] = "Post title tooo long, please reduce characater (accepted less than 190 characters)";
-                return View("Edit", model);
-            }
-
             if (actionBtn != null && actionBtn.Equals("Schedule"))
             {
                 DateTime now = DateTime.Now;
