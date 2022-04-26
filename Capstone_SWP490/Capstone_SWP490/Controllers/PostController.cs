@@ -29,7 +29,7 @@ namespace Capstone_SWP490.Controllers
             {
                 return RedirectToAction("", "Home");
             }
-            List<post> listPost = _postService.getByAuthorId(logined.user_id, status);
+            List<post_TopViewModel> listPost = _postService.getByAuthorId(logined.user_id, status);
             postList_ViewModel model = new postList_ViewModel();
             model.posts = listPost;
             model.status = status;

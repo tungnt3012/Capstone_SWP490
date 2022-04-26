@@ -92,6 +92,10 @@
                                                     <a onclick="AjaxPinPost(this)" post-id="@item.post_id">Pin</a>
                                                     |
                                                     <a onclick="return confirmRemove();" href="@Url.Action("Remove", "Post")?post_id=@item.post_id" style="color: red">Remove</a>
+                                                    @if (item.isPin == 1)
+                                                    {
+                                                        @("|") <label style="color:green">Pined</label>
+                                                    }
                                                 </td>
                                             </tr>
                                             { stt += 1; }

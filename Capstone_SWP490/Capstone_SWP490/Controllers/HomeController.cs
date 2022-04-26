@@ -332,6 +332,12 @@ namespace Capstone_SWP490.Controllers
             return Json(ajaxResponse);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> UnJoinSubEvent(int subEvent, int userCrr)
+        {
+            AjaxResponseViewModel<bool> ajaxResponse = await _ieventService.UnJoinSubEvent(subEvent, userCrr);
+            return Json(ajaxResponse);
+        }
 
         [HttpPost]
         public async Task<ActionResult> JoinEvent(int userId)

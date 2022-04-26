@@ -234,11 +234,25 @@
                                                     {
                                                         if (x.is_user_joined)
                                                         {
-                                                            <td class="join-event">
-                                                                <button class="btn-sm btn-secondary" disabled>
-                                                                    Joined
-                                                                </button>
-                                                            </td>
+                                                            @*<input type="hidden" id="date" value="@(x.start_date)">
+                                                            <input type="hidden" id="date0" value="@(DateTime.Now)">
+                                                            <input type="hidden" id="date1" value="@((x.start_date-DateTime.Now).TotalHours)">*@
+                                                            if ((x.start_date-DateTime.Now).TotalHours > 3)
+                                                            {
+                                                                <td class="join-event">
+                                                                    <button class="btn-sm btn-secondary" id="btn-unjoin" sub-event-id="@x.event_id" onclick="UnJoinSubEvent(this)">
+                                                                        UnJoined
+                                                                    </button>
+                                                                </td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td class="join-event">
+                                                                    <button class="btn-sm btn-secondary" disabled>
+                                                                        Joined
+                                                                    </button>
+                                                                </td>
+                                                            }
                                                         }
                                                         else
                                                         {
@@ -328,6 +342,29 @@ else
                     var s = rs;
                     if (rs.Status == 1) {
                         alert("Join Event Successfully!!!");
+                        location.reload();
+                    } else {
+                        alert("Fail");
+                    }
+                }
+            }
+        });
+    }
+
+     function UnJoinSubEvent(e) {
+        var _subEventId = $(e).attr("sub-event-id");
+        var _userId = $("#user_id").val();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UnJoinSubEvent", "Home")',
+            data: JSON.stringify({ 'subEvent': _subEventId, 'userCrr': _userId }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (rs) {
+                if (rs != null) {
+                    var s = rs;
+                    if (rs.Status == 1) {
+                        alert("UnJoin Event Successfully!!!");
                         location.reload();
                     } else {
                         alert("Fail");

@@ -8,7 +8,7 @@ namespace Capstone_SWP490.Models.post_ViewModel
     public class postList_ViewModel
     {
         public string status;
-        public List<post> posts { get; set; }
+        public List<post_TopViewModel> posts { get; set; }
         public List<post_error> errors { get; set; }
         public string calDate(string scheduleDate)
         {

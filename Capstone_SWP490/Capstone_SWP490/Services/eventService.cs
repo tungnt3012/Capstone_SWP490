@@ -383,9 +383,7 @@ namespace Capstone_SWP490.Services
             if (!string.IsNullOrWhiteSpace(eventsIn.title)
                 && !string.IsNullOrWhiteSpace(eventsIn.desctiption)
                 && !string.IsNullOrWhiteSpace(eventsIn.venue)
-                && !string.IsNullOrWhiteSpace(eventsIn.fan_page)
-                && Convert.ToDateTime("01/01/0001") != eventsIn.start_date
-                && Convert.ToDateTime("01/01/0001") != eventsIn.end_date)
+                && !string.IsNullOrWhiteSpace(eventsIn.fan_page))
             {
                 var mainEvent = _ieventRepository.FindBy(x => x.event_id == eventsIn.main_event_id).FirstOrDefault();
                 if (mainEvent != null)
@@ -394,8 +392,8 @@ namespace Capstone_SWP490.Services
                     {
                         title = eventsIn.title,
                         desctiption = eventsIn.desctiption,
-                        start_date = eventsIn.start_date + eventsIn.start_time,
-                        end_date = eventsIn.end_date + eventsIn.end_time,
+                        start_date = Convert.ToDateTime(mainEvent.start_date.Date) + eventsIn.start_time,
+                        end_date = Convert.ToDateTime(mainEvent.end_date.Date) + eventsIn.end_time,
                         venue = eventsIn.venue,
                         fan_page = eventsIn.fan_page,
                         contactor_name = eventsIn.contactor_name,
@@ -510,7 +508,7 @@ namespace Capstone_SWP490.Services
                         if (!String.IsNullOrWhiteSpace(item))
                         {
                             int subId = Convert.ToInt32(item.ToString());
-                            var sub = _ieventRepository.FindBy(x => x.event_id == subId && x.event_type == 2).FirstOrDefault();
+                            var sub = _ieventRepository.FindBy(x => x.event_id == subId && x.event_type == 2 && x.status!=-1).FirstOrDefault();
                             if (sub != null)
                             {
                                 lstSubEventTemp.Add(sub);
@@ -567,6 +565,52 @@ namespace Capstone_SWP490.Services
                     e.member_join += user.user_id + ",";
                 }
 
+                if (await _ieventRepository.Update(e, e.event_id) != -1)
+                {
+                    output.Data = true;
+                    output.Status = 1;
+                    return output;
+                }
+            }
+            output.Data = false;
+            return output;
+        }
+
+        public async Task<AjaxResponseViewModel<bool>> UnJoinSubEvent(int eventId, int userId)
+        {
+            var output = new AjaxResponseViewModel<bool>
+            {
+                Status = 0,
+                Data = false
+            };
+            var e = _ieventRepository.FindBy(x => x.event_id == eventId).FirstOrDefault();
+            var user = _iapp_userRepository.FindBy(x => x.user_id == userId).FirstOrDefault();
+            if (e != null && user != null)
+            {
+                //if (String.IsNullOrWhiteSpace(e.member_join))
+                //{
+                //    e.member_join = user.user_id + ",";
+                //}
+                //else
+                //{
+                //    e.member_join += user.user_id + ",";
+                //}
+                string[] memberJoin = e.member_join.Split(',');
+
+                string memberJoinUpdate = "";
+                foreach (var item in memberJoin)
+                {
+                    if (item.Equals(user.user_id.ToString()))
+                    {
+                        memberJoinUpdate += "";
+                    }
+                    else
+                    {
+                        memberJoinUpdate += item + ",";
+                    }
+                }
+
+                e.member_join = memberJoinUpdate;
                 if (await _ieventRepository.Update(e, e.event_id) != -1)
                 {
                     output.Data = true;

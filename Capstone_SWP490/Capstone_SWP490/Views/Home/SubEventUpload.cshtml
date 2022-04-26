@@ -40,9 +40,7 @@
                                 <div class="form-group">
                                     <label for="Location">Start date<span id="not-empty">*</span></label>
                                     <div class="row">
-                                        <div class="col-lg-6">
-                                            @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "form-control", id = "EventStartDate", @onchange = "checkDate()", name = "EventStartDate", placeholder = "Start date" })
-                                        </div>
+                                        @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "hidden", id = "", @onchange = "checkDate()", @Value = mainEvent.start_date, disabled = "disabled", name = "EventStartDate", placeholder = "Start date" })
                                         <div class="col-lg-6">
                                             @Html.TextBoxFor(m => m.start_time, new { type = "time", @class = "form-control", id = "EventStartTime", @onchange = "checkTime()", name = "EventStartTime", placeholder = "Start Time" })
                                         </div>
@@ -53,9 +51,7 @@
                                 <div class="form-group">
                                     <label for="Location">End date<span id="not-empty">*</span></label>
                                     <div class="row">
-                                        <div class="col-lg-6">
-                                            @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "form-control", id = "EventEndDate", @onchange = "checkDate()", name = "EventEndDate", placeholder = "End date" })
-                                        </div>
+                                        @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "hidden", id = "", @onchange = "checkDate()", @Value = mainEvent.end_date, disabled = "disabled", name = "EventEndDate", placeholder = "End date" })
                                         <div class="col-lg-6">
                                             @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", placeholder = "End Time" })
                                         </div>
@@ -127,6 +123,8 @@
 <input type="hidden" id="validate-time" value="0">
 <input type="hidden" id="me-start-date" value="@mainEvent.start_date.ToString("yyyy-MM-dd HH:mm:ss")">
 <input type="hidden" id="me-end-date" value="@mainEvent.end_date.ToString("yyyy-MM-dd HH:mm:ss")">
+<input type="hidden" id="EventEndDate" value="@mainEvent.end_date.ToString("yyyy-MM-dd")">
+<input type="hidden" id="EventStartDate" value="@mainEvent.start_date.ToString("yyyy-MM-dd")">
 @if (Session["username"] != null)
 {
     <input type="hidden" id="user_role" value="@profile.user_role">

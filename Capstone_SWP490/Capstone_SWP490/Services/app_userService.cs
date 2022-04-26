@@ -56,6 +56,10 @@ namespace Capstone_SWP490.Services
             var findUser = _iapp_UserRepository.FindBy(x => x.user_name == username && x.verified == false).FirstOrDefault();
             if (findUser != null)
             {
+                if (findUser.psw.Equals(password))
+                {
+                    return false;
+                }
                 var findMemberInfo = _imemberRepository.FindBy(x => x.user_id == findUser.user_id && x.enabled == true).FirstOrDefault();
                 if (findMemberInfo == null)
                 {
@@ -346,6 +350,10 @@ namespace Capstone_SWP490.Services
             var u = _iapp_UserRepository.FindBy(x => x.user_name.Equals(username)).FirstOrDefault();
             if (u != null)
             {
+                if (u.psw.Equals(newPass))
+                {
+                    return false;
+                }
                 u.psw = newPass;
                 u.encrypted_psw = CommonHelper.createEncryptedPassWord(u.psw);
                 u.confirm_password = 1;
