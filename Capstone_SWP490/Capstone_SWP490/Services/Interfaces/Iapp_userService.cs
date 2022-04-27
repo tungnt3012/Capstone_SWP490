@@ -34,5 +34,7 @@ namespace Capstone_SWP490.Services.Interfaces
         List<app_user> findCoach(string status, string keyword);
 
         List<app_user> findNewRegistCoach(string keyword);
+
+        bool isEmailInUse(string email);
     }
 }

@@ -296,6 +296,7 @@ namespace Capstone_SWP490.Helper
                     import_error_ViewModel validError = ValidateTeam(registedTeam, team, row);
                     if (validError != null)
                     {
+                        result.TeamErrorList.Add(teamName);
                         result.error.Add(validError);
                         continue;
                     }
@@ -664,7 +665,7 @@ namespace Capstone_SWP490.Helper
                     {
                         //read team from sheet team
                         team = result.School.teams.Where(x => x.team_name.ToUpper() == cellVal.ToUpper()).ToList().FirstOrDefault();
-                        if (team == null)
+                        if (team == null && !result.TeamErrorList.Contains(cellVal))
                         {
                             error = new import_error_ViewModel();
                             error.objectName = "MEMBER_NORMAL";
@@ -830,7 +831,22 @@ namespace Capstone_SWP490.Helper
                     result.error.Add(error);
                 }
             }
-
+            //team must have more than or equal 2 member
+            List<team> invalidTeam = result.School.teams.Where(x => x.team_member.Count <= 1).ToList();
+            if(invalidTeam != null)
+            {
+                foreach (var item in invalidTeam) {
+                    error = new import_error_ViewModel
+                    {
+                        objectName = "MEMBER_NORMAL",
+                        parentObject = "MEMBER",
+                        occur_position = "N/A",
+                        msg = "The Team '" + item.team_name + "' have less than 2 member."
+                    };
+                    result.error.Add(error);
+                    result.School.teams.Remove(item);
+                }
+            }
             return result;
         }
         public string ValidateMemberImport(member member)

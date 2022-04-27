@@ -8,6 +8,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using interfaces = Capstone_SWP490.Services.Interfaces;
@@ -60,8 +61,8 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                         itemModel.institution_name = school.institution_name;
                         itemModel.school_phone = school.phone_number;
                         itemModel.school_address = school.address;
+                        itemModel.is_duplicate_school = _ischoolService.isDuplicateSchool(school);
                     }
-                    itemModel.is_duplicate_school = _ischoolService.checkDuplicate(itemModel.school_name, itemModel.institution_name);
                     data.Add(itemModel);
                 }
                 model.total_data = data.Count;
@@ -173,13 +174,39 @@ namespace Capstone_SWP490.Controllers.Orgnazition
         }
 
         [AuthorizationAccept(Roles = "ORGANIZER")]
-        public ActionResult EnableCoach(int user_id)
+        public async Task<ActionResult> EnableCoach(int user_id)
         {
             try
             {
                 app_user updated = _iapp_UserService.getByUserId(user_id);
+                List<school> schools = _ischoolService.findByCoachId(user_id);
+                bool isActive = false;
+                foreach (var item in schools)
+                {
+                    List<app_user> users = new List<app_user>();
+                    foreach (var team in item.teams)
+                    {
+                        foreach (var teamMember in team.team_member)
+                        {
+                            teamMember.member.app_user.active = true;
+                            await _iapp_UserService.update(teamMember.member.app_user);
+                        }
+                    }
+
+                    if (!isActive && (item.insert_date == null || item.update_date == null 
+                        || item.insert_date.Equals(item.update_date)))
+                    {
+                        item.active = 1;
+                        isActive = true;
+                    }
+                    else
+                    {
+                        item.active = 2;
+                    }
+                    await _ischoolService.update(item);
+                }
                 updated.active = true;
-                _iapp_UserService.update(updated);
+                await _iapp_UserService.update(updated);
                 new MailHelper().sendMailAfterConfirm(updated);
             }
             catch (Exception e)
@@ -190,13 +217,32 @@ namespace Capstone_SWP490.Controllers.Orgnazition
         }
 
         [AuthorizationAccept(Roles = "ORGANIZER")]
-        public ActionResult DisableCoach(int user_id, string reason)
+        public async Task<ActionResult> DisableCoach(int user_id, string reason)
         {
             try
             {
                 app_user updated = _iapp_UserService.getByUserId(user_id);
                 updated.active = false;
-                _iapp_UserService.update(updated);
+                List<school> schools = _ischoolService.findByCoachId(user_id);
+                foreach (var item in schools)
+                {
+                    if (item.active != -1)
+                    {
+                        List<app_user> users = new List<app_user>();
+                        foreach (var team in item.teams)
+                        {
+                            foreach (var teamMember in team.team_member)
+                            {
+                                teamMember.member.app_user.active = false;
+                                await _iapp_UserService.update(teamMember.member.app_user);
+                            }
+                        }
+
+                        item.active = -2;
+                        await _ischoolService.update(item);
+                    }
+                }
+                await _iapp_UserService.update(updated);
                 new MailHelper().sendMailDisableCoach(updated, "deactived", reason);
             }
             catch (Exception e)

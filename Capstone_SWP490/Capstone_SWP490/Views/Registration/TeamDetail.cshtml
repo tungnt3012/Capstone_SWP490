@@ -85,7 +85,7 @@
                                                 <a href="@Url.Action("MemberDetail", "Registration")?id=@item.member.member_id&teamId=@item.team_id">Detail</a>
                                                 @if (item.member.member_role == 4 && Model.Source != "VIEW")
                                                 {
-                                                    @("| ")<a style="color:red" href="@Url.Action("RemoveMember", "Registration")?member_id=@item.member.member_id&team_id=@item.team.team_id">Remove</a>
+                                                    @("| ")<a style="color:red" href="@Url.Action("RemoveMember", "Registration")?member_id=@item.member.member_id&team_id=@item.team_id">Remove</a>
                                                 }
                                             </td>
                                         </tr>
