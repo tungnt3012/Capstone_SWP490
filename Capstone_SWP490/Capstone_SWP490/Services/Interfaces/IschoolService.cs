@@ -30,7 +30,7 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<int> processSchool(int schoolId, string type, string note);
         Task<int> removeSchool(int schoolId);
 
-        bool isDuplicateSchool(school item);
+        bool checkDuplicate(string schoolName, string insitutionName);
 
 
         school findByNewRegistCoach(int coachId);

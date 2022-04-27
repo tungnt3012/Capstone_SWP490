@@ -38,6 +38,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     @ViewData["CREATE_ERROR"] = validateMsg;
                     return View();
                 }
+
                 app_user coachUser = coachSignUpHelper.buildCoachUser(data);
                 app_user createdAppUser = await _iapp_UserService.CreateUser(coachUser);
 
