@@ -190,19 +190,19 @@
     <value>No team recognized, please insert data carefully !</value>
   </data>
   <data name="MSG023" xml:space="preserve">
-    <value>- the Team '{0}' not defined in sheet TEAM yet, please check at sheet 'TEAM'</value>
+    <value>The Team '{0}' not defined in sheet TEAM yet, please check at sheet 'TEAM'</value>
   </data>
   <data name="MSG024" xml:space="preserve">
     <value>Email is used by other member</value>
   </data>
   <data name="MSG025" xml:space="preserve">
-    <value>- Member name cannot be blank\n</value>
+    <value>Member name cannot be blank</value>
   </data>
   <data name="MSG026" xml:space="preserve">
-    <value>- Member email is blank or invalid</value>
+    <value>Member email is blank or invalid</value>
   </data>
   <data name="MSG027" xml:space="preserve">
-    <value>- Member age must greater than or equal 15\n</value>
+    <value>Member age must greater than or equal 15</value>
   </data>
   <data name="MSG028" xml:space="preserve">
     <value>Cannot find school !</value>

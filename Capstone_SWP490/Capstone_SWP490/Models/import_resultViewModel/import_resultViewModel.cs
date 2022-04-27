@@ -12,6 +12,7 @@ namespace Capstone_SWP490.Models.school_memberViewModel
         public import_resultViewModel()
         {
             this.error = new List<import_error_ViewModel>();
+            TeamErrorList = new List<string>();
         }
         public bool RootError { get; set; } = false;
         public List<import_error_ViewModel> error { get; set; }
@@ -21,6 +22,7 @@ namespace Capstone_SWP490.Models.school_memberViewModel
         public team DisplayTeam { get; set; }
         public contest DisplayContest { get; set; }
         public string Source { get; set; } = "IMPORT";
+        public List<string> TeamErrorList { get; set; } 
         private void SortError()
         {
             if (error != null)
@@ -74,7 +76,7 @@ namespace Capstone_SWP490.Models.school_memberViewModel
             result.address = School.address;
             result.insert_date = DateTime.Now + "";
             result.active = School.active;
-            result.update_date = School.update_date;
+            result.update_date = School.insert_date;
             result.coach_id = School.coach_id;
             result.enabled = true;
             result.active = 1;
