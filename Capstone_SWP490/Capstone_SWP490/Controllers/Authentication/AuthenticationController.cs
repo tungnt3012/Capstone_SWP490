@@ -99,13 +99,14 @@ namespace Capstone_SWP490.Controllers
 
         public ActionResult Login()
         {
+            Session.RemoveAll();
             return View(new app_user());
         }
 
         [HttpPost]
         public ActionResult Login(app_user app_User)
         {
-
+            Session.RemoveAll();
             if (HttpContext.Session["username"] != null)
             {
                 return RedirectToAction("Index", "Home");

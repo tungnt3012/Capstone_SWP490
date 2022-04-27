@@ -60,3 +60,5 @@ Parameter name: String
 2022-04-20 18:03:04,328 [17] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
 2022-04-20 18:03:37,452 [26] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
 2022-04-20 18:13:22,275 [19] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
+2022-04-22 10:36:44,607 [DefaultQuartzScheduler_Worker-9] ERROR Capstone_SWP490.Services.postService [(null)] - An error occurred while executing the command definition. See the inner exception for details.
+2022-04-22 22:28:19,734 [DefaultQuartzScheduler_Worker-10] ERROR Capstone_SWP490.Services.postService [(null)] - An error occurred while executing the command definition. See the inner exception for details.
