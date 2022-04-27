@@ -253,7 +253,6 @@ namespace Capstone_SWP490.Services
             if (type.Equals("1"))
             {
                 List<school> current = _ischoolRepository.FindBy(x => x.school_id != data.school_id && x.coach_id == data.coach_id && x.enabled == true && x.active >= 1).ToList();
-                MailHelper mailHelper = new MailHelper();
                 foreach (var item in current)
                 {
                     item.enabled = false;
@@ -270,77 +269,72 @@ namespace Capstone_SWP490.Services
                     }
 
                 }
+
+                List<app_user> users = new List<app_user>();
                 foreach (var item in data.teams)
                 {
                     foreach (var member in item.team_member)
                     {
-                        if (!member.member.app_user.active)
-                        {
-                            member.member.app_user.active = true;
-                            await _iappUserService.update(member.member.app_user);
-                            try
-                            {
-                                mailHelper.sendMailToInsertedUser(member.member.app_user);
-                            }
-                            catch
-                            {
-
-                            }
-
-                        }
+                        member.member.app_user.active = true;
+                        await _iappUserService.update(member.member.app_user);
                     }
                 }
+                _ischoolRepository.getContext().Enable_App_User(data.school_id);
+                foreach (var item in users)
+                {
+                    new MailHelper().sendMailToInsertedUser(item);
+                }
             }
+            return await update(data);
+        }
+
+        public async Task<int> removeSchool(int schoolId)
+        {
+            school data = _ischoolRepository.FindBy(x => x.school_id == schoolId).FirstOrDefault();
+            if (data == null)
+            {
+                throw new Exception(Message.MSG028);
+            }
+            if (data.active == 1 || data.active == -1)
+            {
+                data.enabled = false;
                 return await update(data);
             }
+            return -1;
+        }
 
-            public async Task<int> removeSchool(int schoolId)
+        public bool checkDuplicate(string schoolName, string insitutionName)
+        {
+            if (StringUtils.isNullOrEmpty(schoolName) || StringUtils.isNullOrEmpty(insitutionName))
             {
-                school data = _ischoolRepository.FindBy(x => x.school_id == schoolId).FirstOrDefault();
-                if (data == null)
-                {
-                    throw new Exception(Message.MSG028);
-                }
-                if (data.active == 1 || data.active == -1)
-                {
-                    data.enabled = false;
-                    return await update(data);
-                }
-                return -1;
+                return false;
             }
+            school check = _ischoolRepository.FindBy(x => x.school_name.Equals(schoolName) && x.institution_name.Equals(insitutionName)).FirstOrDefault();
+            return check == null;
+        }
 
-            public bool isDuplicateSchool(school item)
-            {
-                if (item == null || StringUtils.isNullOrEmpty(item.school_name) || StringUtils.isNullOrEmpty(item.institution_name))
-                {
-                    return false;
-                }
-                school check = _ischoolRepository.FindBy(x => x.school_name.Equals(item.school_name) && x.institution_name.Equals(item.institution_name) && x.active != 3).FirstOrDefault();
-                return check != null;
-            }
+        public school findByNewRegistCoach(int coachId)
+        {
+            return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active == -1).FirstOrDefault();
+        }
 
-            public school findByNewRegistCoach(int coachId)
+        public async Task<int> RemoveSchoolByCoach(int coachId, int currentInsertId)
+        {
+            List<school> schools = _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active != -1 && x.active != 2 && x.enabled == true && x.school_id != currentInsertId).ToList();
+            int count = 0;
+            foreach (var item in schools)
             {
-                return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active != -1).FirstOrDefault();
+                item.enabled = false;
+                item.active = -2;
+                await update(item);
+                count++;
             }
+            return count;
+        }
 
-            public async Task<int> RemoveSchoolByCoach(int coachId, int currentInsertId)
-            {
-                List<school> schools = _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active != -1 && x.active != 2 && x.enabled == true && x.school_id != currentInsertId).ToList();
-                int count = 0;
-                foreach (var item in schools)
-                {
-                    item.enabled = false;
-                    item.active = -2;
-                    await update(item);
-                    count++;
-                }
-                return count;
-            }
-
-            public List<school> FindActive(int coachId)
-            {
-                return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active >= 1 && x.enabled == true).ToList();
-            }
+        public List<school> FindActive(int coachId)
+        {
+            return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active >= 1 && x.enabled == true).ToList();
         }
     }
+}

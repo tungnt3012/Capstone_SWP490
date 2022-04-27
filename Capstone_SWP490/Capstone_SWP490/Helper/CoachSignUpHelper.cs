@@ -15,7 +15,6 @@ namespace Capstone_SWP490.Helper
         private readonly RegistrationHelper registrationHelper = new RegistrationHelper();
         private readonly interfaces.Iapp_userService _iapp_UserService = new services.app_userService();
         private readonly ResourceManagerHelper resourceManagerHelper = new ResourceManagerHelper("Message");
-        private readonly interfaces.IschoolService _ischoolService = new services.schoolService();
         public app_user buildCoachUser(coachSignUpViewModel data)
         {
             app_user coachUser = new app_user();
@@ -88,23 +87,13 @@ namespace Capstone_SWP490.Helper
                 {
                     return Message.MSG003;
                 }
-                if (_iapp_UserService.isEmailInUse(data.email))
+                if (_iapp_UserService.GetUserByUsername(data.email) != null)
                 {
                     return Message.MSG002;
                 }
                 if (StringUtils.isNullOrEmpty(data.full_name))
                 {
                     return Message.MSG004;
-                }
-                school schoolCheck = new school
-                {
-                    school_name = data.school_name,
-                    institution_name = data.institution_name
-                };
-                if (_ischoolService.isDuplicateSchool(schoolCheck))
-                {
-                    return "School is registered by another,Please check SCHOOL NAME and INSITUTION NAME carefully \n" +
-                        "or contact to Organizer for more information";
                 }
                 return "";
             }

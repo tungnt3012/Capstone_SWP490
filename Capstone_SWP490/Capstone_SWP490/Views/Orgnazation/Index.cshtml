@@ -72,7 +72,7 @@
                                                             <td>
                                                                 @if (item.status == true)
                                                                 {
-                                                                    <a id="accept-check" href="@Url.Action("disable", "Orgnazation")?user_id=@item.coach_id">Accept</a>
+                                                                    <a href="@Url.Action("disable", "Orgnazation")?user_id=@item.coach_id">Accept</a>
                                                                 }
                                                                 else
                                                                 {
@@ -119,5 +119,4 @@
     document.getElementById("registration_importdata-cancel").addEventListener('click', function () {
          window.location.href ="@Url.Action("Index", "Registration")";
     });
-
 </script>

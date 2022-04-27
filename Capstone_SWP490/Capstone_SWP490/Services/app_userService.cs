@@ -103,7 +103,7 @@ namespace Capstone_SWP490.Services
 
         public app_userViewModel GetUserByUsername(string username)
         {
-            var u = _iapp_UserRepository.FindBy(x => x.user_name == username && x.active == true).FirstOrDefault();
+            var u = _iapp_UserRepository.FindBy(x => x.user_name == username).FirstOrDefault();
             if (u != null)
             {
                 app_userViewModel viewModel = new app_userViewModel
@@ -141,11 +141,11 @@ namespace Capstone_SWP490.Services
 
         public bool isEmailInUse(string userName, int coachId)
         {
-            //List<int?> existed = _iapp_UserRepository.getContext().Check_Mail_In_Use(userName, coachId).ToList();
-            //if (existed.FirstOrDefault() >= 1)
-            //{
-            //    return true;
-            //}
+            List<int?> existed = _iapp_UserRepository.getContext().Check_Mail_In_Use(userName, coachId).ToList();
+            if (existed.FirstOrDefault() >= 1)
+            {
+                return true;
+            }
             return false;
         }
 
@@ -401,11 +401,6 @@ namespace Capstone_SWP490.Services
                 }
             }
             return null;
-        }
-
-        public bool isEmailInUse(string email)
-        {
-            return _iapp_UserRepository.FindBy(x => x.user_name.ToUpper().Equals(email.ToUpper().Trim()) && x.active == true).FirstOrDefault() != null;
         }
     }
 }
