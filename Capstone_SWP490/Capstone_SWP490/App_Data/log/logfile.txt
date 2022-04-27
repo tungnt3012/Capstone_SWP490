@@ -60,5 +60,38 @@ Parameter name: String
 2022-04-20 18:03:04,328 [17] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
 2022-04-20 18:03:37,452 [26] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
 2022-04-20 18:13:22,275 [19] ERROR Capstone_SWP490.Helper.MailHelper [(null)] - Could not find file 'C:\Users\Admin\Desktop\Personal\v4\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\App_Data\AcceptRegistration.txt'.
+
 2022-04-22 10:36:44,607 [DefaultQuartzScheduler_Worker-9] ERROR Capstone_SWP490.Services.postService [(null)] - An error occurred while executing the command definition. See the inner exception for details.
 2022-04-22 22:28:19,734 [DefaultQuartzScheduler_Worker-10] ERROR Capstone_SWP490.Services.postService [(null)] - An error occurred while executing the command definition. See the inner exception for details.
+2022-04-27 10:48:43,808 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The FunctionImport 'Check_Mail_In_Use' could not be found in the container 'gocyberx_icpcEntities'.
+2022-04-27 10:52:43,193 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The FunctionImport 'Check_Mail_In_Use' could not be found in the container 'gocyberx_icpcEntities'.
+2022-04-27 10:52:58,860 [17] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The FunctionImport 'Check_Mail_In_Use' could not be found in the container 'gocyberx_icpcEntities'.
+2022-04-27 10:55:21,075 [18] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The FunctionImport 'Check_Mail_In_Use' could not be found in the container 'gocyberx_icpcEntities'.
+2022-04-27 10:55:56,616 [17] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The FunctionImport 'Check_Mail_In_Use' could not be found in the container 'gocyberx_icpcEntities'.
+2022-04-27 10:56:26,513 [17] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The FunctionImport 'Check_Mail_In_Use' could not be found in the container 'gocyberx_icpcEntities'.
+2022-04-27 10:59:05,098 [17] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The FunctionImport 'Check_Mail_In_Use' could not be found in the container 'gocyberx_icpcEntities'.
+2022-04-27 11:05:54,884 [17] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The FunctionImport 'Check_Mail_In_Use' could not be found in the container 'gocyberx_icpcEntities'.
+2022-04-27 11:05:54,917 [17] ERROR Capstone_SWP490.Helper.RegistrationHelper [(null)] - The FunctionImport 'Check_Mail_In_Use' could not be found in the container 'gocyberx_icpcEntities'.
+2022-04-27 11:07:56,731 [17] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-27 11:12:57,538 [18] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-27 11:27:22,534 [17] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-27 11:27:43,098 [18] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-27 11:29:45,272 [18] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-27 11:30:07,669 [19] ERROR Capstone_SWP490.Controllers.Coach.RegistrationController [(null)] - Value cannot be null.
+Parameter name: String
+2022-04-27 11:34:05,964 [39] ERROR Capstone_SWP490.Controllers.Organization.StatisticController [(null)] - System.InvalidOperationException: The FunctionImport 'Enable_App_User' could not be found in the container 'gocyberx_icpcEntities'.
+   at System.Data.Entity.Core.Common.Utils.CommandHelper.FindFunctionImport(MetadataWorkspace workspace, String containerName, String functionImportName)
+   at System.Data.Entity.Core.Objects.ObjectContext.CreateEntityCommandForFunctionImport(String functionName, EdmFunction& functionImport, ObjectParameter[] parameters)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction(String functionName, ObjectParameter[] parameters)
+   at Capstone_SWP490.gocyberx_icpcEntities.Enable_App_User(Nullable`1 schoolId) in C:\Users\a\Desktop\personal\code\v1\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\icpc.Context.cs:line 77
+   at Capstone_SWP490.Services.schoolService.<processSchool>d__24.MoveNext() in C:\Users\a\Desktop\personal\code\v1\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\Services\schoolService.cs:line 282
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Capstone_SWP490.Controllers.Organization.StatisticController.<RegistrationAction>d__8.MoveNext() in C:\Users\a\Desktop\personal\code\v1\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\Controllers\Organization\StatisticController.cs:line 60
