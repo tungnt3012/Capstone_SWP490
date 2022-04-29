@@ -104,7 +104,8 @@
                                 </div>
                             </div>
                         </div>
-
+                        @Html.TextBoxFor(m => m.event_id, new { @class = "hidden" })
+                        @Html.TextBoxFor(m => m.event_type, new { @class = "hidden", id = "EventType" })
                         <div class="form-group">
                             <div class="pull-right">
                                 <button type="submit" class="btn btn-primary" id="event-upload">Add</button>

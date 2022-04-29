@@ -21,6 +21,7 @@ namespace Capstone_SWP490.Services.Interfaces
         List<eventsViewModel> GetSubEventsByEventId(int id);
         List<eventsViewModel> GetSubEventsByEventIdAndUser(int id, int userId);
         Task<eventsViewModel> UpdateEvent(eventsViewModel eventsIn);
+        Task<eventsViewModel> UpdateSubEvent(eventsViewModel eventsIn);
         Task<eventsMainCreateViewModel> CreateEvent(eventsMainCreateViewModel eventsIn);
         Task<eventsViewModel> CreateSubEvent(eventsViewModel eventsIn);
         Task<bool> DeleteEvent(int id);

@@ -326,18 +326,18 @@ namespace Capstone_SWP490.Controllers
             return View(events);
         }
         [AuthorizationAccept(Roles = "ORGANIZER")]
-        public ActionResult SubEventEdit(int id)
+        public ActionResult SubEventEdit(int id, int mainEid)
         {
             ViewBag.Message = "Your contact page.";
             var events = _ieventService.GetEventsById(id);
-            ViewData["MainEvent"] = _ieventService.GetEventsById(id);
+            ViewData["MainEvent"] = _ieventService.GetEventsById(mainEid);
             return View(events);
         }
 
         [HttpPost]
         public async Task<ActionResult> SubEventEdit(eventsViewModel events)
         {
-            var rsUpdate = await _ieventService.UpdateEvent(events);
+            var rsUpdate = await _ieventService.UpdateSubEvent(events);
             if (rsUpdate != null)
             {
                 ViewData["success"] = "*Edit Event Successfully !!!";

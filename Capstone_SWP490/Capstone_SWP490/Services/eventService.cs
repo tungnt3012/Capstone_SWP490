@@ -263,8 +263,8 @@ namespace Capstone_SWP490.Services
                                     //update ngày subEvent theo Main Event
                                     int eId = Convert.ToInt32(item);
                                     var subE = _ieventRepository.FindBy(x => x.event_id == eId).FirstOrDefault();
-                                    subE.start_date = Convert.ToDateTime(eOutput.start_date.Date) + subE.start_date.TimeOfDay;
-                                    subE.end_date = Convert.ToDateTime(eOutput.start_date.Date) + subE.end_date.TimeOfDay;
+                                    subE.start_date = Convert.ToDateTime(eOutput.start_date.Date).Add(subE.start_date.TimeOfDay);
+                                    subE.end_date = Convert.ToDateTime(eOutput.start_date.Date).Add(subE.end_date.TimeOfDay);
                                     if (await _ieventRepository.Update(subE, subE.event_id) == -1)
                                     {
                                         return null;
@@ -285,7 +285,49 @@ namespace Capstone_SWP490.Services
             };
             return null;
         }
+        public async Task<eventsViewModel> UpdateSubEvent(eventsViewModel eventsIn)
+        {
+            var e = _ieventRepository.FindBy(x => x.event_id == eventsIn.event_id).FirstOrDefault();
+            if (e != null)
+            {
+                //DateTime tempStart = e.start_date.Date.Add(eventsIn.start_time);
+                //DateTime tempEnd = e.end_date.Date.Add(eventsIn.end_time);
 
+                e.title = eventsIn.title;
+                e.desctiption = eventsIn.desctiption;
+                e.start_date = e.start_date.Date.Add(eventsIn.start_time);
+                e.end_date = e.end_date.Date.Add(eventsIn.end_time);
+                e.venue = eventsIn.venue;
+                e.fan_page = eventsIn.fan_page;
+                e.note = eventsIn.note;
+                e.status = eventsIn.status;
+                e.contactor_name = eventsIn.contactor_name;
+                e.contactor_email = eventsIn.contactor_email;
+                e.contactor_phone = eventsIn.contactor_phone;
+                if (await _ieventRepository.Update(e, e.event_id) != -1)
+                {
+                    var eOutput = new eventsViewModel
+                    {
+                        event_id = e.event_id,
+                        desctiption = e.desctiption,
+                        event_type = e.event_type,
+                        end_date = e.end_date,
+                        fan_page = e.fan_page,
+                        note = e.note,
+                        start_date = e.start_date,
+                        title = e.title,
+                        venue = e.venue,
+                        status = e.status,
+                        contactor_phone = e.contactor_phone,
+                        contactor_email = e.contactor_email,
+                        contactor_name = e.contactor_name
+                    };
+
+                    return eOutput;
+                }
+            };
+            return null;
+        }
         public async Task<eventsMainCreateViewModel> CreateEvent(eventsMainCreateViewModel eventsIn)
         {
             //var e = _ieventRepository.FindBy(x => x.event_id == eventsIn.event_id).FirstOrDefault();

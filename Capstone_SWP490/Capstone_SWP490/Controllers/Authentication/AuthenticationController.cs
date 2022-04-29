@@ -72,12 +72,12 @@ namespace Capstone_SWP490.Controllers
                 {
                     ViewData["ChangePasswordSuccess"] = "Change password Successfull!!!";
                     var user = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
-                    //if (user.user_role.Equals("ORGANIZER"))
-                    //{
-                    //    Session.RemoveAll();
-                    //    FormsAuthentication.SignOut();
-                    //    return RedirectToAction("Login", "Authentication");
-                    //}
+                    if (user.user_role.Equals("ORGANIZER"))
+                    {
+                        Session.RemoveAll();
+                        FormsAuthentication.SignOut();
+                        return View("Login");
+                    }
                     return View(reset);
                 }
                 ViewData["ChangePasswordError"] = "Change password Fail!!!";
@@ -201,7 +201,7 @@ namespace Capstone_SWP490.Controllers
                      && app_UserIn.psw == app_UserIn.repsw
                      && app_UserIn.psw.Length >= 6 && app_UserIn.repsw.Length >= 6)
                 {
-                    if (await _iapp_UserService.UpdatePasswordFirst(HttpContext.Session["username"].ToString(), app_UserIn.psw, passToData, app_UserIn.send_me_event))
+                    if (await _iapp_UserService.UpdatePasswordFirst(HttpContext.Session["username"].ToString(), app_UserIn.psw, passToData, false))
                     {
                         return RedirectToAction("RegisShirtSizing", "Authentication");
                     }
@@ -266,7 +266,6 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("Login", "Authentication");
         }
 
-        [AuthorizationAccept(Roles = "MEMBER, COACH, CO-COACH")]
         public ActionResult RegisShirtSizing()
         {
             if (HttpContext.Session["username"] != null)
@@ -274,6 +273,10 @@ namespace Capstone_SWP490.Controllers
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
                 if (u != null)
                 {
+                    if (u.user_role.Equals("ORGANIZER"))
+                    {
+                        return RedirectToAction("ShirtSizing", "Home");
+                    }
                     var mem = _imemberService.GetMemberByUserId(u.user_id);
                     if (mem != null)
                     {
@@ -284,7 +287,7 @@ namespace Capstone_SWP490.Controllers
                 ViewData["color"] = "red";
                 return View(new member());
             }
-            return RedirectToAction("Login", "Authentication");
+            return RedirectToAction("ShirtSizing", "Home");
         }
 
         [AuthorizationAccept(Roles = "MEMBER, COACH, CO-COACH")]
