@@ -149,8 +149,6 @@ namespace Capstone_SWP490.Controllers
             return View(events);
         }
 
-
-
         [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult EventUpload()
         {

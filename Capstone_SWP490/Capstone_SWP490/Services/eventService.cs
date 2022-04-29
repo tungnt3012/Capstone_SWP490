@@ -347,8 +347,8 @@ namespace Capstone_SWP490.Services
                 {
                     title = eventsIn.subEvent.title,
                     desctiption = eventsIn.subEvent.desctiption,
-                    start_date = eventsIn.start_date + eventsIn.subEvent.start_time,
-                    end_date = eventsIn.end_date + eventsIn.subEvent.end_time,
+                    start_date = eventsIn.start_date.Date.Add(eventsIn.subEvent.start_time),
+                    end_date = eventsIn.start_date.Date.Add(eventsIn.subEvent.end_time),
                     venue = eventsIn.subEvent.venue,
                     fan_page = eventsIn.subEvent.fan_page,
                     contactor_name = eventsIn.subEvent.contactor_name,
@@ -356,17 +356,18 @@ namespace Capstone_SWP490.Services
                     contactor_phone = eventsIn.subEvent.contactor_phone,
                     note = eventsIn.note ?? "",
                     event_type = 2,
-                    status = eventsIn.subEvent.status
+                    status = eventsIn.subEvent.status,
                 };
+                
                 var subEvent = await _ieventRepository.Create(se);
                 if (subEvent != null)
                 {
-                    var e = new @event
+                    var me = new @event
                     {
                         title = eventsIn.title,
                         desctiption = eventsIn.desctiption,
-                        start_date = eventsIn.start_date.Add(new TimeSpan(00, 00, 01)),
-                        end_date = eventsIn.start_date.Add(new TimeSpan(23, 59, 59)),
+                        start_date = eventsIn.start_date.Date.Add(new TimeSpan(00, 00, 01)),
+                        end_date = eventsIn.start_date.Date.Add(new TimeSpan(23, 59, 59)),
                         venue = eventsIn.venue,
                         fan_page = eventsIn.fan_page,
                         contactor_name = eventsIn.contactor_name,
@@ -378,7 +379,7 @@ namespace Capstone_SWP490.Services
                         sub_event = subEvent.event_id + ","
                     };
 
-                    var newEvent = await _ieventRepository.Create(e);
+                    var newEvent = await _ieventRepository.Create(me);
                     if (newEvent != null)
                     {
                         return new eventsMainCreateViewModel
