@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.Models;
+using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Sercurity;
 using Capstone_SWP490.Services;
 using Capstone_SWP490.Services.Interfaces;
@@ -51,7 +52,7 @@ namespace Capstone_SWP490.Controllers.Admin
             return RedirectToAction("Login", "Authentication");
         }
         [HttpPost]
-        public async Task<ActionResult> AddOrganizer(app_user app_UserIn)
+        public async Task<ActionResult> AddOrganizer(app_userViewModel app_UserIn)
         {
             var u = await _iapp_UserService.CreateOrganizer(app_UserIn);
             if (u != null)

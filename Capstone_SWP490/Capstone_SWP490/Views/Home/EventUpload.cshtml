@@ -112,11 +112,11 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="Location">Start date<span id="not-empty">*</span></label>
+                                    <label for="Location">Start Time<span id="not-empty">*</span></label>
                                     <div class="row">
-                                        <div class="col-lg-6">
-                                            @Html.TextBoxFor(m => m.subEvent.start_date, new { type = "date", @class = "form-control", id = "SubEventStartDate", @onchange = "checkDate()", name = "SubEventStartDate", placeholder = "Start date" })
-                                        </div>
+                                        @*<div class="col-lg-6">
+                                                @Html.TextBoxFor(m => m.subEvent.start_date, new { type = "date", @class = "form-control", id = "SubEventStartDate", @onchange = "checkDate()", name = "SubEventStartDate", placeholder = "Start date" })
+                                            </div>*@
                                         <div class="col-lg-6">
                                             @Html.TextBoxFor(m => m.subEvent.start_time, new { type = "time", @class = "form-control", id = "SubEventStartTime", @onchange = "checkTime()", name = "SubEventStartTime", placeholder = "Start Time" })
                                         </div>
@@ -125,11 +125,11 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="Location">End date<span id="not-empty">*</span></label>
+                                    <label for="Location">End Time<span id="not-empty">*</span></label>
                                     <div class="row">
-                                        <div class="col-lg-6">
-                                            @Html.TextBoxFor(m => m.subEvent.end_date, new { type = "date", @class = "form-control", id = "SubEventEndDate", @onchange = "checkDate()", name = "SubEventEndDate", placeholder = "End date" })
-                                        </div>
+                                        @*<div class="col-lg-6">
+                                                @Html.TextBoxFor(m => m.subEvent.end_date, new { type = "date", @class = "form-control", id = "SubEventEndDate", @onchange = "checkDate()", name = "SubEventEndDate", placeholder = "End date" })
+                                            </div>*@
                                         <div class="col-lg-6">
                                             @Html.TextBoxFor(m => m.subEvent.end_time, new { type = "time", @class = "form-control", id = "SubEventEndTime", @onchange = "checkTime()", name = "SubEventEndTime", placeholder = "End Time" })
                                         </div>
@@ -225,8 +225,8 @@
     function checkDate() {
         var _startDateMainEvent = $('#EventStartDate').val()+' 00:00:01';
         var _endDateMainEvent = $('#EventStartDate').val()+' 23:59:59';
-        var _startDateSubEvent = $('#SubEventStartDate').val();
-        var _endDateSubEvent = $('#SubEventEndDate').val();
+        var _startDateSubEvent = $('#EventStartDate').val();
+        var _endDateSubEvent = $('#EventStartDate').val();
 
         var _startSubTime = $('#SubEventStartTime').val();
         var _endSubTime = $('#SubEventEndTime').val();

@@ -46,6 +46,7 @@
                             <th class="th-sm" width="30%">Full Name</th>
                             <th class="th-sm" width="30%">Account Name</th>
                             <th class="th-sm" width="10%">Role</th>
+                            <th class="th-sm" width="10%">Phone</th>
                             <th class="th-sm" width="10%">Verify</th>
                             <th class="th-sm" width="10%">Status</th>
                             <th class="th-sm" width="10%"></th>
@@ -60,6 +61,7 @@
                                     <td>@x.full_name</td>
                                     <td>@x.email</td>
                                     <td>@x.user_role</td>
+                                    <td>@(x.phone??"no phone")</td>
                                     <td>@x.verified</td>
                                     <td style="color: @(x.active == true ? "green" : " red")">@(x.active == true ? "Active" : "Deactive")</td>
                                     <td>
@@ -78,16 +80,16 @@
                     </tbody>
                 </table>
                 @*<div class="text-center" id="p-paging">
-            <ul class="pagination pagination-sm no-margin">
-                <li><a href="/Admin/NextPage?pageIndex=0">&laquo;</a></li>
-                @for (int i = 0; i < lstUsers.TotalPage; i++)
-                {
-                    int n = i + 1;
-                    <li><a href="/Admin/NextPage?pageIndex=@n">@n</a></li>
-                }
-                <li><a href="/Admin/NextPage?pageIndex=@lstUsers.TotalPage">&raquo;</a></li>
-            </ul>
-        </div>*@
+                        <ul class="pagination pagination-sm no-margin">
+                            <li><a href="/Admin/NextPage?pageIndex=0">&laquo;</a></li>
+                            @for (int i = 0; i < lstUsers.TotalPage; i++)
+                            {
+                                int n = i + 1;
+                                <li><a href="/Admin/NextPage?pageIndex=@n">@n</a></li>
+                            }
+                            <li><a href="/Admin/NextPage?pageIndex=@lstUsers.TotalPage">&raquo;</a></li>
+                        </ul>
+                    </div>*@
 
             </div>
         </div>

@@ -22,7 +22,9 @@ namespace Capstone_SWP490.Services
 
         public IEnumerable<eventsMainViewModel> GetAllEventsAvailale()
         {
-            var events = _ieventRepository.FindBy(x => x.event_type == 1 && x.status != -1).ToList();
+            var events = (from x in _ieventRepository.FindBy(x => x.event_type == 1 && x.status != -1)
+                          orderby x.start_date ascending
+                          select x).ToList();
             var lstEventsMainViewModels = new List<eventsMainViewModel>();
             if (events != null)
             {
@@ -296,17 +298,15 @@ namespace Capstone_SWP490.Services
                 && (!string.IsNullOrWhiteSpace(eventsIn.subEvent.title)
                 && !string.IsNullOrWhiteSpace(eventsIn.subEvent.desctiption)
                 && !string.IsNullOrWhiteSpace(eventsIn.subEvent.venue)
-                && !string.IsNullOrWhiteSpace(eventsIn.subEvent.fan_page)
-                && Convert.ToDateTime("01/01/0001") != eventsIn.subEvent.start_date
-                && Convert.ToDateTime("01/01/0001") != eventsIn.subEvent.end_date))
+                && !string.IsNullOrWhiteSpace(eventsIn.subEvent.fan_page)))
             {
 
                 var se = new @event
                 {
                     title = eventsIn.subEvent.title,
                     desctiption = eventsIn.subEvent.desctiption,
-                    start_date = eventsIn.subEvent.start_date + eventsIn.subEvent.start_time,
-                    end_date = eventsIn.subEvent.end_date + eventsIn.subEvent.end_time,
+                    start_date = eventsIn.start_date + eventsIn.subEvent.start_time,
+                    end_date = eventsIn.end_date + eventsIn.subEvent.end_time,
                     venue = eventsIn.subEvent.venue,
                     fan_page = eventsIn.subEvent.fan_page,
                     contactor_name = eventsIn.subEvent.contactor_name,

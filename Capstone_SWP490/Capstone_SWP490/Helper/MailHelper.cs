@@ -1,4 +1,5 @@
 ﻿using Capstone_SWP490.mailModel;
+using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Models.events_ViewModel;
 using log4net;
 using System;
@@ -179,7 +180,7 @@ namespace Capstone_SWP490.Helper
             sendMailAsync(emailModel);
         }
 
-        public void sendMailNewOrganizerAccount(app_user user)
+        public void sendMailNewOrganizerAccount(app_userViewModel user)
         {
             EmailModel emailModel = new EmailModel();
             string mailContent = readMailContent("NewAccountOrganizer.txt");

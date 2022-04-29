@@ -25,5 +25,6 @@ namespace Capstone_SWP490.Services.Interfaces
         AjaxResponseViewModel<List<contestViewModel>> FilterContest(string keyFilter);
         List<member_contest_ViewModel> getContestMemberModel(List<contest_member> contestMember);
         List<registered_contest_ViewModel> GetStaticAllContestAvailale();
+        List<registered_contest_ViewModel> GetStaticContest();
     }
 }

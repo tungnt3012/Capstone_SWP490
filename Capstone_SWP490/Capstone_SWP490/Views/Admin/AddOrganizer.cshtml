@@ -1,4 +1,4 @@
-﻿@model app_user
+﻿@model Capstone_SWP490.Models.app_userViewModel.app_userViewModel
 @{
     ViewBag.Title = "Add | Organizer";
 }
@@ -27,6 +27,11 @@
                         @Html.TextBoxFor(x => x.email, new { type = "email", @class = "form-control", id = "AddOrganizerEmail", placeholder = "example@gmail.com", required = "required" })
                     </div>
                     <div class="form-group">
+                        <label for="phone">Phone<span id="not-empty">*</span></label>
+                        @Html.TextBoxFor(x => x.phone, new { type = "tel", @class = "form-control", id = "AddOrganizerEPhone", placeholder = "0988888888", @onchange= "checkPhone()", required = "required" })
+                        <span style="color:red" id="text-error-phone"></span>
+                    </div>
+                    <div class="form-group">
                         <div class="pull-right">
                             <button type="button" class="btn btn-secondary" onclick="history.back()" ; return false;" id="event-canner">Cancel</button>
                             <button type="submit" class="btn btn-primary" id="event-upload">Save</button>
@@ -40,45 +45,62 @@
                 }
                 @*<div class="row">
 
-            <div class="col-lg-12">
-                <div class="form-group">
-                    <label for="firstName">User name<span id="not-empty">*</span></label>
-                    <input class="form-control" id="AddOrganizerUserName" name="AddOrganizerUserName" , value="" placeholder="User name" required="required" />
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="form-group">
-                    <label for="firstName">Password<span id="not-empty">*</span></label>
-                    <input type="password" class="form-control" id="AddOrganizerPassword" name="TiLocationtle" , value="" placeholder="Password" required="required" />
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="form-group">
-                    <label for="firstName">Re-enter Password<span id="not-empty">*</span></label>
-                    <input type="password" class="form-control" id="AddOrganizerReenterPassword" name="TiLocationtle" , value="" placeholder="Re-enter Password" required="required" />
-                </div>
-                <span id="message2"> </span>
-            </div>
-            <div class="col-lg-12">
-                <div class="form-group">
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-secondary" onclick="history.back()" ; return false;" id="event-canner">Cancel</button>
-                        <button type="submit" class="btn btn-primary" id="event-upload">Save</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12" style="padding-top:15px;">
-                <div class="form-group pull-right">
-                    <span style="color:red">*Add a new account for the organizers(carefully)</span>
-                </div>
-            </div>
-        </div>*@
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="firstName">User name<span id="not-empty">*</span></label>
+                                <input class="form-control" id="AddOrganizerUserName" name="AddOrganizerUserName" , value="" placeholder="User name" required="required" />
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="firstName">Password<span id="not-empty">*</span></label>
+                                <input type="password" class="form-control" id="AddOrganizerPassword" name="TiLocationtle" , value="" placeholder="Password" required="required" />
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="firstName">Re-enter Password<span id="not-empty">*</span></label>
+                                <input type="password" class="form-control" id="AddOrganizerReenterPassword" name="TiLocationtle" , value="" placeholder="Re-enter Password" required="required" />
+                            </div>
+                            <span id="message2"> </span>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-secondary" onclick="history.back()" ; return false;" id="event-canner">Cancel</button>
+                                    <button type="submit" class="btn btn-primary" id="event-upload">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12" style="padding-top:15px;">
+                            <div class="form-group pull-right">
+                                <span style="color:red">*Add a new account for the organizers(carefully)</span>
+                            </div>
+                        </div>
+                    </div>*@
 
             </div>
         </div>
     </div>
 </div>
+
 <script>
+    function checkPhone() {
+        var _phone = $('#AddOrganizerEPhone').val();
+        if (isPhone(_phone) && _phone.length == 10 ) {
+            $('#event-upload').attr("disabled", false);
+            $('#text-error-phone').html("");
+        } else {
+            $('#event-upload').attr("disabled", true);
+            $('#text-error-phone').html("The Phone form has Start from 0 And has 10 digit!!!");
+        }
+    }
+
+    function isPhone(phone) {
+        var regex = /(([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[1-4|6-9]]){3})+[0-9]{7}\b/g;
+        return regex.test(phone);
+    }
+
     document.getElementById('AddOrganizerFullName').onkeyup = function () {
         var AddOrganizerFullName = $("#AddOrganizerFullName").val();
         if (AddOrganizerFullName.length >= 1) {

@@ -233,31 +233,45 @@ namespace Capstone_SWP490.Services
             var allUser = _iapp_UserRepository.FindBy(x => x.user_id != userCrr).ToList();
             if (allUser != null)
             {
-                var users = allUser.Select(x => new app_userViewModel()
-                {
-                    user_id = x.user_id,
-                    active = x.active,
-                    email = x.email,
-                    encrypted_psw = x.encrypted_psw,
-                    full_name = x.full_name,
-                    psw = x.psw,
-                    repsw = x.psw,
-                    user_name = x.user_name,
-                    user_role = x.user_role,
-                    verified = x.verified
-                }).ToList();
-                //int totalPage = allUser.Count / pageSize;
-                //if (allUser.Count % pageSize > 0)
+                //var users = allUser.Select(x => new app_userViewModel()
                 //{
-                //    totalPage = (allUser.Count / pageSize) + 1;
-                //}
+                //    user_id = x.user_id,
+                //    active = x.active,
+                //    email = x.email,
+                //    encrypted_psw = x.encrypted_psw,
+                //    full_name = x.full_name,
+                //    psw = x.psw,
+                //    repsw = x.psw,
+                //    user_name = x.user_name,
+                //    user_role = x.user_role,
+                //    verified = x.verified
+                //}).ToList();
+                var users = new List<app_userViewModel>();
+                foreach (var x in allUser)
+                {
+                    var u = new app_userViewModel
+                    {
+                        active = x.active,
+                        confirm_password = x.confirm_password,
+                        email = x.email,
+                        full_name = x.full_name,
+                        user_id = x.user_id,
+                        user_name = x.user_name,
+                        user_role = x.user_role,
+                        verified = x.verified,
+                    };
+                    var m = _imemberRepository.FindBy(mb => mb.user_id == x.user_id).FirstOrDefault();
+                    if (m != null)
+                    {
+                        u.phone = m.phone_number;
+                    }
+                    users.Add(u);
+                }
+
                 var paging = new PagingOutput<List<app_userViewModel>>
                 {
                     Data = users,
-                    //Index = pageIndex,
-                    //PageSize = pageSize,
                     TotalItem = allUser.Count,
-                    //TotalPage = totalPage
                 };
                 return paging;
             }
@@ -370,7 +384,7 @@ namespace Capstone_SWP490.Services
             return false;
         }
 
-        public async Task<app_user> CreateOrganizer(app_user userIn)
+        public async Task<app_userViewModel> CreateOrganizer(app_userViewModel userIn)
         {
             if (!String.IsNullOrWhiteSpace(userIn.full_name) && !String.IsNullOrWhiteSpace(userIn.email))
             {
@@ -395,8 +409,44 @@ namespace Capstone_SWP490.Services
                     var uChecker = await _iapp_UserRepository.Create(userTemp);
                     if (uChecker != null)
                     {
-                        new MailHelper().sendMailNewOrganizerAccount(uChecker);
-                        return uChecker;
+                        var member = new member
+                        {
+                            member_role = 5,
+                            user_id = uChecker.user_id,
+                            dob = DateTime.Now,
+                            email = uChecker.email,
+                            enabled = true,
+                            first_name = uChecker.full_name.Split(' ')[0].ToString(),
+                            middle_name = "",
+                            last_name = uChecker.full_name.Split(' ').Last().ToString(),
+                            gender = 1,
+                            shirt_sizing = "ORGANIZER",
+                            year = DateTime.Now.Year,
+                            event_notify = false,
+                            icpc_id = 0,
+                            award = "No",
+                            phone_number = userIn.phone,
+                        };
+
+                        var crMem = await _imemberRepository.Create(member);
+                        if (crMem != null)
+                        {
+                            var eNew = new app_userViewModel
+                            {
+                                active = uChecker.active,
+                                confirm_password = uChecker.confirm_password,
+                                email = uChecker.email,
+                                full_name = uChecker.full_name,
+                                phone = crMem.phone_number,
+                                psw = uChecker.psw,
+                                user_id = uChecker.user_id,
+                                user_name = uChecker.user_name,
+                                user_role = uChecker.user_role,
+                                verified = uChecker.verified,
+                            };
+                            new MailHelper().sendMailNewOrganizerAccount(eNew);
+                            return eNew;
+                        }
                     }
                 }
             }

@@ -45,7 +45,7 @@ namespace Capstone_SWP490.Controllers
 
             return View();
         }
-        
+
         public ActionResult ListHomePageContent()
         {
             ViewBag.Message = "Your contact page.";
@@ -114,9 +114,9 @@ namespace Capstone_SWP490.Controllers
             var rsPage = await _ipage_contentService.DeleteContent(id);
             var lstPageContent = _ipage_contentRepository.GetPage_ContentByPageId("SCOREBOARD");
             ViewData["PageContents"] = lstPageContent;
-            if (rsPage!=null)
+            if (rsPage != null)
             {
-                ViewData["success"] = "Delete "+ rsPage.title + " Successfully!!!";
+                ViewData["success"] = "Delete " + rsPage.title + " Successfully!!!";
                 return View("ScoreboardManagement");
             }
             ViewData["error"] = "Delete " + rsPage.title + " Fail!!!";
@@ -149,7 +149,7 @@ namespace Capstone_SWP490.Controllers
             return View(events);
         }
 
-       
+
 
         [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult EventUpload()
@@ -568,7 +568,7 @@ namespace Capstone_SWP490.Controllers
         public async Task<ActionResult> ContestUpload(contestViewModel contest)
         {
             var rsCreate = await _icontestService.CreateContest(contest);
-            if (rsCreate != null)
+            if (rsCreate != null && rsCreate.contest_id != 0)
             {
                 ViewData["success"] = "*Add Contest Successfully !!!";
                 return View(rsCreate);

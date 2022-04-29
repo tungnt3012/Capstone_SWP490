@@ -18,6 +18,8 @@ namespace Capstone_SWP490.Services
         private readonly IcontestRepository _icontestRepository = new contestRepository();
         private readonly ImemberRepository _imemberRepository = new memberRepository();
         private readonly Icontest_memberRepository _icontest_memberRepository = new contest_memberRepository();
+        private readonly IschoolRepository _ischoolRepository = new schoolRepository();
+        private readonly Iteam_memberRepository _iteam_memberRepository = new teamMemberRepository();
 
         public contest getByCode(string code)
         {
@@ -29,7 +31,7 @@ namespace Capstone_SWP490.Services
             {
                 return null;
             }
-            }
+        }
 
         public contest getByCodeOrName(string code, string name)
         {
@@ -136,7 +138,10 @@ namespace Capstone_SWP490.Services
                     code = contestIn.code,
                     note = contestIn.note,
                     venue = contestIn.venue,
+                    start_date = DateTime.Now, 
+                    end_date = DateTime.Now,
                 };
+
                 if (contestIn.contest_type.Equals("Team"))
                 {
                     c.max_contestant = contestIn.max_contestant;
@@ -344,6 +349,65 @@ namespace Capstone_SWP490.Services
                     lstContestOut.Add(cTemp);
                 }
                 return lstContestOut;
+            }
+            return null;
+        }
+
+        public List<registered_contest_ViewModel> GetStaticContest()
+        {
+            var schools = _ischoolRepository.FindBy(x => x.active == 2 && x.enabled == true).ToList();
+            List<team> teamRs = new List<team>();
+            var lstOut = new List<registered_contest_ViewModel>();
+            if (schools.Count > 0)
+            {
+                var lstMembers = new List<member>();
+                foreach (var x in schools)
+                {
+                    if (x.teams.Count > 0)
+                    {
+                        foreach (var t in x.teams)
+                        {
+                            if (t.enabled == true)
+                            {
+                                var lstTeamMember = _iteam_memberRepository.FindBy(tm => tm.team_id == t.team_id).ToList();
+                                foreach (var mem in lstTeamMember)
+                                {
+                                    var findMem = _imemberRepository.FindBy(fm => fm.member_id == mem.member_id).FirstOrDefault();
+                                    if (findMem != null)
+                                    {
+                                        lstMembers.Add(findMem);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                var fContest = _icontestRepository.FindBy(contests => contests.max_contestant != -1).ToList();
+                if (fContest.Count > 0)
+                {
+                    foreach (var c in fContest)
+                    {
+                        var memberInContest = _icontest_memberRepository.FindBy(x => x.contest_id == c.contest_id).ToList();
+                        var lstM = new List<member>();
+
+                        if (memberInContest.Count > 0)
+                        {
+                            foreach (var mc in memberInContest)
+                            {
+                                foreach (var m in lstMembers)
+                                {
+                                    if (mc.member_id == m.member_id)
+                                    {
+                                        lstM.Add(m);
+                                    }
+                                }
+                            }
+                        }
+                        lstOut.Add(new registered_contest_ViewModel { contest = c, lstMember = lstM, contestant_number = lstM.Count });
+                    }
+                }
+                return lstOut;
             }
             return null;
         }

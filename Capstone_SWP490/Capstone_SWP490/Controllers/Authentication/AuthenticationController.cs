@@ -1,6 +1,7 @@
 ﻿using Capstone_SWP490.Constant.Const;
 using Capstone_SWP490.Models.app_userViewModel;
 using Capstone_SWP490.Models.memberViewModel;
+using Capstone_SWP490.Sercurity;
 using Capstone_SWP490.Services;
 using Capstone_SWP490.Services.Interfaces;
 using System;
@@ -58,7 +59,7 @@ namespace Capstone_SWP490.Controllers
         {
             if (HttpContext.Session["username"] != null)
             {
-                return View();
+                return View(new reset_password());
             }
             return RedirectToAction("Login", "Authentication");
         }
@@ -71,12 +72,12 @@ namespace Capstone_SWP490.Controllers
                 {
                     ViewData["ChangePasswordSuccess"] = "Change password Successfull!!!";
                     var user = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
-                    if (user.user_role.Equals("ORGANIZER"))
-                    {
-                        Session.RemoveAll();
-                        FormsAuthentication.SignOut();
-                        return RedirectToAction("Login", "Authentication");
-                    }
+                    //if (user.user_role.Equals("ORGANIZER"))
+                    //{
+                    //    Session.RemoveAll();
+                    //    FormsAuthentication.SignOut();
+                    //    return RedirectToAction("Login", "Authentication");
+                    //}
                     return View(reset);
                 }
                 ViewData["ChangePasswordError"] = "Change password Fail!!!";
@@ -222,7 +223,7 @@ namespace Capstone_SWP490.Controllers
                 {
                     return RedirectToAction("ChangePasswordFirst", "Authentication");
                 }
-                return View(new app_userViewModel());
+                return View(new reset_password());
             }
             return RedirectToAction("Login", "Authentication");
         }
@@ -233,9 +234,14 @@ namespace Capstone_SWP490.Controllers
             if (HttpContext.Session["username"] != null)
             {
                 var u = _iapp_UserService.GetUserByUsername(HttpContext.Session["username"].ToString());
-                if (u.psw.Equals(app_UserIn.old_password))
+                if (u.psw.Equals(app_UserIn.new_password))
                 {
-                    ViewData["ChangePasswordError"] = "Password has same the old password!!!";
+                    ViewData["ChangePasswordError"] = "The new password cannot be the same as the Current password!!!";
+                    return View();
+                }
+                if (!u.psw.Equals(app_UserIn.old_password))
+                {
+                    ViewData["ChangePasswordError"] = "Current password is incorrect!!!";
                     return View();
                 }
                 MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
@@ -260,6 +266,7 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("Login", "Authentication");
         }
 
+        [AuthorizationAccept(Roles = "MEMBER, COACH, CO-COACH")]
         public ActionResult RegisShirtSizing()
         {
             if (HttpContext.Session["username"] != null)
@@ -270,14 +277,17 @@ namespace Capstone_SWP490.Controllers
                     var mem = _imemberService.GetMemberByUserId(u.user_id);
                     if (mem != null)
                     {
+                         ViewData["color"] = "red";
                         return View(mem);
                     }
                 }
+                ViewData["color"] = "red";
                 return View(new member());
             }
             return RedirectToAction("Login", "Authentication");
         }
 
+        [AuthorizationAccept(Roles = "MEMBER, COACH, CO-COACH")]
         [HttpPost]
         public async Task<ActionResult> RegisShirtSizing(member member)
         {

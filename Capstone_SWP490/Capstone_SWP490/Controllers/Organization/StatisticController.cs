@@ -36,8 +36,8 @@ namespace Capstone_SWP490.Controllers.Organization
                 //model.total_contestant = _ischoolService.getTotalContestantInRegistered();
                 model.total_teams = _ischoolService.GetTeams().Count();
 
-                model.total_contestant = _icontestService.GetStaticAllContestAvailale().Count();
-                model.list_registered_contest = _icontestService.GetStaticAllContestAvailale();
+                model.total_contestant = _icontestService.GetStaticContest().Count();
+                model.list_registered_contest = _icontestService.GetStaticContest();
                 model.statistic_EventViewModel = _ieventService.EventStatic();
                 model.statistic_shirtSizeViewModel = _imemberService.statistic_ShirtSizeView();
                 return View(model);
@@ -90,8 +90,8 @@ namespace Capstone_SWP490.Controllers.Organization
             statistic_index_ViewModel model = new statistic_index_ViewModel();
             try
             {
-                model.total_contestant = _icontestService.GetStaticAllContestAvailale().Count();
-                model.list_registered_contest = _icontestService.GetStaticAllContestAvailale();
+                model.total_contestant = _icontestService.GetStaticContest().Count();
+                model.list_registered_contest = _icontestService.GetStaticContest();
                 return View(model);
             }
             catch (Exception e)
