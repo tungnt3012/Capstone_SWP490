@@ -135,7 +135,7 @@ namespace Capstone_SWP490.Services
                             title_image = item.title_image,
                             update_date = item.update_date,
                             isPin = 0
-                        }); 
+                        });
                     }
                 }
 
@@ -264,10 +264,13 @@ namespace Capstone_SWP490.Services
         public async Task<AjaxResponseViewModel<bool>> PinPost(int postId)
         {
             var postTemp = _ipostRepository.FindBy(x => x.post_id == postId).FirstOrDefault();
+
+            //var lp = _ipostRepository.FindBy(x => x.post_to != null).ToList();
+
             var listPostPin = (from x in _ipostRepository.FindBy(x => x.post_to != null)
-                               orderby Convert.ToInt32(x.post_to) ascending
+                               orderby x.post_to ascending
                                select x).ToList();
-            
+
             if (!String.IsNullOrWhiteSpace(postTemp.post_to))
             {
                 if (listPostPin.Count > 0)
@@ -305,7 +308,11 @@ namespace Capstone_SWP490.Services
 
                 if (listPostPin.Count > 3)
                 {
-                    for (int i = 2; i < listPostPin.Count; i++)
+                    listPostPin = (from x in _ipostRepository.FindBy(x => x.post_to != null)
+                                       orderby x.post_to ascending
+                                       select x).ToList();
+
+                    for (int i = 3; i < listPostPin.Count; i++)
                     {
                         var p = listPostPin[i];
                         p.post_to = "NO";
@@ -337,7 +344,11 @@ namespace Capstone_SWP490.Services
 
                 if (listPostPin.Count > 3)
                 {
-                    for (int i = 2; i < listPostPin.Count; i++)
+                    listPostPin = (from x in _ipostRepository.FindBy(x => x.post_to != null)
+                                   orderby x.post_to ascending
+                                   select x).ToList();
+
+                    for (int i = 3; i < listPostPin.Count; i++)
                     {
                         var p = listPostPin[i];
                         p.post_to = "NO";
