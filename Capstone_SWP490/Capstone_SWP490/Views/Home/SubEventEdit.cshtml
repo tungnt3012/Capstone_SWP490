@@ -1,0 +1,218 @@
+﻿@model Capstone_SWP490.Models.events_ViewModel.eventsViewModel
+@{
+    ViewBag.Title = "SubEventUpload";
+    var profile = Session["profile"] as Capstone_SWP490.Models.app_userViewModel.app_userViewModel;
+    var mainEvent = ViewData["MainEvent"] as Capstone_SWP490.Models.events_ViewModel.eventsViewModel;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Sub-Event upload</label>
+        </div>
+    </div>
+    <div class="main">
+        <div class="column">
+            <div class="col-lg-10 col-lg-offset-1" id="under">
+                <div class="form-group">
+                    <label class="front-size-title" for="Event_Schedule">
+                        Add Sub Event
+                    </label>
+                </div>
+                @using (Html.BeginForm("SubEventEdit", "Home"))
+                {
+                    <div class="column" style="padding-top:20px">
+                        <div class="form-group">
+                            <h5 style="color:red"> @ViewData["error"] </h5>
+                            <h5 style="color:green"> @ViewData["success"] </h5>
+                        </div>
+                        <div class="form-group">
+                            <label for="Title">Title<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.title, new { @class = "form-control", id = "EventTitle", name = "Title", value = "", placeholder = "Title" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Desctiption">Desctiption<span id="not-empty">*</span></label>
+                            @Html.TextAreaFor(m => m.desctiption, new { @class = "form-control", id = "EventDesctiption", name = "Desctiption", value = "", placeholder = "Description of the event" })
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="Location">Start date<span id="not-empty">*</span></label>
+                                    <div class="row">
+                                        @Html.TextBoxFor(m => m.start_date, new { type = "date", @class = "hidden", id = "", @onchange = "checkDate()", @Value = mainEvent.start_date, disabled = "disabled", name = "EventStartDate", placeholder = "Start date" })
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.start_time, new { type = "time", @class = "form-control", id = "EventStartTime", @onchange = "checkTime()", name = "EventStartTime", @Value = Model.start_date.ToString("HH:mm"), placeholder = "Start Time" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="Location">End date<span id="not-empty">*</span></label>
+                                    <div class="row">
+                                        @Html.TextBoxFor(m => m.end_date, new { type = "date", @class = "hidden", id = "", @onchange = "checkDate()", @Value = mainEvent.end_date, disabled = "disabled", name = "EventEndDate", placeholder = "End date" })
+                                        <div class="col-lg-6">
+                                            @Html.TextBoxFor(m => m.end_time, new { type = "time", @class = "form-control", id = "EventEndTime", @onchange = "checkTime()", name = "EventEndTime", @Value = Model.end_date.ToString("HH:mm"), placeholder = "End Time" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <span style="color:red"><i id="text-error-date"></i></span>
+                                <br />
+                                <span style="color:red"><i id="text-error-time"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">Venue<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.venue, new { @class = "form-control", id = "EventLocation", name = "TiLocationtle", value = "", placeholder = "Location" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Fanpage">Fanpage<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.fan_page, new { @class = "form-control", id = "EventFanpage", name = "EventFanpage", value = "", placeholder = "Fanpage" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Fanpage">Note</label>
+                            @Html.TextBoxFor(m => m.note, new { @class = "form-control", id = "EventNote", name = "EventNote", value = "", placeholder = "Note" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.main_event_id, new { @class = "form-control", id = "MainEvent", name = "MainEvent", @Value = mainEvent.event_id, style = "display: none;" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">Contactor phone<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.contactor_phone, new { @class = "form-control", id = "EventContactorPhone", name = "Contactorphone", value = "", placeholder = "Contactor phone", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">Contactor email<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.contactor_email, new { @class = "form-control", id = "EventContactorEmail", name = "Contactorphone", value = "", placeholder = "example@gmail.com", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Location">Contactor name<span id="not-empty">*</span></label>
+                            @Html.TextBoxFor(m => m.contactor_name, new { @class = "form-control", id = "EventContactorName", name = "EventContactor Name", value = "", placeholder = "Nguyen Van A", required = "required" })
+                        </div>
+                        <div class="form-group">
+                            <label for="type-event">Allow Member Join this event:</label>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    @Html.DropDownListFor(m => m.status, new List<SelectListItem>
+                                      { new SelectListItem{Text="Not Allow Join", Value="0"},
+                                        new SelectListItem{Text="Allow Member Join", Value="1"},
+                                        new SelectListItem{Text="Allow Coach Join", Value="2"},
+                                        new SelectListItem{Text="Allow Member & Coach Join", Value="3"}}, new { @class = "form-control", id = "StatusSelect" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary" id="event-upload">Add</button>
+                                <button type="button" class="btn btn-secondary" onclick="location.href='/Home/EventDetail?id=@mainEvent.event_id'; return false;" id="event-canner">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" id="userss" value="@Session["username"]">
+<input type="hidden" id="validate-time" value="0">
+<input type="hidden" id="me-start-date" value="@mainEvent.start_date.ToString("yyyy-MM-dd HH:mm:ss")">
+<input type="hidden" id="me-end-date" value="@mainEvent.end_date.ToString("yyyy-MM-dd HH:mm:ss")">
+<input type="hidden" id="EventEndDate" value="@mainEvent.end_date.ToString("yyyy-MM-dd")">
+<input type="hidden" id="EventStartDate" value="@mainEvent.start_date.ToString("yyyy-MM-dd")">
+@if (Session["username"] != null)
+{
+    <input type="hidden" id="user_role" value="@profile.user_role">
+}
+else
+{
+    <input type="hidden" id="user_role" value="0">
+}
+
+<script>
+    $(document).ready(function () {
+        //var _startDate = $('#EventStartDate').val();
+        //var _endDate = $('#EventEndDate').val();
+        //if (_startDate === '' || _endDate === '') {
+        //    $('#event-upload').attr("disabled", true);
+        //} else {
+        //    $('#event-upload').attr("disabled", false);
+        //}
+        var _startTime = $('#EventStartTime').val();
+        var _endTime = $('#EventEndTime').val();
+        if (_startTime === '' || _endTime === '') {
+            $('#event-upload').attr("disabled", true);
+        } else {
+            $('#event-upload').attr("disabled", false);
+        }
+
+    });
+
+    function checkDate() {
+        var _startDate = $('#EventStartDate').val();
+        var _endDate = $('#EventEndDate').val();
+        var _me_start_date = $('#me-start-date').val();
+        var _me_end_date = $('#me-end-date').val();
+
+        var _startTime = $('#EventStartTime').val();
+        var _endTime = $('#EventEndTime').val();
+
+        if (_startTime === '' || _endTime === '') {
+            //_endDate += ' 23:59:59';
+            //_startDate += ' 23:59:59';
+            $('#event-upload').attr("disabled", true);
+            $('#text-error-date').html("Time Not Null!!!");
+        } else {
+
+            _endDate += ' ' + _endTime;
+            _startDate += ' ' + _startTime;
+
+            if (_startDate >= _me_start_date && _endDate <= _me_end_date) {
+                $('#validate-time').val("1");
+                $('#text-error-date').html("");
+            } else {
+                $('#validate-time').val("0");
+                $('#text-error-date').html("The Start Date must be >= Main Event Start Date:  " + _me_start_date + " </br> AND The End Date must be <= Main Event End Date:  " + _me_end_date + " !!!");
+            }
+
+            if (_startDate >= _endDate) {
+                $('#validate-time').val("0");
+                $('#text-error-time').html("The End Date must NOT occur before the Start Date!!!");
+            } else {
+                $('#validate-time').val("1");
+                $('#text-error-time').html("");
+            }
+        }
+        var _validTime = $('#validate-time').val();
+        if (_validTime === '0') {
+            $('#event-upload').attr("disabled", true);
+        } else if (_validTime === '1') {
+            $('#event-upload').attr("disabled", false);
+        }
+
+    }
+
+    function checkTime() {
+        checkDate();
+        //var _startDate = $('#EventStartDate').val();
+        //var _endDate = $('#EventEndDate').val();
+
+        //var _startTime = $('#EventStartTime').val();
+        //var _endTime = $('#EventEndTime').val();
+        //if (_startDate == _endDate) {
+        //    if (_startTime == _endTime || _startTime > _endTime) {
+        //        $('#event-upload').attr("disabled", true);
+        //        $('#text-error-date').html("The End Time must be after the Start Time!!!");
+        //    } else {
+        //        $('#event-upload').attr("disabled", false);
+        //        $('#text-error-date').html("");
+        //    }
+        //}
+    }
+
+</script>
