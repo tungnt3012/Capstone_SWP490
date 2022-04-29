@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="ContactorPhone">Max Contestant:</label>
+                            <label for="ContactorPhone">Max contestant:</label>
                             @Html.TextBoxFor(m => m.max_contestant, new { @class = "form-control", @type = "number", id = "max-contestant", name = "MaxContestant", value = "", placeholder = "Max contestant" })
                             <i id="error-contentant"></i>
                         </div>
@@ -75,8 +75,9 @@
                         </div>
                         <div class="form-group">
                             <div class="pull-right">
-                                <button type="submit" class="btn btn-primary" id="contest-upload">Add</button>
                                 <button type="button" class="btn btn-secondary" onclick="window.location.href='/Home/Contest'" id="event-canner">Cancel</button>
+                                <button type="submit" class="btn btn-primary" id="contest-upload">Add</button>
+
                             </div>
                         </div>
                     </div>
