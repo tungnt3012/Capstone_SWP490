@@ -379,6 +379,12 @@ namespace Capstone_SWP490.Helper
             school firstRegist = _ischoolService.findByNewRegistCoach(result.Coach.app_user.user_id);
             //read school, if any field is empty then use first regist
             string school_name = (schoolSheet.Cells[row++, col].Value + "").Trim();
+            string insitution_name = (schoolSheet.Cells[row++, col].Value + "").Trim();
+            if (_ischoolService.CheckExist(school_name, insitution_name, result.Coach.user_id))
+            {
+                throw new SchoolException("1", Message.MSG036, null);
+            }
+
             if (StringUtils.isNullOrEmpty(school_name))
             {
                 school_name = firstRegist.school_name;
@@ -404,9 +410,6 @@ namespace Capstone_SWP490.Helper
                 };
                 result.error.Add(error);
             }
-
-
-            string insitution_name = (schoolSheet.Cells[row++, col].Value + "").Trim();
             if (StringUtils.isNullOrEmpty(insitution_name))
             {
                 insitution_name = firstRegist.institution_name;
@@ -527,7 +530,7 @@ namespace Capstone_SWP490.Helper
             string vice_coach_phone = schoolSheet.Cells[row++, col].Value + "";
 
             //start read vice coach
-            if (!vice_coach_name.Equals("") && !IsValidEmail(vice_coach_email))
+            if (!vice_coach_name.Equals("") && IsValidEmail(vice_coach_email))
             {
                 member vice_coach = new member
                 {
@@ -613,6 +616,11 @@ namespace Capstone_SWP490.Helper
                 user.active = false;
                 user.insert_date = DateTime.Now + "";
                 user.update_date = DateTime.Now + "";
+                //active vice coach
+                if(member.member_role == 2)
+                {
+                    user.active = true;
+                }
                 user = await _iapp_UserService.creatUserForImportMember(user);
             }
             return user;

@@ -29,5 +29,10 @@ namespace Capstone_SWP490
         public string title_image { get; set; }
     
         public virtual app_user app_user { get; set; }
+
+        public static implicit operator post(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

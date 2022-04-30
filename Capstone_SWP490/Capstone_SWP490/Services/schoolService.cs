@@ -19,6 +19,8 @@ namespace Capstone_SWP490.Services
     {
         private readonly IschoolRepository _ischoolRepository = new schoolRepository();
         private readonly ImemberRepository _imemberRepository = new memberRepository();
+        private readonly IteamRepository _iteamRepository = new teamRepository();
+        private readonly Iapp_userRepository _iappUserRepository = new app_userRepository();
         private static readonly ILog Log = LogManager.GetLogger(typeof(schoolService));
         private readonly Iapp_userService _iappUserService = new app_userService();
         public int count(int coach_id)
@@ -111,6 +113,13 @@ namespace Capstone_SWP490.Services
                 statistic_SchoolViewModel.school_phone = item.phone_number;
                 statistic_SchoolViewModel.total_team = item.teams.Count;
                 statistic_SchoolViewModel.total_member = (int)_ischoolRepository.getContext().Count_Member_In_School(item.school_id).FirstOrDefault();
+                app_user coach = _iappUserRepository.FindBy(x => x.user_id == item.coach_id).FirstOrDefault();
+                if(coach != null)
+                {
+                        statistic_SchoolViewModel.coach_name = coach.full_name;
+                        statistic_SchoolViewModel.coach_email = coach.email;
+                        statistic_SchoolViewModel.coach_phone = coach.members.FirstOrDefault().phone_number;
+                }
                 result.Add(statistic_SchoolViewModel);
             }
             return result;
@@ -118,9 +127,9 @@ namespace Capstone_SWP490.Services
 
         public List<team> GetTeams()
         {
-            List<school> schools = _ischoolRepository.FindBy(x => x.active == 2 && x.enabled == true).ToList();
+            List<school> schools = _ischoolRepository.FindBy(x => x.active == 2).ToList();
             List<team> teamRs = new List<team>();
-            if (schools.Count > 0)
+            if (schools != null)
             {
                 foreach (var x in schools)
                 {
@@ -340,7 +349,32 @@ namespace Capstone_SWP490.Services
 
         public List<school> FindActive(int coachId)
         {
+            app_user user = _iappUserService.getByUserId(coachId);
+            //case user is vice coach then get coach Id to get school
+            if (user != null && user.user_role.Equals("VICE-COACH"))
+            {
+                member viceCoachMember = _imemberRepository.FindBy(x => x.user_id == user.user_id && x.team_member.Count >= 1).FirstOrDefault();
+                if (viceCoachMember != null)
+                {
+                    team_member coachTeamMember = viceCoachMember.team_member.FirstOrDefault();
+                    if (coachTeamMember != null)
+                    {
+                        team coachTeam = _iteamRepository.FindBy(x => x.team_id == coachTeamMember.team_id).FirstOrDefault();
+
+                        if (coachTeam != null)
+                        {
+                            coachId = coachTeam.team_member.Where(x => x.member.member_role == 1).FirstOrDefault().member.user_id;
+                        }
+                    }
+                }
+            }
             return _ischoolRepository.FindBy(x => x.coach_id == coachId && x.active >= 1 && x.enabled == true).ToList();
+        }
+
+        public bool CheckExist(string name, string insitutionName, int coachId)
+        {
+            return _ischoolRepository.FindBy(x => x.school_name.ToUpper().Trim().Equals(name.Trim().ToUpper())
+            && x.institution_name.ToUpper().Trim().Equals(insitutionName.Trim().ToUpper()) && x.coach_id != coachId).FirstOrDefault() != null;
         }
     }
 }

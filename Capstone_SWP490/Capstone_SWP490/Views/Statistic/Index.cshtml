@@ -71,9 +71,12 @@
                                             <tr>
                                                 <th scope="col" width="1%">No</th>
                                                 <th scope="col">School name</th>
-                                                <th scope="col" width="30%">School phone</th>
-                                                <th scope="col" width="10%">Teams</th>
-                                                <th scope="col" width="10%">Members</th>
+                                                <th scope="col" width="9%">School phone</th>
+                                                <th scope="col" width="15%">Coach Name</th>
+                                                <th scope="col" width="9%">Coach phone</th>
+                                                <th scope="col" width="15%">Coach Email</th>
+                                                <th scope="col" width="5%">Teams</th>
+                                                <th scope="col" width="5%">Members</th>
                                                 <th scope="col" width="170px"></th>
                                             </tr>
                                         </thead>
@@ -81,18 +84,21 @@
                                             @{int count = 0;}
                                             @foreach (var item in Model.school_confirrmation)
                                             {
-                                                <tr>
-                                                    <td class="date-table">@(++count)</td>
-                                                    <td class="date-table">@(item.school_name)</td>
-                                                    <td class="venue-table">@(item.school_phone)</td>
-                                                    <td class="title-table">@(item.total_team)</td>
-                                                    <td class="title-table">@(item.total_member)</td>
-                                                    <td class="title-table">
-                                                        <a onclick="triggerSubmit('@item.school_id',1)" style="cursor:pointer" data-toggle="modal" data-target="#myModal">Accept</a> |
-                                                        <a onclick="triggerSubmit('@item.school_id',2)" style="cursor:pointer;color:red" data-toggle="modal" data-target="#myModal">Reject</a> |
-                                                        <a href="@Url.Action("DetailSchool", "Statistic")?schoolId=@item.school_id">Detail</a>
-                                                    </td>
-                                                </tr>
+                                            <tr>
+                                                <td class="date-table">@(++count)</td>
+                                                <td class="date-table">@(item.school_name)</td>
+                                                <td class="venue-table">@(item.school_phone)</td>
+                                                <td class="venue-table">@(item.coach_name)</td>
+                                                <td class="venue-table">@(item.coach_phone)</td>
+                                                <td class="venue-table">@(item.coach_email)</td>
+                                                <td class="title-table">@(item.total_team)</td>
+                                                <td class="title-table">@(item.total_member)</td>
+                                                <td class="title-table">
+                                                    <a onclick="triggerSubmit('@item.school_id',1)" style="cursor:pointer" data-toggle="modal" data-target="#myModal">Accept</a> |
+                                                    <a onclick="triggerSubmit('@item.school_id',2)" style="cursor:pointer;color:red" data-toggle="modal" data-target="#myModal">Reject</a> |
+                                                    <a href="@Url.Action("DetailSchool", "Statistic")?schoolId=@item.school_id">Detail</a>
+                                                </td>
+                                            </tr>
                                             }
                                         </tbody>
                                     </table>

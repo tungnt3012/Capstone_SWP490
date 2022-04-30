@@ -102,7 +102,7 @@ namespace Capstone_SWP490.Models.school_memberViewModel
                 gender = 0,
                 year = -1,
                 shirt_sizing = Coach.shirt_sizing,
-                enabled = Coach.enabled
+                enabled = Coach.enabled,
             };
             return result;
         }

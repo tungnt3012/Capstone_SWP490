@@ -29,7 +29,7 @@ namespace Capstone_SWP490.Controllers
             {
                 return RedirectToAction("", "Home");
             }
-            List<post_TopViewModel> listPost = _postService.getByAuthorId(logined.user_id, status);
+            List<post_TopViewModel> listPost = _postService.getByAuthorId(status);
             postList_ViewModel model = new postList_ViewModel();
             model.posts = listPost;
             model.status = status;
@@ -41,11 +41,7 @@ namespace Capstone_SWP490.Controllers
         {
             try
             {
-                post _post = _postService.getById(id);
-                _post.enabled = true;
-                _post.schedule_date = null;
-                _post.update_date = DateTime.Now + "";
-                _postService.update(_post);
+                _postService.Enable(id);
                 return RedirectToAction("", "Post");
             }
             catch (Exception e)
@@ -61,11 +57,8 @@ namespace Capstone_SWP490.Controllers
         {
             try
             {
-                post _post = _postService.getById(id);
-                _post.enabled = false;
-                _post.schedule_date = null;
-                _post.update_date = DateTime.Now + "";
-                _postService.update(_post);
+
+                _postService.Disable(id);
                 return RedirectToAction("", "Post");
             }
             catch (Exception e)
@@ -117,9 +110,16 @@ namespace Capstone_SWP490.Controllers
             model.post.insert_date = DateTime.Now + "";
             model.post.update_date = DateTime.Now + "";
             model.post.post_by = logined.user_id;
-            model.post.featured = model.featured;
+            if (model.featured == true)
+            {
+                model.post.post_to = "0";
+            }
+            else
+            {
+                model.post.post_to = "NO";
+            }
             _postService.insert(model.post);
-            return RedirectToAction("", "Post");
+            return RedirectToAction("Index", "Post");
         }
 
         [AuthorizationAccept(Roles = "ORGANIZER")]
@@ -131,7 +131,7 @@ namespace Capstone_SWP490.Controllers
                 post post = _postService.getById(id);
                 model.post = post;
                 model.action = "Edit";
-                model.featured = post.featured == null ? false : post.featured.Value;
+                model.featured = post.post_to == null || post.post_to.Equals("NO") ? false : true;
                 model.insert_date = post.insert_date;
                 return View(model);
             }
@@ -165,10 +165,6 @@ namespace Capstone_SWP490.Controllers
                     model.post.enabled = true;
                 }
                 app_userViewModel logined = (app_userViewModel)Session["profile"];
-                if (postToFanPage != null && postToFanPage.Equals("on"))
-                {
-                    model.post.post_to += ",FANPAGE";
-                }
                 if (model.post.title == null || model.post.title.Equals(""))
                 {
                     @ViewData["EDIT_ERROR"] = "Title cannot be empty";
@@ -201,7 +197,14 @@ namespace Capstone_SWP490.Controllers
                 model.post.update_date = DateTime.Now + "";
                 model.post.post_by = logined.user_id;
                 model.post.update_date = DateTime.Now + "";
-                model.post.featured = model.featured;
+                if (model.featured == true)
+                {
+                    model.post.post_to = "0";
+                }
+                else
+                {
+                    model.post.post_to = "NO";
+                }
                 _postService.update(model.post);
                 return RedirectToAction("", "Post");
             }
@@ -219,11 +222,19 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("", "Post");
         }
 
+        [AuthorizationAccept(Roles = "ORGANIZER")]
         public async Task<ActionResult> PinPost(int postId)
         {
             AjaxResponseViewModel<bool> ajaxResponse = await _postService.PinPost(postId);
             return Json(ajaxResponse);
             //return RedirectToAction("", "Post");
+        }
+
+        [AuthorizationAccept(Roles = "ORGANIZER")]
+        public async Task<ActionResult> Unpin(int postId)
+        {
+            await _postService.Unpin(postId);
+            return RedirectToAction("", "Post");
         }
     }
 }

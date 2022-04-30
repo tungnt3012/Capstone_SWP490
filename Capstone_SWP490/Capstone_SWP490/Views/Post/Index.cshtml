@@ -56,10 +56,10 @@
                                             <th scope="col" width="30%">Short Description</th>
                                             <th scope="col" width="12%">Create Date</th>
                                             <th scope="col" width="12%">Post Date</th>
-                                            <th scope="col" width="11%">Featured</th>
+                                            <th scope="col" width="6%">Featured</th>
                                             <th scope="col" width="11%">Schedule/Time Remaining</th>
-                                            <th scope="col" width="10%">Posted</th>
-                                            <th scope="col" width="20%"></th>
+                                            <th scope="col" width="5%">Posted</th>
+                                            <th scope="col" width="25%">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -71,7 +71,7 @@
                                                 <td>@(item.short_description)</td>
                                                 <td>@(item.insert_date)</td>
                                                 <td>@(item.enabled == true ? item.update_date : "N/A")</td>
-                                                <td>@(item.featured.Value)</td>
+                                                <td style=" font-weight: 800; color: @(item.post_to.Equals("NO") ? "black" : "green")">@(item.post_to)</td>
                                                 <td>
                                                     @(Model.calDate(item.schedule_date) == "" ?  "N/A" : Model.calDate(item.schedule_date))
                                                 </td>
@@ -80,22 +80,22 @@
 
                                                     @if (item.enabled == true)
                                                     {
-                                                        <a href="@Url.Action("Disable", "Post")?id=@item.post_id">Disable</a>
+                                                        <a onclick="return EnableDisableClick('ENABLE')" href="@Url.Action("Disable", "Post")?id=@item.post_id">Disable</a>
                                                     }
                                                     else
                                                     {
-                                                        <a href="@Url.Action("Enable")?id=@item.post_id">RePost</a>
-                                                    }
-                                                    @("|")
-                                                    <a href="@Url.Action("Edit", "Post")?id=@item.post_id">Edit</a>
-                                                    |
-                                                    <a onclick="AjaxPinPost(this)" post-id="@item.post_id">Pin</a>
-                                                    |
-                                                    <a onclick="return confirmRemove();" href="@Url.Action("Remove", "Post")?post_id=@item.post_id" style="color: red">Remove</a>
-                                                    @if (item.isPin == 1)
+                                                        <a onclick="return EnableDisableClick('REPOST')" href="@Url.Action("Enable")?id=@item.post_id">RePost</a>
+                                                    }<br>
+                                                    <a href="@Url.Action("Edit", "Post")?id=@item.post_id">Edit</a><br>
+                                                    @if (item.isPin == 0)
                                                     {
-                                                        @("|") <label style="color:green">Pined</label>
+                                                        <a onclick="AjaxPinPost(this)" post-id="@item.post_id">Pin</a><br>
                                                     }
+                                                    else
+                                                    {
+                                                        <a onclick="return confirmUnPin()" href="@Url.Action("Unpin", "Post")?postId=@item.post_id">Unpin</a><br>
+                                                    }
+                                                    <a onclick="return confirmRemove();" href="@Url.Action("Remove", "Post")?post_id=@item.post_id" style="color: red">Remove</a>
                                                 </td>
                                             </tr>
                                             { stt += 1; }
@@ -112,6 +112,7 @@
         </div>
     </div>
 </div>
+
 @using (Html.BeginForm("", "Post", FormMethod.Get, new { id = "form" }))
 {
     <input type="hidden" name="status" id="status" />
@@ -142,10 +143,15 @@
         return false;
     }
 
+    function confirmUnPin() {
+        if (confirm("Continue UNPIN this post...?") == true)
+            return true;
+        return false;
+    }
 
     function AjaxPinPost(e) {
 
-        if (confirm("PIN this Post ???") == true) {
+        if (confirm("If you continue, this Post will displat at first place ???") == true) {
             var _post_id = e.getAttribute("post-id");
             console.log("id= " + _post_id);
 
@@ -166,7 +172,9 @@
             });
         }
     }
-
+    function EnableDisableClick(type) {
+        return confirm("Do you want to continue " +type +"...?")
+    }
 </script>
 
 

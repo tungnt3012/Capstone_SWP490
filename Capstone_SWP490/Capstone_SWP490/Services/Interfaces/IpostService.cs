@@ -13,12 +13,17 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<post> insert(post post);
         Task<int> update(post post);
         post getById(int id);
-        List<post_TopViewModel> getByAuthorId(int authorId, string statu);
+        List<post_TopViewModel> getByAuthorId(string statu);
         List<post> getToScheduler();
 
         List<post_TopViewModel> GetTop5Posts();
         List<post_TopViewModel> GetTopAllPosts();
         Task<int> Delete(int postId);
         Task<AjaxResponseViewModel<bool>> PinPost(int postId);
+        Task<int> Disable(int id);
+        Task<int> Enable(int id);
+        Task<int> UpdatePost(post post);
+        Task<int> Unpin(int id);
+        Task<int> UpdateScheduler();
     }
 }
