@@ -39,7 +39,7 @@ namespace Capstone_SWP490.Sercurity
 
         public override string[] GetAllRoles()
         {
-            string[] AppRole = new string[] { "ADMIN", "COACH", "MEMBER", "ORGANIZER", "GUEST" };
+            string[] AppRole = new string[] { "ADMIN", "COACH", "MEMBER", "ORGANIZER", "GUEST", "VICE-COACH" };
             return AppRole;
         }
 

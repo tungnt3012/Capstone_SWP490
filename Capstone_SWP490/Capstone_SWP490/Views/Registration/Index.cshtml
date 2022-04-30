@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int stt = 1;
 }
-
+@using Capstone_SWP490.Models.app_userViewModel;
 <!-- Sidebar -->
 
 <header>
@@ -25,105 +25,108 @@
             <div class="col-lg-10 col-lg-offset-1" id="under">
 
                 <div class="col-lg-12">
-                    <div id="btn-registrantionTitle-index">
-                        <label for="formFile" class="form-label">
-                            <span style="color:red">*Important Note: Email is used to distinguish members</span><br />
-                            - Visit @Html.ActionLink("Registration Guide", "Guide", "Registration") for more detail<br />
-                            - Default file input <a href="@Url.Action("DownloadSample", "Registration")">click here </a><br />
-                        </label>
-                        @using (Html.BeginForm("Result", "Registration", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                        {
-                            <input class="form-control" type="file" id="file" name="file" accept=".xlsx, .xls, .csv">
-                            <button class="btn btn-primary" value="Upload">Upload</button>}
-                    </div>
-                    <div class="col-lg-12">
-                        <label id="import-history">IMPORT HISTORY:</label><br />
-                    </div>
-                    <div class="col-lg-12" style="overflow:auto">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Short name</th>
-                                    <th>Insert date</th>
-                                    <th>Update date</th>
-                                    <th>Status</th>
-                                    <th>Note</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model.school != null && Model.school.Count > 0)
-                                {
-
-                                    foreach (var item in Model.school)
-                                    {
-                                        <tr>
-                                            <th scope="row" style="padding-top: 10px;">@(++stt)</th>
-                                            <td style="padding-top: 15px;">@item.schoolName</td>
-                                            <td style="padding-top: 15px;">@item.insitutionName</td>
-                                            <td style="padding-top: 15px;">@item.insertDate</td>
-                                            <td style="padding-top: 15px;">@item.updateDate</td>
-                                            <td style="padding-top: 15px; @(item.status == 3 ? "color: red;" :item.status == 2 ? "color: green;" : "")">@(item.getStatusText())</td>
-                                            <td>@(item.note)</td>
-                                            <td><a href="@Url.Action("History", "Registration")?school_id=@(item.schoolId)">Detail</a></td>
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    @if (Model.insert_result != null && Model.insert_result.Count > 0)
+                    @if (Session["profile"] != null && ((app_userViewModel)Session["profile"]).user_role.Equals("COACH"))
                     {
+                        <div id="btn-registrantionTitle-index">
+                            <label for="formFile" class="form-label">
+                                <span style="color:red">*Important Note: Email is used to distinguish members</span><br />
+                                - Visit @Html.ActionLink("Registration Guide", "Guide", "Registration") for more detail<br />
+                                - Default file input <a href="@Url.Action("DownloadSample", "Registration")">click here </a><br />
+                            </label>
+                            @using (Html.BeginForm("Result", "Registration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <input class="form-control" type="file" id="file" name="file" accept=".xlsx, .xls, .csv">
+                                <button class="btn btn-primary" value="Upload">Upload</button>}
+                        </div>
+                    }
+                        <div class="col-lg-12">
+                            <label id="import-history">IMPORT HISTORY:</label><br />
+                        </div>
+                        <div class="col-lg-12" style="overflow:auto">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Short name</th>
+                                        <th>Insert date</th>
+                                        <th>Update date</th>
+                                        <th>Status</th>
+                                        <th>Note</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.school != null && Model.school.Count > 0)
+                                    {
 
-                        <div class="col-lg-6">
-                            <!-- Modal -->
-                            <div class="modal fade" id="newModal" role="dialog">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
+                                        foreach (var item in Model.school)
+                                        {
+                                            <tr>
+                                                <th scope="row" style="padding-top: 10px;">@(++stt)</th>
+                                                <td style="padding-top: 15px;">@item.schoolName</td>
+                                                <td style="padding-top: 15px;">@item.insitutionName</td>
+                                                <td style="padding-top: 15px;">@item.insertDate</td>
+                                                <td style="padding-top: 15px;">@item.updateDate</td>
+                                                <td style="padding-top: 15px; @(item.status == 3 ? "color: red;" :item.status == 2 ? "color: green;" : "")">@(item.getStatusText())</td>
+                                                <td>@(item.note)</td>
+                                                <td><a href="@Url.Action("History", "Registration")?school_id=@(item.schoolId)">Detail</a></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        @if (Model.insert_result != null && Model.insert_result.Count > 0)
+                        {
 
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Object</th>
-                                                        <th scope="col">Message</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach (var error in Model.insert_result)
-                                                    {
+                            <div class="col-lg-6">
+                                <!-- Modal -->
+                                <div class="modal fade" id="newModal" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-striped">
+                                                    <thead>
                                                         <tr>
-                                                            <th scope="row">@error.objectName</th>
-                                                            <td>@error.msg</td>
+                                                            <th scope="col">Object</th>
+                                                            <th scope="col">Message</th>
                                                         </tr>
-                                                    }
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var error in Model.insert_result)
+                                                        {
+                                                            <tr>
+                                                                <th scope="row">@error.objectName</th>
+                                                                <td>@error.msg</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<script>
+    <script>
     $(document).ready(function () {
         $("#newModal").modal("show");
         $("#newModal").on('hide.bs.modal', function () {
@@ -138,6 +141,6 @@
         window.location.href = "@Url.Action("AcceptSchool", "Registration")?id=" + id;
         alert('Please Waiting for Organizer confirmation!!!')
         }
-</script>
+    </script>
 
 

@@ -15,18 +15,7 @@ namespace Capstone_SWP490.Models
         {
             try
             {
-                List<post> posts = _postService.getToScheduler();
-                foreach (var item in posts)
-                {
-                    long now = DateTime.Now.Millisecond;
-                    long scheduleTime2 = DateTime.Parse(item.schedule_date.ToString()).Millisecond;
-                    if ((scheduleTime2 + 5*60000) >= now)
-                    {
-                        item.enabled = true;
-                        item.schedule_date = null;
-                        _postService.update(item);
-                    }
-                }
+                _postService.UpdateScheduler();
             }
             catch
             {

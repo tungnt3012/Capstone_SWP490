@@ -135,13 +135,13 @@ namespace Capstone_SWP490.Controllers
                     //add session
                     Session.Add("username", user.user_name);
                     Session["profile"] = user;
+                    FormsAuthentication.SetAuthCookie(user.user_name, false);
                     if (user.confirm_password == 0)
                     {
                         return RedirectToAction("ResetPassword", "Authentication");
                     }
                     if (user.verified == false)
                     {
-                        FormsAuthentication.SetAuthCookie(user.user_name, false);
                         return RedirectToAction("ChangePasswordFirst", "Authentication");
                     }
                     var memberTemp = _imemberService.GetMemberByAvaibleUserId(user.user_id);
@@ -150,11 +150,9 @@ namespace Capstone_SWP490.Controllers
                     {
                         if (String.IsNullOrWhiteSpace(memberTemp.shirt_sizing))
                         {
-                            FormsAuthentication.SetAuthCookie(user.user_name, false);
                             return RedirectToAction("RegisShirtSizing", "Authentication");
                         }
                     }
-                    FormsAuthentication.SetAuthCookie(user.user_name, false);
                     return RedirectToAction("Index", "Home");
                 }
                 ViewData["LoginError"] = "Wrong username or password";
@@ -290,7 +288,7 @@ namespace Capstone_SWP490.Controllers
             return RedirectToAction("ShirtSizing", "Home");
         }
 
-        [AuthorizationAccept(Roles = "MEMBER, COACH, CO-COACH")]
+        [AuthorizationAccept(Roles = "MEMBER, COACH, VICE-COACH")]
         [HttpPost]
         public async Task<ActionResult> RegisShirtSizing(member member)
         {

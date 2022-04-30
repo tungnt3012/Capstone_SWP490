@@ -38,7 +38,7 @@ namespace Capstone_SWP490.Controllers.Coach
         private readonly interfaces.IcontestService _icontestService = new services.contestService();
 
         // GET: Registration
-        [AuthorizationAccept(Roles = "COACH,GUEST")]
+        [AuthorizationAccept(Roles = "COACH,GUEST,VICE-COACH")]
         public ActionResult Index()
         {
             try
@@ -71,7 +71,7 @@ namespace Capstone_SWP490.Controllers.Coach
         {
             return View();
         }
-        [AuthorizationAccept(Roles = "COACH")]
+        [AuthorizationAccept(Roles = "COACH,VICE_COACH")]
         public ActionResult MemberDetail(int? id, int? teamId)
         {
             try
@@ -147,7 +147,7 @@ namespace Capstone_SWP490.Controllers.Coach
             return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER);
         }
 
-        [AuthorizationAccept(Roles = "COACH")]
+        [AuthorizationAccept(Roles = "COACH,VICE_COACH")]
         public ActionResult TeamDetail(int? id)
         {
             if (id == null)
@@ -162,6 +162,7 @@ namespace Capstone_SWP490.Controllers.Coach
             data.SetDisplayTeam((int)id);
             return View(data);
         }
+        [AuthorizationAccept(Roles = "COACH")]
         public ActionResult DownloadSample()
         {
             string fname = "registration_form.xlsx";
@@ -250,7 +251,7 @@ namespace Capstone_SWP490.Controllers.Coach
                     try
                     {
                         viceCoach = await _imemberService.insert(viceCoach);
-                        team_member coachTeam = coach.team_member.FirstOrDefault();
+                        team coachTeam = data.Coach.team_member.FirstOrDefault().team;
                         if (coachTeam != null)
                         {
                             //insert vice coach member team
@@ -462,10 +463,10 @@ namespace Capstone_SWP490.Controllers.Coach
                 new_Member.member = model.buildMember(newContest);
                 new_Member.member_id = model.member_id;
                 new_Member.team_id = model.team_id;
-                if(new_Member.member.member_role == 3)
+                if (new_Member.member.member_role == 3)
                 {
                     team_member leader = data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().team_member.Where(x => x.member.member_role == 3).FirstOrDefault();
-                    if(leader != null)
+                    if (leader != null)
                     {
                         data.School.teams.Where(x => x.team_id == model.team_id).FirstOrDefault().team_member.Where(x => x.member.member_role == 3).FirstOrDefault().member.member_role = 4;
                     }
@@ -508,7 +509,7 @@ namespace Capstone_SWP490.Controllers.Coach
             return View(dataSession);
         }
 
-        [AuthorizationAccept(Roles = "COACH")]
+        [AuthorizationAccept(Roles = "COACH,VICE_COACH")]
         public ActionResult History(string school_id)
 
         {

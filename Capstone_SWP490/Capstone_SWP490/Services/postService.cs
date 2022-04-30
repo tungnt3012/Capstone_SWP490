@@ -18,7 +18,7 @@ namespace Capstone_SWP490.Services
         private static readonly ILog Log = LogManager.GetLogger(typeof(postService));
         private readonly IpostRepository _ipostRepository = new postRepository();
 
-        public List<post_TopViewModel> getByAuthorId(int authorId, string status)
+        public List<post_TopViewModel> getByAuthorId(string status)
         {
             try
             {
@@ -26,10 +26,11 @@ namespace Capstone_SWP490.Services
                 {
                     if (status.Equals("posted"))
                     {
-                        var lstPost = _ipostRepository.FindBy(x => x.post_by == authorId && x.enabled == true).ToList();
+                        var lstPost = _ipostRepository.FindBy(x => x.enabled == true).ToList();
                         var lOut = new List<post_TopViewModel>();
                         if (lstPost.Count > 0)
                         {
+                            lstPost.OrderBy(x => x.update_date);
                             foreach (var item in lstPost)
                             {
                                 lOut.Add(new post_TopViewModel
@@ -54,8 +55,9 @@ namespace Capstone_SWP490.Services
                     }
                     else if (status.Equals("scheduling"))
                     {
-                        var lstPost = _ipostRepository.FindBy(x => x.post_by == authorId && x.enabled == false && (x.schedule_date != null && !x.schedule_date.Equals(""))).ToList();
+                        var lstPost = _ipostRepository.FindBy(x => x.enabled == false && (x.schedule_date != null && !x.schedule_date.Equals(""))).ToList();
                         var lOut = new List<post_TopViewModel>();
+                        lstPost.OrderBy(x => x.insert_date);
                         if (lstPost.Count > 0)
                         {
                             foreach (var item in lstPost)
@@ -83,60 +85,54 @@ namespace Capstone_SWP490.Services
                 }
 
                 var lstOut = new List<post_TopViewModel>();
-                var lstNoPin = (from x in _ipostRepository.FindBy(x => x.post_by == authorId && (x.post_to.Equals("No") || x.post_to == null))
-                                orderby x.update_date descending
-                                select x).ToList();
-
-                var lstPin = (from x in _ipostRepository.FindBy(x => x.post_by == authorId && !x.post_to.Equals("No") && x.post_to != null)
-                              orderby Convert.ToInt32(x.post_to) ascending
-                              select x).ToList();
-
-                if (lstPin.Count > 0)
+                List<post> postsNotPin = _ipostRepository.FindBy(x =>  x.post_to.Equals("NO")).OrderByDescending(x => x.update_date).ToList();
+                List<post> postsHasPin = _ipostRepository.FindBy(x =>   !x.post_to.Equals("NO")).OrderBy(x => x.post_to).ToList();
+                if (postsNotPin.Count > 0)
                 {
-                    foreach (var item in lstPin)
+                    foreach (var x in postsHasPin)
                     {
-                        lstOut.Add(new post_TopViewModel
+                        var p = new post_TopViewModel
                         {
-                            post_id = item.post_id,
-                            content = item.content,
-                            enabled = item.enabled,
-                            featured = item.featured,
-                            html_content = item.html_content,
-                            insert_date = item.insert_date,
-                            post_by = item.post_by,
-                            post_to = item.post_to,
-                            schedule_date = item.schedule_date,
-                            short_description = item.short_description,
-                            title = item.title,
-                            title_image = item.title_image,
-                            update_date = item.update_date,
+                            post_id = x.post_id,
+                            content = x.content,
+                            enabled = x.enabled,
+                            featured = x.featured,
+                            html_content = x.html_content,
+                            insert_date = x.insert_date,
+                            post_by = x.post_by,
+                            post_to = x.post_to,
+                            schedule_date = x.schedule_date,
+                            short_description = x.short_description,
+                            title = x.title,
+                            update_date = x.update_date,
+                            title_image = x.title_image,
                             isPin = 1
-                        });
+                        };
+                        lstOut.Add(p);
                     }
                 }
 
-                if (lstNoPin.Count > 0)
+                foreach (var x in postsNotPin)
                 {
-                    foreach (var item in lstNoPin)
+                    var p = new post_TopViewModel
                     {
-                        lstOut.Add(new post_TopViewModel
-                        {
-                            post_id = item.post_id,
-                            content = item.content,
-                            enabled = item.enabled,
-                            featured = item.featured,
-                            html_content = item.html_content,
-                            insert_date = item.insert_date,
-                            post_by = item.post_by,
-                            post_to = item.post_to,
-                            schedule_date = item.schedule_date,
-                            short_description = item.short_description,
-                            title = item.title,
-                            title_image = item.title_image,
-                            update_date = item.update_date,
-                            isPin = 0
-                        });
-                    }
+                        post_id = x.post_id,
+                        content = x.content,
+                        enabled = x.enabled,
+                        featured = x.featured,
+                        html_content = x.html_content,
+                        insert_date = x.insert_date,
+                        post_by = x.post_by,
+                        post_to = x.post_to,
+                        schedule_date = x.schedule_date,
+                        short_description = x.short_description,
+                        title = x.title,
+                        update_date = x.update_date,
+                        title_image = x.title_image,
+                        isPin = 0
+                    };
+                    lstOut.Add(p);
+
                 }
 
                 return lstOut;
@@ -144,8 +140,8 @@ namespace Capstone_SWP490.Services
             catch (Exception e)
             {
                 Log.Error(e.Message);
-                throw e;
             }
+            return new List<post_TopViewModel>();
         }
 
         public post getById(int id)
@@ -177,8 +173,32 @@ namespace Capstone_SWP490.Services
 
         public async Task<post> insert(post post)
         {
-            post.post_to = "NO";
-            return await _ipostRepository.Create(post);
+            try
+            {
+                //pin this creatation, no schedule
+                if (!post.post_to.Equals("NO") && post.enabled == true)
+                {
+                    var lastPin = _ipostRepository.FindBy(x => !x.post_to.Equals("2")).FirstOrDefault();
+                    if (lastPin != null)
+                    {
+                        lastPin.post_to = "NO";
+                        await update(lastPin);
+                    }
+                    var pinned = _ipostRepository.FindBy(x => !x.post_to.Equals("NO")).OrderBy(x => x.post_to).ToList();
+                    int i = 0;
+                    foreach (var item in pinned)
+                    {
+                        item.post_to = ++i + "";
+                        await update(item);
+                    }
+                }
+                return await _ipostRepository.Create(post);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+            }
+            return null;
         }
 
         public async Task<int> update(post post)
@@ -188,21 +208,12 @@ namespace Capstone_SWP490.Services
 
         public List<post_TopViewModel> GetTop5Posts()
         {
-            var postsNotPin = _ipostRepository.FindBy(x => x.featured == true && x.enabled == true && x.post_to.Equals("No"));
-            var postsHasPin = _ipostRepository.FindBy(x => x.featured == true && x.enabled == true && !x.post_to.Equals("No"));
+            var postsNotPin = _ipostRepository.FindBy(x => x.enabled == true && x.post_to.Equals("NO")).OrderByDescending(x => x.update_date);
+            var postsHasPin = _ipostRepository.FindBy(x => x.enabled == true && !x.post_to.Equals("NO")).OrderBy(x => x.post_to);
             var lstPostOut = new List<post_TopViewModel>();
-            var lstPNoTemp = (from x in postsNotPin
-                              orderby x.update_date ascending
-                              select x).ToList();
-
-
-            var lstPPinTemp = (from x in postsHasPin
-                               orderby Convert.ToInt32(x.post_to) ascending
-                               select x).Take(3).ToList();
-
-            if (lstPPinTemp.Count > 0)
+            if (postsNotPin.Count() > 0)
             {
-                foreach (var x in lstPPinTemp)
+                foreach (var x in postsHasPin)
                 {
                     var p = new post_TopViewModel
                     {
@@ -225,10 +236,15 @@ namespace Capstone_SWP490.Services
                 }
             }
 
-            if (lstPNoTemp.Count > 0)
+            if (lstPostOut.Count < 5)
             {
-                foreach (var x in lstPNoTemp)
+                int i = 5 - lstPostOut.Count;
+                foreach (var x in postsNotPin)
                 {
+                    if (i == 0)
+                    {
+                        break;
+                    }
                     var p = new post_TopViewModel
                     {
                         post_id = x.post_id,
@@ -247,6 +263,7 @@ namespace Capstone_SWP490.Services
                         isPin = 0
                     };
                     lstPostOut.Add(p);
+                    i--;
                 }
             }
 
@@ -263,102 +280,38 @@ namespace Capstone_SWP490.Services
         }
         public async Task<AjaxResponseViewModel<bool>> PinPost(int postId)
         {
-            var postTemp = _ipostRepository.FindBy(x => x.post_id == postId).FirstOrDefault();
-
-            //var lp = _ipostRepository.FindBy(x => x.post_to != null).ToList();
-
-            var listPostPin = (from x in _ipostRepository.FindBy(x => x.post_to != null)
-                               orderby x.post_to ascending
-                               select x).ToList();
-
-            if (!String.IsNullOrWhiteSpace(postTemp.post_to))
+            try
             {
-                if (listPostPin.Count > 0)
+                var pin0 = _ipostRepository.FindBy(x => x.post_to.Equals("0")).FirstOrDefault();
+                var pin1 = _ipostRepository.FindBy(x => x.post_to.Equals("1")).FirstOrDefault();
+                var pin2 = _ipostRepository.FindBy(x => x.post_to.Equals("2")).FirstOrDefault();
+                if (pin0 != null)
                 {
-                    int pos = 1;
-                    foreach (var item in listPostPin)
-                    {
-                        if (item.post_id == postTemp.post_id)
-                        {
-                            postTemp.post_to = 0 + "";
-                            if (await _ipostRepository.Update(postTemp, postTemp.post_id) == -1)
-                            {
-                                return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
-                            }
-                        }
-                        else
-                        {
-                            item.post_to = pos + "";
-                            if (await _ipostRepository.Update(item, item.post_id) == -1)
-                            {
-                                return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
-                            }
-                            pos++;
-                        }
-                    }
+                    pin0.post_to = "1";
+                    await update(pin0);
                 }
-                else
+                if (pin1 != null)
                 {
-                    postTemp.post_to = 0 + "";
-                    if (await _ipostRepository.Update(postTemp, postTemp.post_id) == -1)
-                    {
-                        return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
-                    }
+                    pin1.post_to = "2";
+                    await update(pin1);
+                }
+                if (pin2 != null)
+                {
+                    pin2.post_to = "NO";
+                    await update(pin2);
                 }
 
-                if (listPostPin.Count > 3)
-                {
-                    listPostPin = (from x in _ipostRepository.FindBy(x => x.post_to != null)
-                                   orderby x.post_to ascending
-                                   select x).ToList();
-
-                    for (int i = 3; i < listPostPin.Count; i++)
-                    {
-                        var p = listPostPin[i];
-                        p.post_to = "NO";
-                        if (await _ipostRepository.Update(p, p.post_id) == -1)
-                        {
-                            return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
-                        }
-                    }
-                }
+                var postTemp = _ipostRepository.FindBy(x => x.post_id == postId).FirstOrDefault();
+                postTemp.enabled = true;
+                postTemp.post_to = "0";
+                postTemp.update_date = DateTime.Now + "";
+                await update(postTemp);
                 return new AjaxResponseViewModel<bool> { Data = true, Message = "Success", Status = 1 };
             }
-            else
+            catch (Exception e)
             {
-                int pos = 1;
-                postTemp.post_to = 0 + "";
-                if (await _ipostRepository.Update(postTemp, postTemp.post_id) == -1)
-                {
-                    return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
-                }
-                foreach (var item in listPostPin)
-                {
-                    item.post_to = pos + "";
-                    if (await _ipostRepository.Update(item, item.post_id) == -1)
-                    {
-                        return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
-                    }
-                    pos++;
-                }
-
-                if (listPostPin.Count > 3)
-                {
-                    listPostPin = (from x in _ipostRepository.FindBy(x => x.post_to != null)
-                                   orderby x.post_to ascending
-                                   select x).ToList();
-
-                    for (int i = 3; i < listPostPin.Count; i++)
-                    {
-                        var p = listPostPin[i];
-                        p.post_to = "NO";
-                        if (await _ipostRepository.Update(p, p.post_id) == -1)
-                        {
-                            return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
-                        }
-                    }
-                }
-                return new AjaxResponseViewModel<bool> { Data = true, Message = "Success", Status = 1 };
+                Log.Error(e.Message);
+                return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
             }
         }
 
@@ -390,6 +343,123 @@ namespace Capstone_SWP490.Services
                 lstPostOut.Add(p);
             }
             return lstPostOut;
+        }
+
+        public async Task<int> Disable(int id)
+        {
+            post _post = _ipostRepository.FindBy(x => x.post_id == id).FirstOrDefault();
+            bool isPin = _post.post_to != null || !_post.post_to.Equals("NO");
+            _post.enabled = false;
+            _post.schedule_date = null;
+            _post.update_date = DateTime.Now + "";
+            _post.post_to = "NO";
+            await update(_post);
+            if (isPin)
+            {
+                var pinned = _ipostRepository.FindBy(x => !x.post_to.Equals("NO")).OrderBy(x => x.post_to).ToList();
+                int i = 0;
+                foreach (var item in pinned)
+                {
+                    item.post_to = i++ + "";
+                    await update(item);
+                }
+            }
+            return 1;
+        }
+        public async Task<int> Enable(int id)
+        {
+            post _post = _ipostRepository.FindBy(x => x.post_id == id).FirstOrDefault();
+            if (_post != null)
+            {
+                _post.enabled = true;
+                _post.schedule_date = null;
+                _post.update_date = DateTime.Now + "";
+                return await update(_post);
+            }
+            return -1;
+        }
+
+        public async Task<int> UpdatePost(post post)
+        {
+            //pin this creatation, no schedule
+            if (!post.post_to.Equals("NO") && post.enabled == true)
+            {
+                List<post> pinned = _ipostRepository.FindBy(x => !x.post_to.Equals("NO")).OrderBy(x => x.post_to).ToList();
+                for (int i = 0; i < pinned.Count() - 1; i++)
+                {
+                    post pinnedNew = pinned.ElementAt(i).post_to = i + 1 + "";
+                    await update(pinnedNew);
+                }
+                await update(pinned.ElementAt(pinned.Count() - 1).post_to = "NO");
+            }
+            return await update(post);
+        }
+
+        public async Task<int> Unpin(int id)
+        {
+            post _post = _ipostRepository.FindBy(x => x.post_id == id).FirstOrDefault();
+            if (_post != null)
+            {
+                _post.enabled = true;
+                _post.schedule_date = null;
+                _post.update_date = DateTime.Now + "";
+                _post.post_to = "NO";
+                await update(_post);
+                List<post> pinned = _ipostRepository.FindBy(x => !x.post_to.Equals("NO")).OrderBy(x => x.post_to).ToList();
+                int i = 0;
+                foreach (var item in pinned)
+                {
+                    item.post_to = i++ + "";
+                    await update(item);
+                }
+            }
+            return -1;
+        }
+
+        public async Task<int> UpdateScheduler()
+        {
+            List<post> posts = getToScheduler();
+            int i = 0;
+            foreach (var item in posts)
+            {
+                if (i == 3)
+                {
+                    break;
+                }
+                long now = DateTime.Now.Millisecond;
+                long scheduleTime2 = DateTime.Parse(item.schedule_date.ToString()).Millisecond;
+                if ((scheduleTime2 + 5 * 60000) >= now)
+                {
+                    if (item.featured == true)
+                    {
+                        var pin0 = _ipostRepository.FindBy(x => x.post_to.Equals("0")).FirstOrDefault();
+                        var pin1 = _ipostRepository.FindBy(x => x.post_to.Equals("1")).FirstOrDefault();
+                        var pin2 = _ipostRepository.FindBy(x => x.post_to.Equals("2")).FirstOrDefault();
+                        if (pin0 != null)
+                        {
+                            pin0.post_to = "1";
+                            await update(pin0);
+                        }
+                        if (pin1 != null)
+                        {
+                            pin1.post_to = "2";
+                            await update(pin1);
+                        }
+                        if (pin2 != null)
+                        {
+                            pin2.post_to = "NO";
+                            await update(pin2);
+                        }
+                        item.post_to = "0";
+                    }
+                    item.enabled = true;
+                    item.schedule_date = null;
+                    await update(item);
+                    i++;
+                }
+            }
+            return posts.Count;
+
         }
     }
 }

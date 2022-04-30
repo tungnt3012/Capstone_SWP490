@@ -39,5 +39,7 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<int> RemoveSchoolByCoach(int coachId, int currentInsertId);
 
         List<school> FindActive(int coachId);
+
+        bool CheckExist(string name, string insitutionName, int coachId);
     }
 }
