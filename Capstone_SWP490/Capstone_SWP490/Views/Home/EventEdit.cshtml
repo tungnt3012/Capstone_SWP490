@@ -150,7 +150,7 @@
                         @Html.TextBoxFor(m => m.event_type, new { @class = "hidden", id = "EventType" })
                         <div class="form-group">
                             <div class="pull-right">
-                                <button type="submit" class="btn btn-primary" id="event-upload">Save</button>
+
                                 @if (Model.event_type == 1)
                                 {
                                     <button type="button" class="btn btn-secondary" onclick="location.href='/Home/Event'; return false;" id="event-canner">Cancel</button>
@@ -159,6 +159,7 @@
                                 {
                                     <button type="button" class="btn btn-secondary" onclick="location.href = '/Home/EventDetail?id=@Model.main_event_id'; return false;" id="event-canner">Cancel</button>
                                 }
+                                <button type="submit" class="btn btn-primary" id="event-upload">Save</button>
                             </div>
                         </div>
                     </div>
