@@ -34,10 +34,10 @@ namespace Capstone_SWP490
         public virtual DbSet<member> members { get; set; }
         public virtual DbSet<member_event> member_event { get; set; }
         public virtual DbSet<page_content> page_content { get; set; }
+        public virtual DbSet<post> posts { get; set; }
         public virtual DbSet<school> schools { get; set; }
         public virtual DbSet<team> teams { get; set; }
         public virtual DbSet<team_member> team_member { get; set; }
-        public virtual DbSet<post> posts { get; set; }
         public virtual DbSet<documentation> documentations { get; set; }
         public virtual DbSet<image> images { get; set; }
     
