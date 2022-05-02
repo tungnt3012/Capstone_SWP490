@@ -113,6 +113,7 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                     itemModel.full_name = item.full_name;
                     itemModel.email = item.email;
                     itemModel.status = item.active;
+                    itemModel.coach_phone = item.members.FirstOrDefault().phone_number;
                     school school = _ischoolService.findByCoachId(item.user_id).FirstOrDefault();
                     if (school != null)
                     {

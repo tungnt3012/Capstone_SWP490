@@ -1,4 +1,5 @@
-﻿using Capstone_SWP490.ExceptionHandler;
+﻿using Capstone_SWP490.Constant.Const;
+using Capstone_SWP490.ExceptionHandler;
 using Capstone_SWP490.Helper;
 using Capstone_SWP490.Models.statisticViewModel;
 using Capstone_SWP490.Repositories;
@@ -114,11 +115,11 @@ namespace Capstone_SWP490.Services
                 statistic_SchoolViewModel.total_team = item.teams.Count;
                 statistic_SchoolViewModel.total_member = (int)_ischoolRepository.getContext().Count_Member_In_School(item.school_id).FirstOrDefault();
                 app_user coach = _iappUserRepository.FindBy(x => x.user_id == item.coach_id).FirstOrDefault();
-                if(coach != null)
+                if (coach != null)
                 {
-                        statistic_SchoolViewModel.coach_name = coach.full_name;
-                        statistic_SchoolViewModel.coach_email = coach.email;
-                        statistic_SchoolViewModel.coach_phone = coach.members.FirstOrDefault().phone_number;
+                    statistic_SchoolViewModel.coach_name = coach.full_name;
+                    statistic_SchoolViewModel.coach_email = coach.email;
+                    statistic_SchoolViewModel.coach_phone = coach.members.FirstOrDefault().phone_number;
                 }
                 result.Add(statistic_SchoolViewModel);
             }
@@ -279,10 +280,23 @@ namespace Capstone_SWP490.Services
                     }
 
                 }
+
+                team coachTeam = _iteamRepository.FindBy(x => x.school_id == data.school_id
+                && x.type.Equals(APP_CONST.TEAM_ROLE.COACH_TEAM)).FirstOrDefault();
+
+                app_user viceCoachUser = coachTeam.team_member.Where(x => x.member.member_role == 2).FirstOrDefault().member.app_user;
+                viceCoachUser.active = true;
+                await _iappUserService.update(viceCoachUser);
+                mailHelper.sendMailToInsertedUser(viceCoachUser);
+
                 foreach (var item in data.teams)
                 {
                     foreach (var member in item.team_member)
                     {
+                        if(member.member.member_role == 1)
+                        {
+                            continue;
+                        }
                         if (!member.member.app_user.active)
                         {
                             member.member.app_user.active = true;

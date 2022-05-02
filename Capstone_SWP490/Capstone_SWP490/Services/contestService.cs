@@ -138,7 +138,7 @@ namespace Capstone_SWP490.Services
                     code = contestIn.code,
                     note = contestIn.note,
                     venue = contestIn.venue,
-                    start_date = DateTime.Now, 
+                    start_date = DateTime.Now,
                     end_date = DateTime.Now,
                 };
 
@@ -355,6 +355,12 @@ namespace Capstone_SWP490.Services
 
         public List<registered_contest_ViewModel> GetStaticContest()
         {
+            Dictionary<contest, List<member>> data = new Dictionary<contest, List<member>>();
+            var contestList = _icontestRepository.FindBy(x => x.max_contestant != -1).ToList();
+            foreach (var item in contestList)
+            {
+                data.Add(item, new List<member>());
+            }
             var schools = _ischoolRepository.FindBy(x => x.active == 2 && x.enabled == true).ToList();
             List<team> teamRs = new List<team>();
             var lstOut = new List<registered_contest_ViewModel>();
@@ -367,45 +373,26 @@ namespace Capstone_SWP490.Services
                     {
                         foreach (var t in x.teams)
                         {
-                            if (t.enabled == true)
+                            foreach (var m in t.team_member)
                             {
-                                var lstTeamMember = _iteam_memberRepository.FindBy(tm => tm.team_id == t.team_id).ToList();
-                                foreach (var mem in lstTeamMember)
+                                foreach (var c in m.member.contest_member)
                                 {
-                                    var findMem = _imemberRepository.FindBy(fm => fm.member_id == mem.member_id).FirstOrDefault();
-                                    if (findMem != null)
+                                    foreach(var ct in data)
                                     {
-                                        lstMembers.Add(findMem);
+                                        if(ct.Key.contest_id == c.contest.contest_id)
+                                        {
+                                            ct.Value.Add(c.member);
+                                        }
                                     }
+
                                 }
                             }
                         }
                     }
                 }
-
-                var fContest = _icontestRepository.FindBy(contests => contests.max_contestant != -1).ToList();
-                if (fContest.Count > 0)
+                foreach (var item in data)
                 {
-                    foreach (var c in fContest)
-                    {
-                        var memberInContest = _icontest_memberRepository.FindBy(x => x.contest_id == c.contest_id).ToList();
-                        var lstM = new List<member>();
-
-                        if (memberInContest.Count > 0)
-                        {
-                            foreach (var mc in memberInContest)
-                            {
-                                foreach (var m in lstMembers)
-                                {
-                                    if (mc.member_id == m.member_id)
-                                    {
-                                        lstM.Add(m);
-                                    }
-                                }
-                            }
-                        }
-                        lstOut.Add(new registered_contest_ViewModel { contest = c, lstMember = lstM, contestant_number = lstM.Count });
-                    }
+                    lstOut.Add(new registered_contest_ViewModel { contest = item.Key, lstMember = item.Value, contestant_number = item.Value.Count });
                 }
                 return lstOut;
             }

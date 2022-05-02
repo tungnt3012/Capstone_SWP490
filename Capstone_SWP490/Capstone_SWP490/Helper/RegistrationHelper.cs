@@ -945,11 +945,11 @@ namespace Capstone_SWP490.Helper
             }
             if (!sheetNames.Contains(MemberImport.sheetName.Trim().ToUpper()))
             {
-                return SchoolImport.sheetName.Trim();
+                return MemberImport.sheetName.Trim();
             }
             if (!sheetNames.Contains(TeamImport.sheetName.Trim().ToUpper()))
             {
-                return SchoolImport.sheetName.Trim();
+                return TeamImport.sheetName.Trim();
             }
             return "";
         }

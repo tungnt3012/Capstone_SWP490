@@ -85,8 +85,8 @@ namespace Capstone_SWP490.Services
                 }
 
                 var lstOut = new List<post_TopViewModel>();
-                List<post> postsNotPin = _ipostRepository.FindBy(x =>  x.post_to.Equals("NO")).OrderByDescending(x => x.update_date).ToList();
-                List<post> postsHasPin = _ipostRepository.FindBy(x =>   !x.post_to.Equals("NO")).OrderBy(x => x.post_to).ToList();
+                List<post> postsNotPin = _ipostRepository.FindBy(x => x.post_to.Equals("NO")).OrderByDescending(x => x.update_date).ToList();
+                List<post> postsHasPin = _ipostRepository.FindBy(x => !x.post_to.Equals("NO")).OrderBy(x => x.post_to).ToList();
                 if (postsNotPin.Count > 0)
                 {
                     foreach (var x in postsHasPin)
@@ -422,43 +422,22 @@ namespace Capstone_SWP490.Services
             int i = 0;
             foreach (var item in posts)
             {
-                if (i == 3)
-                {
-                    break;
-                }
                 long now = DateTime.Now.Millisecond;
                 long scheduleTime2 = DateTime.Parse(item.schedule_date.ToString()).Millisecond;
                 if ((scheduleTime2 + 5 * 60000) >= now)
                 {
                     if (item.featured == true)
                     {
-                        var pin0 = _ipostRepository.FindBy(x => x.post_to.Equals("0")).FirstOrDefault();
-                        var pin1 = _ipostRepository.FindBy(x => x.post_to.Equals("1")).FirstOrDefault();
-                        var pin2 = _ipostRepository.FindBy(x => x.post_to.Equals("2")).FirstOrDefault();
-                        if (pin0 != null)
-                        {
-                            pin0.post_to = "1";
-                            await update(pin0);
-                        }
-                        if (pin1 != null)
-                        {
-                            pin1.post_to = "2";
-                            await update(pin1);
-                        }
-                        if (pin2 != null)
-                        {
-                            pin2.post_to = "NO";
-                            await update(pin2);
-                        }
                         item.post_to = "0";
                     }
+                    item.update_date = DateTime.Now + "";
                     item.enabled = true;
                     item.schedule_date = null;
                     await update(item);
                     i++;
                 }
             }
-            return posts.Count;
+            return i;
 
         }
     }
