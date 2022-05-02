@@ -20,6 +20,7 @@ namespace Capstone_SWP490.Services.Interfaces
         List<post_TopViewModel> GetTopAllPosts();
         Task<int> Delete(int postId);
         Task<AjaxResponseViewModel<bool>> PinPost(int postId);
+        Task<AjaxResponseViewModel<bool>> UnPinPost(int postId);
         Task<int> Disable(int id);
         Task<int> Enable(int id);
         Task<int> UpdatePost(post post);

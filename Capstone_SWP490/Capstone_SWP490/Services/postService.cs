@@ -86,7 +86,7 @@ namespace Capstone_SWP490.Services
 
                 var lstOut = new List<post_TopViewModel>();
                 List<post> postsNotPin = _ipostRepository.FindBy(x => x.post_to.Equals("NO")).OrderByDescending(x => x.update_date).ToList();
-                List<post> postsHasPin = _ipostRepository.FindBy(x => !x.post_to.Equals("NO")).OrderBy(x => x.post_to).ToList();
+                List<post> postsHasPin = _ipostRepository.FindBy(x => !x.post_to.Equals("NO") && x.post_to != null).OrderBy(x => x.post_to).ToList();
                 if (postsNotPin.Count > 0)
                 {
                     foreach (var x in postsHasPin)
@@ -280,39 +280,103 @@ namespace Capstone_SWP490.Services
         }
         public async Task<AjaxResponseViewModel<bool>> PinPost(int postId)
         {
-            try
-            {
-                var pin0 = _ipostRepository.FindBy(x => x.post_to.Equals("0")).FirstOrDefault();
-                var pin1 = _ipostRepository.FindBy(x => x.post_to.Equals("1")).FirstOrDefault();
-                var pin2 = _ipostRepository.FindBy(x => x.post_to.Equals("2")).FirstOrDefault();
-                if (pin0 != null)
-                {
-                    pin0.post_to = "1";
-                    await update(pin0);
-                }
-                if (pin1 != null)
-                {
-                    pin1.post_to = "2";
-                    await update(pin1);
-                }
-                if (pin2 != null)
-                {
-                    pin2.post_to = "NO";
-                    await update(pin2);
-                }
+            var postTemp = _ipostRepository.FindBy(x => x.post_id == postId).FirstOrDefault();
 
-                var postTemp = _ipostRepository.FindBy(x => x.post_id == postId).FirstOrDefault();
-                postTemp.enabled = true;
-                postTemp.post_to = "0";
-                postTemp.update_date = DateTime.Now + "";
-                await update(postTemp);
-                return new AjaxResponseViewModel<bool> { Data = true, Message = "Success", Status = 1 };
-            }
-            catch (Exception e)
+            var listPostPin = (from x in _ipostRepository.FindBy(x => x.post_to != null && x.post_to != "NO")
+                               orderby x.post_to ascending
+                               select x).ToList();
+
+            bool flag = false;
+
+            if (listPostPin.Count > 0)
             {
-                Log.Error(e.Message);
-                return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
+                int pos = 1;
+                foreach (var item in listPostPin)
+                {
+                    if (item.post_id == postTemp.post_id)
+                    {
+                        item.post_to = 0 + "";
+                        item.update_date = DateTime.Now + "";
+                        if (await _ipostRepository.Update(item, item.post_id) == -1)
+                        {
+                            return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
+                        }
+                        flag = true;
+                    }
+                    else
+                    {
+                        item.post_to = pos + "";
+                        if (await _ipostRepository.Update(item, item.post_id) == -1)
+                        {
+                            return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
+                        }
+                        pos++;
+                    }
+                }
             }
+
+            if (!flag)
+            {
+                postTemp.post_to = 0 + "";
+                postTemp.update_date = DateTime.Now + "";
+                if (await _ipostRepository.Update(postTemp, postTemp.post_id) == -1)
+                {
+                    return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
+                }
+            }
+
+            //list post after pin
+            var lstPined = (from x in _ipostRepository.FindBy(x => x.post_to != null && x.post_to != "NO")
+                            orderby x.post_to ascending
+                            select x).ToList();
+
+            if (lstPined.Count > 3)
+            {
+                for (int i = 3; i < lstPined.Count; i++)
+                {
+                    var p = lstPined[i];
+                    p.post_to = "NO";
+                    if (await _ipostRepository.Update(p, p.post_id) == -1)
+                    {
+                        return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
+                    }
+                }
+            }
+
+            return new AjaxResponseViewModel<bool> { Data = true, Message = "Successfull", Status = 1 };
+        }
+
+        public async Task<AjaxResponseViewModel<bool>> UnPinPost(int postId)
+        {
+            var postTemp = _ipostRepository.FindBy(x => x.post_id == postId).FirstOrDefault();
+            if (postTemp != null)
+            {
+                postTemp.post_to = "NO";
+                postTemp.update_date = DateTime.Now + "";
+                if (await _ipostRepository.Update(postTemp, postTemp.post_id) == -1)
+                {
+                    return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
+                }
+            }
+            var listPostPin = (from x in _ipostRepository.FindBy(x => x.post_to != null && x.post_to != "NO")
+                               orderby x.post_to ascending
+                               select x).ToList();
+
+            if (listPostPin.Count > 0)
+            {
+                int pos = 0;
+                foreach (var item in listPostPin)
+                {
+                    item.post_to = pos + "";
+                    if (await _ipostRepository.Update(item, item.post_id) == -1)
+                    {
+                        return new AjaxResponseViewModel<bool> { Data = false, Message = "Failed", Status = 0 };
+                    }
+                    pos++;
+                }
+            }
+
+            return new AjaxResponseViewModel<bool> { Data = true, Message = "Successfull", Status = 1 };
         }
 
         public List<post_TopViewModel> GetTopAllPosts()
@@ -381,7 +445,7 @@ namespace Capstone_SWP490.Services
 
         public async Task<int> UpdatePost(post post)
         {
-            //pin this creatation, no schedule
+            ///pin this creatation, no schedule
             if (!post.post_to.Equals("NO") && post.enabled == true)
             {
                 List<post> pinned = _ipostRepository.FindBy(x => !x.post_to.Equals("NO")).OrderBy(x => x.post_to).ToList();

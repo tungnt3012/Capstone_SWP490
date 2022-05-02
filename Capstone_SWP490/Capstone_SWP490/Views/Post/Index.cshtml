@@ -25,7 +25,6 @@
         table.dataTable thead .sorting_desc_disabled:before {
             bottom: .5em;
         }
-
     </style>
 </header>
 
@@ -101,13 +100,16 @@
                                                         <a onclick="return EnableDisableClick('REPOST')" href="@Url.Action("Enable")?id=@item.post_id">RePost</a>
                                                     }<br>
                                                     <a href="@Url.Action("Edit", "Post")?id=@item.post_id">Edit</a><br>
-                                                    @if (item.isPin == 0)
+
+                                                    @if (item.isPin == 1)
+                                                    {
+                                                        <a onclick="AjaxPinPost(this)" post-id="@item.post_id">Pin First</a><br>
+                                                        @("|")
+                                                        <a onclick="AjaxUnPinPost(this)" unpost-id="@item.post_id" href="@Url.Action("Unpin", "Post")?postId=@item.post_id">Unpin</a><br>
+                                                    }
+                                                    else if (item.isPin == 0)
                                                     {
                                                         <a onclick="AjaxPinPost(this)" post-id="@item.post_id">Pin</a><br>
-                                                    }
-                                                    else
-                                                    {
-                                                        <a onclick="return confirmUnPin()" href="@Url.Action("Unpin", "Post")?postId=@item.post_id">Unpin</a><br>
                                                     }
                                                     <a onclick="return confirmRemove();" href="@Url.Action("Remove", "Post")?post_id=@item.post_id" style="color: red">Remove</a>
                                                 </td>
@@ -190,6 +192,31 @@
             });
         }
     }
+
+    function AjaxUnPinPost(e) {
+
+        if (confirm("If you continue, this Post will Un-Pin ???") == true) {
+            var _post_id = e.getAttribute("unpost-id");
+            console.log("id= " + _post_id);
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UnPinPost", "Post")?postId=' + _post_id + '',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (rs) {
+                    var s = rs;
+                    if (rs.Status == 1) {
+                        alert("UnPin Post Successfull");
+                        location.reload();
+                    } else {
+                        alert("UnPin Post Failed!!!");
+                    }
+                }
+            });
+        }
+    }
+
     function EnableDisableClick(type) {
         return confirm("Do you want to continue " +type +"...?")
     }

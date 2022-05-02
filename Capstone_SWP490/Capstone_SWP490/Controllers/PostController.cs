@@ -197,15 +197,19 @@ namespace Capstone_SWP490.Controllers
                 model.post.update_date = DateTime.Now + "";
                 model.post.post_by = logined.user_id;
                 model.post.update_date = DateTime.Now + "";
-                if (model.featured == true)
-                {
-                    model.post.post_to = "0";
-                }
-                else
-                {
-                    model.post.post_to = "NO";
-                }
+                model.post.featured = model.featured;
+                //else
+                //{
+                //    model.post.post_to = "NO";
+                //}
+
                 _postService.update(model.post);
+
+                //if (model.featured == true)
+                //{
+                //    _postService.PinPost(model.post.post_id);
+                //}
+
                 return RedirectToAction("", "Post");
             }
             catch (Exception e)
@@ -229,6 +233,15 @@ namespace Capstone_SWP490.Controllers
             return Json(ajaxResponse);
             //return RedirectToAction("", "Post");
         }
+
+        [AuthorizationAccept(Roles = "ORGANIZER")]
+        public async Task<ActionResult> UnPinPost(int postId)
+        {
+            AjaxResponseViewModel<bool> ajaxResponse = await _postService.UnPinPost(postId);
+            return Json(ajaxResponse);
+            //return RedirectToAction("", "Post");
+        }
+
 
         [AuthorizationAccept(Roles = "ORGANIZER")]
         public async Task<ActionResult> Unpin(int postId)

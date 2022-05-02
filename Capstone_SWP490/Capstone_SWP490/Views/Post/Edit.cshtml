@@ -32,6 +32,7 @@
                     @using (Html.BeginForm(Model.action, "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {<div class="row">
                             @Html.TextBoxFor(x => x.post.post_id, new { @class = "form-control", type = "hidden" })
+                            @Html.TextBoxFor(x => x.post.post_to, new { @class = "form-control", type = "hidden" })
                             <label style="color:red"> @ViewData["EDIT_ERROR"]</label>
 
                             <div class="col-lg-6" style="overflow:auto">
