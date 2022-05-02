@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Capstone_SWP490.Services.Interfaces
 {
-   public interface IcontestService
+    public interface IcontestService
     {
         contest getByCode(string code);
         contest getByCodeOrName(string code, string name);
@@ -25,6 +25,6 @@ namespace Capstone_SWP490.Services.Interfaces
         AjaxResponseViewModel<List<contestViewModel>> FilterContest(string keyFilter);
         List<member_contest_ViewModel> getContestMemberModel(List<contest_member> contestMember);
         List<registered_contest_ViewModel> GetStaticAllContestAvailale();
-        List<registered_contest_ViewModel> GetStaticContest();
+        registered_contest_ViewModel GetStaticContest();
     }
 }

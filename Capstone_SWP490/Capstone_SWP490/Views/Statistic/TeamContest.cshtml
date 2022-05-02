@@ -48,7 +48,8 @@
                             <div class="tab-pane active" role="tabpanel" id="step1">
                                 <div class="col-lg-12">
                                     <div class="pull-right">
-                                        <button type="button" class="btn btn-success add-post" style=" margin-bottom: 15px; margin-top: 0px !important;">
+                                        <button type="button" class="btn btn-success add-post" style=" margin-bottom: 15px; margin-top: 0px !important;"
+                                                onclick="window.location.href = '/Statistic/DownloadContestStatistic' ">
                                             Export
                                         </button>
                                         <br>
@@ -74,29 +75,36 @@
                                             </tr>
                                         </thead>
                                         <tbody id="table-contests">
-                                            @if (Model.list_registered_contest.Count > 0)
+                                            @if (Model.list_registered_contest != null)
                                             {
                                                 int count = 0;
-                                                foreach (var item in Model.list_registered_contest)
+                                                foreach (var item in Model.list_registered_contest.IndividualContest.Keys)
                                                 {
                                                     <tr>
                                                         <td class="date-table">@(++count)</td>
                                                         <td class="date-table">
-                                                            @item.contest.contest_name
+                                                            @item.contest_name
                                                         </td>
                                                         <td class="venue-table">
-                                                            @item.contest.code
+                                                            @item.code
                                                         </td>
+                                                        <td class="venue-table">Individual</td>
+                                                        <td class="venue-table">@Model.list_registered_contest.IndividualContest[item].Count</td>
+                                                    </tr>
+                                                }
 
-                                                        @if (item.contest.max_contestant == 1)
-                                                        {
-                                                            <td class="venue-table">Individual</td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td class="venue-table">Team</td>
-                                                        }
-                                                        <td class="venue-table">@item.contestant_number</td>
+                                                foreach (var item in Model.list_registered_contest.TeamContest.Keys)
+                                                {
+                                                    <tr>
+                                                        <td class="date-table">@(++count)</td>
+                                                        <td class="date-table">
+                                                            @item.contest_name
+                                                        </td>
+                                                        <td class="venue-table">
+                                                            @item.code
+                                                        </td>
+                                                        <td class="venue-table">Team</td>
+                                                        <td class="venue-table">@Model.list_registered_contest.TeamContest[item].Count</td>
                                                     </tr>
                                                 }
                                             }

@@ -45,6 +45,10 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                 organization_ViewModel itemModel;
                 List<organization_ViewModel> data = new List<organization_ViewModel>();
                 List<app_user> coachUser = _iapp_UserService.findNewRegistCoach(model.keyword);
+                if(coachUser == null || coachUser.Count == 0)
+                {
+                    return RedirectToAction(ACTION_CONST.Orgnazation.COACH_ACCOUNT, ACTION_CONST.Orgnazation.CONTROLLER); ;
+                }
                 foreach (var item in coachUser)
                 {
                     itemModel = new organization_ViewModel();
@@ -113,7 +117,8 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                     itemModel.full_name = item.full_name;
                     itemModel.email = item.email;
                     itemModel.status = item.active;
-                    itemModel.coach_phone = item.members.FirstOrDefault().phone_number;
+                    member coachMember = _imemberService.GetMemberByUserId(item.user_id);
+                    itemModel.coach_phone = coachMember == null ? "": coachMember.phone_number;
                     school school = _ischoolService.findByCoachId(item.user_id).FirstOrDefault();
                     if (school != null)
                     {
@@ -184,6 +189,11 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                 bool isActive = false;
                 foreach (var item in schools)
                 {
+                    //skip for stored school for check
+                    if(item.active == -1)
+                    {
+                        continue;
+                    }
                     List<app_user> users = new List<app_user>();
                     foreach (var team in item.teams)
                     {
@@ -214,7 +224,7 @@ namespace Capstone_SWP490.Controllers.Orgnazition
             {
                 Log.Error(e.Message);
             }
-            return RedirectToAction(ACTION_CONST.Orgnazation.COACH_ACCOUNT, ACTION_CONST.Orgnazation.CONTROLLER);
+            return RedirectToAction(ACTION_CONST.Orgnazation.NEW_REGIST_COACH, ACTION_CONST.Orgnazation.CONTROLLER);
         }
 
         [AuthorizationAccept(Roles = "ORGANIZER")]

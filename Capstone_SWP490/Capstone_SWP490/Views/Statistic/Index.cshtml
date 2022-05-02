@@ -61,7 +61,7 @@
                                     </label>
                                     <br>
                                     <label class="border border-danger" for="Event_Schedule">
-                                        Registered contests:  @(Model.total_contestant) <a style="text-decoration: underline" onclick="location.href='@Url.Action("TeamContest", "Statistic")';return false;">detail</a>
+                                        The Contest:  @(Model.list_registered_contest.IndividualContest.Count + Model.list_registered_contest.TeamContest.Count) <a style="text-decoration: underline" onclick="location.href='@Url.Action("TeamContest", "Statistic")';return false;">detail</a>
                                     </label>
                                 </div>
                                 <div class="col-lg-12" id="under" style="border-top: 1px solid gray">

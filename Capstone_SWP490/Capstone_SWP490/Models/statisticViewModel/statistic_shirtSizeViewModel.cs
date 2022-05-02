@@ -8,6 +8,10 @@ namespace Capstone_SWP490.Models.statisticViewModel
 {
     public class statistic_shirtSizeViewModel
     {
+        public statistic_shirtSizeViewModel()
+        {
+            lstMembers = new List<member>();
+        }
         public int totalRegisterdSize { get; set; }
         public int sizeS { get; set; }
         public int sizeXS { get; set; }

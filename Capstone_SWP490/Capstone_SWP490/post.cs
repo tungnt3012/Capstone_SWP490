@@ -27,12 +27,5 @@ namespace Capstone_SWP490
         public string schedule_date { get; set; }
         public string post_to { get; set; }
         public string title_image { get; set; }
-    
-        public virtual app_user app_user { get; set; }
-
-        public static implicit operator post(string v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

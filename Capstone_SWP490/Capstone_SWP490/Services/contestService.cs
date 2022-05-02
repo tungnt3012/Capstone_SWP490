@@ -20,7 +20,7 @@ namespace Capstone_SWP490.Services
         private readonly Icontest_memberRepository _icontest_memberRepository = new contest_memberRepository();
         private readonly IschoolRepository _ischoolRepository = new schoolRepository();
         private readonly Iteam_memberRepository _iteam_memberRepository = new teamMemberRepository();
-
+        private readonly IteamRepository _isteamRepository = new teamRepository();
         public contest getByCode(string code)
         {
             try
@@ -353,50 +353,61 @@ namespace Capstone_SWP490.Services
             return null;
         }
 
-        public List<registered_contest_ViewModel> GetStaticContest()
+        public registered_contest_ViewModel GetStaticContest()
         {
-            Dictionary<contest, List<member>> data = new Dictionary<contest, List<member>>();
-            var contestList = _icontestRepository.FindBy(x => x.max_contestant != -1).ToList();
-            foreach (var item in contestList)
+            try
             {
-                data.Add(item, new List<member>());
-            }
-            var schools = _ischoolRepository.FindBy(x => x.active == 2 && x.enabled == true).ToList();
-            List<team> teamRs = new List<team>();
-            var lstOut = new List<registered_contest_ViewModel>();
-            if (schools.Count > 0)
-            {
-                var lstMembers = new List<member>();
-                foreach (var x in schools)
+                var lstOut = new registered_contest_ViewModel();
+                var teamContest = _icontestRepository.FindBy(x => x.max_contestant > 1).ToList();
+                foreach (var item in teamContest)
                 {
-                    if (x.teams.Count > 0)
-                    {
-                        foreach (var t in x.teams)
-                        {
-                            foreach (var m in t.team_member)
-                            {
-                                foreach (var c in m.member.contest_member)
-                                {
-                                    foreach(var ct in data)
-                                    {
-                                        if(ct.Key.contest_id == c.contest.contest_id)
-                                        {
-                                            ct.Value.Add(c.member);
-                                        }
-                                    }
+                    lstOut.TeamContest.Add(item, new List<team>());
+                }
+                var individualContest = _icontestRepository.FindBy(x => x.max_contestant == 1).ToList();
+                foreach (var item in individualContest)
+                {
+                    lstOut.IndividualContest.Add(item, new List<member>());
+                }
 
+                var schools = _ischoolRepository.FindBy(x => x.active == 2 && x.enabled == true).ToList();
+                List<team> teams = new List<team>();
+                foreach (var item in schools)
+                {
+                    teams.AddRange(item.teams);
+                }
+                foreach (var item in teams)
+                {
+                    var contestCheck = _icontestRepository.FindBy(x => x.contest_id == item.contest_id).FirstOrDefault();
+                    //for team contest
+                    if (lstOut.TeamContest[contestCheck] != null)
+                    {
+                        lstOut.TeamContest[contestCheck].Add(item);
+                    }
+                    //for member contest
+                    foreach (var tm in item.team_member)
+                    {
+                        foreach (var ctm in tm.member.contest_member)
+                        {
+                            try
+                            {
+                                var contestMemberCheck = _icontestRepository.FindBy(x => x.contest_id == ctm.contest.contest_id).FirstOrDefault();
+                                if (lstOut.IndividualContest[contestMemberCheck] != null)
+                                {
+                                    lstOut.IndividualContest[contestMemberCheck].Add(ctm.member);
                                 }
                             }
+                            catch { }
                         }
                     }
                 }
-                foreach (var item in data)
-                {
-                    lstOut.Add(new registered_contest_ViewModel { contest = item.Key, lstMember = item.Value, contestant_number = item.Value.Count });
-                }
+
                 return lstOut;
             }
-            return null;
+            catch (Exception e)
+            {
+
+            }
+            return new registered_contest_ViewModel();
         }
     }
 }

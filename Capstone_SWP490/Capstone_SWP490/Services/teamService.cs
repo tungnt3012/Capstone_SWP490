@@ -62,7 +62,7 @@ namespace Capstone_SWP490.Services
 
         public IEnumerable<team> findRegistedTeam(int coachId)
         {
-            return _iteamRepository.FindBy(x => x.school.active == 2 && x.school.coach_id != coachId).ToList();
+            return _iteamRepository.FindBy(x => (x.school.active == 2 || x.school.active == 1) && x.school.coach_id != coachId).ToList();
         }
 
         public IEnumerable<team> getAllTeams()

@@ -103,7 +103,7 @@ namespace Capstone_SWP490.Helper
                 };
                 if (_ischoolService.isDuplicateSchool(schoolCheck))
                 {
-                    return "School is registered by another,Please check SCHOOL NAME and INSITUTION NAME carefully \n" +
+                    return "School is registered by another,please check SCHOOL NAME and INSITUTION NAME carefully \n" +
                         "or contact to Organizer for more information";
                 }
                 return "";

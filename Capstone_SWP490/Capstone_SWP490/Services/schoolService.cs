@@ -281,10 +281,9 @@ namespace Capstone_SWP490.Services
 
                 }
 
-                team coachTeam = _iteamRepository.FindBy(x => x.school_id == data.school_id
-                && x.type.Equals(APP_CONST.TEAM_ROLE.COACH_TEAM)).FirstOrDefault();
-
-                app_user viceCoachUser = coachTeam.team_member.Where(x => x.member.member_role == 2).FirstOrDefault().member.app_user;
+                school stored = _ischoolRepository.FindBy(x => x.active == -1 && x.coach_id == data.coach_id).FirstOrDefault();
+                team coachTeam = stored.teams.Where(x => x.type.Equals(APP_CONST.TEAM_ROLE.COACH_TEAM)).FirstOrDefault();
+                app_user viceCoachUser = coachTeam.team_member.FirstOrDefault().member.app_user;
                 viceCoachUser.active = true;
                 await _iappUserService.update(viceCoachUser);
                 mailHelper.sendMailToInsertedUser(viceCoachUser);
@@ -338,7 +337,7 @@ namespace Capstone_SWP490.Services
             {
                 return false;
             }
-            school check = _ischoolRepository.FindBy(x => x.school_name.Equals(item.school_name) && x.institution_name.Equals(item.institution_name) && x.active != 3).FirstOrDefault();
+            school check = _ischoolRepository.FindBy(x => x.institution_name.Equals(item.institution_name) && x.active != 3).FirstOrDefault();
             return check != null;
         }
 

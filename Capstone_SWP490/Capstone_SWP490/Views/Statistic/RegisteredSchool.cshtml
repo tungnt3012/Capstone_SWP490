@@ -71,7 +71,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="table-contests">
-                                            @if (Model.list_registered_school.Count > 0)
+                                            @if (Model.list_registered_school != null && Model.list_registered_school.Count > 0)
                                             {
                                                 int count = 0;
                                                 foreach (var x in Model.list_registered_school)

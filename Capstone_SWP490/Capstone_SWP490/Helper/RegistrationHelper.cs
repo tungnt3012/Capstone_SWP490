@@ -1,7 +1,6 @@
 ﻿using Capstone_SWP490.ExceptionHandler;
 using Capstone_SWP490.Models.school_memberViewModel;
 using log4net;
-using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +13,7 @@ using System.Threading.Tasks;
 using Capstone_SWP490.Constant.Const;
 using System.Security.Cryptography;
 using Resources;
+using OfficeOpenXml;
 
 namespace Capstone_SWP490.Helper
 {
@@ -692,7 +692,7 @@ namespace Capstone_SWP490.Helper
                     }
                     //member
                     string memberName = memberSheet.Cells[row, ++col].Value + "";
-                    string dtString = memberSheet.Cells[row, ++col].Value + "";
+                    long dateNum = long.Parse(memberSheet.Cells[row, ++col].Value.ToString());
                     string email = $"{memberSheet.Cells[row, ++col].Value}".Trim().ToLower();
                     if (StringUtils.isNullOrEmpty(email))
                     {
@@ -735,7 +735,7 @@ namespace Capstone_SWP490.Helper
                         first_name = ExtractFirstName(memberName),
                         middle_name = ExtractMiddleName(memberName),
                         last_name = ExtractLastName(memberName),
-                        dob = CommonHelper.toDateTime(dtString),
+                        dob = CommonHelper.LongToDateTime(dateNum),
                         phone_number = memberSheet.Cells[row, ++col].Value + "",
                         icpc_id = CommonHelper.toInt32(memberSheet.Cells[row, ++col].Value + "", -1),
                         gender = GetGender(memberSheet.Cells[row, ++col].Value + ""),
@@ -817,7 +817,7 @@ namespace Capstone_SWP490.Helper
                             objectName = "MEMBER_NORMAL",
                             parentObject = APP_CONST.MEMBER,
                             occur_position = "Row = " + row,
-                            msg = Message.MSG035,
+                            msg = string.Format(Message.MSG035, current.team_name),
                             type = 2
                         };
                         result.error.Add(error);

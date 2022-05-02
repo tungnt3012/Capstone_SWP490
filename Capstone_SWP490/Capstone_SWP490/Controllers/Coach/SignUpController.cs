@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using interfaces = Capstone_SWP490.Services.Interfaces;
 using services = Capstone_SWP490.Services;
+using log4net;
 
 namespace Capstone_SWP490.Controllers.Coach
 {
@@ -20,7 +21,7 @@ namespace Capstone_SWP490.Controllers.Coach
         private readonly interfaces.ImemberService _imemberService = new services.memberService();
         private readonly interfaces.Iteam_memberService _iteam_memberService = new services.teamMemberService();
         private readonly CoachSignUpHelper coachSignUpHelper = new CoachSignUpHelper();
-
+        private static readonly ILog Log = LogManager.GetLogger(typeof(SignUpController));
         // GET: SignUp
         public ActionResult Index()
         {
@@ -43,13 +44,37 @@ namespace Capstone_SWP490.Controllers.Coach
 
                 school school = coachSignUpHelper.buildSchoolRegistered(data, createdAppUser.user_id);
                 school insertedSchool = await _ischoolService.insert(school);
+                if (insertedSchool == null)
+                {
+                    await _iapp_UserService.delete(coachUser);
+                    @ViewData["CREATE_ERROR"] = "Opps! an error occur, please try again";
+                    return View();
 
+                }
                 team team = coachSignUpHelper.buildCoachTeam(insertedSchool.school_id);
                 team insertedTeam = await _iteamService.insert(team);
+                if (team == null)
+                {
+                    await _ischoolService.deleteAsync(insertedSchool);
+                    await _iapp_UserService.delete(coachUser);
+                    @ViewData["CREATE_ERROR"] = "Opps! an error occur, please try again";
+                    return View();
 
+                }
                 member member = coachSignUpHelper.buildCoachMember(data, createdAppUser.user_id);
                 member insertedMember = await _imemberService.insert(member);
+                if (insertedMember == null)
+                {
+                    if (team == null)
+                    {
+                        await _ischoolService.deleteAsync(insertedSchool);
+                        await _iteamService.delete(team);
+                        await _iapp_UserService.delete(coachUser);
+                        @ViewData["CREATE_ERROR"] = "Opps! an error occur, please try again";
+                        return View();
 
+                    }
+                }
                 team_member teamMember = coachSignUpHelper.buildCoachTeamMember(insertedTeam.team_id, insertedMember.member_id);
                 _ = await _iteam_memberService.insert(teamMember);
 
@@ -60,6 +85,7 @@ namespace Capstone_SWP490.Controllers.Coach
             catch (Exception e)
 #pragma warning restore CS0168 // The variable 'e' is declared but never used
             {
+                Log.Error(e.Message);
                 @ViewData["CREATE_ERROR"] = Message.SYSTEM_ERROR;
             }
             return View();

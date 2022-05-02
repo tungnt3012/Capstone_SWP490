@@ -8,6 +8,10 @@ namespace Capstone_SWP490.Models.statisticViewModel
 {
     public class statistic_eventViewModel
     {
+        public statistic_eventViewModel()
+        {
+            lstEvents = new List<eventsViewModel>();
+        }
         public int totalEvent { get; set; }
         public List<eventsViewModel> lstEvents { get; set; }
     }

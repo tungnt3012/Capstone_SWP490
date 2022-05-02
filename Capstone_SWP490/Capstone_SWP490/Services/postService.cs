@@ -451,10 +451,13 @@ namespace Capstone_SWP490.Services
                 List<post> pinned = _ipostRepository.FindBy(x => !x.post_to.Equals("NO")).OrderBy(x => x.post_to).ToList();
                 for (int i = 0; i < pinned.Count() - 1; i++)
                 {
-                    post pinnedNew = pinned.ElementAt(i).post_to = i + 1 + "";
+                    post pinnedNew = pinned.ElementAt(i);
+                    pinnedNew.post_to =  i + 1 + "";
                     await update(pinnedNew);
                 }
-                await update(pinned.ElementAt(pinned.Count() - 1).post_to = "NO");
+                post lastPinned = pinned.ElementAt(pinned.Count() - 1);
+                lastPinned.post_to = "NO";
+                await update(lastPinned);
             }
             return await update(post);
         }

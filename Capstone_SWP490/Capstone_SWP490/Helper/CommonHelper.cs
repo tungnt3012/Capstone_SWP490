@@ -64,6 +64,19 @@ namespace Capstone_SWP490.Helper
             }
         }
 
+        public static DateTime LongToDateTime(long val)
+        {
+            try
+            {
+                DateTime result = DateTime.FromOADate(val);
+                return result;
+            }
+            catch
+            {
+                return new DateTime();
+            }
+        }
+
         public static DateTime toDateTime(string s)
         {
             try
