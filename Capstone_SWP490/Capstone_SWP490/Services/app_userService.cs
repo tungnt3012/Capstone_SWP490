@@ -297,7 +297,7 @@ namespace Capstone_SWP490.Services
             {
                 keyword = "";
             }
-            List<app_user> result = _iapp_UserRepository.FindBy(x => x.user_role.Equals("COACH") && x.update_date == null && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).ToList();
+            List<app_user> result = _iapp_UserRepository.FindBy(x => x.active == false && x.user_role.Equals("COACH") && x.update_date == null && (x.email.Contains(keyword) || x.full_name.Contains(keyword))).ToList();
 
             var lstTemp = new List<app_userViewModel>();
             var app_userTemp = new List<app_user>();

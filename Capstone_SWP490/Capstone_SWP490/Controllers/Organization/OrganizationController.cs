@@ -56,7 +56,8 @@ namespace Capstone_SWP490.Controllers.Orgnazition
                     itemModel.full_name = item.full_name;
                     itemModel.email = item.email;
                     itemModel.status = item.active;
-                    itemModel.coach_phone = _imemberService.GetMemberByUserId(item.user_id).phone_number;
+                    member member = _imemberService.GetMemberByUserId(item.user_id);
+                    itemModel.coach_phone = member == null ? "" : member.phone_number;
                     school school = _ischoolService.findByCoachId(item.user_id).FirstOrDefault();
                     //school school = _ischoolService.findByNewRegistCoach(item.user_id);
                     if (school != null)
