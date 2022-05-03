@@ -116,10 +116,7 @@ namespace Capstone_SWP490.Services
 
         public statistic_shirtSizeViewModel statistic_ShirtSizeView()
         {
-            var lstMember = _imemberRepository.FindBy(x => x.enabled == true 
-                                            && !String.IsNullOrEmpty(x.shirt_sizing)
-                                            && !x.shirt_sizing.Equals("ORGANIZER")).ToList();
-
+            var lstMember = _imemberRepository.FindBy(x => x.enabled == true && !String.IsNullOrEmpty(x.shirt_sizing)).ToList();
             var output = new statistic_shirtSizeViewModel
             {
                 sizeS = _imemberRepository.FindBy(x => x.enabled == true && x.shirt_sizing.Equals("S")).Count(),

@@ -11,7 +11,7 @@ namespace Capstone_SWP490
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class team
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,15 +19,14 @@ namespace Capstone_SWP490
         {
             this.team_member = new HashSet<team_member>();
         }
-    
+
         public int team_id { get; set; }
         public string team_name { get; set; }
         public Nullable<int> school_id { get; set; }
         public string type { get; set; }
         public Nullable<bool> enabled { get; set; }
         public Nullable<int> contest_id { get; set; }
-        public virtual contest contest { get; set; }
-
+        public contest contest { get; set; }
         public virtual school school { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<team_member> team_member { get; set; }
