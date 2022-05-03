@@ -692,7 +692,8 @@ namespace Capstone_SWP490.Helper
                     }
                     //member
                     string memberName = memberSheet.Cells[row, ++col].Value + "";
-                    long dateNum = long.Parse(memberSheet.Cells[row, ++col].Value.ToString());
+                    //long dateNum = long.Parse(memberSheet.Cells[row, ++col].Value.ToString());
+                    string dateNum = memberSheet.Cells[row, ++col].Value + "";
                     string email = $"{memberSheet.Cells[row, ++col].Value}".Trim().ToLower();
                     if (StringUtils.isNullOrEmpty(email))
                     {
@@ -735,7 +736,7 @@ namespace Capstone_SWP490.Helper
                         first_name = ExtractFirstName(memberName),
                         middle_name = ExtractMiddleName(memberName),
                         last_name = ExtractLastName(memberName),
-                        dob = CommonHelper.LongToDateTime(dateNum),
+                        dob = CommonHelper.toDateTime(dateNum),
                         phone_number = memberSheet.Cells[row, ++col].Value + "",
                         icpc_id = CommonHelper.toInt32(memberSheet.Cells[row, ++col].Value + "", -1),
                         gender = GetGender(memberSheet.Cells[row, ++col].Value + ""),
