@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Admin\Desktop\Personal\V5\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\icpc.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\a\Desktop\personal\v1\Capstone_SWP490\Capstone_SWP490\Capstone_SWP490\icpc.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
