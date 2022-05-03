@@ -113,25 +113,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="posts">
-      <EntityTypeMapping TypeName="gocyberx_icpcModel.post">
-        <MappingFragment StoreEntitySet="post">
-          <ScalarProperty Name="post_id" ColumnName="post_id" />
-          <ScalarProperty Name="post_by" ColumnName="post_by" />
-          <ScalarProperty Name="insert_date" ColumnName="insert_date" />
-          <ScalarProperty Name="update_date" ColumnName="update_date" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="short_description" ColumnName="short_description" />
-          <ScalarProperty Name="content" ColumnName="content" />
-          <ScalarProperty Name="html_content" ColumnName="html_content" />
-          <ScalarProperty Name="featured" ColumnName="featured" />
-          <ScalarProperty Name="enabled" ColumnName="enabled" />
-          <ScalarProperty Name="schedule_date" ColumnName="schedule_date" />
-          <ScalarProperty Name="post_to" ColumnName="post_to" />
-          <ScalarProperty Name="title_image" ColumnName="title_image" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="schools">
       <EntityTypeMapping TypeName="gocyberx_icpcModel.school">
         <MappingFragment StoreEntitySet="school">
@@ -147,7 +128,6 @@
           <ScalarProperty Name="rector_name" ColumnName="rector_name" />
           <ScalarProperty Name="website" ColumnName="website" />
           <ScalarProperty Name="phone_number" ColumnName="phone_number" />
-          <ScalarProperty Name="note" ColumnName="note" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -169,6 +149,24 @@
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="team_id" ColumnName="team_id" />
           <ScalarProperty Name="member_id" ColumnName="member_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="posts">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.post">
+        <MappingFragment StoreEntitySet="post">
+          <ScalarProperty Name="post_id" ColumnName="post_id" />
+          <ScalarProperty Name="post_by" ColumnName="post_by" />
+          <ScalarProperty Name="insert_date" ColumnName="insert_date" />
+          <ScalarProperty Name="update_date" ColumnName="update_date" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="short_description" ColumnName="short_description" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="html_content" ColumnName="html_content" />
+          <ScalarProperty Name="featured" ColumnName="featured" />
+          <ScalarProperty Name="enabled" ColumnName="enabled" />
+          <ScalarProperty Name="schedule_date" ColumnName="schedule_date" />
+          <ScalarProperty Name="post_to" ColumnName="post_to" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -195,10 +193,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="Check_Mail_In_Use" FunctionName="gocyberx_icpcModel.Store.Check_Mail_In_Use" />
+    <FunctionImportMapping FunctionImportName="spSomeRoutine" FunctionName="gocyberx_icpcModel.Store.spSomeRoutine" />
+    <FunctionImportMapping FunctionImportName="Check_Email_In_Use" FunctionName="gocyberx_icpcModel.Store.Check_Email_In_Use" />
     <FunctionImportMapping FunctionImportName="Count_Contestant" FunctionName="gocyberx_icpcModel.Store.Count_Contestant" />
     <FunctionImportMapping FunctionImportName="Count_Member_In_School" FunctionName="gocyberx_icpcModel.Store.Count_Member_In_School" />
-    <FunctionImportMapping FunctionImportName="Enable_App_User" FunctionName="gocyberx_icpcModel.Store.Enable_App_User" />
     <FunctionImportMapping FunctionImportName="Disable_App_User_Data" FunctionName="gocyberx_icpcModel.Store.Disable_App_User_Data" />
     <FunctionImportMapping FunctionImportName="Disable_App_User_School" FunctionName="gocyberx_icpcModel.Store.Disable_App_User_School" />
     <FunctionImportMapping FunctionImportName="Disable_Member_Data" FunctionName="gocyberx_icpcModel.Store.Disable_Member_Data" />
