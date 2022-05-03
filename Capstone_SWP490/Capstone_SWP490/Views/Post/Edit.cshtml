@@ -61,7 +61,7 @@
                                 <div class="form-group">
                                     <label for="firstName">Title Image<span id="not-empty">*</span></label><br />
                                     <input type="file" name="file" accept="image/*" onchange="loadFile(event)">
-                                    <img id="preview" src="~/image/@(Model.post== null ?"default.png" : "/image/post/" +Model.post.title_image)" width="200" height="250" style="border: 1px solid gray" onclick="loadFile(event)" />
+                                    <img id="preview" src="~/image/@(Model.post== null ?"default.png" : "post/" +Model.post.title_image)" width="200" height="250" style="border: 1px solid gray" onclick="loadFile(event)" />
                                 </div>
                             </div>
                         </div>
@@ -155,4 +155,15 @@
             URL.revokeObjectURL(output.src) // free memory
         }
     };
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img-thumbnail')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>

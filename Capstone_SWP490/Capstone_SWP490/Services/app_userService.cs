@@ -18,7 +18,6 @@ namespace Capstone_SWP490.Services
 {
     public class app_userService : Iapp_userService
     {
-
         private readonly Iapp_userRepository _iapp_UserRepository = new app_userRepository();
         private readonly ImemberRepository _imemberRepository = new memberRepository();
         private static readonly ILog Log = LogManager.GetLogger(typeof(app_userService));
@@ -416,9 +415,9 @@ namespace Capstone_SWP490.Services
                             dob = DateTime.Now,
                             email = uChecker.email,
                             enabled = true,
-                            first_name = uChecker.full_name.Split(' ')[0].ToString(),
-                            middle_name = "",
-                            last_name = uChecker.full_name.Split(' ').Last().ToString(),
+                            first_name = ExtractFirstName(uChecker.full_name),
+                            middle_name = ExtractMiddleName(uChecker.full_name),
+                            last_name = ExtractLastName(uChecker.full_name),
                             gender = 1,
                             shirt_sizing = "ORGANIZER",
                             year = DateTime.Now.Year,
@@ -456,6 +455,40 @@ namespace Capstone_SWP490.Services
         public bool isEmailInUse(string email)
         {
             return _iapp_UserRepository.FindBy(x => x.user_name.ToUpper().Equals(email.ToUpper().Trim()) && x.active == true).FirstOrDefault() != null;
+        }
+
+        public string ExtractFirstName(string name)
+        {
+            string[] arr = name.Split(' ');
+            if (arr.Length == 0)
+            {
+                return "";
+            }
+            return StringUtils.upperCaseFirstCharacter(arr.FirstOrDefault());
+        }
+        public string ExtractLastName(string name)
+        {
+            string[] arr = name.Split(' ');
+            if (arr.Length == 0)
+            {
+                return "";
+            }
+            return StringUtils.upperCaseFirstCharacter(arr.LastOrDefault());
+        }
+        public string ExtractMiddleName(string name)
+        {
+            string[] arr = name.Split(' ');
+            if (arr.Length <= 2)
+            {
+                return "";
+            }
+            if (arr.Length == 3) { return StringUtils.upperCaseFirstCharacter(arr[1]); }
+            string result = "";
+            for (int i = 1; i < arr.Length - 1; i++)
+            {
+                result += " " + arr[i];
+            }
+            return StringUtils.upperCaseFirstCharacter(result);
         }
     }
 }

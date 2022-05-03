@@ -78,7 +78,7 @@ namespace Capstone_SWP490.Controllers
         [AuthorizationAccept(Roles = "ORGANIZER")]
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(post_ViewModel model, string postToFanPage, HttpPostedFileBase file, string actionBtn)
+        public ActionResult Create(post_ViewModel model, string actionBtn)
         {
             if (actionBtn != null && actionBtn.Equals("Schedule"))
             {
@@ -110,6 +110,7 @@ namespace Capstone_SWP490.Controllers
             model.post.insert_date = DateTime.Now + "";
             model.post.update_date = DateTime.Now + "";
             model.post.post_by = logined.user_id;
+            model.post.title_image = UploadedFile(model.file);
             if (model.featured == true)
             {
                 model.post.post_to = "0";
@@ -118,9 +119,36 @@ namespace Capstone_SWP490.Controllers
             {
                 model.post.post_to = "NO";
             }
-            _postService.insert(model.post);
+
+            if (_postService.insert(model.post)==null)
+            {
+                @ViewData["EDIT_ERROR"] = "Create Failed";
+                return View("Edit", model);
+            }
+            
             return RedirectToAction("Index", "Post");
         }
+        private string UploadedFile(HttpPostedFileBase file)
+        {
+            string uniqueFileName = null;
+
+            if (file != null)
+            {
+                uniqueFileName = GetUniqueFileName(file.FileName);
+                string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), uniqueFileName);
+                file.SaveAs(_path);
+            }
+            return uniqueFileName;
+        }
+
+        private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_" + Guid.NewGuid().ToString().Substring(0, 4)
+                      + Path.GetExtension(fileName);
+        }
+
 
         [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult Edit(int id)

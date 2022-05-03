@@ -358,7 +358,7 @@ namespace Capstone_SWP490.Services
                     event_type = 2,
                     status = eventsIn.subEvent.status,
                 };
-                
+
                 var subEvent = await _ieventRepository.Create(se);
                 if (subEvent != null)
                 {
@@ -743,7 +743,22 @@ namespace Capstone_SWP490.Services
             {
                 if (!String.IsNullOrWhiteSpace(subEvent.member_join))
                 {
-                    return subEvent.member_join.Split(',').Length - 1;
+                    string[] memberJoin = subEvent.member_join.Split(',');
+                    var mem = new List<member>();
+
+                    foreach (var item in memberJoin)
+                    {
+                        if (!String.IsNullOrWhiteSpace(item))
+                        {
+                            int memId = Convert.ToInt32(item.ToString());
+                            var m = _imemberRepository.FindBy(x => x.member_id == memId).FirstOrDefault();
+                            if (m != null)
+                            {
+                                mem.Add(m);
+                            }
+                        }
+                    }
+                    return mem.Count();
                 }
             }
             return 0;

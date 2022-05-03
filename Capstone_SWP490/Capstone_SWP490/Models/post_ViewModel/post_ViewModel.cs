@@ -15,5 +15,6 @@ namespace Capstone_SWP490.Models.post_ViewModel
 
         public bool featured { get; set; }
         public string insert_date { get; set; }
+        public HttpPostedFileBase file { get; set; }
     }
 }
