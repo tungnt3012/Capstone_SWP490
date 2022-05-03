@@ -65,6 +65,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="" class="col-lg-3 col-sm-3 control-label">Thumbnail</label>
+                            <div class="col-lg-9">
+                                <input type="file" id="p-thumbnail" onchange="readURL(this)" value="@Model.post.title_image">
+                                <img class="" src="~/images/blog/@Model.post.title_image" id="img-thumbnail" accept="image/png, image/jpeg" alt="Post Thumbnail" width="900" height="700">
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-lg-12" style="overflow:auto">
                                 <div class="form-group">
@@ -155,4 +162,15 @@
             URL.revokeObjectURL(output.src) // free memory
         }
     };
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img-thumbnail')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>

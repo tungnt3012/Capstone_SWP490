@@ -208,43 +208,36 @@ namespace Capstone_SWP490.Services
 
         public List<post_TopViewModel> GetTop5Posts()
         {
-            var postsNotPin = _ipostRepository.FindBy(x => x.enabled == true && x.post_to.Equals("NO")).OrderByDescending(x => x.update_date);
-            var postsHasPin = _ipostRepository.FindBy(x => x.enabled == true && !x.post_to.Equals("NO")).OrderBy(x => x.post_to);
-            var lstPostOut = new List<post_TopViewModel>();
-            if (postsNotPin.Count() > 0)
+            var postsHasPin = _ipostRepository.FindBy(x => x.enabled == true && !x.post_to.Equals("NO") && x.post_to != null).OrderBy(x => x.post_to);
+            var postsNotPin = _ipostRepository.FindBy(x => x.enabled == true && x.post_to.Equals("NO") && x.post_to != null).OrderByDescending(x => x.update_date);
+
+            var lstPosttemp = new List<post>();
+
+            if (postsHasPin.Count() > 0)
             {
                 foreach (var x in postsHasPin)
                 {
-                    var p = new post_TopViewModel
-                    {
-                        post_id = x.post_id,
-                        content = x.content,
-                        enabled = x.enabled,
-                        featured = x.featured,
-                        html_content = x.html_content,
-                        insert_date = x.insert_date,
-                        post_by = x.post_by,
-                        post_to = x.post_to,
-                        schedule_date = x.schedule_date,
-                        short_description = x.short_description,
-                        title = x.title,
-                        update_date = x.update_date,
-                        title_image = x.title_image,
-                        isPin = 1
-                    };
-                    lstPostOut.Add(p);
+                    lstPosttemp.Add(x);
                 }
             }
 
-            if (lstPostOut.Count < 5)
+            if (postsNotPin.Count() > 0)
             {
-                int i = 5 - lstPostOut.Count;
                 foreach (var x in postsNotPin)
                 {
-                    if (i == 0)
-                    {
-                        break;
-                    }
+                    lstPosttemp.Add(x);
+                }
+            }
+
+            var lstPostOUt = new List<post_TopViewModel>();
+
+            lstPosttemp = (from x in lstPosttemp
+                           select x).Take(8).ToList();
+
+            if (lstPosttemp.Count() > 0)
+            {
+                foreach (var x in lstPosttemp)
+                {
                     var p = new post_TopViewModel
                     {
                         post_id = x.post_id,
@@ -260,14 +253,11 @@ namespace Capstone_SWP490.Services
                         title = x.title,
                         update_date = x.update_date,
                         title_image = x.title_image,
-                        isPin = 0
                     };
-                    lstPostOut.Add(p);
-                    i--;
+                    lstPostOUt.Add(p);
                 }
             }
-
-            return lstPostOut;
+            return lstPostOUt;
         }
 
         public async Task<int> Delete(int postId)
@@ -452,7 +442,7 @@ namespace Capstone_SWP490.Services
                 for (int i = 0; i < pinned.Count() - 1; i++)
                 {
                     post pinnedNew = pinned.ElementAt(i);
-                    pinnedNew.post_to =  i + 1 + "";
+                    pinnedNew.post_to = i + 1 + "";
                     await update(pinnedNew);
                 }
                 post lastPinned = pinned.ElementAt(pinned.Count() - 1);
