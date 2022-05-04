@@ -78,7 +78,7 @@ else
     $(document).ready(function () {
         GetListContent();
         var _role = $("#user_role").val();
-        if (_role === "COACH") {
+        if (_role === "COACH" || _role==="VICE-COACH") {
             $("#regis-btn").attr("hidden", false);
         } else {
             $("#regis-btn").attr("hidden", true);
