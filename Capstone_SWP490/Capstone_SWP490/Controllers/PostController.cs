@@ -117,6 +117,7 @@ namespace Capstone_SWP490.Controllers
             model.insert_date = DateTime.Now + "";
             model.update_date = DateTime.Now + "";
             model.post_by = logined.user_id;
+            model.post_to = "NO";
 
             if (model.imageFile != null)
             {
@@ -154,13 +155,15 @@ namespace Capstone_SWP490.Controllers
 
             if (await _postService.insert(p) == null)
             {
-                if (model.featured == true)
+                return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "Create Failed", Status = 0 });
+            }
+
+            if (model.featured == true)
+            {
+                var pinPost = await _postService.PinPost(model.post_id);
+                if (pinPost.Data == false)
                 {
-                    var pinPost = await _postService.PinPost(model.post_id);
-                    if (pinPost.Data == false)
-                    {
-                        return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "Create Failed", Status = 0 });
-                    }
+                    return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "Pin Failed", Status = 0 });
                 }
             }
 

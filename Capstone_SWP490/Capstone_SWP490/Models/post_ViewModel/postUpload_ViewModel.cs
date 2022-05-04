@@ -26,5 +26,6 @@ namespace Capstone_SWP490.Models.post_ViewModel
         //public string action { get; set; } = "Create";
         public string actionBtn { get; set; }
         public HttpPostedFileBase imageFile { get; set; }
+
     }
 }

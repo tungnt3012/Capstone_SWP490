@@ -100,8 +100,8 @@
                     <div class="row">
                         <div class="col-lg-12" style="overflow:auto">
                             <div class="form-group">
-                                <button class="btn btn-success" onclick="CreatePost('Create')">Post Now</button>
-                                <button class="btn btn btn-primary" onclick="CreatePost('Schedule')">Schedule</button>
+                                <button class="btn btn-success" onclick="CreatePost()">Post Now</button>
+                                <button class="btn btn btn-primary" onclick="SchedulePost()">Schedule</button>
                                 @* <input type="submit" name="actionBtn" value="Schedule" class="btn btn-primary" />*@
                                 <button type="reset" onclick="window.location='@Url.Action("", "Post")';return false;" class="btn btn-warning">cancel</button>
                             </div>
@@ -178,15 +178,25 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+    function callTemp() {
+        var xhr = $.ajax({
+                url: '@Url.Action("Create", "Post")',
+                type: "POST",
+                success: function (rs) {
 
-    function CreatePost(actionBtn) {
+               }
+           });
+    }
+
+
+    function CreatePost() {
         if (confirm("Add new Post ???") == true) {
                 var _schedule_date = $("#p-schedule-date").val().toString();
                 var _title = $("#p-title").val();
                 var _short_description = $("#p-short-description").val();
                 var _content = $("#p-content")[0].nextSibling.children[2].children[0].innerHTML;
                 var _feature = $("#p-checkbox-feature").is(":checked");
-                var _actionBtn = actionBtn;
+                var _actionBtn = "Create";
 
                 var fdata = new FormData();
                 var fileInput = $("#p-title-image")[0];
@@ -200,24 +210,63 @@
                 fdata.append("actionBtn", _actionBtn);
                 fdata.append("imageFile", file);
 
-            $.ajax({
+           var xhr = $.ajax({
                 url: '@Url.Action("Create", "Post")',
                 type: "POST",
                 data: fdata,
                 processData: false,
                 contentType: false,
                 success: function (rs) {
-                    if (rs.Data == true) {
+                    if (rs.Status == 1) {
                         alert(rs.Message);
                         location.href = '/Post'
                         console.log("clicked");
                     } else {
                         alert(rs.Message);
                     }
-                }
-            });
+               }
+           });
         }
     }
 
+    function SchedulePost() {
+        if (confirm("Add new Post ???") == true) {
+                var _schedule_date = $("#p-schedule-date").val().toString();
+                var _title = $("#p-title").val();
+                var _short_description = $("#p-short-description").val();
+                var _content = $("#p-content")[0].nextSibling.children[2].children[0].innerHTML;
+                var _feature = $("#p-checkbox-feature").is(":checked");
+                var _actionBtn = "Schedule";
+
+                var fdata = new FormData();
+                var fileInput = $("#p-title-image")[0];
+                var file = fileInput.files[0];
+
+                fdata.append("schedule_date", _schedule_date);
+                fdata.append("title", _title);
+                fdata.append("short_description", _short_description);
+                fdata.append("html_content", _content);
+                fdata.append("featured", _feature);
+                fdata.append("actionBtn", _actionBtn);
+                fdata.append("imageFile", file);
+
+           var xhr = $.ajax({
+                url: '@Url.Action("Create", "Post")',
+                type: "POST",
+                data: fdata,
+                processData: false,
+                contentType: false,
+                success: function (rs) {
+                    if (rs.Status == 1) {
+                        alert(rs.Message);
+                        location.href = '/Post'
+                        console.log("clicked");
+                    } else {
+                        alert(rs.Message);
+                    }
+               }
+           });
+        }
+    }
 
 </script>
