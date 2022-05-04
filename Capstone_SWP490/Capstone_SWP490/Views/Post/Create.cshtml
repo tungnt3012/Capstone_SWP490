@@ -1,0 +1,223 @@
+﻿
+@{ ViewBag.Title = "Post Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
+<!-- Sidebar -->
+
+<header>
+    <style>
+        #menu_Post {
+            color: #ffffff !important;
+            background: #30cf6b;
+        }
+
+        .ck-editor__editable {
+            min-height: 250px;
+        }
+    </style>
+</header>
+
+<div class="container-fluid xyz">
+    <div class="col-lg-12" id="content_area2_header">
+        <div class="col-lg-12" id="content_area2_title">
+            <label for="exampleInputTitle">Post Edit</label>
+        </div>
+    </div>
+    <div class="main">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1" id="under">
+                <div class="col-lg-12">
+                    @*@using (Html.BeginForm(Model.action, "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {*@
+                    <div class="row">
+                        @*@Html.TextBoxFor(x => x.post.post_id, new { @class = "form-control", type = "hidden" })
+                            @Html.TextBoxFor(x => x.post.post_to, new { @class = "form-control", type = "hidden" })*@
+                        <label style="color:red"> @ViewData["CREATE_ERROR"]</label>
+
+                        <div class="col-lg-6" style="overflow:auto">
+                            <div class="form-group">
+                                <label for="firstName">Schedule Date (For Schedule Only)<span id="not-empty">*</span></label><br />
+                                @*@Html.TextBoxFor(x => x.post.schedule_date, new { @class = "form-control", type = "datetime-local" })*@
+                                <input type="datetime-local" class="form-control" id="p-schedule-date" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6" style="overflow:auto">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="overflow:auto">
+                            <div class="form-group">
+                                <label for="firstName">Title<span id="not-empty">*</span></label><br />
+                                @*@Html.TextBoxFor(x => x.post.title, new { @class = "form-control", required = true })*@
+                                <input type="text" class="form-control" id="p-title" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="overflow:auto">
+                            <div class="form-group">
+                                <label for="firstName">Title Image<span id="not-empty">*</span></label><br />
+                                @*<input type="file" name="file" accept="image/*" onchange="loadFile(event)">
+                                    <img id="preview" src="~/image/@(Model.post== null ?"default.png" : "post/" +Model.post.title_image)" width="200" height="250" style="border: 1px solid gray" onclick="loadFile(event)" />*@
+                                <input type="file" id="p-title-image" onchange="readURL(this)">
+                                <img class="" src="~/image/post/default.png" style="border: 1px solid gray" id="img-title-image" accept="image/png, image/jpeg" alt="Post Image" width="200" height="250">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="overflow:auto">
+                            <div class="form-group">
+                                <label for="firstName">Short Description</label><br />
+                                @*@Html.TextAreaFor(x => x.post.short_description, new { @class = "form-control", @rows = 3 })*@
+                                <textarea class="form-control" rows="3" id="p-short-description" value=""></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="overflow:auto">
+                            <div class="form-group">
+                                <label for="firstName">Content<span id="not-empty">*</span></label><br />
+                                @*@Html.TextAreaFor(x => x.post.html_content, new { id = "editor", @rows = 4 })*@
+                                <textarea class="form-control" rows="4" id="p-content" value=""></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6" style="overflow:auto">
+                            <div class="form-group">
+                                <label for="firstName">Featured</label>
+                                @*@Html.CheckBoxFor(x => x.featured, true)*@
+                                <input type="checkbox" id="p-checkbox-feature">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="overflow:auto">
+                            <div class="form-group">
+                                <button class="btn btn-success" onclick="CreatePost('Create')">Post Now</button>
+                                <button class="btn btn btn-primary" onclick="CreatePost('Schedule')">Schedule</button>
+                                @* <input type="submit" name="actionBtn" value="Schedule" class="btn btn-primary" />*@
+                                <button type="reset" onclick="window.location='@Url.Action("", "Post")';return false;" class="btn btn-warning">cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    @*}*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model != null && Model.errors != null && Model.errors.Count > 0)
+{
+    <div class="col-lg-6">
+        <!-- Modal -->
+        <div class="modal fade" id="newModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#p-content'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    $(document).ready(function () {
+        $("#newModal").modal("show");
+        $("#newModal").on('hide.bs.modal', function () {
+
+        });
+        $("#newModal").on('hidden.bs.modal', function () {
+
+        });
+    });
+
+    var loadFile = function (event) {
+        var output = document.getElementById('preview');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img-title-image')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function CreatePost(actionBtn) {
+        if (confirm("Add new Post ???") == true) {
+                var _schedule_date = $("#p-schedule-date").val().toString();
+                var _title = $("#p-title").val();
+                var _short_description = $("#p-short-description").val();
+                var _content = $("#p-content")[0].nextSibling.children[2].children[0].innerHTML;
+                var _feature = $("#p-checkbox-feature").is(":checked");
+                var _actionBtn = actionBtn;
+
+                var fdata = new FormData();
+                var fileInput = $("#p-title-image")[0];
+                var file = fileInput.files[0];
+
+                fdata.append("schedule_date", _schedule_date);
+                fdata.append("title", _title);
+                fdata.append("short_description", _short_description);
+                fdata.append("html_content", _content);
+                fdata.append("featured", _feature);
+                fdata.append("actionBtn", _actionBtn);
+                fdata.append("imageFile", file);
+
+            $.ajax({
+                url: '@Url.Action("Create", "Post")',
+                type: "POST",
+                data: fdata,
+                processData: false,
+                contentType: false,
+                success: function (rs) {
+                    if (rs.Data == true) {
+                        alert(rs.Message);
+                        location.href = '/Post'
+                        console.log("clicked");
+                    } else {
+                        alert(rs.Message);
+                    }
+                }
+            });
+        }
+    }
+
+
+</script>
