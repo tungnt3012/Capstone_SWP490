@@ -105,7 +105,7 @@
                                                     {
                                                         <a onclick="AjaxPinPost(this)" post-id="@item.post_id">Pin First</a><br>
                                                         @("|")
-                                                        <a onclick="AjaxUnPinPost(this)" unpost-id="@item.post_id" href="@Url.Action("Unpin", "Post")?postId=@item.post_id">Unpin</a><br>
+                                                        <a onclick="AjaxUnPinPost(this)" unpost-id="@item.post_id">Unpin</a><br>
                                                     }
                                                     else if (item.isPin == 0)
                                                     {

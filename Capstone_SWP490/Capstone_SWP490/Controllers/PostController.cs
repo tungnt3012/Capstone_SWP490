@@ -72,61 +72,99 @@ namespace Capstone_SWP490.Controllers
         [AuthorizationAccept(Roles = "ORGANIZER")]
         public ActionResult Create()
         {
-            post_ViewModel model = new post_ViewModel();
-            return View("Edit", model);
+            //post_ViewModel model = new post_ViewModel();
+            //return View("Edit", model);
+            return View();
         }
         [AuthorizationAccept(Roles = "ORGANIZER")]
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(post_ViewModel model, string actionBtn)
+        public async Task<ActionResult> Create(postUpload_ViewModel model)
         {
-            if (actionBtn != null && actionBtn.Equals("Schedule"))
+            if (model.actionBtn != null && model.actionBtn.Equals("Schedule"))
             {
                 DateTime now = DateTime.Now;
-                if (model.post.schedule_date == null || DateTime.Parse(model.post.schedule_date) <= now)
+                if (model.schedule_date == null || DateTime.Parse(model.schedule_date) <= now)
                 {
-                    @ViewData["EDIT_ERROR"] = "In Case Of Schedule Post, Schedule Date Cannot be empty or earlier than Now";
-                    return View("Edit", model);
+                    //@ViewData["CREATE_ERROR"] = "In Case Of Schedule Post, Schedule Date Cannot be empty or earlier than Now";
+                    //return View();
+                    return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "In Case Of Schedule Post, Schedule Date Cannot be empty or earlier than Now", Status = 0 });
                 }
-                model.post.enabled = false;
+                model.schedule_date = Convert.ToDateTime(model.schedule_date).ToString();
+                model.enabled = false;
             }
             else
             {
-                model.post.schedule_date = "";
-                model.post.enabled = true;
+                model.schedule_date = "";
+                model.enabled = true;
             }
 
             app_userViewModel logined = (app_userViewModel)Session["profile"];
-            if (model.post.title == null || model.post.title.Equals(""))
+            if (model.title == null || model.title.Equals(""))
             {
-                @ViewData["EDIT_ERROR"] = "Title cannot be empty";
-                return View("Edit", model);
+                //@ViewData["CREATE_ERROR"] = "Title cannot be empty";
+                ////return View("Edit", model);
+                //return View();
+                return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "Title cannot be empty!!!", Status = 0 });
             }
-            if (model.post.html_content == null || model.post.title.Equals(""))
+            if (model.html_content == null || model.title.Equals(""))
             {
-                @ViewData["EDIT_ERROR"] = "Content cannot be empty";
-                return View("Edit", model);
+                //@ViewData["CREATE_ERROR"] = "Content cannot be empty";
+                ////return View("Edit", model);
+                //return View();
+                return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "Content cannot be empty!!!", Status = 0 });
             }
-            model.post.insert_date = DateTime.Now + "";
-            model.post.update_date = DateTime.Now + "";
-            model.post.post_by = logined.user_id;
-            model.post.title_image = UploadedFile(model.file);
-            if (model.featured == true)
+            model.insert_date = DateTime.Now + "";
+            model.update_date = DateTime.Now + "";
+            model.post_by = logined.user_id;
+
+            if (model.imageFile != null)
             {
-                model.post.post_to = "0";
+                model.title_image = UploadedFile(model.imageFile);
             }
             else
             {
-                model.post.post_to = "NO";
+                model.title_image = "default.png";
             }
 
-            if (_postService.insert(model.post)==null)
+            //if (model.featured == true)
+            //{
+            //    model.post_to = "0";
+            //}
+            //else
+            //{
+            //    model.post_to = "NO";
+            //}
+
+            post p = new post
             {
-                @ViewData["EDIT_ERROR"] = "Create Failed";
-                return View("Edit", model);
+                title = model.title,
+                enabled = model.enabled,
+                featured = model.featured,
+                html_content = model.html_content,
+                insert_date = model.insert_date,
+                update_date = model.update_date,
+                schedule_date = model.schedule_date,
+                content = model.content,
+                post_by = model.post_by,
+                post_to = model.post_to,
+                short_description = model.short_description,
+                title_image = model.title_image
+            };
+
+            if (await _postService.insert(p) == null)
+            {
+                if (model.featured == true)
+                {
+                    var pinPost = await _postService.PinPost(model.post_id);
+                    if (pinPost.Data == false)
+                    {
+                        return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "Create Failed", Status = 0 });
+                    }
+                }
             }
-            
-            return RedirectToAction("Index", "Post");
+
+            return Json(new AjaxResponseViewModel<bool> { Data = true, Message = "Add Successfull", Status = 1 });
         }
         private string UploadedFile(HttpPostedFileBase file)
         {
@@ -135,7 +173,7 @@ namespace Capstone_SWP490.Controllers
             if (file != null)
             {
                 uniqueFileName = GetUniqueFileName(file.FileName);
-                string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), uniqueFileName);
+                string _path = Path.Combine(Server.MapPath("~/image/post"), uniqueFileName);
                 file.SaveAs(_path);
             }
             return uniqueFileName;
@@ -155,12 +193,13 @@ namespace Capstone_SWP490.Controllers
         {
             try
             {
-                post_ViewModel model = new post_ViewModel();
-                post post = _postService.getById(id);
-                model.post = post;
-                model.action = "Edit";
-                model.featured = post.post_to == null || post.post_to.Equals("NO") ? false : true;
-                model.insert_date = post.insert_date;
+                //post_ViewModel model = new post_ViewModel();
+                //post post = _postService.getById(id);
+                //model.post = post;
+                //model.action = "Edit";
+                //model.featured = post.post_to == null || post.post_to.Equals("NO") ? false : true;
+                //model.insert_date = post.insert_date;
+                var model = _postService.getPostById(id);
                 return View(model);
             }
             catch (Exception e)
@@ -173,78 +212,100 @@ namespace Capstone_SWP490.Controllers
         [AuthorizationAccept(Roles = "ORGANIZER")]
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Edit(post_ViewModel model, string postToFanPage, HttpPostedFileBase file, string actionBtn)
+        public async Task<ActionResult> Edit(postUpload_ViewModel model)
         {
-            try
+            //try
+            //{
+            if (model.actionBtn != null && model.actionBtn.Equals("Schedule"))
             {
-                if (actionBtn != null && actionBtn.Equals("Schedule"))
+                DateTime now = DateTime.Now;
+                if (model.schedule_date == null || DateTime.Parse(model.schedule_date) <= now)
                 {
-                    DateTime now = DateTime.Now;
-                    if (model.post.schedule_date == null || DateTime.Parse(model.post.schedule_date) <= now)
+                    //@ViewData["EDIT_ERROR"] = "In Case Of Schedule Post, Schedule Date Cannot be empty or earlier than Now";
+                    //return View(model);
+                    return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "In Case Of Schedule Post, Schedule Date Cannot be empty or earlier than Now", Status = 0 });
+                }
+                model.enabled = false;
+            }
+            else
+            {
+                model.schedule_date = "";
+                model.enabled = true;
+            }
+            app_userViewModel logined = (app_userViewModel)Session["profile"];
+            if (model.title == null || model.title.Equals(""))
+            {
+                //@ViewData["EDIT_ERROR"] = "Title cannot be empty";
+                //return View(model);
+                return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "Title cannot be empty", Status = 0 });
+
+            }
+            if (model.html_content == null || model.title.Equals(""))
+            {
+                //@ViewData["EDIT_ERROR"] = "Content cannot be empty";
+                //return View(model);
+                return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "Content cannot be empty", Status = 0 });
+            }
+            if (model.imageFile != null)
+            {
+                model.title_image = UploadedFile(model.imageFile);
+            }
+
+            model.insert_date = DateTime.Now + "";
+            model.update_date = DateTime.Now + "";
+            model.post_by = logined.user_id;
+            model.update_date = DateTime.Now + "";
+            model.featured = model.featured;
+
+            if (model.imageFile != null)
+            {
+                model.title_image = UploadedFile(model.imageFile);
+            }
+
+            post p = new post
+            {
+                post_id = model.post_id,
+                title = model.title,
+                enabled = model.enabled,
+                featured = model.featured,
+                html_content = model.html_content,
+                insert_date = model.insert_date,
+                update_date = model.update_date,
+                schedule_date = model.schedule_date,
+                content = model.content,
+                post_by = model.post_by,
+                post_to = model.post_to,
+                short_description = model.short_description,
+                title_image = model.title_image
+            };
+
+            if (await _postService.update(p) != -1)
+            {
+                if (model.featured == true)
+                {
+                    var pinPost = await _postService.PinPost(model.post_id);
+                    if (pinPost.Data == false)
                     {
-                        @ViewData["EDIT_ERROR"] = "In Case Of Schedule Post, Schedule Date Cannot be empty or earlier than Now";
-                        return View(model);
+                        return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "Save Fail", Status = 0 });
                     }
-                    model.post.enabled = false;
                 }
                 else
                 {
-                    model.post.schedule_date = "";
-                    model.post.enabled = true;
-                }
-                app_userViewModel logined = (app_userViewModel)Session["profile"];
-                if (model.post.title == null || model.post.title.Equals(""))
-                {
-                    @ViewData["EDIT_ERROR"] = "Title cannot be empty";
-                    return View(model);
-                }
-                if (model.post.html_content == null || model.post.title.Equals(""))
-                {
-                    @ViewData["EDIT_ERROR"] = "Content cannot be empty";
-                    return View(model);
-                }
-                if (file != null)
-                {
-                    string pic = DateTime.Now.ToFileTime() + Path.GetExtension(file.FileName);
-                    string path = System.IO.Path.Combine(
-                                           Server.MapPath("~/image/post"), pic);
-                    // file is uploaded
-                    file.SaveAs(path);
-
-                    // save the image path path to the database or you can send image 
-                    // directly to database
-                    // in-case if you want to store byte[] ie. for DB
-                    using (MemoryStream ms = new MemoryStream())
+                    var pinPost = await _postService.UnPinPost(model.post_id);
+                    if (pinPost.Data == false)
                     {
-                        file.InputStream.CopyTo(ms);
-                        byte[] array = ms.GetBuffer();
+                        return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "Create Failed", Status = 0 });
                     }
-                    model.post.title_image = pic;
                 }
-                model.post.insert_date = DateTime.Now + "";
-                model.post.update_date = DateTime.Now + "";
-                model.post.post_by = logined.user_id;
-                model.post.update_date = DateTime.Now + "";
-                model.post.featured = model.featured;
-                //else
-                //{
-                //    model.post.post_to = "NO";
-                //}
-
-                _postService.update(model.post);
-
-                //if (model.featured == true)
-                //{
-                //    _postService.PinPost(model.post.post_id);
-                //}
-
-                return RedirectToAction("", "Post");
             }
-            catch (Exception e)
-            {
-                Log.Error(e.Message);
-            }
-            return RedirectToAction("", "Home");
+            return Json(new AjaxResponseViewModel<bool> { Data = true, Message = "Save Successfull", Status = 1 });
+            //return RedirectToAction("", "Post");
+            //}
+            //catch (Exception e)
+            //{
+            //    Log.Error(e.Message);
+            //}
+            //return RedirectToAction("", "Home");
         }
 
         [AuthorizationAccept(Roles = "ORGANIZER")]

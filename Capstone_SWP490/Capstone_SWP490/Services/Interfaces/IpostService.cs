@@ -13,6 +13,7 @@ namespace Capstone_SWP490.Services.Interfaces
         Task<post> insert(post post);
         Task<int> update(post post);
         post getById(int id);
+        postUpload_ViewModel getPostById(int id);
         List<post_TopViewModel> getByAuthorId(string statu);
         List<post> getToScheduler();
 

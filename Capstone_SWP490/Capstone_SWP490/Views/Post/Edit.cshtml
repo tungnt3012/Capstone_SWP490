@@ -1,4 +1,4 @@
-﻿@model Capstone_SWP490.Models.post_ViewModel.post_ViewModel
+﻿@model Capstone_SWP490.Models.post_ViewModel.postUpload_ViewModel
 @{ ViewBag.Title = "Post Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -29,81 +29,101 @@
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1" id="under">
                 <div class="col-lg-12">
-                    @using (Html.BeginForm(Model.action, "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {<div class="row">
-                            @Html.TextBoxFor(x => x.post.post_id, new { @class = "form-control", type = "hidden" })
-                            @Html.TextBoxFor(x => x.post.post_to, new { @class = "form-control", type = "hidden" })
-                            <label style="color:red"> @ViewData["EDIT_ERROR"]</label>
+                    @*@using (Html.BeginForm(Model.action, "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {*@
+                    <div class="row">
+                        @Html.TextBoxFor(x => x.post_id, new { @class = "form-control", id = "p-postId", type = "hidden" })
+                        @Html.TextBoxFor(x => x.post_to, new { @class = "form-control", id = "p-post-to", type = "hidden" })
+                        @Html.TextBoxFor(x => x.title_image, new { @class = "form-control", id = "p-crr-image", type = "hidden" })
+                        @*<input type="hidden" class="form-control" id="p-postId" value="@post.post_id">
+                            <input type="hidden" class="form-control" id="p-post-to" value="@post.post_to">
+                            <input type="hidden" class="form-control" id="p-html-content-temp" value="@post.html_content">*@
 
-                            <div class="col-lg-6" style="overflow:auto">
-                                <div class="form-group">
-                                    <label for="firstName">Schedule Date (For Schedule Only)<span id="not-empty">*</span></label><br />
-                                    @Html.TextBoxFor(x => x.post.schedule_date, new { @class = "form-control", type = "datetime-local" })
-                                </div>
-                            </div>
-                        </div>
+                        <label style="color:red"> @ViewData["EDIT_ERROR"]</label>
 
-                        <div class="row">
-                            <div class="col-lg-6" style="overflow:auto">
+                        <div class="col-lg-6" style="overflow:auto">
+                            <div class="form-group">
+                                <label for="firstName">Schedule Date (For Schedule Only)<span id="not-empty">*</span></label><br />
+                                @Html.TextBoxFor(x => x.schedule_date, new { @class = "form-control", id = "p-schedule-date", type = "datetime-local" })
+                                @*<input type="datetime-local" class="form-control" id="p-schedule-date" value="@post.schedule_date.ToString()">*@
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col-lg-6" style="overflow:auto">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="overflow:auto">
+                            <div class="form-group">
+                                <label for="firstName">Title<span id="not-empty">*</span></label><br />
+                                @Html.TextBoxFor(x => x.title, new { @class = "form-control", id = "p-title", required = true })
+                                @*<input type="text" class="form-control" id="p-title" value="@post.title">*@
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12" style="overflow:auto">
-                                <div class="form-group">
-                                    <label for="firstName">Title<span id="not-empty">*</span></label><br />
-                                    @Html.TextBoxFor(x => x.post.title, new { @class = "form-control", required = true })
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="overflow:auto">
+                            <div class="form-group">
+                                <label for="firstName">Title Image<span id="not-empty">*</span></label><br />
+                                <input type="file" id="p-title-image" onchange="readURL(this)">
+                                <img class="" src="~/image/post/@Model.title_image" style="border: 1px solid gray" id="img-title-image" accept="image/png, image/jpeg" alt="Post Image" width="200" height="250">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12" style="overflow:auto">
-                                <div class="form-group">
-                                    <label for="firstName">Title Image<span id="not-empty">*</span></label><br />
-                                    <input type="file" name="file" accept="image/*" onchange="loadFile(event)">
-                                    <img id="preview" src="~/image/@(Model.post== null ?"default.png" : "post/" +Model.post.title_image)" width="200" height="250" style="border: 1px solid gray" onclick="loadFile(event)" />
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="overflow:auto">
+                            <div class="form-group">
+                                <label for="firstName">Short Description</label><br />
+                                @Html.TextAreaFor(x => x.short_description, new { @class = "form-control", id = "p-short-description", @rows = 3 })
+                                @*<textarea class="form-control" rows="3" id="p-short-description">@post.short_description</textarea>*@
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12" style="overflow:auto">
-                                <div class="form-group">
-                                    <label for="firstName">Short Description</label><br />
-                                    @Html.TextAreaFor(x => x.post.short_description, new { @class = "form-control", @rows = 3 })
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="overflow:auto">
+                            <div class="form-group">
+                                <label for="firstName">Content<span id="not-empty">*</span></label><br />
+                                @Html.TextAreaFor(x => x.html_content, new { id = "p-content", @rows = 4 })
+                                @*<textarea class="form-control" rows="4" id="p-content"></textarea>*@
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12" style="overflow:auto">
-                                <div class="form-group">
-                                    <label for="firstName">Content<span id="not-empty">*</span></label><br />
-                                    @Html.TextAreaFor(x => x.post.html_content, new { id = "editor", @rows = 4 })
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6" style="overflow:auto">
+                            <div class="form-group">
+                                <label for="firstName">Featured</label>
+                                @*@Html.CheckBoxFor(x => x.featured, true)*@
+                                @*<input type="checkbox" id="p-checkbox-feature">*@
+                                @if (Model.featured == true)
+                                {
+                                    <input type="checkbox" id="p-checkbox-feature" checked>
+                                }
+                                else
+                                {
+                                    <input type="checkbox" id="p-checkbox-feature">
+                                }
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-6" style="overflow:auto">
-                                <div class="form-group">
-                                    <label for="firstName">Featured</label>
-                                    @Html.CheckBoxFor(x => x.featured, true)
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12" style="overflow:auto">
+                            <div class="form-group">
+                                <button class="btn btn-success" onclick="CreatePost('Edit')">Save</button>
+                                <button class="btn btn-primary" onclick="CreatePost('Schedule')">Schedule</button>
+                                <button type="reset" onclick="window.location='@Url.Action("", "Post")';return false;" class="btn btn-warning">cancel</button>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12" style="overflow:auto">
-                                <div class="form-group">
-                                    <button class="btn btn-success">Post Now</button>
-                                    <input type="submit" name="actionBtn" value="Schedule" class="btn btn-primary" />
-                                    <button type="reset" onclick="window.location='@Url.Action("", "Post")';return false;" class="btn btn-warning">cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    }
+                    </div>
+                    @*}*@
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @if (Model != null && Model.errors != null && Model.errors.Count > 0)
 {
 
@@ -132,13 +152,15 @@
 }
 <script>
     ClassicEditor
-        .create(document.querySelector('#editor'))
+        .create(document.querySelector('#p-content'))
         .then(editor => {
             console.log(editor);
         })
         .catch(error => {
             console.error(error);
         });
+
+
     $(document).ready(function () {
         $("#newModal").modal("show");
         $("#newModal").on('hide.bs.modal', function () {
@@ -148,6 +170,7 @@
 
         });
     });
+
     var loadFile = function (event) {
         var output = document.getElementById('preview');
         output.src = URL.createObjectURL(event.target.files[0]);
@@ -160,10 +183,57 @@
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#img-thumbnail')
+                $('#img-title-image')
                     .attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    function CreatePost(actionBtn) {
+        if (confirm("Save Post ???") == true) {
+
+            var _postId = $("#p-postId").val();
+            var _post_to = $("#p-post-to").val();
+            var _schedule_date = $("#p-schedule-date").val().toString();
+            var _title = $("#p-title").val();
+            var _short_description = $("#p-short-description").val();
+            var _imageCrr = $("#p-crr-image").val();
+            var _content = $("#p-content")[0].nextSibling.children[2].children[0].innerHTML;
+            var _feature = $("#p-checkbox-feature").is(":checked");
+            var _actionBtn = actionBtn;
+
+            var fdata = new FormData();
+            var fileInput = $("#p-title-image")[0];
+            var file = fileInput.files[0];
+
+            fdata.append("post_id", _postId);
+            fdata.append("post_to", _post_to);
+            fdata.append("schedule_date", _schedule_date);
+            fdata.append("title", _title);
+            fdata.append("short_description", _short_description);
+            fdata.append("html_content", _content);
+            fdata.append("featured", _feature);
+            fdata.append("actionBtn", _actionBtn);
+            fdata.append("title_image", _imageCrr);
+            fdata.append("imageFile", file);
+
+        $.ajax({
+            url: '@Url.Action("Edit", "Post")',
+            type: "POST",
+            data: fdata,
+            processData: false,
+            contentType: false,
+            success: function (rs) {
+                if (rs.Data == true) {
+                    alert(rs.Message);
+                    location.href = '/Post'
+                    console.log("clicked");
+                } else {
+                    alert(rs.Message);
+                }
+            }
+        });
+    }
+}
 </script>

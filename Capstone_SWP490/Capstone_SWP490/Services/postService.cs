@@ -87,7 +87,8 @@ namespace Capstone_SWP490.Services
                 var lstOut = new List<post_TopViewModel>();
                 List<post> postsNotPin = _ipostRepository.FindBy(x => x.post_to.Equals("NO")).OrderByDescending(x => x.update_date).ToList();
                 List<post> postsHasPin = _ipostRepository.FindBy(x => !x.post_to.Equals("NO") && x.post_to != null).OrderBy(x => x.post_to).ToList();
-                if (postsNotPin.Count > 0)
+               
+                if (postsHasPin.Count > 0)
                 {
                     foreach (var x in postsHasPin)
                     {
@@ -112,29 +113,30 @@ namespace Capstone_SWP490.Services
                     }
                 }
 
-                foreach (var x in postsNotPin)
+                if (postsNotPin.Count > 0)
                 {
-                    var p = new post_TopViewModel
+                    foreach (var x in postsNotPin)
                     {
-                        post_id = x.post_id,
-                        content = x.content,
-                        enabled = x.enabled,
-                        featured = x.featured,
-                        html_content = x.html_content,
-                        insert_date = x.insert_date,
-                        post_by = x.post_by,
-                        post_to = x.post_to,
-                        schedule_date = x.schedule_date,
-                        short_description = x.short_description,
-                        title = x.title,
-                        update_date = x.update_date,
-                        title_image = x.title_image,
-                        isPin = 0
-                    };
-                    lstOut.Add(p);
-
+                        var p = new post_TopViewModel
+                        {
+                            post_id = x.post_id,
+                            content = x.content,
+                            enabled = x.enabled,
+                            featured = x.featured,
+                            html_content = x.html_content,
+                            insert_date = x.insert_date,
+                            post_by = x.post_by,
+                            post_to = x.post_to,
+                            schedule_date = x.schedule_date,
+                            short_description = x.short_description,
+                            title = x.title,
+                            update_date = x.update_date,
+                            title_image = x.title_image,
+                            isPin = 0
+                        };
+                        lstOut.Add(p);
+                    }
                 }
-
                 return lstOut;
             }
             catch (Exception e)
@@ -491,7 +493,32 @@ namespace Capstone_SWP490.Services
                 }
             }
             return i;
+        }
 
+        public postUpload_ViewModel getPostById(int id)
+        {
+            var p = _ipostRepository.FindBy(x => x.post_id == id).FirstOrDefault();
+            if (p != null)
+            {
+                return new postUpload_ViewModel
+                {
+                    post_id = p.post_id,
+                    content = p.content,
+                    enabled = p.enabled,
+                    featured = p.featured,
+                    html_content = p.html_content,
+                    insert_date = p.insert_date,
+                    update_date = p.update_date,
+                    post_by = p.post_by,
+                    post_to = p.post_to,
+                    schedule_date = p.schedule_date,
+                    short_description = p.short_description,
+                    title_image = p.title_image,
+                    title = p.title,
+                };
+            }
+
+            return null;
         }
     }
 }
