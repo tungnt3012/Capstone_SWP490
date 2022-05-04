@@ -140,7 +140,7 @@ namespace Capstone_SWP490.Services
 
         public bool isEmailInUse(string userName, int coachId)
         {
-            List<int?> existed = _iapp_UserRepository.getContext().Check_Mail_In_Use(userName, coachId).tolist();
+            List<int?> existed = _iapp_UserRepository.getContext().Check_Mail_In_Use(userName, coachId).ToList();
             if (existed.FirstOrDefault() >= 1)
             {
                 return true;
