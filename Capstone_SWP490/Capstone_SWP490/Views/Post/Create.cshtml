@@ -210,7 +210,7 @@
                 fdata.append("actionBtn", _actionBtn);
                 fdata.append("imageFile", file);
 
-           var xhr = $.ajax({
+            $.ajax({
                 url: '@Url.Action("Create", "Post")',
                 type: "POST",
                 data: fdata,
@@ -250,7 +250,7 @@
                 fdata.append("actionBtn", _actionBtn);
                 fdata.append("imageFile", file);
 
-           var xhr = $.ajax({
+           $.ajax({
                 url: '@Url.Action("Create", "Post")',
                 type: "POST",
                 data: fdata,

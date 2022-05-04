@@ -152,15 +152,15 @@ namespace Capstone_SWP490.Controllers
                 short_description = model.short_description,
                 title_image = model.title_image
             };
-
-            if (await _postService.insert(p) == null)
+            var pt = await _postService.insert(p);
+            if (pt == null)
             {
                 return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "Create Failed", Status = 0 });
             }
 
             if (model.featured == true)
             {
-                var pinPost = await _postService.PinPost(model.post_id);
+                var pinPost = await _postService.PinPost(pt.post_id);
                 if (pinPost.Data == false)
                 {
                     return Json(new AjaxResponseViewModel<bool> { Data = false, Message = "Pin Failed", Status = 0 });
