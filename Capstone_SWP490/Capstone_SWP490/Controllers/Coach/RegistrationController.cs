@@ -626,7 +626,8 @@ namespace Capstone_SWP490.Controllers.Coach
             {
                 return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
             }
-            data.School.teams.Where(x => x.team_id == team_id).FirstOrDefault().team_member.Where(x => x.member.member_id == member_id).FirstOrDefault().member.enabled = false;
+            team_member member = data.School.teams.Where(x => x.team_id == team_id).FirstOrDefault().team_member.Where(x => x.member.member_id == member_id).FirstOrDefault();
+            data.School.teams.Where(x => x.team_id == team_id).FirstOrDefault().team_member.Remove(member);
             Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
             return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER, new { team = team_id });
         }
@@ -640,9 +641,10 @@ namespace Capstone_SWP490.Controllers.Coach
                 return RedirectToAction(ACTION_CONST.Registration.INDEX, ACTION_CONST.Registration.CONTROLLER);
             }
             team team = data.School.teams.Where(x => x.team_id == id).FirstOrDefault();
+
             if (team != null && data.School.teams.Count >= 2)
             {
-                data.School.teams.Where(x => x.team_id == id).FirstOrDefault().enabled = false;
+                data.School.teams.Remove(team);
             }
             Session.Add(SESSION_CONST.Registration.SCHOOL_SESSION, data);
             return RedirectToAction(ACTION_CONST.Registration.RESULT, ACTION_CONST.Registration.CONTROLLER, new { team = 0 });
