@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="gocyberx_icpcModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="app_user">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.app_user">
+        <MappingFragment StoreEntitySet="app_user">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="user_name" ColumnName="user_name" />
+          <ScalarProperty Name="user_role" ColumnName="user_role" />
+          <ScalarProperty Name="psw" ColumnName="psw" />
+          <ScalarProperty Name="encrypted_psw" ColumnName="encrypted_psw" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="verified" ColumnName="verified" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="insert_date" ColumnName="insert_date" />
+          <ScalarProperty Name="update_date" ColumnName="update_date" />
+          <ScalarProperty Name="confirm_password" ColumnName="confirm_password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contests">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.contest">
+        <MappingFragment StoreEntitySet="contest">
+          <ScalarProperty Name="contest_id" ColumnName="contest_id" />
+          <ScalarProperty Name="contest_name" ColumnName="contest_name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="venue" ColumnName="venue" />
+          <ScalarProperty Name="max_contestant" ColumnName="max_contestant" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="shirt_id" ColumnName="shirt_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contest_member">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.contest_member">
+        <MappingFragment StoreEntitySet="contest_member">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="member_id" ColumnName="member_id" />
+          <ScalarProperty Name="contest_id" ColumnName="contest_id" />
+          <ScalarProperty Name="check_in_date" ColumnName="check_in_date" />
+          <ScalarProperty Name="note" ColumnName="note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="events">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.event">
+        <MappingFragment StoreEntitySet="event">
+          <ScalarProperty Name="event_id" ColumnName="event_id" />
+          <ScalarProperty Name="event_type" ColumnName="event_type" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="desctiption" ColumnName="desctiption" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="venue" ColumnName="venue" />
+          <ScalarProperty Name="contactor_name" ColumnName="contactor_name" />
+          <ScalarProperty Name="contactor_email" ColumnName="contactor_email" />
+          <ScalarProperty Name="contactor_phone" ColumnName="contactor_phone" />
+          <ScalarProperty Name="fan_page" ColumnName="fan_page" />
+          <ScalarProperty Name="shirt_id" ColumnName="shirt_id" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="member_join" ColumnName="member_join" />
+          <ScalarProperty Name="sub_event" ColumnName="sub_event" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="members">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.member">
+        <MappingFragment StoreEntitySet="member">
+          <ScalarProperty Name="member_id" ColumnName="member_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="member_role" ColumnName="member_role" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="dob" ColumnName="dob" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="award" ColumnName="award" />
+          <ScalarProperty Name="shirt_sizing" ColumnName="shirt_sizing" />
+          <ScalarProperty Name="event_notify" ColumnName="event_notify" />
+          <ScalarProperty Name="icpc_id" ColumnName="icpc_id" />
+          <ScalarProperty Name="enabled" ColumnName="enabled" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="member_event">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.member_event">
+        <MappingFragment StoreEntitySet="member_event">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="event_id" ColumnName="event_id" />
+          <ScalarProperty Name="member_id" ColumnName="member_id" />
+          <ScalarProperty Name="check_in_date" ColumnName="check_in_date" />
+          <ScalarProperty Name="note" ColumnName="note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="page_content">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.page_content">
+        <MappingFragment StoreEntitySet="page_content">
+          <ScalarProperty Name="content_id" ColumnName="content_id" />
+          <ScalarProperty Name="page_id" ColumnName="page_id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="position" ColumnName="position" />
+          <ScalarProperty Name="user_role" ColumnName="user_role" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="posts">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.post">
+        <MappingFragment StoreEntitySet="post">
+          <ScalarProperty Name="post_id" ColumnName="post_id" />
+          <ScalarProperty Name="post_by" ColumnName="post_by" />
+          <ScalarProperty Name="insert_date" ColumnName="insert_date" />
+          <ScalarProperty Name="update_date" ColumnName="update_date" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="short_description" ColumnName="short_description" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="html_content" ColumnName="html_content" />
+          <ScalarProperty Name="featured" ColumnName="featured" />
+          <ScalarProperty Name="enabled" ColumnName="enabled" />
+          <ScalarProperty Name="schedule_date" ColumnName="schedule_date" />
+          <ScalarProperty Name="post_to" ColumnName="post_to" />
+          <ScalarProperty Name="title_image" ColumnName="title_image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="schools">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.school">
+        <MappingFragment StoreEntitySet="school">
+          <ScalarProperty Name="school_id" ColumnName="school_id" />
+          <ScalarProperty Name="school_name" ColumnName="school_name" />
+          <ScalarProperty Name="institution_name" ColumnName="institution_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="insert_date" ColumnName="insert_date" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="update_date" ColumnName="update_date" />
+          <ScalarProperty Name="coach_id" ColumnName="coach_id" />
+          <ScalarProperty Name="enabled" ColumnName="enabled" />
+          <ScalarProperty Name="rector_name" ColumnName="rector_name" />
+          <ScalarProperty Name="website" ColumnName="website" />
+          <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+          <ScalarProperty Name="note" ColumnName="note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="teams">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.team">
+        <MappingFragment StoreEntitySet="team">
+          <ScalarProperty Name="team_id" ColumnName="team_id" />
+          <ScalarProperty Name="team_name" ColumnName="team_name" />
+          <ScalarProperty Name="school_id" ColumnName="school_id" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="enabled" ColumnName="enabled" />
+          <ScalarProperty Name="contest_id" ColumnName="contest_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="team_member">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.team_member">
+        <MappingFragment StoreEntitySet="team_member">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="team_id" ColumnName="team_id" />
+          <ScalarProperty Name="member_id" ColumnName="member_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="documentations">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.documentation">
+        <MappingFragment StoreEntitySet="documentation">
+          <ScalarProperty Name="doc_id" ColumnName="doc_id" />
+          <ScalarProperty Name="page_id" ColumnName="page_id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="doc_url" ColumnName="doc_url" />
+          <ScalarProperty Name="can_download" ColumnName="can_download" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="images">
+      <EntityTypeMapping TypeName="gocyberx_icpcModel.image">
+        <MappingFragment StoreEntitySet="image">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="page_id" ColumnName="page_id" />
+          <ScalarProperty Name="image_url" ColumnName="image_url" />
+          <ScalarProperty Name="alt" ColumnName="alt" />
+          <ScalarProperty Name="position" ColumnName="position" />
+          <ScalarProperty Name="back_link" ColumnName="back_link" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Check_Mail_In_Use" FunctionName="gocyberx_icpcModel.Store.Check_Mail_In_Use" />
+    <FunctionImportMapping FunctionImportName="Count_Contestant" FunctionName="gocyberx_icpcModel.Store.Count_Contestant" />
+    <FunctionImportMapping FunctionImportName="Count_Member_In_School" FunctionName="gocyberx_icpcModel.Store.Count_Member_In_School" />
+    <FunctionImportMapping FunctionImportName="Enable_App_User" FunctionName="gocyberx_icpcModel.Store.Enable_App_User" />
+    <FunctionImportMapping FunctionImportName="Disable_App_User_Data" FunctionName="gocyberx_icpcModel.Store.Disable_App_User_Data" />
+    <FunctionImportMapping FunctionImportName="Disable_App_User_School" FunctionName="gocyberx_icpcModel.Store.Disable_App_User_School" />
+    <FunctionImportMapping FunctionImportName="Disable_Member_Data" FunctionName="gocyberx_icpcModel.Store.Disable_Member_Data" />
+    <FunctionImportMapping FunctionImportName="Disable_School_Data" FunctionName="gocyberx_icpcModel.Store.Disable_School_Data" />
+    <FunctionImportMapping FunctionImportName="Disable_Team_Data" FunctionName="gocyberx_icpcModel.Store.Disable_Team_Data" />
+    <FunctionImportMapping FunctionImportName="Enable_App_User_Data" FunctionName="gocyberx_icpcModel.Store.Enable_App_User_Data" />
+    <FunctionImportMapping FunctionImportName="Enable_Member_Data" FunctionName="gocyberx_icpcModel.Store.Enable_Member_Data" />
+    <FunctionImportMapping FunctionImportName="Enable_School_Data" FunctionName="gocyberx_icpcModel.Store.Enable_School_Data" />
+    <FunctionImportMapping FunctionImportName="Enable_Team_Data" FunctionName="gocyberx_icpcModel.Store.Enable_Team_Data" />
+  </EntityContainerMapping>
+</Mapping>

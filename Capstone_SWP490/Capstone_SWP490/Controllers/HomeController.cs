@@ -119,7 +119,7 @@ namespace Capstone_SWP490.Controllers
                 ViewData["success"] = "Delete " + rsPage.title + " Successfully!!!";
                 return View("ScoreboardManagement");
             }
-            ViewData["error"] = "Delete " + rsPage.title + " Fail!!!";
+            ViewData["error"] = "Delete Fail!!!";
             return View("ScoreboardManagement");
         }
 
