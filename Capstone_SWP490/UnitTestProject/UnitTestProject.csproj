@@ -146,9 +146,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AdminControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="Controllers\OrgnazationControllerTest.cs" />
+    <Compile Include="Controllers\PostControllerTest.cs" />
     <Compile Include="Controllers\RegistrationControllerTest.cs" />
+    <Compile Include="Controllers\SignUpControllerTest.cs" />
+    <Compile Include="Controllers\StatisticControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AppUserServiceTest.cs" />
+    <Compile Include="Services\ContestMemberServiceTest.cs" />
+    <Compile Include="Services\ContestServiceTest.cs" />
+    <Compile Include="Services\EventServiceTest.cs" />
+    <Compile Include="Services\MemberServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

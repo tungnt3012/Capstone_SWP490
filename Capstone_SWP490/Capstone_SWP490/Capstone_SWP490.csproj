@@ -179,16 +179,15 @@
       <DependentUpon>icpc.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\Authentication\AuthenticationController.cs" />
     <Compile Include="Controllers\Coach\RegistrationController.cs" />
     <Compile Include="Controllers\Coach\SignUpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Organization\OrganizationController.cs" />
     <Compile Include="Controllers\Organization\StatisticController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="DAO\GenericRepository.cs" />
     <Compile Include="DAO\IGenericRepository.cs" />
-    <Compile Include="DAO\SqlDataAccess.cs" />
     <Compile Include="documentation.cs">
       <DependentUpon>icpc.tt</DependentUpon>
     </Compile>
@@ -238,7 +237,11 @@
     <Compile Include="Models\app_userViewModel\app_userViewModel.cs" />
     <Compile Include="Models\coachViewModel\coachSignUpViewModel.cs" />
     <Compile Include="Models\contestViewModel\contestViewModel.cs" />
+    <Compile Include="Models\events_ViewModel\eventsMainCreateViewModel.cs" />
+    <Compile Include="Models\events_ViewModel\eventsMainViewModel.cs" />
     <Compile Include="Models\events_ViewModel\eventsViewModel.cs" />
+    <Compile Include="Models\export_contest_ViewModel\export_contest_memberViewModel.cs" />
+    <Compile Include="Models\export_contest_ViewModel\export_contest_ViewModel.cs" />
     <Compile Include="Models\import_resultViewModel\import_error_ViewModel.cs" />
     <Compile Include="Models\import_resultViewModel\import_resultViewModel.cs" />
     <Compile Include="Models\import_resultViewModel\member_contest_ViewModel.cs" />
@@ -250,14 +253,22 @@
     <Compile Include="Models\PagingOutput.cs" />
     <Compile Include="Models\PostJob.cs" />
     <Compile Include="Models\post_ViewModel\postList_ViewModel.cs" />
+    <Compile Include="Models\post_ViewModel\postUpload_ViewModel.cs" />
     <Compile Include="Models\post_ViewModel\post_error.cs" />
+    <Compile Include="Models\post_ViewModel\post_TopViewModel.cs" />
     <Compile Include="Models\post_ViewModel\post_ViewModel.cs" />
     <Compile Include="Models\registrationViewModel\IndexViewModel.cs" />
     <Compile Include="Models\memberViewModel\memberViewModel.cs" />
+    <Compile Include="Models\registrationViewModel\schoolViewModel.cs" />
+    <Compile Include="Models\statisticViewModel\registered_contest_ViewModel.cs" />
+    <Compile Include="Models\statisticViewModel\registered_school_ViewModel.cs" />
+    <Compile Include="Models\statisticViewModel\registered_team_ViewModel.cs" />
+    <Compile Include="Models\statisticViewModel\statistic_eventDetailViewModel.cs" />
+    <Compile Include="Models\statisticViewModel\statistic_eventViewModel.cs" />
     <Compile Include="Models\statisticViewModel\statistic_index_ViewModel.cs" />
     <Compile Include="Models\statisticViewModel\statistic_schoolViewModel.cs" />
+    <Compile Include="Models\statisticViewModel\statistic_shirtSizeViewModel.cs" />
     <Compile Include="Models\UsersViewModel.cs" />
-    <Compile Include="MyRoleProvider\SiteRole.cs" />
     <Compile Include="page_content.cs">
       <DependentUpon>icpc.tt</DependentUpon>
     </Compile>
@@ -295,6 +306,8 @@
     <Compile Include="school.cs">
       <DependentUpon>icpc.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sercurity\AuthorizationAccept.cs" />
+    <Compile Include="Sercurity\SiteRole.cs" />
     <Compile Include="Services\app_userService.cs" />
     <Compile Include="Services\contestService.cs" />
     <Compile Include="Services\contest_memberService.cs" />
@@ -330,17 +343,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\AcceptRegistration.txt" />
     <Content Include="App_Data\ConfirmAccount.txt" />
     <Content Include="App_Data\CreateAccount.txt" />
     <Content Include="App_Data\DisableCoach.txt" />
     <Content Include="App_Data\ForgotPassword.txt" />
     <Content Include="App_Data\log\logFile.txt" />
+    <Content Include="App_Data\NewAccountOrganizer.txt" />
     <Content Include="App_Data\NewEvent.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dataTables.bootstrap.css" />
+    <Content Include="Content\Error.css" />
+    <Content Include="Content\event.css" />
+    <Content Include="Content\home-content.css" />
     <Content Include="Content\home.css" />
     <Content Include="Content\organizer.css" />
     <Content Include="Content\PenStyle.css" />
@@ -358,16 +376,53 @@
       <DependentUpon>icpc.edmx</DependentUpon>
       <LastGenOutput>icpc.cs</LastGenOutput>
     </Content>
+    <Content Include="image\2037394.png" />
+    <Content Include="image\2534888.png" />
+    <Content Include="image\3701836.png" />
+    <Content Include="image\5728131.png" />
     <Content Include="image\code_war_2019_2%282%29 2.png" />
+    <Content Include="image\default.png" />
+    <Content Include="image\event-icon-marketing-company-between-company-and-customers-2C65EKX.jpg" />
+    <Content Include="image\FU 1.jpg" />
+    <Content Include="image\FU 2.jpg" />
+    <Content Include="image\FU 3.jpg" />
+    <Content Include="image\FU 5.jpg" />
     <Content Include="image\image 24.png" />
     <Content Include="image\image 25.png" />
     <Content Include="image\image 26.png" />
     <Content Include="image\image 28.png" />
+    <Content Include="image\image 29.png" />
+    <Content Include="image\image 30.png" />
     <Content Include="image\image 35.png" />
+    <Content Include="image\image-2.jpg" />
     <Content Include="image\image_17-removebg-preview 1.png" />
+    <Content Include="image\leaderboard-style-winner-podium-icon-design-vector.jpg" />
     <Content Include="image\leght 1.png" />
     <Content Include="image\logofpt.png" />
+    <Content Include="image\Logo_DH_FPT.png" />
+    <Content Include="image\Logo_FPT.png" />
     <Content Include="image\OLP_30_nam-removebg 1.png" />
+    <Content Include="image\pencil-fill.svg" />
+    <Content Include="image\post\132944556160034359.png" />
+    <Content Include="image\post\132944556441322858.png" />
+    <Content Include="image\post\132944556688755635.png" />
+    <Content Include="image\post\default.png" />
+    <Content Include="image\post\IMG_E2002_1e02.JPG" />
+    <Content Include="image\post\IMG_E2002_9339.JPG" />
+    <Content Include="image\post\IMG_E2002_d7d5.JPG" />
+    <Content Include="image\post\IMG_E2010_3149.JPG" />
+    <Content Include="image\post\IMG_E2010_870c.JPG" />
+    <Content Include="image\post\IMG_E2010_982f.JPG" />
+    <Content Include="image\post\IMG_E2010_99c5.JPG" />
+    <Content Include="image\post\IMG_E2010_c006.JPG" />
+    <Content Include="image\post\IMG_E2010_cf27.JPG" />
+    <Content Include="image\post\IMG_E2010_e764.JPG" />
+    <Content Include="image\post\IMG_E2010_f333.JPG" />
+    <Content Include="image\post\IMG_E2014_29b5.JPG" />
+    <Content Include="image\post\IMG_E2014_b426.JPG" />
+    <Content Include="image\Scoreboard.png" />
+    <Content Include="image\trash-fill.svg" />
+    <Content Include="image\x-circle-fill.svg" />
     <Content Include="Properties\PublishProfiles\FolderProfile.pubxml.user" />
     <Content Include="Scripts\home.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -380,6 +435,9 @@
       <DependentUpon>icpc.edmx</DependentUpon>
     </Content>
     <Content Include="App_Data\registration_form.xlsx" />
+    <Content Include="App_Data\contest_member_form.xlsx" />
+    <Content Include="App_Data\CONTEST_MEMBER_INFORMATION.xlsx" />
+    <Content Include="App_Data\contest_team_form.xlsx" />
     <None Include="job_scheduling_data_2_0.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -430,10 +488,6 @@
     <Content Include="Views\Registration\Guide.cshtml" />
     <Content Include="Views\Registration\MemberDetail.cshtml" />
     <Content Include="Views\Home\AdminScheduleOfActivities.cshtml" />
-    <Content Include="Views\Login\ChangePassword.cshtml" />
-    <Content Include="Views\Login\ChangePasswordFirst.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Login\RegisShirtSizing.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_HeaderLayout.cshtml" />
     <Content Include="Views\SignUp\Index.cshtml" />
@@ -463,8 +517,6 @@
     <Content Include="Views\Home\ScoreboardUpload.cshtml" />
     <Content Include="Views\Home\SubEventDetail.cshtml" />
     <Content Include="Views\Home\SubEventUpload.cshtml" />
-    <Content Include="Views\Login\ForgotPassword.cshtml" />
-    <Content Include="Views\Login\ResetPassword.cshtml" />
     <Content Include="Views\Registration\RegistrationCoach.cshtml" />
     <Content Include="Views\Registration\RegistrationStatistic.cshtml" />
     <Content Include="Views\Registration\TeamDetail.cshtml" />
@@ -472,6 +524,20 @@
     <Content Include="Views\Shared\_ErrorModelView.cshtml" />
     <Content Include="Views\Shared\_GuestMenu.cshtml" />
     <Content Include="Views\Shared\_OrganizationMenu.cshtml" />
+    <Content Include="Views\Authentication\ChangePassword.cshtml" />
+    <Content Include="Views\Authentication\ChangePasswordFirst.cshtml" />
+    <Content Include="Views\Authentication\ForgotPassword.cshtml" />
+    <Content Include="Views\Authentication\Login.cshtml" />
+    <Content Include="Views\Authentication\RegisShirtSizing.cshtml" />
+    <Content Include="Views\Authentication\ResetPassword.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\ScoreboardEdit.cshtml" />
+    <Content Include="Views\Home\SubEventEdit.cshtml" />
+    <Content Include="Views\Statistic\RegisteredSchool.cshtml" />
+    <Content Include="Views\Statistic\RegisteredTeam.cshtml" />
+    <Content Include="Views\Statistic\RegistrationSchedule.cshtml" />
+    <Content Include="Views\Statistic\TeamContest.cshtml" />
+    <Content Include="Views\Post\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\temp\" />
